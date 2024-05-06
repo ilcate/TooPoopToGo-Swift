@@ -141,7 +141,7 @@ struct SheetAddAn: View {
                 ZStack {
                     Color.cLightBrown.ignoresSafeArea(.all)
                     AddImageSheet(photosPickerItems: $photosPikerItems, imagesNewAnnotation:  $imagesNewAnnotation)
-                        .presentationDetents([.fraction(0.23)])
+                        .presentationDetents([.fraction(0.26)])
                         .presentationCornerRadius(18)
                 }
                 

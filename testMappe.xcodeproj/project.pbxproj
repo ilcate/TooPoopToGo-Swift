@@ -37,6 +37,7 @@
 		2AFD2EC52BDBB21400208328 /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD2EC42BDBB21400208328 /* BadgeView.swift */; };
 		2AFD2EC72BDBB23200208328 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD2EC62BDBB23200208328 /* HomeView.swift */; };
 		2AFD2EC92BDBB24600208328 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD2EC82BDBB24600208328 /* FeedView.swift */; };
+		2AFFF9DD2BE7DFAC0095056C /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFF9DC2BE7DFAC0095056C /* Annotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		2AFD2EC42BDBB21400208328 /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
 		2AFD2EC62BDBB23200208328 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		2AFD2EC82BDBB24600208328 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		2AFFF9DC2BE7DFAC0095056C /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 				2ADA107C2BE0E52700BBC989 /* RatingStar.swift */,
 				2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */,
 				2ADA10782BE0E49000BBC989 /* MapAddAnnotation.swift */,
+				2AFFF9DC2BE7DFAC0095056C /* Annotation.swift */,
 				2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */,
 				2ADA10762BE0E3B400BBC989 /* MapUiView.swift */,
 			);
@@ -288,6 +291,7 @@
 				2ADA107B2BE0E4EA00BBC989 /* MapSelectPosition.swift in Sources */,
 				2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */,
 				2A0EE7862BC97CD300F48FC4 /* MapModel.swift in Sources */,
+				2AFFF9DD2BE7DFAC0095056C /* Annotation.swift in Sources */,
 				2AB218072BC03B49002A32F5 /* testMappeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

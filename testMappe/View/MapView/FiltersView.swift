@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct FilterBottom: View {
-    @StateObject var mapViewModel = MapModel()
+    @ObservedObject var mapViewModel : MapModel
     @State var filtersArray = [
-        Filters(image: UIImage(named: "Trending")!, name: "Trending", selected: false),
-        Filters(image: UIImage(named: "Free")!, name: "Free", selected: false),
-        Filters(image: UIImage(named: "Accessible")!, name: "Accessible", selected: false),
-        Filters(image: UIImage(named: "Liked")!, name: "Liked", selected: false),
-        Filters(image: UIImage(named: "Cleanest")!, name: "Cleanest", selected: false),
-        Filters(image: UIImage(named: "New")!, name: "Newest", selected: false)
+        Filters(image: UIImage(named: "TrendingCircle")!, name: "Trending", selected: false),
+        Filters(image: UIImage(named: "FreeCircle")!, name: "Free", selected: false),
+        Filters(image: UIImage(named: "AccessibleCircle")!, name: "Accessible", selected: false),
+        Filters(image: UIImage(named: "LikedCircle")!, name: "Liked", selected: false),
+        Filters(image: UIImage(named: "CleanestCircle")!, name: "Cleanest", selected: false),
+        Filters(image: UIImage(named: "NewestCircle")!, name: "Newest", selected: false)
     ]
     
     var body: some View {

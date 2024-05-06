@@ -14,34 +14,17 @@ struct MapView: View {
             ZStack{
                 Map(viewport: $mapViewModel.viewport) {
                     ForEvery(mapViewModel.allPoints){ ann in
+                        let annotationBinding = Binding.constant(ann)
                         MapViewAnnotation(coordinate: CLLocationCoordinate2D(latitude: ann.latitude, longitude: ann.longitude)) {
-                            Image( uiImage: UIImage(named: mapViewModel.filterSelected)!)
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                                .foregroundStyle(ann == mapViewModel.selected && mapViewModel.tappedAnnotation() ? .white : .accent)
-                                .padding(.bottom, 8)
-                                .background(
-                                    Image("Pin")
-                                        .foregroundStyle(ann == mapViewModel.selected && mapViewModel.tappedAnnotation() ? .accent : .white)
-                                )//.background(Circle().fill(ann == mapViewModel.selected && mapViewModel.tappedAnnotation() ? Color.black : Color.white ))
-                                .onTapGesture {
-                                    withAnimation(.bouncy){
-                                        //mapViewModel.isAnimate = true
-                                        mapViewModel.moveToDestination(cords: [ann.latitude, ann.longitude, ann.zoom], dur: 0.3)
-                                        mapViewModel.selected = ann
-                                        
-                                        /*DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                         mapViewModel.isAnimate = false
-                                         }*/
-                                        //print(mapViewModel.selected)
-                                    }
-                                }
+                            Annotation(mapViewModel: mapViewModel, ann: annotationBinding)
                         }
+
                         .allowOverlapWithPuck(true)//fa si che il punto dell'utente sia sotto all'annotation
                         .allowOverlap(mapViewModel.currentZoom >= 13 ? true : false)
                         .ignoreCameraPadding(false)
                         
                     }
+                    
                     Puck2D(bearing: .heading)
                         .showsAccuracyRing(true)
                 }
@@ -97,7 +80,7 @@ struct MapView: View {
                 
                 if mapViewModel.canMove == true {
                     if !mapViewModel.search{
-                        FilterBottom()
+                        FilterBottom(mapViewModel: mapViewModel)
                     }
                     
                     MapButtonsView(mapViewModel: mapViewModel)

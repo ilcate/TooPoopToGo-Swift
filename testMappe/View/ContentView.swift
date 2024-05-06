@@ -55,9 +55,7 @@ struct ContentView: View {
             }
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        
                         isTexting.texting = false
-                    print("fatto")
                     }
             }
             .environmentObject(tabBarSelection)

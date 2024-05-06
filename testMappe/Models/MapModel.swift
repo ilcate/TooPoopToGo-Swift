@@ -9,9 +9,9 @@ final class MapModel: ObservableObject{
     @Published var cords = [45.0, 8.0, 6]
     @Published  var allPoints = [AnnotationServer(text: "💩", latitude: 45.7613222, longitude: 8.690, zoom: 17, name: "Mareblu"),
                                  AnnotationServer(text: "💩", latitude: 45.7613222, longitude: 8.695, zoom: 17, name: "Acqua Fresca"),
-                                 AnnotationServer(text: "💩", latitude: 45.7613222, longitude: 8.700, zoom: 17, name: "Onde Serene"),
-                                 AnnotationServer(text: "💩", latitude: 45.7613222, longitude: 8.705, zoom: 17, name: "Arcobaleno Marino"),
-                                 AnnotationServer(text: "💩", latitude: 45.7613222, longitude: 8.710, zoom: 17, name: "Fonte Pulita")]
+                                 AnnotationServer(text: "💩", latitude: 45.461786 , longitude: 9.208970, zoom: 17, name: "Onde Serene"),
+                                 AnnotationServer(text: "💩", latitude: 45.461846, longitude:  9.209764, zoom: 17, name: "Arcobaleno Marino"),
+                                 AnnotationServer(text: "💩", latitude:  45.461786, longitude: 9.209378, zoom: 17, name: "Fonte Pulita")]
     
     @Published var viewport: Viewport = .followPuck(zoom: 13).padding(.all, 20)
     @Published var selected: AnnotationServer? = AnnotationServer(text: "💩", latitude: 0, longitude: 0, zoom: 0, name: "")
