@@ -13,7 +13,7 @@ struct MapButtonsView: View {
                     TextField("Search", text: $mapViewModel.searchingInput)
                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
                         .frame(maxWidth: mapViewModel.search ? .infinity : 44)
-                        .padding(.horizontal, mapViewModel.search ? 12 : 0)
+                        .padding(.horizontal, mapViewModel.search ? 16 : 0)
                         .padding(.vertical, 8)
                         .background(Color.white)
                         .clipShape(Capsule())
@@ -35,6 +35,14 @@ struct MapButtonsView: View {
                     .onTapGesture {
                         withAnimation(.easeOut(duration: 0.2)){
                             mapViewModel.search.toggle()
+                            if isTexting.texting == true {
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                isTexting.texting = false
+                            } else {
+                                isTexting.page = false
+        
+                            }
+                            
                         }
                         
                     }

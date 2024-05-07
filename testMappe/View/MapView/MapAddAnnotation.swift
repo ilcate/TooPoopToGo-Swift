@@ -77,8 +77,8 @@ struct SheetAddAn: View {
                 .padding(.bottom, -2)
             TextField("Insert here", text: $descNewAnnotation)
                 .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .gray)
-                .padding(8)
-                .padding(.leading, 12)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 10)
                 .background(.white)
                 .clipShape(.capsule)
         }
@@ -91,8 +91,8 @@ struct SheetAddAn: View {
                 .padding(.bottom, -2)
             TextField("Insert here", text: $nameNewAnnotation)
                 .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .gray)
-                .padding(8)
-                .padding(.leading, 12)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 10)
                 .background(.white)
                 .clipShape(.capsule)
         }
@@ -123,11 +123,12 @@ struct SheetAddAn: View {
             ScrollView {
                 VStack(spacing: 16) {
                     locationNameView
-                    imageSelectionView(imagesNewAnnotation: $imagesNewAnnotation, openSheetUploadImage: $openSheetUploadImage, photosPikerItems: $photosPikerItems)
                     typeSelectionView(optionsDropDown: $optionsDropDown)
+                    commentView
+                    imageSelectionView(imagesNewAnnotation: $imagesNewAnnotation, openSheetUploadImage: $openSheetUploadImage, photosPikerItems: $photosPikerItems)
                     restrictionsView()
                     ratingsView
-                    commentView
+                   
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 12)
@@ -186,10 +187,11 @@ struct typeSelectionView:  View {
                 Image("LightArrow")
                     .resizable()
                     .frame(width: 20, height: 20)
+                    .foregroundStyle(.accent)
                     .rotationEffect(editDropDown ? .zero : .degrees(180))
             }
-            .padding(.vertical, 9)
-            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 17)
             .background(.white)
             .clipShape(.capsule)
             .onTapGesture {
@@ -206,7 +208,7 @@ struct typeSelectionView:  View {
                             .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accentColor)
                         Spacer()
                     }
-                    .padding(.vertical, 9)
+                    .padding(.vertical, 10)
                     .padding(.horizontal, 20)
                     .background(.white)
                     .clipShape(Capsule())
@@ -319,8 +321,8 @@ struct ImageUploadView:  View {
                 .foregroundStyle(.white)
                 .padding(.trailing, -4)
         }
-        .padding(.vertical, 9)
-        .padding(.horizontal, 20)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 17)
         .background(.cGreen)
         .clipShape(.capsule)
         .onTapGesture {

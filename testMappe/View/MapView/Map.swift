@@ -10,7 +10,7 @@ struct MapView: View {
     
     
     var body: some View {
-        NavigationStack{
+       
             ZStack{
                 Map(viewport: $mapViewModel.viewport) {
                     ForEvery(mapViewModel.allPoints){ ann in
@@ -100,8 +100,6 @@ struct MapView: View {
             }
         }
         
-    }
-    
     
 }
 
