@@ -13,8 +13,7 @@ struct FilterBottom: View {
     
     var body: some View {
 
-                VStack {
-                    Spacer()
+    
 
                     
                     ScrollView(.horizontal, showsIndicators: false){
@@ -43,8 +42,6 @@ struct FilterBottom: View {
                                     } else {
                                         mapViewModel.filterSelected = "Roll"
                                     }
-                                    
-                                    print(mapViewModel.filterSelected)
                                 }
 
                                 .padding(.vertical, 7)
@@ -59,8 +56,8 @@ struct FilterBottom: View {
                     .padding(.top, 4)
                     .frame(maxWidth: .infinity, maxHeight: 70)
                     .background(Color.white)
-                }
-                .padding(.bottom, -5)
+            
+               
         
     }
 }

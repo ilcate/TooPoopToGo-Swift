@@ -80,7 +80,11 @@ struct MapView: View {
                 
                 if mapViewModel.canMove == true {
                     if !mapViewModel.search{
-                        FilterBottom(mapViewModel: mapViewModel)
+                        VStack{
+                            Spacer()
+                            FilterBottom(mapViewModel: mapViewModel)
+                        }.padding(.bottom, -5)
+                       
                     }
                     
                     MapButtonsView(mapViewModel: mapViewModel)
