@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,8 @@
 		2A6084742BC4438C000FA417 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084732BC4438C000FA417 /* Map.swift */; };
 		2A6084762BC44472000FA417 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084752BC44472000FA417 /* TestView.swift */; };
 		2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69F7452BE4F986004AB59C /* ProfileView.swift */; };
+		2AA0D6772BF0FAB300F8A249 /* SheetManageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0D6762BF0FAB300F8A249 /* SheetManageSearch.swift */; };
+		2AA0D67A2BF0FF8100F8A249 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 2AA0D6792BF0FF8100F8A249 /* Sliders */; };
 		2AB218072BC03B49002A32F5 /* testMappeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB218062BC03B49002A32F5 /* testMappeApp.swift */; };
 		2AB218092BC03B49002A32F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB218082BC03B49002A32F5 /* ContentView.swift */; };
 		2AB2180B2BC03B4A002A32F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AB2180A2BC03B4A002A32F5 /* Assets.xcassets */; };
@@ -49,6 +51,7 @@
 		2A6084732BC4438C000FA417 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		2A6084752BC44472000FA417 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		2A69F7452BE4F986004AB59C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		2AA0D6762BF0FAB300F8A249 /* SheetManageSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetManageSearch.swift; sourceTree = "<group>"; };
 		2AB218032BC03B49002A32F5 /* testMappe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testMappe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AB218062BC03B49002A32F5 /* testMappeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testMappeApp.swift; sourceTree = "<group>"; };
 		2AB218082BC03B49002A32F5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A33AF9B2BC041DC00DA90E9 /* MapboxMaps in Frameworks */,
+				2AA0D67A2BF0FF8100F8A249 /* Sliders in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +175,7 @@
 				2AFFF9DC2BE7DFAC0095056C /* Annotation.swift */,
 				2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */,
 				2ADA10762BE0E3B400BBC989 /* MapUiView.swift */,
+				2AA0D6762BF0FAB300F8A249 /* SheetManageSearch.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 			name = testMappe;
 			packageProductDependencies = (
 				2A33AF9A2BC041DC00DA90E9 /* MapboxMaps */,
+				2AA0D6792BF0FF8100F8A249 /* Sliders */,
 			);
 			productName = testMappe;
 			productReference = 2AB218032BC03B49002A32F5 /* testMappe.app */;
@@ -238,6 +244,7 @@
 			mainGroup = 2AB217FA2BC03B49002A32F5;
 			packageReferences = (
 				2A33AF992BC041DC00DA90E9 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
+				2AA0D6782BF0FF8100F8A249 /* XCLocalSwiftPackageReference "../../../Downloads/swiftui-sliders-main" */,
 			);
 			productRefGroup = 2AB218042BC03B49002A32F5 /* Products */;
 			projectDirPath = "";
@@ -274,6 +281,7 @@
 			files = (
 				2AED8E862BE93ABD008DBFAF /* DetailBathroom.swift in Sources */,
 				2AFD2EC92BDBB24600208328 /* FeedView.swift in Sources */,
+				2AA0D6772BF0FAB300F8A249 /* SheetManageSearch.swift in Sources */,
 				2AFD2EC72BDBB23200208328 /* HomeView.swift in Sources */,
 				2AFD2EC52BDBB21400208328 /* BadgeView.swift in Sources */,
 				2A0EE7812BC978D600F48FC4 /* ViewModifiers.swift in Sources */,
@@ -509,6 +517,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		2AA0D6782BF0FF8100F8A249 /* XCLocalSwiftPackageReference "../../../Downloads/swiftui-sliders-main" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../Downloads/swiftui-sliders-main";
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		2A33AF992BC041DC00DA90E9 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -525,6 +540,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A33AF992BC041DC00DA90E9 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
 			productName = MapboxMaps;
+		};
+		2AA0D6792BF0FF8100F8A249 /* Sliders */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Sliders;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

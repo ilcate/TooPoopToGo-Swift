@@ -30,7 +30,7 @@ struct ContentView: View {
                         .tabItem {
                             Image("MapTB")
                         }
-                        .padding(.bottom, isTexting.texting ? 0 : 5)
+                        .padding(.bottom, isTexting.texting ? -50 : 5)
                         .tag(0)
                     HomeView()
                         .tabItem {

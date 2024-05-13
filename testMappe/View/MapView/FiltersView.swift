@@ -11,11 +11,8 @@ struct FilterBottom: View {
         Filters(image: UIImage(named: "NewestCircle")!, name: "Newest", selected: false)
     ]
     
-    var body: some View {
-
     
-
-                    
+    var body: some View {
                     ScrollView(.horizontal, showsIndicators: false){
                         LazyHStack{
                             ForEach(filtersArray.indices, id: \.self) { index in

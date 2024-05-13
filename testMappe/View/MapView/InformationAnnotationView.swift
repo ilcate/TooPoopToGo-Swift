@@ -10,7 +10,7 @@ import SwiftUI
 struct InformationOfSelectionView: View {
     @ObservedObject var mapViewModel: MapModel
     
-    var ranodmN = Int.random(in: 1..<800)
+    var ranodmN = 400
     
     var body: some View {
        
@@ -23,7 +23,7 @@ struct InformationOfSelectionView: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 88, height: 96)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .padding(.vertical, 8).padding(.horizontal, 10)
+                            .padding(.vertical, 8).padding(.horizontal, 8)
                         VStack(alignment: .leading, spacing: 0){
                             HStack{
                                 Text(selected.name)
@@ -76,23 +76,3 @@ struct InformationOfSelectionView: View {
 
 
 
-struct SmallTag: View {
-    var text : String
-    
-    var body: some View {
-        HStack(spacing: 2){
-            Image(text)
-                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
-                .resizable()
-                .frame(width: 22, height: 22)
-                .foregroundStyle(.accent)
-            Text(text)
-                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: Color.accent)
-        }
-        .padding(.vertical, 4).padding(.leading, 3).padding(.trailing, 6)
-        .background(.cUltraLightGray)
-        .clipShape(RoundedRectangle(cornerRadius: 8))
-    }
-    
-    
-}

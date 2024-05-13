@@ -21,7 +21,11 @@ struct AddImageSheet: View {
                 Spacer()
                 Image("Close")
                     .resizable()
+                    .foregroundStyle(.accent)
+                    .padding(4)
+                    .background(.white)
                     .frame(width: 20, height: 20)
+                    .clipShape(Circle())
                     .onTapGesture {
                         dismiss()
                     }

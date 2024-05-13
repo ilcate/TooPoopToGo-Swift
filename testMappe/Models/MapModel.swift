@@ -27,6 +27,8 @@ final class MapModel: ObservableObject{
     @Published var search = false
     @Published var searchingInput = ""
     @Published var filterSelected = "Roll"
+    @Published var newLocationAdded = false
+    @Published var openSheetFilters = false
 
     //@Published var isAnimate = false
     
@@ -105,6 +107,7 @@ final class MapModel: ObservableObject{
         canMove = true
         customMinZoom = 2
         openAddSheet = false
+        newLocationAdded = true
     }
     
     func tappedAnnotation() -> Bool{
@@ -115,7 +118,6 @@ final class MapModel: ObservableObject{
                 }
             }
         }
-        
         return false
     }
     
@@ -130,4 +132,8 @@ final class MapModel: ObservableObject{
         
         
     }
+    
+   
 }
+
+
