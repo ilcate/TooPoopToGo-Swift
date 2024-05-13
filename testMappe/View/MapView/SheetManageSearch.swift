@@ -1,12 +1,13 @@
 
 import SwiftUI
 
-//TODO: un bel refactor di tutte le parti sopra delle sheet con un unico bel componente
+//TODO: componenti da componentare e non da ricopiare
 //TODO: componente riutilizzabile del bottone lungo
+//TODO: se scappa fai qualche view modifier
+
+
 public struct SheetManageSearch: View {
     @ObservedObject var mapViewModel : MapModel
-
-    
     
     @State private var range = 100.0...3904.35
     @State private var selection  = 100.0...300.0
@@ -14,12 +15,7 @@ public struct SheetManageSearch: View {
     @State private var slider1: GestureProperties = .init()
     @State private var slider2: GestureProperties = .init()
     @State private var indicatorWidth: CGFloat = 0
-    
-    
-    
 
-    
-    
     private func calculateNewRange(_ size: CGSize){
         indicatorWidth = slider2.offset - slider1.offset + 1
         
@@ -37,24 +33,7 @@ public struct SheetManageSearch: View {
     
     public var body: some View {
         VStack{
-            HStack {
-                Text("What are you looking for?")
-                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
-                    .onTapGesture {
-            
-                    }
-                Spacer()
-                Image("Close")
-                    .resizable()
-                    .foregroundStyle(.accent)
-                    .padding(4)
-                    .background(.white)
-                    .frame(width: 20, height: 20)
-                    .clipShape(Circle())
-                    .onTapGesture {
-                        dismiss()
-                    }
-            }
+            UpperSheet(text: "What are you looking for?", pBottom: 12, pHor: 20)
             
             HStack{
                 Text("Distance")
@@ -62,7 +41,7 @@ public struct SheetManageSearch: View {
                 Spacer()
                 Text("\(Int(selection.lowerBound))-\(Int(selection.upperBound))")
                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
-            }
+            }.padding(.horizontal, 20)
             
             GeometryReader { reader in
                 let maxSliderWhith = reader.size.width - 28
@@ -120,22 +99,24 @@ public struct SheetManageSearch: View {
 
             }
             .frame(height: 14)
-            
-            HStack{
-                Text("Tags")
-                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
-                Spacer()
+            .padding(.horizontal, 20)
+            VStack{
+                HStack{
+                    Text("Tags")
+                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
+                    Spacer()
+                }.padding(.horizontal, 20)
+                FiltersScroller(mapViewModel: mapViewModel)
+                    .frame(maxWidth: .infinity, maxHeight: 40)
             }
-            FilterBottom(mapViewModel: mapViewModel)
-                
-        }.padding(.horizontal, 20)
-        
+            
+            RatingsView()
+                .padding(.horizontal, 20)
+            
+            FullRoundedButton(text: "Confirm Filters")
+                .padding(.top, 8)
+                .padding(.bottom, 4)
+        }
     }
 }
-
-struct GestureProperties {
-    var offset: CGFloat = 0
-    var lastOffset: CGFloat = 0
-}
-
 

@@ -31,8 +31,6 @@
 		2ADA10772BE0E3B400BBC989 /* MapUiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10762BE0E3B400BBC989 /* MapUiView.swift */; };
 		2ADA10792BE0E49000BBC989 /* MapAddAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10782BE0E49000BBC989 /* MapAddAnnotation.swift */; };
 		2ADA107B2BE0E4EA00BBC989 /* MapSelectPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */; };
-		2ADA107D2BE0E52700BBC989 /* RatingStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA107C2BE0E52700BBC989 /* RatingStar.swift */; };
-		2ADA107F2BE0E55600BBC989 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA107E2BE0E55600BBC989 /* FiltersView.swift */; };
 		2ADA10812BE0E57800BBC989 /* InformationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10802BE0E57800BBC989 /* InformationAnnotationView.swift */; };
 		2ADA10832BE0E66700BBC989 /* AddImageSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */; };
 		2AED8E862BE93ABD008DBFAF /* DetailBathroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED8E852BE93ABD008DBFAF /* DetailBathroom.swift */; };
@@ -67,8 +65,6 @@
 		2ADA10762BE0E3B400BBC989 /* MapUiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUiView.swift; sourceTree = "<group>"; };
 		2ADA10782BE0E49000BBC989 /* MapAddAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAddAnnotation.swift; sourceTree = "<group>"; };
 		2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelectPosition.swift; sourceTree = "<group>"; };
-		2ADA107C2BE0E52700BBC989 /* RatingStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingStar.swift; sourceTree = "<group>"; };
-		2ADA107E2BE0E55600BBC989 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		2ADA10802BE0E57800BBC989 /* InformationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationAnnotationView.swift; sourceTree = "<group>"; };
 		2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageSheet.swift; sourceTree = "<group>"; };
 		2AED8E852BE93ABD008DBFAF /* DetailBathroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBathroom.swift; sourceTree = "<group>"; };
@@ -168,8 +164,6 @@
 				2A6084732BC4438C000FA417 /* Map.swift */,
 				2ADA10802BE0E57800BBC989 /* InformationAnnotationView.swift */,
 				2AED8E852BE93ABD008DBFAF /* DetailBathroom.swift */,
-				2ADA107E2BE0E55600BBC989 /* FiltersView.swift */,
-				2ADA107C2BE0E52700BBC989 /* RatingStar.swift */,
 				2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */,
 				2ADA10782BE0E49000BBC989 /* MapAddAnnotation.swift */,
 				2AFFF9DC2BE7DFAC0095056C /* Annotation.swift */,
@@ -285,7 +279,6 @@
 				2AFD2EC72BDBB23200208328 /* HomeView.swift in Sources */,
 				2AFD2EC52BDBB21400208328 /* BadgeView.swift in Sources */,
 				2A0EE7812BC978D600F48FC4 /* ViewModifiers.swift in Sources */,
-				2ADA107F2BE0E55600BBC989 /* FiltersView.swift in Sources */,
 				2ADA10832BE0E66700BBC989 /* AddImageSheet.swift in Sources */,
 				2A6084762BC44472000FA417 /* TestView.swift in Sources */,
 				2A31B46D2BE37E0D000DC8EE /* Components.swift in Sources */,
@@ -295,7 +288,6 @@
 				2ADA10792BE0E49000BBC989 /* MapAddAnnotation.swift in Sources */,
 				2A0EE7882BC97D4B00F48FC4 /* Structs.swift in Sources */,
 				2A6084742BC4438C000FA417 /* Map.swift in Sources */,
-				2ADA107D2BE0E52700BBC989 /* RatingStar.swift in Sources */,
 				2ADA107B2BE0E4EA00BBC989 /* MapSelectPosition.swift in Sources */,
 				2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */,
 				2A0EE7862BC97CD300F48FC4 /* MapModel.swift in Sources */,

@@ -18,7 +18,6 @@ struct MapView: View {
                         MapViewAnnotation(coordinate: CLLocationCoordinate2D(latitude: ann.latitude, longitude: ann.longitude)) {
                             Annotation(mapViewModel: mapViewModel, ann: annotationBinding)
                         }
-
                         .allowOverlapWithPuck(true)//fa si che il punto dell'utente sia sotto all'annotation
                         .allowOverlap(mapViewModel.currentZoom >= 13 ? true : false)
                         .ignoreCameraPadding(false)
@@ -29,27 +28,12 @@ struct MapView: View {
                         .showsAccuracyRing(true)
                 }
                 .onMapTapGesture(perform: { MapContentGestureContext in
-                    
-                    //print(mapViewModel.centerLat)
-                    //print(MapContentGestureContext.coordinate.latitude)
-                    
                     mapViewModel.removeSelection()
-                    
-                    // print(mapViewModel.tappedAnnotation())
-                    
-                    
-                    //if canMove == false{
-                    //allPoints.append(AnnotationServer(text: "💩", latitude: MapContentGestureContext.coordinate.latitude, longitude: MapContentGestureContext.coordinate.longitude, zoom: 14, name: "Test"))
-                    //canMove = true
                 })
                 .mapStyle(MapStyle.standard(lightPreset: StandardLightPreset(rawValue: colorScheme == .dark ? "night" : "day")))
                 .cameraBounds(CameraBoundsOptions(maxZoom: 18, minZoom: mapViewModel.customMinZoom))
                 .ornamentOptions(OrnamentOptions(scaleBar: ScaleBarViewOptions(visibility: .hidden), compass: CompassViewOptions(visibility: .hidden), logo: LogoViewOptions(margins: .init(x: -10000, y: 0)), attributionButton: AttributionButtonOptions(margins: .init(x: -10000, y: 0))))
                 .onCameraChanged(action: { CameraChanged in
-                    /*if mapViewModel.isAnimate == false {
-                     print("ciao")
-                     mapViewModel.removeSelection()
-                     }*/
                     mapViewModel.currentZoom = CameraChanged.cameraState.zoom
                     mapViewModel.getCameraCenter(CameraChanged: CameraChanged)
                     
@@ -61,28 +45,17 @@ struct MapView: View {
                 .onAppear{
                     mapViewModel.checkDestination(istTab : tabBarSelection)
                 }
-                //.onTapGesture {
-                /*if mapViewModel.viewport.camera?.center?.longitude == mapViewModel.selected!.longitude && mapViewModel.viewport.camera?.center?.latitude == mapViewModel.selected!.latitude{
-                 
-                 mapViewModel.removeSelection()
-                 }*/
-                
-                
-                //mapViewModel.removeSelection()
-                //}
-                
-                //.cameraBounds(CameraBoundsOptions(bounds: CoordinateBounds(southwest: CLLocationCoordinate2D(latitude: (locationManager.location?.coordinate.latitude)! - 0.006, longitude: (locationManager.location?.coordinate.longitude)! - 0.005), northeast: CLLocationCoordinate2D(latitude: (locationManager.location?.coordinate.latitude)! + 0.006, longitude: (locationManager.location?.coordinate.longitude)! + 0.0044), infiniteBounds: canMove), maxZoom: customMaxZoom, minZoom: 6))
-                //.additionalSafeAreaInsets(Edge.Set, 4)
-                
-                
-                //CustomMapView(mapViewModel: mapViewModel, tabBarSelection: tabBarSelection, userViewport: $mapViewModel.viewport) AAA dovrebbe essere così ma si bugga tutto quindi lo tengo fuori dalla struct
-                
                 
                 if mapViewModel.canMove == true {
                     if !mapViewModel.search{
                         VStack{
                             Spacer()
-                            FilterBottom(mapViewModel: mapViewModel)
+                            FiltersScroller(mapViewModel: mapViewModel)
+                                .padding(.bottom, 16)
+                                .padding(.top, 4)
+                                .frame(maxWidth: .infinity, maxHeight: 70)
+                                .background(Color.white)
+                                
                         }.padding(.bottom, -5)
                        
                     }
@@ -106,57 +79,3 @@ struct MapView: View {
         
     
 }
-
-
-
-
-
-
-
-
-
-/*struct CustomMapView: View {
- var mapViewModel: MapModel
- var tabBarSelection: TabBarSelection
- @Binding var userViewport: Viewport
- 
- var body: some View {
- Map(viewport: $userViewport) {
- ForEvery(mapViewModel.allPoints){ ann in
- MapViewAnnotation(coordinate: CLLocationCoordinate2D(latitude: ann.latitude, longitude: ann.longitude)) {
- Text(ann.text)
- .frame(width: 30, height: 30)
- .background(Circle().fill(ann == mapViewModel.selected ? Color.black : Color.white ))
- .onTapGesture {
- mapViewModel.moveToDestination(cords: [ann.latitude, ann.longitude, ann.zoom], dur: 0.3)
- mapViewModel.selected = ann
- }
- }
- 
- }
- Puck2D(bearing: .heading)
- .showsAccuracyRing(true)
- }
- //.cameraBounds(CameraBoundsOptions(bounds: CoordinateBounds(southwest: CLLocationCoordinate2D(latitude: (locationManager.location?.coordinate.latitude)! - 0.006, longitude: (locationManager.location?.coordinate.longitude)! - 0.005), northeast: CLLocationCoordinate2D(latitude: (locationManager.location?.coordinate.latitude)! + 0.006, longitude: (locationManager.location?.coordinate.longitude)! + 0.0044), infiniteBounds: canMove), maxZoom: customMaxZoom, minZoom: 6))
- 
- .cameraBounds(CameraBoundsOptions(maxZoom: 18, minZoom: mapViewModel.customMinZoom))
- //.additionalSafeAreaInsets(Edge.Set, 4)
- .ornamentOptions(OrnamentOptions(scaleBar: ScaleBarViewOptions(visibility: .hidden), compass: CompassViewOptions(visibility: .visible), logo: LogoViewOptions(margins: .init(x: -10000, y: 0)), attributionButton: AttributionButtonOptions(margins: .init(x: -10000, y: 0))))
- .onCameraChanged(action: { CameraChanged in
- mapViewModel.getCameraCenter(CameraChanged: CameraChanged)
- })
- /*.onMapTapGesture(perform: { MapContentGestureContext in
-  if canMove == false{
-  allPoints.append(AnnotationServer(text: "💩", latitude: MapContentGestureContext.coordinate.latitude, longitude: MapContentGestureContext.coordinate.longitude, zoom: 14, name: "Test"))
-  canMove = true
-  }
-  
-  })*/
- .onAppear{
- mapViewModel.checkDestination(istTab : tabBarSelection )
- }
- }
- }*/
-
-
-

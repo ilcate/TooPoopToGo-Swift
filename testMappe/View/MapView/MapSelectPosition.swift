@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MapSelectPositionView: View {
-    var mapViewModel: MapModel
+    @ObservedObject var mapViewModel: MapModel
     
     var body: some View {
         
@@ -57,12 +57,7 @@ struct MapSelectPositionView: View {
             VStack{
                 Spacer()
                 NavigationLink(destination: SheetAddAn(mapViewModel: mapViewModel)) {
-                    Text("Confirm position")
-                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .white)
-                        .frame(maxWidth: .infinity, maxHeight: 46)
-                        .background(.accent)
-                        .clipShape(RoundedRectangle(cornerRadius: 1000))
-                        .padding(.horizontal, 20)
+                    FullRoundedButton(text: "Confirm position")
                         .padding(.top, 8)
                         .padding(.bottom, 4)
                         

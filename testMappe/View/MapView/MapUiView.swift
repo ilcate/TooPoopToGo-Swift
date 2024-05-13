@@ -26,7 +26,7 @@ struct MapButtonsView: View {
                         }
                         .frame(maxWidth: mapViewModel.search ? .infinity : 44)
                         .padding(.horizontal, mapViewModel.search ? 16 : 0)
-                        .padding(.vertical, 8)
+                        .padding(.vertical, 9)
                         .background(Color.white)
                         .clipShape(Capsule())
                         
@@ -123,11 +123,8 @@ struct MapButtonsView: View {
                             Text("Our moderators will review it shortly. If all goes well, the bathroom will be online within a couple of days.")
                                 .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
                                 .padding(.bottom, 4)
-                            Text("Gotcha!")
-                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .white)
-                                .frame(maxWidth: .infinity, maxHeight: 46)
-                                .background(.accent)
-                                .clipShape(RoundedRectangle(cornerRadius: 1000))
+                            FullRoundedButton(text: "Gotcha!")
+                                .padding(.horizontal, -20)
                                 .onTapGesture {
                                     mapViewModel.newLocationAdded = false
                                 }
@@ -150,7 +147,7 @@ struct MapButtonsView: View {
             ZStack {
                 Color.cLightBrown.ignoresSafeArea(.all)
                 SheetManageSearch(mapViewModel: mapViewModel)
-                    .presentationDetents([.fraction(0.46)])
+                    .presentationDetents([.fraction(0.58)])
                     .presentationCornerRadius(18)
             }
             

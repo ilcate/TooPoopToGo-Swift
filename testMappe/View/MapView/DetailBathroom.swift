@@ -143,7 +143,7 @@ struct DetailBathroom: View {
                             .resizable()
                             .foregroundStyle(.accent)
                             .frame(width: 14, height: 14)
-                        Text("4.9")
+                        Text("4.99")
                             .normalTextStyle(fontName: "Manrope-Regular", fontSize: 18, fontColor: .accent)
                         
                     }
@@ -214,7 +214,7 @@ struct DetailBathroom: View {
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(.cUltraLightGray, lineWidth: 2)
             )
-            .padding(.horizontal, 20).padding(.top, -4)
+            .padding(.horizontal, 20).padding(.vertical, 6)
             VStack(spacing: 0){
                 Rectangle()
                     .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 2)
@@ -291,14 +291,7 @@ struct DetailBathroom: View {
                     Spacer()
                     
                     VStack {
-                        
-                        Text("Bring me there!")
-                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .white)
-                            .frame(maxWidth: .infinity, maxHeight: 46)
-                            .background(.accent)
-                            .clipShape(RoundedRectangle(cornerRadius: 1000))
-                            .padding(.horizontal, 20)
-                            .padding(.top, -8)
+                        FullRoundedButton(text: "Bring me there!")
                             .onTapGesture {
                                 openSheetNavigate = true
                             }
@@ -354,29 +347,9 @@ struct SheetNavigate: View {
     var body: some View {
         
         VStack{
-            HStack{
-                Text("Take me there!")
-                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
-                Spacer()
-                Image("Close")
-                    .resizable()
-                    .foregroundStyle(.accent)
-                    .padding(4)
-                    .background(.white)
-                    .frame(width: 20, height: 20)
-                    .clipShape(Circle())
-                    .onTapGesture {
-                        dismiss()
-                    }
-            }.padding(.horizontal, 20)
+            UpperSheet(text: "Take me there!", pBottom: 12, pHor: 20)
             
-            
-            Text("Google maps")
-                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .white)
-                .frame(maxWidth: .infinity, maxHeight: 46)
-                .background(.accent)
-                .clipShape(RoundedRectangle(cornerRadius: 1000))
-                .padding(.horizontal, 20)
+            FullRoundedButton(text: "Google Maps")
                 .onTapGesture {
                     if let url = URL(string: "https://www.google.com/maps/?q=\(45.4654219),\(9.1859243)"), UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -385,12 +358,7 @@ struct SheetNavigate: View {
                     }
                 }
             
-            Text("Apple maps")
-                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .white)
-                .frame(maxWidth: .infinity, maxHeight: 46)
-                .background(.accent)
-                .clipShape(RoundedRectangle(cornerRadius: 1000))
-                .padding(.horizontal, 20)
+            FullRoundedButton(text: "Apple Maps")
                 .onTapGesture {
                     if let url = URL(string: "http://maps.apple.com/?daddr=\(45.4654219),\(9.1859243)&dirflg=d&t=m"), UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -399,12 +367,7 @@ struct SheetNavigate: View {
                     }
                 }
             
-            Text("Waze")
-                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .white)
-                .frame(maxWidth: .infinity, maxHeight: 46)
-                .background(.accent)
-                .clipShape(RoundedRectangle(cornerRadius: 1000))
-                .padding(.horizontal, 20)
+            FullRoundedButton(text: "Apple Maps")
                 .onTapGesture {
                     if let url = URL(string: "waze://?ll=\(45.4654219),\(9.1859243)&navigate=yes"), UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -430,37 +393,9 @@ struct SheetAddReview: View {
     
     var body: some View {
         VStack{
-            HStack{
-                Text("Describe how you felt")
-                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
-                Spacer()
-                Image("Close")
-                    .resizable()
-                    .foregroundStyle(.accent)
-                    .padding(4)
-                    .background(.white)
-                    .frame(width: 20, height: 20)
-                    .clipShape(Circle())
-                    .onTapGesture {
-                        dismiss()
-                    }
-            }.padding(.horizontal, 20)
-            
-            VStack(alignment: .leading) {
-                Text("Ratings")
-                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accentColor)
-                    .padding(.bottom, -2)
-                VStack {
-                    RatingsStars(RatingName: "Cleanliness", RatingStars: cleanStar)
-                    RatingsStars(RatingName: "Comfort", RatingStars: comfortStar)
-                    RatingsStars(RatingName: "Mood", RatingStars: moodStar)
-                    
-                }
-                .padding(.vertical, 9)
-                .padding(.horizontal, 16)
-                .background(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-            }.padding(.horizontal, 20)
+            UpperSheet(text: "Describe how you felt", pBottom: 12, pHor: 20)
+            RatingsView()
+                .padding(.horizontal, 20)
             
             VStack(alignment: .leading) {
                 Text("Leave a comment")
@@ -475,12 +410,7 @@ struct SheetAddReview: View {
             }.padding(.horizontal, 20)
                 .padding(.bottom, 8)
             
-            Text("Send Review!")
-                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .white)
-                .frame(maxWidth: .infinity, maxHeight: 46)
-                .background(.accent)
-                .clipShape(RoundedRectangle(cornerRadius: 1000))
-                .padding(.horizontal, 20)
+            FullRoundedButton(text: "Send Review!")
                 .onTapGesture {
                     dismiss()
                 }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct InformationOfSelectionView: View {
     @ObservedObject var mapViewModel: MapModel
-    
     var ranodmN = 400
     
     var body: some View {
@@ -52,9 +51,6 @@ struct InformationOfSelectionView: View {
                         
                         
                     }
-                    /*.onAppear{
-                     mapViewModel.randomImage = selected.image.randomElement()!
-                     }*/
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .frame(maxWidth: .infinity, maxHeight: 110)
