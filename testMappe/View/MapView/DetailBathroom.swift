@@ -9,11 +9,13 @@ import SwiftUI
 
 struct DetailBathroom: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var mapViewModel: MapModel
+    //@StateObject var mapViewModel: MapModel
     @State private var images = ["ImagePlaceHolder", "ImagePlaceHolder2", "ImagePlaceHolder3", "ImagePlaceHolder4", "ImagePlaceHolder5"]
     @State private var names = ["MistroFino", "Pisellone", "PerAssurdo", "Filippino"]
     @State private var image : String?
+    @State private var liked  = false
     @State private var sizeBox : CGFloat?
+    //Tutte queste variabili saranno popolate dalla struct che arriva dal back
     @State private var openSheetNavigate =  false
     @State private var openSheetAddReview =  false
     
@@ -54,13 +56,14 @@ struct DetailBathroom: View {
                         Image("Share")
                             .uiButtonStyle(backgroundColor: .white)
                             .onTapGesture {
-                                dismiss()
+                                print("cercare di capire come farla")
+                                //da capire come fare questa cosa
                             }
-                        Image("Liked")
+                        Image(liked ? "Liked" : "LikedStroke" )
                             .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
                             .uiButtonStyle(backgroundColor: .white)
                             .onTapGesture {
-                                dismiss()
+                                liked.toggle()
                             }
                     }.padding(.top, 28)
                     Spacer()
@@ -282,11 +285,9 @@ struct DetailBathroom: View {
                         .scrollTargetLayout()
                     }
                     .contentMargins(20, for: .scrollContent)
-                    .scrollPosition(id: $image, anchor: .leading)
                     .scrollIndicators(.hidden)
                     .scrollTargetBehavior(.viewAligned)
                     .padding(.vertical, -20)
-                    
                     
                     Spacer()
                     

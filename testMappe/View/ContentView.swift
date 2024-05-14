@@ -14,14 +14,12 @@ class IsTexting: ObservableObject {
 }
 
 struct ContentView: View {
-    @StateObject var tabBarSelection = TabBarSelection() 
+    @StateObject var tabBarSelection = TabBarSelection()
     @StateObject var isTexting = IsTexting()
-    
-    
     //istanziazione dell'object
     //meglio degli state per oggetti complessi e è in grado di durare ed esistere anche se la view muore
     //poiché non si lega a nessuna
-
+    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -60,7 +58,6 @@ struct ContentView: View {
                     }
                 }
                 
-                //fa si che tutti i figli abbiatno all'interno l'istanza dell'object e sia uguale in tutte
                 
                 VStack{
                     Spacer()
@@ -71,12 +68,10 @@ struct ContentView: View {
                 }
                 
             }
-        }.environmentObject(tabBarSelection)
-            .environmentObject(isTexting)
+        }
+        .environmentObject(tabBarSelection)
+        .environmentObject(isTexting)//fa si che tutti i figli abbiatno all'interno l'istanza dell'object e sia uguale in tutte
+        
     }
 }
-
-// va bene la tabbar?
-// va bene la gestione delle cartelle?
-// va bene il bottone di conferma?
 

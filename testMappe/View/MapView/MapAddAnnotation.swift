@@ -18,7 +18,7 @@ struct SheetAddAn: View {
     
     var body: some View {
         VStack {
-            HeaderView()
+            HeaderView(mapViewModel: mapViewModel)
             ScrollView {
                 VStack(spacing: 16) {
                     LocationView(nameNewAnnotation: $nameNewAnnotation)

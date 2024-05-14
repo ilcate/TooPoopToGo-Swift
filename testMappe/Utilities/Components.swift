@@ -426,6 +426,7 @@ struct LocationView:  View {
 
 struct HeaderView:  View {
     @EnvironmentObject var isTexting: IsTexting
+    @ObservedObject var mapViewModel: MapModel
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -434,13 +435,19 @@ struct HeaderView:  View {
                 Image("BackArrow")
                     .uiButtonStyle(backgroundColor: .cLightBrown)
                     .onTapGesture {
-                        if isTexting.texting == true {
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                            isTexting.texting = false
-                        } else {
-                            isTexting.page = false
-                            dismiss()
+                        print(isTexting.page)
+                        if isTexting.page == true{
+                            if isTexting.texting == true {
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                isTexting.texting = false
+                            } else {
+                                isTexting.page = false
+                                dismiss()
+                            }
+                        }else{
+                            mapViewModel.canMoveCheck(duration: 0)
                         }
+                        
                     }
                 Spacer()
                 Text("Add a Toilet")

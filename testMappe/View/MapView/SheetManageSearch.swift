@@ -112,10 +112,12 @@ public struct SheetManageSearch: View {
             
             RatingsView()
                 .padding(.horizontal, 20)
-            
+
             FullRoundedButton(text: "Confirm Filters")
-                .padding(.top, 8)
-                .padding(.bottom, 4)
+                .padding(.top, 8)  .padding(.bottom, 4)
+              
+            
+            
         }
     }
 }
