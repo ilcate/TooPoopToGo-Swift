@@ -12,7 +12,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var names = ["MistroFino", "Pisellone", "PerAssurdo", "Filippino"]
-
+    @State private var streak = 0
     
     var body: some View {
         VStack{
@@ -30,7 +30,7 @@ struct HomeView: View {
                             }
                             .padding(.leading, 7).padding(.trailing, 6).padding(.vertical, 1)
                             .background(.ultraThickMaterial)
-                            .clipShape(Capsule())
+                            .clipShape(RoundedRectangle(cornerRadius: 1000))
                             Spacer()
                             
                             
@@ -77,6 +77,7 @@ struct HomeView: View {
                             Spacer()
                             Image("ImagePlaceHolder7")
                                 .resizable()
+                                .renderingMode(.original)
                                 .frame(width: 60 , height: 60)
                                 .padding(.trailing, 16)
                         }
@@ -90,53 +91,102 @@ struct HomeView: View {
                             Text("Streak")
                                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
                             Spacer()
-                        }.padding(.bottom, 14)
-                        VStack{
-                            HStack{
-                                VStack(alignment: .leading){
-                                    Text("Poop Streak!")
-                                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 30, fontColor: .cLightBrown)
-                                        .padding(.bottom, -20).padding(.top, -8)
-                                    HStack{
-                                        VStack(alignment: .leading){
+                        }.padding(.bottom, streak != 0 ? 12.5 : 10)
+                        if streak != 0 {
+                            VStack{
+                                HStack{
+                                    VStack(alignment: .leading){
+                                        Text("Poop Streak!")
+                                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 30, fontColor: .cLightBrown)
+                                            .padding(.bottom, -20).padding(.top, -8)
+                                        HStack{
+                                            VStack(alignment: .leading){
+                                                Spacer()
+                                                Text("Keep it going!")
+                                                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
+                                                Spacer()
+                                                HStack(spacing: 2){
+                                                    Image("CleanestCircle")
+                                                        .renderingMode(.original)
+                                                        .resizable()
+                                                        .frame(width: 26, height: 26)
+                                                    Text("Drop a Poop")
+                                                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .accent)
+                                                        .onTapGesture {
+                                                            streak += 1
+                                                        }
+                                                    
+                                                }.padding(.leading, 8).padding(.trailing, 8).padding(.vertical, 4)
+                                                    .background(.ultraThickMaterial)
+                                                    .clipShape(RoundedRectangle(cornerRadius: 1000))
+                                            }
                                             Spacer()
-                                            Text("Keep it going!")
-                                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
-                                            Spacer()
-                                            HStack(spacing: 2){
-                                                Image("CleanestCircle")
-                                                    .renderingMode(.original)
-                                                    .resizable()
-                                                    .frame(width: 26, height: 26)
-                                                Text("Drop a Poop")
-                                                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .accent)
-                                                
-                                            }.padding(.leading, 8).padding(.trailing, 8).padding(.vertical, 4)
-                                                .background(.ultraThickMaterial)
-                                                .clipShape(Capsule())
+                                            
+                                            Text("\(streak)")
+                                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 100, fontColor: .cLightBrown)
+                                            
                                         }
-                                        Spacer()
-                                        
-                                        Text("99")
-                                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 100, fontColor: .cLightBrown)
+                                        .frame(maxWidth: .infinity, maxHeight: 80)
                                         
                                     }
-                                    .frame(maxWidth: .infinity, maxHeight: 80)
                                     
+                                    
+                                }.padding(.horizontal, 16)
+                                
+                            }
+                            .frame(maxWidth: .infinity, maxHeight: 150)
+                            .background(
+                                Image("ImagePlaceHolder8")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(maxWidth: .infinity, maxHeight: 150)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                            )
+                        }else{
+                            VStack{
+                                HStack(alignment: .bottom){
+                                    Text("You lost a")
+                                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .cLightBrown)
+                                    Text("342")
+                                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 38, fontColor: .cLightBrown)
+                                    Text("days streak!")
+                                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .cLightBrown)
                                 }
-                                
-                                
+                                .padding(.top, -24)
+                                .frame(maxWidth: .infinity, maxHeight: 30)
+                                   
+
+                                Spacer()
+                                HStack(alignment: .bottom){
+                                    Text("You forgot to Poop?")
+                                        .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
+                                    Spacer()
+                                    HStack( spacing: 2){
+                                        Image("CleanestCircle")
+                                            .renderingMode(.original)
+                                            .resizable()
+                                            .frame(width: 26, height: 26)
+                                        Text("Restart")
+                                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .accent)
+                                            .onTapGesture {
+                                                streak += 1
+                                            }
+                                        
+                                    }.padding(.horizontal, 8).padding(.vertical, 4)
+                                        .background(.ultraThickMaterial)
+                                        .clipShape(RoundedRectangle(cornerRadius: 1000))
+                                }.padding(.top, 12)
                             }.padding(.horizontal, 16)
-                            
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: 150)
-                        .background(
-                            Image("ImagePlaceHolder8")
-                                .resizable()
-                                .scaledToFill()
+                                .padding(.top, 24)
                                 .frame(maxWidth: .infinity, maxHeight: 150)
-                                .clipShape(RoundedRectangle(cornerRadius: 16))
-                        )
+                                .background(
+                                    Image("StreakBreack")
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(maxWidth: .infinity, maxHeight: 170)
+                                        .clipShape(RoundedRectangle(cornerRadius: 16)))
+                        }
+                        
                         
                     }.padding(.horizontal, 20)
                     
@@ -149,7 +199,7 @@ struct HomeView: View {
                         ScrollView(.horizontal){
                             HStack(spacing: 0){
                                 ForEach(names, id: \.self) { name in
-                                   
+                                    
                                     
                                     VStack{
                                         HStack(spacing: 0){
@@ -193,7 +243,7 @@ struct HomeView: View {
                                     .containerRelativeFrame(.horizontal, count: 1, spacing: 20)
                                     .padding(.trailing, 10)
                                     
-                    
+                                    
                                     
                                 }
                             }
@@ -204,7 +254,7 @@ struct HomeView: View {
                         .scrollIndicators(.hidden)
                         .scrollTargetBehavior(.viewAligned)
                         .padding(.vertical, -20)
-                    }.padding(.top, 18)
+                    }.padding(.top, streak != 0 ? 15.5 : 13)
                     
                     VStack(spacing: 6){
                         HStack{
@@ -255,8 +305,8 @@ struct HomeView: View {
                     }.padding(.bottom, 12)
                     
                     
-                   
-                   
+                    
+                    
                     
                     
                     

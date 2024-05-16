@@ -1,37 +1,36 @@
 import Foundation
 import SwiftUI
+import PhotosUI
 import CoreLocation
 @_spi(Experimental) import MapboxMaps
 
 
 
 final class MapModel: ObservableObject{
-    @Published var cords = [45.0, 8.0, 6]
     @Published  var allPoints = [AnnotationServer(text: "💩", latitude: 45.7613222, longitude: 8.690, zoom: 17, name: "Mareblu"),
                                  AnnotationServer(text: "💩", latitude: 45.7613222, longitude: 8.695, zoom: 17, name: "Acqua Fresca"),
                                  AnnotationServer(text: "💩", latitude: 45.461786 , longitude: 9.208970, zoom: 17, name: "Onde Serene"),
                                  AnnotationServer(text: "💩", latitude: 45.461846, longitude:  9.209764, zoom: 17, name: "Arcobaleno Marino"),
                                  AnnotationServer(text: "💩", latitude:  45.461786, longitude: 9.209378, zoom: 17, name: "Fonte Pulita")]
-    
-    @Published var viewport: Viewport = .followPuck(zoom: 13).padding(.all, 20)
-    @Published var selected: AnnotationServer? = AnnotationServer(text: "💩", latitude: 0, longitude: 0, zoom: 0, name: "")
-    @Published var canMove = true
-    @Published var customMinZoom = 2.0
-    @Published var locationManager = CLLocationManager()
-    @Published var centerLat = 0.0
-    @Published var centerLong = 0.0
-    @Published var currentZoom = 0.0
-    @Published var openAddSheet = false
-    @Published var randomImage =  UIImage(named: "ImagePlaceHolder")
-    @Published var justChanged = true
+    @Published var viewport: Viewport = .followPuck(zoom: 13).padding(.all, 20) //gestisce la cam
+    @Published var selected: AnnotationServer? = AnnotationServer(text: "💩", latitude: 0, longitude: 0, zoom: 0, name: "") //da la possibilità di aggiungere nuove annotation
+    @Published var canMove = true//altra gestione della cam
+    @Published var customMinZoom = 2.0//altra gestione della cam
+    @Published var centerLat = 0.0//altra gestione della cam
+    @Published var centerLong = 0.0//altra gestione della cam
+    @Published var currentZoom = 0.0//altra gestione della cam
     @Published var search = false
     @Published var searchingInput = ""
     @Published var filterSelected = "Roll"
     @Published var newLocationAdded = false
     @Published var openSheetFilters = false
+    @Published var photosPikerItems: [PhotosPickerItem] = []
+    @Published var nameNewAnnotation: String = ""
+    @Published var openSheetUploadImage = false
+    @Published var descNewAnnotation: String = ""
+    @Published var imagesNewAnnotation : [UIImage] = []
+    @Published var optionsDropDown = ["Public", "Bar", "Restaurant", "Shop"]
 
-    //@Published var isAnimate = false
-    
     
     
     
@@ -106,7 +105,6 @@ final class MapModel: ObservableObject{
         allPoints.append(AnnotationServer(image: image, text: icon, latitude: centerLat, longitude: centerLong, zoom: 17, name: name))
         canMove = true
         customMinZoom = 2
-        openAddSheet = false
         newLocationAdded = true
     }
     
@@ -129,8 +127,7 @@ final class MapModel: ObservableObject{
         }
         
         return false
-        
-        
+
     }
     
    

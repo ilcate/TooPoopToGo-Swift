@@ -4,27 +4,18 @@ import PhotosUI
 struct SheetAddAn: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var isTexting: IsTexting
-    
     @ObservedObject var mapViewModel: MapModel
  
-    @State private var photosPikerItems: [PhotosPickerItem] = []
-    @State var nameNewAnnotation: String = ""
-    @State var openSheetUploadImage = false
-    @State var descNewAnnotation: String = ""
-    @State var imagesNewAnnotation : [UIImage] = []
-    @State private var selectedIconIndex = 0
-    @State private var optionsDropDown = ["Public", "Bar", "Restaurant", "Shop"]
-   
     
     var body: some View {
         VStack {
             HeaderView(mapViewModel: mapViewModel)
             ScrollView {
                 VStack(spacing: 16) {
-                    LocationView(nameNewAnnotation: $nameNewAnnotation)
-                    TypeSelectionView(optionsDropDown: $optionsDropDown)
-                    CommentView(descNewAnnotation :$descNewAnnotation)
-                    ImageSelectionView(imagesNewAnnotation: $imagesNewAnnotation, openSheetUploadImage: $openSheetUploadImage, photosPikerItems: $photosPikerItems)
+                    LocationView(nameNewAnnotation: $mapViewModel.nameNewAnnotation)
+                    TypeSelectionView(optionsDropDown: $mapViewModel.optionsDropDown)
+                    CommentView(descNewAnnotation : $mapViewModel.descNewAnnotation)
+                    ImageSelectionView(imagesNewAnnotation: $mapViewModel.imagesNewAnnotation, openSheetUploadImage: $mapViewModel.openSheetUploadImage, photosPikerItems: $mapViewModel.photosPikerItems)
                     RestrictionsView()
                     RatingsView()
                    
@@ -35,12 +26,12 @@ struct SheetAddAn: View {
             }
             .background(.cLightBrown)
             .navigationBarBackButtonHidden(true)
-            .sheet(isPresented: $openSheetUploadImage, onDismiss: {
-                openSheetUploadImage = false
+            .sheet(isPresented: $mapViewModel.openSheetUploadImage, onDismiss: {
+                mapViewModel.openSheetUploadImage = false
             }) {
                 ZStack {
                     Color.cLightBrown.ignoresSafeArea(.all)
-                    AddImageSheet(photosPickerItems: $photosPikerItems, imagesNewAnnotation:  $imagesNewAnnotation)
+                    AddImageSheet(photosPickerItems: $mapViewModel.photosPikerItems, imagesNewAnnotation:  $mapViewModel.imagesNewAnnotation)
                         .presentationDetents([.fraction(0.26)])
                         .presentationCornerRadius(18)
                 }
@@ -65,7 +56,7 @@ struct SheetAddAn: View {
             FullRoundedButton(text: "Confirm Annotation")
                 .padding(.top, -8)
                 .onTapGesture {
-                    mapViewModel.addAnnotation(icon: "💩", name: nameNewAnnotation, image: imagesNewAnnotation)
+                    mapViewModel.addAnnotation(icon: "💩", name: mapViewModel.nameNewAnnotation, image: mapViewModel.imagesNewAnnotation)
                     isTexting.page = false
                     dismiss()
                 }

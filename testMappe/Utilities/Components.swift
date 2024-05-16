@@ -161,8 +161,6 @@ struct RatingsView: View {
     var comfortStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
     var moodStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
     
-    
-    
     var body: some View {
         VStack(alignment: .leading) {
             Text("Ratings")

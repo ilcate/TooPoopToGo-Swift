@@ -33,6 +33,7 @@
 		2ADA107B2BE0E4EA00BBC989 /* MapSelectPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */; };
 		2ADA10812BE0E57800BBC989 /* InformationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10802BE0E57800BBC989 /* InformationAnnotationView.swift */; };
 		2ADA10832BE0E66700BBC989 /* AddImageSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */; };
+		2AEB5ACE2BF64ADB007E303B /* BadgeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEB5ACD2BF64ADB007E303B /* BadgeDetail.swift */; };
 		2AED8E862BE93ABD008DBFAF /* DetailBathroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED8E852BE93ABD008DBFAF /* DetailBathroom.swift */; };
 		2AF49B202BF5EAF100800CE5 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF49B1F2BF5EAF100800CE5 /* Settings.swift */; };
 		2AFD2EC52BDBB21400208328 /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD2EC42BDBB21400208328 /* BadgeView.swift */; };
@@ -68,6 +69,7 @@
 		2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelectPosition.swift; sourceTree = "<group>"; };
 		2ADA10802BE0E57800BBC989 /* InformationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationAnnotationView.swift; sourceTree = "<group>"; };
 		2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageSheet.swift; sourceTree = "<group>"; };
+		2AEB5ACD2BF64ADB007E303B /* BadgeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDetail.swift; sourceTree = "<group>"; };
 		2AED8E852BE93ABD008DBFAF /* DetailBathroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBathroom.swift; sourceTree = "<group>"; };
 		2AF49B1F2BF5EAF100800CE5 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2AFD2EC42BDBB21400208328 /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				2A69F7452BE4F986004AB59C /* ProfileView.swift */,
 				2AFD2EC62BDBB23200208328 /* HomeView.swift */,
 				2AFD2EC42BDBB21400208328 /* BadgeView.swift */,
+				2AEB5ACD2BF64ADB007E303B /* BadgeDetail.swift */,
 				2A6084752BC44472000FA417 /* TestView.swift */,
 				2AF49B1F2BF5EAF100800CE5 /* Settings.swift */,
 			);
@@ -284,6 +287,7 @@
 				2A0EE7812BC978D600F48FC4 /* ViewModifiers.swift in Sources */,
 				2ADA10832BE0E66700BBC989 /* AddImageSheet.swift in Sources */,
 				2A6084762BC44472000FA417 /* TestView.swift in Sources */,
+				2AEB5ACE2BF64ADB007E303B /* BadgeDetail.swift in Sources */,
 				2A31B46D2BE37E0D000DC8EE /* Components.swift in Sources */,
 				2ADA10812BE0E57800BBC989 /* InformationAnnotationView.swift in Sources */,
 				2AB218092BC03B49002A32F5 /* ContentView.swift in Sources */,
