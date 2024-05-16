@@ -19,7 +19,7 @@ struct Annotation: View {
                 .foregroundStyle((ann == mapViewModel.selected && mapViewModel.tappedAnnotation() && mapViewModel.filterSelected == "Roll") ? .white : .accent)
                 .padding(.bottom, 8)
                 .background(
-                    Image("Pin")
+                    Image("Pin") 
                         .renderingMode(.template)
                         .foregroundStyle(ann == mapViewModel.selected && mapViewModel.tappedAnnotation() ? .accent: .white)
                 )

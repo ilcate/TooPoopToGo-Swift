@@ -21,12 +21,11 @@ struct MapView: View {
                         .allowOverlapWithPuck(true)//fa si che il punto dell'utente sia sotto all'annotation
                         .allowOverlap(mapViewModel.currentZoom >= 13 ? true : false)
                         .ignoreCameraPadding(false)
-                        
                     }
-                    
                     Puck2D(bearing: .heading)
                         .showsAccuracyRing(true)
                 }
+                .gestureOptions(.init(pitchEnabled: false))
                 .onMapTapGesture(perform: { MapContentGestureContext in
                     mapViewModel.removeSelection()
                 })

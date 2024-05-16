@@ -22,9 +22,9 @@ struct SheetAddAn: View {
             ScrollView {
                 VStack(spacing: 16) {
                     LocationView(nameNewAnnotation: $nameNewAnnotation)
-                    typeSelectionView(optionsDropDown: $optionsDropDown)
+                    TypeSelectionView(optionsDropDown: $optionsDropDown)
                     CommentView(descNewAnnotation :$descNewAnnotation)
-                    imageSelectionView(imagesNewAnnotation: $imagesNewAnnotation, openSheetUploadImage: $openSheetUploadImage, photosPikerItems: $photosPikerItems)
+                    ImageSelectionView(imagesNewAnnotation: $imagesNewAnnotation, openSheetUploadImage: $openSheetUploadImage, photosPikerItems: $photosPikerItems)
                     RestrictionsView()
                     RatingsView()
                    

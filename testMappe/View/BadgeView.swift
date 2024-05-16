@@ -9,6 +9,9 @@ import SwiftUI
 
 struct BadgeView: View {
     var body: some View {
-        Text("Badge")
+        VStack{
+            HeadersViewPages(PageName: "Badges")
+            Spacer()
+        }.background(.cLightBrown)
     }
 }
