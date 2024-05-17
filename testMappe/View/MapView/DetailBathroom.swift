@@ -36,9 +36,7 @@ struct DetailBathroom: View {
                     }
                     .scrollTargetLayout()
                 }
-                .onAppear{
-                    image = images[0]
-                }
+               
                 .scrollPosition(id: $image, anchor: .center)
                 .scrollIndicators(.hidden)
                 .scrollTargetBehavior(.paging)
@@ -95,6 +93,9 @@ struct DetailBathroom: View {
                 
             }
             .frame(maxWidth: .infinity, maxHeight: 280)
+            .onAppear{
+                image = images[0]
+            }
             .navigationBarBackButtonHidden(true)
             
             VStack(spacing: 0){
@@ -201,7 +202,9 @@ struct DetailBathroom: View {
                             }
                         }
                         
-                    }.frame(maxWidth: .infinity, maxHeight: 30)
+                    }
+                    .padding(.horizontal, -2)
+                    .frame(maxWidth: .infinity, maxHeight: 30)
                 }
                 .frame(maxWidth: .infinity, maxHeight: 55)
                 .padding(.top, -10)
@@ -330,7 +333,7 @@ struct DetailBathroom: View {
                 ZStack {
                     Color.cLightBrown.ignoresSafeArea(.all)
                     SheetAddReview()
-                        .presentationDetents([.fraction(0.46)])
+                        .presentationDetents([.fraction(0.48)])
                         .presentationCornerRadius(18)
                 }
                 
@@ -398,17 +401,8 @@ struct SheetAddReview: View {
             RatingsView()
                 .padding(.horizontal, 20)
             
-            VStack(alignment: .leading) {
-                Text("Leave a comment")
-                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accentColor)
-                    .padding(.bottom, -2)
-                TextField("Insert here", text: $descNewAnnotation)
-                    .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .gray)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 10)
-                    .background(.white)
-                    .clipShape(.capsule)
-            }.padding(.horizontal, 20)
+            TextFieldCustom(stateVariable : $descNewAnnotation ,  name: "Leave a comment")
+                .padding(.horizontal, 20)
                 .padding(.bottom, 8)
             
             FullRoundedButton(text: "Send Review!")

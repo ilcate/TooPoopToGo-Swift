@@ -12,9 +12,9 @@ struct SheetAddAn: View {
             HeaderView(mapViewModel: mapViewModel)
             ScrollView {
                 VStack(spacing: 16) {
-                    LocationView(nameNewAnnotation: $mapViewModel.nameNewAnnotation)
+                    TextFieldCustom(stateVariable: $mapViewModel.nameNewAnnotation,  name: "Location Name" )
                     TypeSelectionView(optionsDropDown: $mapViewModel.optionsDropDown)
-                    CommentView(descNewAnnotation : $mapViewModel.descNewAnnotation)
+                    TextFieldCustom(stateVariable : $mapViewModel.descNewAnnotation ,  name: "Leave a comment")
                     ImageSelectionView(imagesNewAnnotation: $mapViewModel.imagesNewAnnotation, openSheetUploadImage: $mapViewModel.openSheetUploadImage, photosPikerItems: $mapViewModel.photosPikerItems)
                     RestrictionsView()
                     RatingsView()

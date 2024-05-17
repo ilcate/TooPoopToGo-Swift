@@ -92,8 +92,7 @@ struct MapButtonsView: View {
                                     mapViewModel.canMoveCheck(duration: 0.5)
                                 }
                         }
-                    }.padding(.bottom, mapViewModel.tappedAnnotation() ? 6 : 72)
-                    //InformationOfSelectionView(mapViewModel: mapViewModel)
+                    }.padding(.bottom, mapViewModel.selected?.name != "" && mapViewModel.tappedAnnotation() ? 6 : 72)
                     if mapViewModel.tappedAnnotation() {
                         withAnimation(.bouncy){
                             InformationOfSelectionView(mapViewModel: mapViewModel)

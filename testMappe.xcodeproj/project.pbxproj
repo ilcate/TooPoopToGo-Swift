@@ -12,6 +12,9 @@
 		2A0EE7882BC97D4B00F48FC4 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7872BC97D4B00F48FC4 /* Structs.swift */; };
 		2A31B46D2BE37E0D000DC8EE /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A31B46C2BE37E0D000DC8EE /* Components.swift */; };
 		2A33AF9B2BC041DC00DA90E9 /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 2A33AF9A2BC041DC00DA90E9 /* MapboxMaps */; };
+		2A55F26A2BF7840B002D7203 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A55F2692BF7840B002D7203 /* OnBoarding.swift */; };
+		2A55F26D2BF7885B002D7203 /* LogInAndSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A55F26C2BF7885B002D7203 /* LogInAndSignUp.swift */; };
+		2A5E1AF02BF7A5A100871183 /* ChoseLogM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E1AEF2BF7A5A100871183 /* ChoseLogM.swift */; };
 		2A6084742BC4438C000FA417 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084732BC4438C000FA417 /* Map.swift */; };
 		2A6084762BC44472000FA417 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084752BC44472000FA417 /* TestView.swift */; };
 		2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69F7452BE4F986004AB59C /* ProfileView.swift */; };
@@ -48,6 +51,9 @@
 		2A0EE7872BC97D4B00F48FC4 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		2A31B46C2BE37E0D000DC8EE /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		2A4893C62BC03DF300366033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2A55F2692BF7840B002D7203 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
+		2A55F26C2BF7885B002D7203 /* LogInAndSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInAndSignUp.swift; sourceTree = "<group>"; };
+		2A5E1AEF2BF7A5A100871183 /* ChoseLogM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoseLogM.swift; sourceTree = "<group>"; };
 		2A6084732BC4438C000FA417 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		2A6084752BC44472000FA417 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		2A69F7452BE4F986004AB59C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -95,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				2AB218082BC03B49002A32F5 /* ContentView.swift */,
+				2A55F26B2BF78754002D7203 /* OnBoarding */,
 				2ADA10752BE0E34C00BBC989 /* MapView */,
 				2AFD2EC82BDBB24600208328 /* FeedView.swift */,
 				2A69F7452BE4F986004AB59C /* ProfileView.swift */,
@@ -123,6 +130,16 @@
 				2A0EE7852BC97CD300F48FC4 /* MapModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		2A55F26B2BF78754002D7203 /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				2A55F26C2BF7885B002D7203 /* LogInAndSignUp.swift */,
+				2A5E1AEF2BF7A5A100871183 /* ChoseLogM.swift */,
+				2A55F2692BF7840B002D7203 /* OnBoarding.swift */,
+			);
+			path = OnBoarding;
 			sourceTree = "<group>";
 		};
 		2AB217FA2BC03B49002A32F5 = {
@@ -284,10 +301,12 @@
 				2AA0D6772BF0FAB300F8A249 /* SheetManageSearch.swift in Sources */,
 				2AFD2EC72BDBB23200208328 /* HomeView.swift in Sources */,
 				2AFD2EC52BDBB21400208328 /* BadgeView.swift in Sources */,
+				2A5E1AF02BF7A5A100871183 /* ChoseLogM.swift in Sources */,
 				2A0EE7812BC978D600F48FC4 /* ViewModifiers.swift in Sources */,
 				2ADA10832BE0E66700BBC989 /* AddImageSheet.swift in Sources */,
 				2A6084762BC44472000FA417 /* TestView.swift in Sources */,
 				2AEB5ACE2BF64ADB007E303B /* BadgeDetail.swift in Sources */,
+				2A55F26D2BF7885B002D7203 /* LogInAndSignUp.swift in Sources */,
 				2A31B46D2BE37E0D000DC8EE /* Components.swift in Sources */,
 				2ADA10812BE0E57800BBC989 /* InformationAnnotationView.swift in Sources */,
 				2AB218092BC03B49002A32F5 /* ContentView.swift in Sources */,
@@ -299,6 +318,7 @@
 				2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */,
 				2A0EE7862BC97CD300F48FC4 /* MapModel.swift in Sources */,
 				2AF49B202BF5EAF100800CE5 /* Settings.swift in Sources */,
+				2A55F26A2BF7840B002D7203 /* OnBoarding.swift in Sources */,
 				2AFFF9DD2BE7DFAC0095056C /* Annotation.swift in Sources */,
 				2AB218072BC03B49002A32F5 /* testMappeApp.swift in Sources */,
 			);
@@ -438,12 +458,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = testMappe/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "To take pictures to upload";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = NSLocationWhenInUseUsageDescription;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
@@ -472,12 +492,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = testMappe/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "To take pictures to upload";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = NSLocationWhenInUseUsageDescription;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;

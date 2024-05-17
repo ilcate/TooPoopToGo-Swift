@@ -382,45 +382,31 @@ struct TypeSelectionView:  View {
 }
 
 
-struct CommentView:  View {
-    @Binding var descNewAnnotation : String
+struct TextFieldCustom:  View {
+    @Binding var stateVariable : String
+    @State var name : String
+    @FocusState private var isFocused
     
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Leave a comment")
+            Text(name)
                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accentColor)
                 .padding(.bottom, -2)
-            TextField("Insert here", text: $descNewAnnotation)
+            TextField("Insert here", text: $stateVariable)
                 .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .gray)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 10)
                 .background(.white)
                 .clipShape(.capsule)
+                .focused($isFocused)
+                .overlay(
+                    Capsule()
+                        .stroke(.accent, lineWidth: isFocused ? 3 : 0)
+                )
         }
     }
 }
-//TODO: refactora che sono uguali
-
-struct LocationView:  View {
-    @Binding var nameNewAnnotation : String
-    
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("Leave a comment")
-                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accentColor)
-                .padding(.bottom, -2)
-            TextField("Insert here", text: $nameNewAnnotation)
-                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .gray)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 10)
-                .background(.white)
-                .clipShape(.capsule)
-        }
-    }
-}
-
 
 struct HeaderView:  View {
     @EnvironmentObject var isTexting: IsTexting

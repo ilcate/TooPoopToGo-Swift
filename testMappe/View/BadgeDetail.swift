@@ -59,7 +59,7 @@ struct BadgeDetail: View {
                 Image("ImagePlaceHolder7")
                     .resizable()
                     .renderingMode(.original)
-                    .frame(width: 269, height: 269)
+                    .frame(width: 220, height: 220)
         
                 
                 HStack{
@@ -151,10 +151,9 @@ struct BadgeDetail: View {
                             
                 Spacer()
                 
-                
-            }.padding(.horizontal, 20)
-                
-                   .navigationBarBackButtonHidden(true)
+            }
+            .padding(.horizontal, 20)
+            .navigationBarBackButtonHidden(true)
            
         }.background(.cLightBrown)
        
