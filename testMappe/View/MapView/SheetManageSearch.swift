@@ -2,7 +2,6 @@
 import SwiftUI
 
 //TODO: componenti da componentare e non da ricopiare
-//TODO: componente riutilizzabile del bottone lungo
 //TODO: se scappa fai qualche view modifier
 
 

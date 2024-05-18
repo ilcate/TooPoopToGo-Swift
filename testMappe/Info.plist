@@ -19,16 +19,9 @@
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>
-		<string></string>
+		<string>CLightBrown</string>
 		<key>UIImageName</key>
-		<string>AppIcon</string>
-		<key>UIImageRespectsSafeAreaInsets</key>
-		<true/>
-		<key>UINavigationBar</key>
-		<dict>
-			<key>UIImageName</key>
-			<string></string>
-		</dict>
+		<string>LoadImage</string>
 	</dict>
 </dict>
 </plist>
