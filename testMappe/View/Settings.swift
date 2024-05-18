@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject var api : ApiManager
     var body: some View {
-        Text("Settings")
+        Text("LogOut")
+            .onTapGesture {
+                api.clearToken()
+                
+            }
     }
 }
 

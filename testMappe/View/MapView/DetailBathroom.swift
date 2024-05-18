@@ -133,7 +133,7 @@ struct DetailBathroom: View {
                     }.padding(.horizontal, 20)
                 }
                 .scrollIndicators(.hidden)
-                .padding(.bottom, 8).padding(.top, -4)
+                .padding(.bottom, 4).padding(.top, -4)
             
             
             VStack{

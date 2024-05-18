@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct testMappeApp: App {
+struct TooPoopToGo: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

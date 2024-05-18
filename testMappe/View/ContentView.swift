@@ -2,42 +2,22 @@ import SwiftUI
 import CoreLocation
 @_spi(Experimental) import MapboxMaps
 
-class TabBarSelection: ObservableObject {
-    //pubilished fa si che il valore sia reattivo
-    @Published var selectedTab: Int = 0
-    @Published var destination: [CGFloat] = []
-}
-
-class IsTexting: ObservableObject {
-    @Published var texting = false
-    @Published var page = false
-}
-
-class OnBoarding: ObservableObject {//salvataggio in locale della variabile
-    @Published var onBoarding: Bool {
-        didSet {
-            UserDefaults.standard.set(onBoarding, forKey: "onBoarding")
-        }
-    }
-    init() {
-        self.onBoarding = UserDefaults.standard.bool(forKey: "onBoarding")
-    }
-}
 
 struct ContentView: View {
     @StateObject var tabBarSelection = TabBarSelection()
     @StateObject var isTexting = IsTexting()
     @StateObject var onBoarding = OnBoarding()
+    @StateObject var api = ApiManager()
     @State private var path: [String] = []
     
     //istanziazione dell'object
     //meglio degli state per oggetti complessi e è in grado di durare ed esistere anche se la view muore
     //poiché non si lega a nessuna
-        
+    
     
     var body: some View {
         NavigationStack(path: $path){
-            if !onBoarding.onBoarding{
+            if  !onBoarding.onBoarding && api.userToken == ""{
                 OnBoardingView(path: $path)
                     .navigationDestination(for: String.self) { screen in
                         switch screen {
@@ -47,11 +27,16 @@ struct ContentView: View {
                             LogInAndSignUp(path: $path, isLogIn: true)
                         case "SignUp":
                             LogInAndSignUp(path: $path, isLogIn: false)
+                        case "InsertOtp":
+                            InsertOtp(path: $path)
                         default:
                             EmptyView()
                         }
-                    }
-            }else{
+            }
+            
+            }else if  onBoarding.onBoarding && api.userToken == ""{
+                Loader()
+            } else{
                 ZStack{
                     TabView(selection: $tabBarSelection.selectedTab) {
                         MapView()
@@ -99,13 +84,16 @@ struct ContentView: View {
                     
                 }
             }
+                
             
-            
+          
         }
+        
         .environmentObject(tabBarSelection)
         .environmentObject(isTexting)//fa si che tutti i figli abbiatno all'interno l'istanza dell'object e sia uguale in tutte
         .environmentObject(onBoarding)
-        
-    }
+        .environmentObject(api)
+    
+}
 }
 

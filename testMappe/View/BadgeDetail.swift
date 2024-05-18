@@ -25,7 +25,7 @@ struct BadgeDetail: View {
                 Image("Lights")
                     .resizable()
                     .renderingMode(.original)
-                    .frame(maxWidth: 600, maxHeight: 600)
+                    .frame(maxWidth: 800, maxHeight: 800)
                     .rotationEffect(Angle(degrees: self.isAnimating ? 360.0 : 0.0))
                     .animation(.linear(duration: 20).repeatForever(autoreverses: false), value: isAnimating)
                     .onAppear {

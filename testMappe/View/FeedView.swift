@@ -12,6 +12,21 @@ struct FeedView: View {
         VStack{
             HeadersViewPages(PageName: "Feed")
             Spacer()
+            
+            ScrollView{
+                VStack(spacing: 12){
+                    FeedNotification(name: "Mistro.fino", time: "2h", badgeName: "", isFriendRequest: true)
+                    FeedNotification(name: "MarelloPisello", time: "3h", badgeName: "one hundred days of poop streak", isFriendRequest: false)
+                    
+
+                
+                }.padding(.top, 8)
+            }
+            
         }.background(.cLightBrown)
     }
+}
+
+#Preview {
+    FeedView()
 }

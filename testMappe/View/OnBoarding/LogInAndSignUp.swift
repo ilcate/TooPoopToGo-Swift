@@ -9,13 +9,15 @@ import SwiftUI
 
 struct LogInAndSignUp: View {
     @EnvironmentObject var onBoarding: OnBoarding
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var api : ApiManager
+    
+    
     @Binding var path: [String]
 
     @State var isLogIn: Bool
     @State private var username = ""
     @State private var firstName = ""
-    @State private var lastName = ""
+    //@State private var lastName = ""
     @State private var email = ""
     @State private var password = ""
 
@@ -33,7 +35,7 @@ struct LogInAndSignUp: View {
                 TextFieldCustom(stateVariable: $username, name: "Username")
                 if !isLogIn {
                     TextFieldCustom(stateVariable: $firstName, name: "First name")
-                    TextFieldCustom(stateVariable: $lastName, name: "Last name")
+                    //TextFieldCustom(stateVariable: $lastName, name: "Last name")
                     TextFieldCustom(stateVariable: $email, name: "Email")
                 }
                 TextFieldCustom(stateVariable: $password, name: "Password")
@@ -48,8 +50,15 @@ struct LogInAndSignUp: View {
                 }
             FullRoundedButton(text: !isLogIn ? "Join now!" : "Log In")
                 .onTapGesture {
-                    onBoarding.onBoarding = true
-                    path.removeAll()
+                    if isLogIn {
+                        onBoarding.onBoarding = true
+                        path.removeAll()
+                    }else{
+                        api.createAccount()
+                        path.append("InsertOtp")
+                    }
+                   
+                    
                 }
         }
         .navigationBarBackButtonHidden(true)

@@ -23,7 +23,7 @@ struct SmallTag: View {
             Text(text)
                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: Color.accent)
         }
-        .padding(.vertical, 4).padding(.leading, 3).padding(.trailing, 6)
+        .padding(.vertical, 5.5).padding(.leading, 5).padding(.trailing, 7)
         .background(.cUltraLightGray)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
@@ -75,7 +75,7 @@ struct FiltersScroller: View {
         ScrollView(.horizontal, showsIndicators: false){
             LazyHStack{
                 ForEach(filtersArray.indices, id: \.self) { index in
-                    HStack {
+                    HStack(spacing: 6){
                         Image(uiImage: filtersArray[index].image)
                             .resizable()
                             .frame(width: 26, height: 26)
@@ -101,8 +101,8 @@ struct FiltersScroller: View {
                     }
                     
                     .padding(.vertical, 7)
-                    .padding(.leading, 10)
-                    .padding(.trailing, 12)
+                    .padding(.leading, 9)
+                    .padding(.trailing, 11)
                     .background(filtersArray[index].selected == false ? Color.cUltraLightGray : Color.accent)
                     .clipShape(Capsule())
                 }
@@ -474,5 +474,105 @@ struct HeadersViewPages: View {
             }
             
         }.padding(.horizontal, 20).padding(.top, 8)
+    }
+}
+
+struct ButtonPoop : View {
+    var text: String
+    
+    var body: some View {
+        HStack(spacing: 6){
+            Image("DropAPoop")
+                .renderingMode(.original)
+                .resizable()
+                .frame(width: 26, height: 26)
+            Text(text)
+                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .accent)
+        }.padding(.leading, 7).padding(.trailing, 8.5).padding(.vertical, 5)
+            .background(.ultraThickMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 1000))
+    }
+}
+
+
+struct FeedNotification : View {
+    var name: String
+    var time: String
+    var badgeName: String
+    var isFriendRequest : Bool
+    
+    
+    var body: some View {
+        VStack{
+            HStack(alignment: .top){
+                
+                Image("ImagePlaceHolder3")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 44, height: 44)
+                    .clipShape(Circle())
+                VStack(alignment: .leading, spacing: -1.5){
+                    Text(name)
+                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
+                    Text(isFriendRequest ? "has requested to follow you." : "has earned a new badge: \(badgeName)" )
+                        .normalTextStyle(fontName: "Manrope-Medium", fontSize: 17, fontColor: .accent)
+                }.padding(.top, -2)
+                
+                Spacer()
+            }
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            
+            HStack(alignment: .bottom){
+                Text(time)
+                    .normalTextStyle(fontName: "Manrope-Medium", fontSize: 17, fontColor: .cLightBrown50)
+                    .padding(.bottom, -2.5)
+                Spacer()
+                if isFriendRequest{
+                    ButtonFeed(text: "Accept")
+                    ButtonFeed(text: "Decline")
+                    
+                }else{
+                    ButtonFeed(text: "View Badge")
+                    ButtonFeed(text: "Cheer")
+                }
+                    
+                
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 12)
+
+        }
+        
+        .frame(maxWidth: .infinity)
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(.horizontal, 20)
+    }
+}
+
+
+struct ButtonFeed: View {
+    var text : String
+    var body: some View {
+        if text != "Cheer" {
+            Text(text)
+                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 17, fontColor: text == "View Badge" || text == "Decline" ? .white : .cLightBrown)
+                .padding(.vertical, 5).padding(.horizontal, 8)
+                .background(text == "View Badge" || text == "Decline" ? .cLightBrown50 : .accent)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+        }else{
+            HStack(spacing: 4){
+                Image("LikedStroke")
+                    .renderingMode(.template)
+                    .foregroundStyle(.white)
+                Text(text)
+                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 17, fontColor: .cLightBrown)
+            }.padding(.vertical, 5).padding(.horizontal, 8)
+                .background(.accent)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+            
+        }
+        
     }
 }

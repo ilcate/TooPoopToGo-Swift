@@ -8,6 +8,8 @@
 //TODO: refactorare tutti i testi allineati a sinistra
 //TODO: spostare tutta la logica dentro il model
 
+//TODO: Importante dividi in pezzi Magari faccio la cartella home con tutti questi pezzettini
+
 import SwiftUI
 
 struct HomeView: View {
@@ -40,7 +42,6 @@ struct HomeView: View {
                             HStack{
                                 Text("Mind Your Fiber Intake")
                                     .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 22, fontColor: .accent)
-                                
                                 Spacer()
                             }.padding(.leading, 4)
                             Text("Incorporate fiber-rich foods like fruits, vegetables, and whole grains into your diet to promote smooth and effortless pooping.")
@@ -73,7 +74,7 @@ struct HomeView: View {
                                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
                                 Text("80%")
                                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 48, fontColor: .accent)
-                            }.padding(.leading, 16).padding(.top, 2)
+                            }.padding(.leading, 16).padding(.top, 6)
                             Spacer()
                             Image("ImagePlaceHolder7")
                                 .resizable()
@@ -105,20 +106,10 @@ struct HomeView: View {
                                                 Text("Keep it going!")
                                                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
                                                 Spacer()
-                                                HStack(spacing: 2){
-                                                    Image("CleanestCircle")
-                                                        .renderingMode(.original)
-                                                        .resizable()
-                                                        .frame(width: 26, height: 26)
-                                                    Text("Drop a Poop")
-                                                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .accent)
-                                                        .onTapGesture {
-                                                            streak += 1
-                                                        }
-                                                    
-                                                }.padding(.leading, 8).padding(.trailing, 8).padding(.vertical, 4)
-                                                    .background(.ultraThickMaterial)
-                                                    .clipShape(RoundedRectangle(cornerRadius: 1000))
+                                                ButtonPoop(text: "Drop a Poop")
+                                                    .onTapGesture {
+                                                        streak += 1
+                                                    }
                                             }
                                             Spacer()
                                             
@@ -149,6 +140,7 @@ struct HomeView: View {
                                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .cLightBrown)
                                     Text("342")
                                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 38, fontColor: .cLightBrown)
+                                        .padding(.vertical, -5)
                                     Text("days streak!")
                                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .cLightBrown)
                                 }
@@ -161,20 +153,10 @@ struct HomeView: View {
                                     Text("You forgot to Poop?")
                                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
                                     Spacer()
-                                    HStack( spacing: 2){
-                                        Image("CleanestCircle")
-                                            .renderingMode(.original)
-                                            .resizable()
-                                            .frame(width: 26, height: 26)
-                                        Text("Restart")
-                                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .accent)
-                                            .onTapGesture {
-                                                streak += 1
-                                            }
-                                        
-                                    }.padding(.horizontal, 8).padding(.vertical, 4)
-                                        .background(.ultraThickMaterial)
-                                        .clipShape(RoundedRectangle(cornerRadius: 1000))
+                                    ButtonPoop(text: "Restart")
+                                        .onTapGesture {
+                                            streak += 1
+                                        }
                                 }.padding(.top, 12)
                             }.padding(.horizontal, 16)
                                 .padding(.top, 24)
@@ -304,13 +286,7 @@ struct HomeView: View {
                         .padding(.vertical, -20)
                     }.padding(.bottom, 12)
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+                     
                 }
             }
             

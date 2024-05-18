@@ -3,13 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2A0EE7812BC978D600F48FC4 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7802BC978D500F48FC4 /* ViewModifiers.swift */; };
 		2A0EE7862BC97CD300F48FC4 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7852BC97CD300F48FC4 /* MapModel.swift */; };
 		2A0EE7882BC97D4B00F48FC4 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7872BC97D4B00F48FC4 /* Structs.swift */; };
+		2A27C00D2BF8D279006A8FE8 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2A27C00C2BF8D279006A8FE8 /* Lottie */; };
+		2A27C00F2BF8D2A8006A8FE8 /* ApiCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27C00E2BF8D2A8006A8FE8 /* ApiCall.swift */; };
+		2A27C0122BF8D5EC006A8FE8 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27C0112BF8D5EC006A8FE8 /* Classes.swift */; };
+		2A27C0152BF8DDAA006A8FE8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2A27C0142BF8DDAA006A8FE8 /* Alamofire */; };
+		2A27C0172BF8E60D006A8FE8 /* InsertOtp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27C0162BF8E60D006A8FE8 /* InsertOtp.swift */; };
 		2A31B46D2BE37E0D000DC8EE /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A31B46C2BE37E0D000DC8EE /* Components.swift */; };
 		2A33AF9B2BC041DC00DA90E9 /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 2A33AF9A2BC041DC00DA90E9 /* MapboxMaps */; };
 		2A55F26A2BF7840B002D7203 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A55F2692BF7840B002D7203 /* OnBoarding.swift */; };
@@ -19,7 +24,6 @@
 		2A6084762BC44472000FA417 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084752BC44472000FA417 /* TestView.swift */; };
 		2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69F7452BE4F986004AB59C /* ProfileView.swift */; };
 		2AA0D6772BF0FAB300F8A249 /* SheetManageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0D6762BF0FAB300F8A249 /* SheetManageSearch.swift */; };
-		2AA0D67A2BF0FF8100F8A249 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 2AA0D6792BF0FF8100F8A249 /* Sliders */; };
 		2AB218072BC03B49002A32F5 /* testMappeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB218062BC03B49002A32F5 /* testMappeApp.swift */; };
 		2AB218092BC03B49002A32F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB218082BC03B49002A32F5 /* ContentView.swift */; };
 		2AB2180B2BC03B4A002A32F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AB2180A2BC03B4A002A32F5 /* Assets.xcassets */; };
@@ -36,6 +40,8 @@
 		2ADA107B2BE0E4EA00BBC989 /* MapSelectPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */; };
 		2ADA10812BE0E57800BBC989 /* InformationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10802BE0E57800BBC989 /* InformationAnnotationView.swift */; };
 		2ADA10832BE0E66700BBC989 /* AddImageSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */; };
+		2AEAB74A2BF8E8F800B149C1 /* ApiCallStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEAB7492BF8E8F800B149C1 /* ApiCallStructures.swift */; };
+		2AEAB74C2BF8F7D400B149C1 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEAB74B2BF8F7D400B149C1 /* Loader.swift */; };
 		2AEB5ACE2BF64ADB007E303B /* BadgeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEB5ACD2BF64ADB007E303B /* BadgeDetail.swift */; };
 		2AED8E862BE93ABD008DBFAF /* DetailBathroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED8E852BE93ABD008DBFAF /* DetailBathroom.swift */; };
 		2AF49B202BF5EAF100800CE5 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF49B1F2BF5EAF100800CE5 /* Settings.swift */; };
@@ -49,6 +55,9 @@
 		2A0EE7802BC978D500F48FC4 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		2A0EE7852BC97CD300F48FC4 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		2A0EE7872BC97D4B00F48FC4 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		2A27C00E2BF8D2A8006A8FE8 /* ApiCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCall.swift; sourceTree = "<group>"; };
+		2A27C0112BF8D5EC006A8FE8 /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
+		2A27C0162BF8E60D006A8FE8 /* InsertOtp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertOtp.swift; sourceTree = "<group>"; };
 		2A31B46C2BE37E0D000DC8EE /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		2A4893C62BC03DF300366033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2A55F2692BF7840B002D7203 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
@@ -58,7 +67,7 @@
 		2A6084752BC44472000FA417 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		2A69F7452BE4F986004AB59C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2AA0D6762BF0FAB300F8A249 /* SheetManageSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetManageSearch.swift; sourceTree = "<group>"; };
-		2AB218032BC03B49002A32F5 /* testMappe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testMappe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AB218032BC03B49002A32F5 /* TooPoopToGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TooPoopToGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AB218062BC03B49002A32F5 /* testMappeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testMappeApp.swift; sourceTree = "<group>"; };
 		2AB218082BC03B49002A32F5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2AB2180A2BC03B4A002A32F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -75,6 +84,8 @@
 		2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelectPosition.swift; sourceTree = "<group>"; };
 		2ADA10802BE0E57800BBC989 /* InformationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationAnnotationView.swift; sourceTree = "<group>"; };
 		2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageSheet.swift; sourceTree = "<group>"; };
+		2AEAB7492BF8E8F800B149C1 /* ApiCallStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCallStructures.swift; sourceTree = "<group>"; };
+		2AEAB74B2BF8F7D400B149C1 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 		2AEB5ACD2BF64ADB007E303B /* BadgeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDetail.swift; sourceTree = "<group>"; };
 		2AED8E852BE93ABD008DBFAF /* DetailBathroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBathroom.swift; sourceTree = "<group>"; };
 		2AF49B1F2BF5EAF100800CE5 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -89,8 +100,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A27C00D2BF8D279006A8FE8 /* Lottie in Frameworks */,
+				2A27C0152BF8DDAA006A8FE8 /* Alamofire in Frameworks */,
 				2A33AF9B2BC041DC00DA90E9 /* MapboxMaps in Frameworks */,
-				2AA0D67A2BF0FF8100F8A249 /* Sliders in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +132,7 @@
 				2A0EE7802BC978D500F48FC4 /* ViewModifiers.swift */,
 				2A0EE7872BC97D4B00F48FC4 /* Structs.swift */,
 				2A31B46C2BE37E0D000DC8EE /* Components.swift */,
+				2A27C0112BF8D5EC006A8FE8 /* Classes.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -132,12 +145,23 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2A27C0102BF8D2C2006A8FE8 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				2A27C00E2BF8D2A8006A8FE8 /* ApiCall.swift */,
+				2AEAB7492BF8E8F800B149C1 /* ApiCallStructures.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
 		2A55F26B2BF78754002D7203 /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
 				2A55F26C2BF7885B002D7203 /* LogInAndSignUp.swift */,
 				2A5E1AEF2BF7A5A100871183 /* ChoseLogM.swift */,
 				2A55F2692BF7840B002D7203 /* OnBoarding.swift */,
+				2AEAB74B2BF8F7D400B149C1 /* Loader.swift */,
+				2A27C0162BF8E60D006A8FE8 /* InsertOtp.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -153,7 +177,7 @@
 		2AB218042BC03B49002A32F5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2AB218032BC03B49002A32F5 /* testMappe.app */,
+				2AB218032BC03B49002A32F5 /* TooPoopToGo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,6 +187,7 @@
 			children = (
 				2A4893C62BC03DF300366033 /* Info.plist */,
 				2AB218062BC03B49002A32F5 /* testMappeApp.swift */,
+				2A27C0102BF8D2C2006A8FE8 /* Api */,
 				2A0EE7842BC97CA900F48FC4 /* Models */,
 				2A0EE7822BC97C3900F48FC4 /* View */,
 				2AE520312BDD0011009AA2BD /* Font */,
@@ -214,9 +239,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2AB218022BC03B49002A32F5 /* testMappe */ = {
+		2AB218022BC03B49002A32F5 /* TooPoopToGo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2AB218112BC03B4A002A32F5 /* Build configuration list for PBXNativeTarget "testMappe" */;
+			buildConfigurationList = 2AB218112BC03B4A002A32F5 /* Build configuration list for PBXNativeTarget "TooPoopToGo" */;
 			buildPhases = (
 				2AB217FF2BC03B49002A32F5 /* Sources */,
 				2AB218002BC03B49002A32F5 /* Frameworks */,
@@ -226,13 +251,14 @@
 			);
 			dependencies = (
 			);
-			name = testMappe;
+			name = TooPoopToGo;
 			packageProductDependencies = (
 				2A33AF9A2BC041DC00DA90E9 /* MapboxMaps */,
-				2AA0D6792BF0FF8100F8A249 /* Sliders */,
+				2A27C00C2BF8D279006A8FE8 /* Lottie */,
+				2A27C0142BF8DDAA006A8FE8 /* Alamofire */,
 			);
 			productName = testMappe;
-			productReference = 2AB218032BC03B49002A32F5 /* testMappe.app */;
+			productReference = 2AB218032BC03B49002A32F5 /* TooPoopToGo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -250,7 +276,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2AB217FE2BC03B49002A32F5 /* Build configuration list for PBXProject "testMappe" */;
+			buildConfigurationList = 2AB217FE2BC03B49002A32F5 /* Build configuration list for PBXProject "TooPoopToGo" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -261,13 +287,14 @@
 			mainGroup = 2AB217FA2BC03B49002A32F5;
 			packageReferences = (
 				2A33AF992BC041DC00DA90E9 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
-				2AA0D6782BF0FF8100F8A249 /* XCLocalSwiftPackageReference "../../../Downloads/swiftui-sliders-main" */,
+				2A27C00B2BF8D279006A8FE8 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				2A27C0132BF8DDAA006A8FE8 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 2AB218042BC03B49002A32F5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2AB218022BC03B49002A32F5 /* testMappe */,
+				2AB218022BC03B49002A32F5 /* TooPoopToGo */,
 			);
 		};
 /* End PBXProject section */
@@ -303,10 +330,14 @@
 				2AFD2EC52BDBB21400208328 /* BadgeView.swift in Sources */,
 				2A5E1AF02BF7A5A100871183 /* ChoseLogM.swift in Sources */,
 				2A0EE7812BC978D600F48FC4 /* ViewModifiers.swift in Sources */,
+				2AEAB74A2BF8E8F800B149C1 /* ApiCallStructures.swift in Sources */,
 				2ADA10832BE0E66700BBC989 /* AddImageSheet.swift in Sources */,
+				2A27C0122BF8D5EC006A8FE8 /* Classes.swift in Sources */,
 				2A6084762BC44472000FA417 /* TestView.swift in Sources */,
+				2A27C0172BF8E60D006A8FE8 /* InsertOtp.swift in Sources */,
 				2AEB5ACE2BF64ADB007E303B /* BadgeDetail.swift in Sources */,
 				2A55F26D2BF7885B002D7203 /* LogInAndSignUp.swift in Sources */,
+				2AEAB74C2BF8F7D400B149C1 /* Loader.swift in Sources */,
 				2A31B46D2BE37E0D000DC8EE /* Components.swift in Sources */,
 				2ADA10812BE0E57800BBC989 /* InformationAnnotationView.swift in Sources */,
 				2AB218092BC03B49002A32F5 /* ContentView.swift in Sources */,
@@ -314,6 +345,7 @@
 				2ADA10792BE0E49000BBC989 /* MapAddAnnotation.swift in Sources */,
 				2A0EE7882BC97D4B00F48FC4 /* Structs.swift in Sources */,
 				2A6084742BC4438C000FA417 /* Map.swift in Sources */,
+				2A27C00F2BF8D2A8006A8FE8 /* ApiCall.swift in Sources */,
 				2ADA107B2BE0E4EA00BBC989 /* MapSelectPosition.swift in Sources */,
 				2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */,
 				2A0EE7862BC97CD300F48FC4 /* MapModel.swift in Sources */,
@@ -517,7 +549,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2AB217FE2BC03B49002A32F5 /* Build configuration list for PBXProject "testMappe" */ = {
+		2AB217FE2BC03B49002A32F5 /* Build configuration list for PBXProject "TooPoopToGo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2AB2180F2BC03B4A002A32F5 /* Debug */,
@@ -526,7 +558,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2AB218112BC03B4A002A32F5 /* Build configuration list for PBXNativeTarget "testMappe" */ = {
+		2AB218112BC03B4A002A32F5 /* Build configuration list for PBXNativeTarget "TooPoopToGo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2AB218122BC03B4A002A32F5 /* Debug */,
@@ -537,14 +569,23 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		2AA0D6782BF0FF8100F8A249 /* XCLocalSwiftPackageReference "../../../Downloads/swiftui-sliders-main" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../Downloads/swiftui-sliders-main";
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
+		2A27C00B2BF8D279006A8FE8 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.3;
+			};
+		};
+		2A27C0132BF8DDAA006A8FE8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.8.1;
+			};
+		};
 		2A33AF992BC041DC00DA90E9 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios.git";
@@ -556,14 +597,20 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2A27C00C2BF8D279006A8FE8 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A27C00B2BF8D279006A8FE8 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+		2A27C0142BF8DDAA006A8FE8 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A27C0132BF8DDAA006A8FE8 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		2A33AF9A2BC041DC00DA90E9 /* MapboxMaps */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2A33AF992BC041DC00DA90E9 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
 			productName = MapboxMaps;
-		};
-		2AA0D6792BF0FF8100F8A249 /* Sliders */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Sliders;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

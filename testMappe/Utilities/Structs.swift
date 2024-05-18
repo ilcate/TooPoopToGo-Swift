@@ -88,7 +88,6 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     }
 }
 
-
 struct GestureProperties {
     var offset: CGFloat = 0
     var lastOffset: CGFloat = 0
