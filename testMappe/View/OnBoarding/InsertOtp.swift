@@ -19,6 +19,7 @@ struct InsertOtp: View {
             HStack {
                 Text("Insert otp")
                     .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 32, fontColor: .accent)
+                Spacer()
             
             }
             .padding(.horizontal, 20)
@@ -26,7 +27,7 @@ struct InsertOtp: View {
             
             Spacer()
             
-            TextFieldCustom(stateVariable: $otp, name: "Username")
+            TextFieldCustom(stateVariable: $otp, name: "Otp")
                 .padding(.horizontal, 20)
             
             Spacer()

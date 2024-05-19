@@ -16,9 +16,7 @@ class ApiManager: ObservableObject {
     
             
     
-    func createAccount() {
-        let parameters = RegisterRequest(username: "chri", email: "kryscc03@gmail.com", first_name: "christian", password: "password", last_login: nil)
-        
+    func createAccount(parameters: RegisterRequest) {
         AF.request("\(url)/user/create", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
             .responseDecodable(of: RegisterResponse.self) { response in
                 switch response.result {
@@ -33,7 +31,6 @@ class ApiManager: ObservableObject {
     }
     
     func activateAccount(parameters: SendOtp) {
-        
         AF.request("\(url)/user/activate", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
             .validate()
             .responseString { response in

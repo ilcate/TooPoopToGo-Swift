@@ -53,9 +53,7 @@ struct Loader: View {
                 }
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.black.opacity(0.4))
-            
-            
-            
+               
         }
         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
 

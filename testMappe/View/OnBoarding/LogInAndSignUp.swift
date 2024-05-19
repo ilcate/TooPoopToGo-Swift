@@ -53,8 +53,12 @@ struct LogInAndSignUp: View {
                     if isLogIn {
                         onBoarding.onBoarding = true
                         path.removeAll()
+                        let info = LogInInformation(username: username, password: password)
+                        print(info)
+                        api.getToken(userData: info)
                     }else{
-                        api.createAccount()
+                        let parameters = RegisterRequest(username: username, email: email, first_name: firstName, password: password, last_login: nil)
+                        api.createAccount(parameters: parameters)
                         path.append("InsertOtp")
                     }
                    
