@@ -14,7 +14,6 @@ class ApiManager: ObservableObject {
         self.userToken = UserDefaults.standard.string(forKey: "userToken") ?? ""
     }
     
-            
     
     func createAccount(parameters: RegisterRequest) {
         AF.request("\(url)/user/create", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)

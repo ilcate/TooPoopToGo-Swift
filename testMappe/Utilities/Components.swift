@@ -391,15 +391,17 @@ struct TextFieldCustom:  View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(name)
-                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accentColor)
+                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
                 .padding(.bottom, -2)
             TextField("Insert here", text: $stateVariable)
-                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .gray)
+                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 10)
                 .background(.white)
                 .clipShape(.capsule)
                 .focused($isFocused)
+                .disableAutocorrection(true)
+                .autocapitalization(.none)
                 .overlay(
                     Capsule()
                         .stroke(.accent, lineWidth: isFocused ? 3 : 0)

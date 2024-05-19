@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct UIButtonStyle: ViewModifier {
@@ -9,7 +8,7 @@ struct UIButtonStyle: ViewModifier {
             .frame(width: 44, height: 44)
             .background(backgroundColor)
             .clipShape(Circle())
-            .foregroundStyle(.accent)
+            .foregroundColor(.accentColor)  // Uso .foregroundColor invece di .foregroundStyle
     }
 }
 
@@ -33,7 +32,7 @@ struct NormalTextStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.custom(fontName, size: fontSize))
-            .foregroundStyle(fontColor)
+            .foregroundColor(fontColor)  // Uso .foregroundColor invece di .foregroundStyle
     }
 }
 
@@ -49,3 +48,8 @@ extension TextField {
     }
 }
 
+extension SecureField {
+    func normalTextStyle(fontName: String, fontSize: CGFloat, fontColor: Color) -> some View {
+        self.modifier(NormalTextStyle(fontName: fontName, fontSize: fontSize, fontColor: fontColor))
+    }
+}
