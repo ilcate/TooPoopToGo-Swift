@@ -34,3 +34,11 @@ struct LogInInformation: Encodable{
     let password : String
 }
 
+
+struct UserInfoResponse: Decodable {
+    var username: String
+    var id: String
+    var friends_number: Int
+    var badges: [String]
+    var used_toilets: [String]
+}
