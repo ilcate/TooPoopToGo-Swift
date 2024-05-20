@@ -7,7 +7,6 @@ final class ProfileModel: ObservableObject{
     
     
     func getProfile(api : ApiManager){
-        print(api.userToken)
         let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
         api.getUser(headers: headers){ result in
             DispatchQueue.main.async {

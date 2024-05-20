@@ -78,19 +78,46 @@ struct LogInAndSignUp: View {
             FullRoundedButton(text: !isLogIn ? "Join now!" : "Log In")
                 .onTapGesture {
                     if isLogIn {
-                        onBoarding.onBoarding = true
-                        path.removeAll()
+                       
                         let info = LogInInformation(username: username, password: password)
-                        api.getToken(userData: info)
+                        api.getToken(userData: info) { result in
+                            DispatchQueue.main.async {
+                                switch result {
+                                case .success(let token):
+                                    path.removeAll()
+                                    onBoarding.onBoarding = true
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        api.saveToken(token: token)
+                                    }
+                            
+                                case .failure(let error):
+                                    print("Error: \(error.localizedDescription)")
+                                }
+                            }
+                        }
                     } else {
                         let parameters = RegisterRequest(username: username, email: email, first_name: firstName, password: password, last_login: nil)
-                        api.createAccount(parameters: parameters)
-                        path.append("InsertOtp")
+                        
+                        
+                        api.createAccount(parameters: parameters){ result in
+                            DispatchQueue.main.async {
+                                switch result {
+                                case .success:
+                                    api.email = email
+                                    api.username = username
+                                    api.password = password
+                                    path.append("InsertOtp")
+                                case .failure(let error):
+                                    print("sorry but no \(error)")
+                                }
+                            }
+                            
+                        }
+                    }
                     }
                 }
+                .navigationBarBackButtonHidden(true)
+                .padding(.top, 8)
+                .background(Color.cLightBrown)
         }
-        .navigationBarBackButtonHidden(true)
-        .padding(.top, 8)
-        .background(Color.cLightBrown)
-    }
 }

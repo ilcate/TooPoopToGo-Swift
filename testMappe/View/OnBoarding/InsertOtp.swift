@@ -34,10 +34,31 @@ struct InsertOtp: View {
             
             FullRoundedButton(text: "Confirm Account")
                 .onTapGesture {
-                    let otpToSend = SendOtp(otp: otp, email: "kryscc03@gmail.com")
-                    onBoarding.onBoarding = true
-                    path.removeAll()
-                    api.activateAccount(parameters: otpToSend)
+                    let otpToSend = SendOtp(otp: otp, email: api.email)
+                   
+                    api.activateAccount(parameters: otpToSend){ result in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success:
+                                onBoarding.onBoarding = true
+                                path.removeAll()
+                                let loginInfo = LogInInformation(username: api.username, password: api.password)
+                                api.getToken(userData: loginInfo){ result in
+                                    DispatchQueue.main.async {
+                                        switch result {
+                                        case .success(let token):
+                                            api.saveToken(token: token)
+                                        case .failure(_):
+                                            path.append("LogIn")
+                                            onBoarding.onBoarding = false
+                                        }
+                                    }
+                                }
+                            case .failure(let error):
+                                print("sorry but no \(error)")
+                            }
+                        }
+                    }
                     
                 }
         }
