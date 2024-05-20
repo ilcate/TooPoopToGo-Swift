@@ -40,8 +40,6 @@ class ApiManager: ObservableObject {
                 case .success(let responseString):
                     print("Response String: \(responseString)")
                     completion(.success(responseString))
-                    //let loginInfo = LogInInformation(username: "chri", password: "password")
-                    //self.getToken(userData: loginInfo)
                 case .failure(let error):
                     print("Failure: \(error)")
                     completion(.failure(error))
@@ -136,13 +134,3 @@ class ApiManager: ObservableObject {
     //   }
     
 }
-
-
-//cose da chiedere a edo:
-//come gestire il fail durante il log in
-//fagli vedere il resto dell'app
-
-
-//cose da chiedere agli altri:
-//come posso fare la streak
-//cooperaimo per mandare l'immagine

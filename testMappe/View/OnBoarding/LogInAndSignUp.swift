@@ -12,6 +12,7 @@ struct LogInAndSignUp: View {
     @State private var firstName = ""
     @State private var email = ""
     @State private var password = ""
+    @State var everithingOk = true
     
     var body: some View {
         VStack {
@@ -22,6 +23,7 @@ struct LogInAndSignUp: View {
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 6)
+            
             
             VStack {
                 TextFieldCustom(stateVariable: $username, name: "Username")
@@ -68,8 +70,15 @@ struct LogInAndSignUp: View {
                 )
             }
             .padding(.horizontal, 20)
+            if !everithingOk{
+               
+                Text("Something went wrong, try again")
+                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .red)
+                Spacer()
+            }else{
+                Spacer()
+            }
             
-            Spacer()
             Text(!isLogIn ? "You are already registered? Log In" : "Don't have an account? Sign Up")
                 .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
                 .onTapGesture {
@@ -91,7 +100,9 @@ struct LogInAndSignUp: View {
                                     }
                             
                                 case .failure(let error):
-                                    print("Error: \(error.localizedDescription)")
+                                    everithingOk = false
+                                    username = ""
+                                    password = ""
                                 }
                             }
                         }
@@ -108,7 +119,11 @@ struct LogInAndSignUp: View {
                                     api.password = password
                                     path.append("InsertOtp")
                                 case .failure(let error):
-                                    print("sorry but no \(error)")
+                                    everithingOk = false
+                                    username = ""
+                                    firstName = ""
+                                    email = ""
+                                    password = ""
                                 }
                             }
                             
