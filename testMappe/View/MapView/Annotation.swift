@@ -19,7 +19,7 @@ struct Annotation: View {
                 .foregroundStyle((ann == mapViewModel.selected && mapViewModel.tappedAnnotation() && mapViewModel.filterSelected == "Roll") ? .white : .accent)
                 .padding(.bottom, 8)
                 .background(
-                    Image("Pin") 
+                    Image("Pin")
                         .renderingMode(.template)
                         .foregroundStyle(ann == mapViewModel.selected && mapViewModel.tappedAnnotation() ? .accent: .white)
                 )
@@ -27,10 +27,11 @@ struct Annotation: View {
                     withAnimation(.snappy) {
                         mapViewModel.moveToDestination(cords: [ann.latitude, ann.longitude, ann.zoom], dur: 0.3)
                         mapViewModel.selected = ann
+                        
                     }
                 }
             
-           
+            
             Ellipse()
                 .frame(width: 16, height: 4)
                 .opacity(0.3)

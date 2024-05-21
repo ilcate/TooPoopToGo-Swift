@@ -26,6 +26,11 @@ struct LogInAndSignUp: View {
                     TextFieldCustom(stateVariable: $oBModel.firstName, name: "First name")
                     TextFieldCustom(stateVariable: $oBModel.email, name: "Email")
                 }
+                HStack{
+                    Text("Password")
+                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
+                    Spacer()
+                }
                 HStack {
                     if oBModel.passwordVisibility {
                         TextField("Enter a password", text: $oBModel.password)
@@ -89,10 +94,10 @@ struct LogInAndSignUp: View {
                             path = updatedPath
                         }
                     }
-                    }
                 }
-                .navigationBarBackButtonHidden(true)
-                .padding(.top, 8)
-                .background(Color.cLightBrown)
         }
+        .navigationBarBackButtonHidden(true)
+        .padding(.top, 8)
+        .background(Color.cLightBrown)
+    }
 }

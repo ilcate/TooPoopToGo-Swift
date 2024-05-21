@@ -59,9 +59,10 @@ struct InformationOfSelectionView: View {
            .padding(.bottom, mapViewModel.selected?.name != "" ? 72 : 0)
            .opacity(mapViewModel.selected?.name != "" ? 1 : 0)
            .onChange(of: mapViewModel.viewport){
-               if !mapViewModel.checkCoordinates() {
-                   mapViewModel.removeSelection()
-               }
+                   if !mapViewModel.checkCoordinates() {
+                       mapViewModel.removeSelection()
+                   }
+              
            }
         }
         
