@@ -2,17 +2,12 @@ import SwiftUI
 
 struct LogInAndSignUp: View {
     @EnvironmentObject var onBoarding: OnBoarding
-    @EnvironmentObject var api : ApiManager
-    
     @Binding var path: [String]
+    @EnvironmentObject var api: ApiManager
     @FocusState private var isFocused: Bool
     @State var isLogIn: Bool
-    @State var passwordVisibility = false
-    @State private var username = ""
-    @State private var firstName = ""
-    @State private var email = ""
-    @State private var password = ""
-    @State var everithingOk = true
+    @ObservedObject var oBModel: OnBoardingModel
+    
     
     var body: some View {
         VStack {
@@ -26,14 +21,14 @@ struct LogInAndSignUp: View {
             
             
             VStack {
-                TextFieldCustom(stateVariable: $username, name: "Username")
+                TextFieldCustom(stateVariable: $oBModel.username, name: "Username")
                 if !isLogIn {
-                    TextFieldCustom(stateVariable: $firstName, name: "First name")
-                    TextFieldCustom(stateVariable: $email, name: "Email")
+                    TextFieldCustom(stateVariable: $oBModel.firstName, name: "First name")
+                    TextFieldCustom(stateVariable: $oBModel.email, name: "Email")
                 }
                 HStack {
-                    if passwordVisibility {
-                        TextField("Enter a password", text: $password)
+                    if oBModel.passwordVisibility {
+                        TextField("Enter a password", text: $oBModel.password)
                             .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
                             .disableAutocorrection(true)
                             .autocapitalization(.none)
@@ -41,19 +36,19 @@ struct LogInAndSignUp: View {
                             .focused($isFocused)
                         
                     } else {
-                        SecureField("Enter a password", text: $password)
+                        SecureField("Enter a password", text: $oBModel.password)
                             .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
                             .disableAutocorrection(true)
                             .autocapitalization(.none)
                             .padding(.trailing, -24)
                             .focused($isFocused)
                     }
-                    Image(!passwordVisibility ? "visible" : "invisible")
+                    Image(!oBModel.passwordVisibility ? "visible" : "invisible")
                         .resizable()
                         .frame(width: 24, height: 24)
                         .foregroundColor(.accent)
                         .onTapGesture {
-                            passwordVisibility.toggle()
+                            oBModel.passwordVisibility.toggle()
                             DispatchQueue.main.async {
                                 isFocused = true
                             }
@@ -70,8 +65,7 @@ struct LogInAndSignUp: View {
                 )
             }
             .padding(.horizontal, 20)
-            if !everithingOk{
-               
+            if !oBModel.everithingOk{
                 Text("Something went wrong, try again")
                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .red)
                 Spacer()
@@ -87,46 +81,12 @@ struct LogInAndSignUp: View {
             FullRoundedButton(text: !isLogIn ? "Join now!" : "Log In")
                 .onTapGesture {
                     if isLogIn {
-                       
-                        let info = LogInInformation(username: username, password: password)
-                        api.getToken(userData: info) { result in
-                            DispatchQueue.main.async {
-                                switch result {
-                                case .success(let token):
-                                    path.removeAll()
-                                    onBoarding.onBoarding = true
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        api.saveToken(token: token)
-                                    }
-                            
-                                case .failure(let error):
-                                    everithingOk = false
-                                    username = ""
-                                    password = ""
-                                }
-                            }
+                        oBModel.doLogIn(path: path, api: api, onBoarding: onBoarding){ updatedPath in
+                            path = updatedPath
                         }
                     } else {
-                        let parameters = RegisterRequest(username: username, email: email, first_name: firstName, password: password, last_login: nil)
-                        
-                        
-                        api.createAccount(parameters: parameters){ result in
-                            DispatchQueue.main.async {
-                                switch result {
-                                case .success:
-                                    api.email = email
-                                    api.username = username
-                                    api.password = password
-                                    path.append("InsertOtp")
-                                case .failure(let error):
-                                    everithingOk = false
-                                    username = ""
-                                    firstName = ""
-                                    email = ""
-                                    password = ""
-                                }
-                            }
-                            
+                        oBModel.doRegister(path: path, api: api) { updatedPath in
+                            path = updatedPath
                         }
                     }
                     }

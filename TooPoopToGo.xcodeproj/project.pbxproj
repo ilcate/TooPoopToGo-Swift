@@ -40,6 +40,7 @@
 		2ADA107B2BE0E4EA00BBC989 /* MapSelectPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */; };
 		2ADA10812BE0E57800BBC989 /* InformationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10802BE0E57800BBC989 /* InformationAnnotationView.swift */; };
 		2ADA10832BE0E66700BBC989 /* AddImageSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */; };
+		2AE0314D2BFC5FF80087E7FF /* OnBoardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE0314C2BFC5FF80087E7FF /* OnBoardingModel.swift */; };
 		2AE78C042BFA3F7A00038AEA /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE78C032BFA3F7A00038AEA /* ProfileModel.swift */; };
 		2AEAB74A2BF8E8F800B149C1 /* ApiCallStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEAB7492BF8E8F800B149C1 /* ApiCallStructures.swift */; };
 		2AEAB74C2BF8F7D400B149C1 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEAB74B2BF8F7D400B149C1 /* Loader.swift */; };
@@ -85,6 +86,7 @@
 		2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelectPosition.swift; sourceTree = "<group>"; };
 		2ADA10802BE0E57800BBC989 /* InformationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationAnnotationView.swift; sourceTree = "<group>"; };
 		2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageSheet.swift; sourceTree = "<group>"; };
+		2AE0314C2BFC5FF80087E7FF /* OnBoardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingModel.swift; sourceTree = "<group>"; };
 		2AE78C032BFA3F7A00038AEA /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		2AEAB7492BF8E8F800B149C1 /* ApiCallStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCallStructures.swift; sourceTree = "<group>"; };
 		2AEAB74B2BF8F7D400B149C1 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				2AE78C032BFA3F7A00038AEA /* ProfileModel.swift */,
+				2AE0314C2BFC5FF80087E7FF /* OnBoardingModel.swift */,
 				2A0EE7852BC97CD300F48FC4 /* MapModel.swift */,
 			);
 			path = Models;
@@ -330,6 +333,7 @@
 				2AFD2EC92BDBB24600208328 /* FeedView.swift in Sources */,
 				2AA0D6772BF0FAB300F8A249 /* SheetManageSearch.swift in Sources */,
 				2AFD2EC72BDBB23200208328 /* HomeView.swift in Sources */,
+				2AE0314D2BFC5FF80087E7FF /* OnBoardingModel.swift in Sources */,
 				2AFD2EC52BDBB21400208328 /* BadgeView.swift in Sources */,
 				2A5E1AF02BF7A5A100871183 /* ChoseLogM.swift in Sources */,
 				2A0EE7812BC978D600F48FC4 /* ViewModifiers.swift in Sources */,

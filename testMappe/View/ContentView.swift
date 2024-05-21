@@ -8,6 +8,7 @@ struct ContentView: View {
     @StateObject var isTexting = IsTexting()
     @StateObject var onBoarding = OnBoarding()
     @StateObject var api = ApiManager()
+    @StateObject var oBModel = OnBoardingModel()
     @State private var path: [String] = []
     
     //istanziazione dell'object
@@ -18,17 +19,18 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $path){
             if  !onBoarding.onBoarding && api.userToken == ""{
-                OnBoardingView(path: $path)
+                
+                OnBoardingView(oBModel: oBModel, path: $path)
                     .navigationDestination(for: String.self) { screen in
                         switch screen {
                         case "ChoseLogM":
                             ChoseLogM(path: $path)
                         case "LogIn":
-                            LogInAndSignUp(path: $path, isLogIn: true)
+                            LogInAndSignUp(path: $path, isLogIn: true, oBModel: oBModel)
                         case "SignUp":
-                            LogInAndSignUp(path: $path, isLogIn: false)
+                            LogInAndSignUp(path: $path, isLogIn: false, oBModel: oBModel)
                         case "InsertOtp":
-                            InsertOtp(path: $path)
+                            InsertOtp(path: $path, oBModel: oBModel)
                         default:
                             EmptyView()
                         }

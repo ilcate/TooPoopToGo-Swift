@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct OnBoardingView: View {
-    var PagesOnBoarding = ["Find", "Review", "More", "Pipo"]
-    @State private var position: String?
-    @State private var navigateToLogInAndSignUp = false
+    @ObservedObject var oBModel: OnBoardingModel
     @Binding var path: [String]
 
     var body: some View {
@@ -26,7 +24,7 @@ struct OnBoardingView: View {
             ZStack {
                 ScrollView(.horizontal) {
                     HStack(spacing: 0) {
-                        ForEach(PagesOnBoarding, id: \.self) { name in
+                        ForEach(oBModel.PagesOnBoarding, id: \.self) { name in
                             VStack {
                                 Image("ImagePlaceHolder3")
                                     .resizable()
@@ -51,7 +49,7 @@ struct OnBoardingView: View {
                     .padding(.trailing, -10)
                     .scrollTargetLayout()
                 }
-                .scrollPosition(id: $position, anchor: .leading)
+                .scrollPosition(id: $oBModel.position, anchor: .leading)
                 .contentMargins(20, for: .scrollContent)
                 .scrollIndicators(.hidden)
                 .scrollTargetBehavior(.viewAligned)
@@ -60,10 +58,10 @@ struct OnBoardingView: View {
                 VStack {
                     Spacer()
                     HStack(spacing: 6) {
-                        ForEach(PagesOnBoarding, id: \.self) { imageName in
+                        ForEach(oBModel.PagesOnBoarding, id: \.self) { imageName in
                             Circle()
                                 .frame(width: 10, height: 10)
-                                .foregroundStyle(imageName == position ? .accent : Color.cLightBrown50)
+                                .foregroundStyle(imageName == oBModel.position ? .accent : Color.cLightBrown50)
                         }
                     }
                     .padding(.vertical, 2)
@@ -74,27 +72,17 @@ struct OnBoardingView: View {
 
             Spacer()
 
-            FullRoundedButton(text: position == PagesOnBoarding.last ? "Start" : "Next")
+            FullRoundedButton(text: oBModel.position == oBModel.PagesOnBoarding.last ? "Start" : "Next")
                 .onTapGesture {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { //serve per far si che non ci siano dei bug grafici
-                        withAnimation(.easeInOut(duration: 0.1)) {
-                            if let indexOfA = PagesOnBoarding.firstIndex(of: position!) {
-                                let nextIndex = indexOfA + 1
-                                if nextIndex < PagesOnBoarding.count {
-                                    position = PagesOnBoarding[nextIndex]
-                                } else {
-                                    path.append("ChoseLogM")
-                                    navigateToLogInAndSignUp = true
-                                }
-                            }
-                        }
+                    oBModel.nextButton(path: path) { updatedPath in
+                        path = updatedPath
                     }
                 }
 
         }
         .background(Color.cLightBrown)
         .onAppear {
-            position = PagesOnBoarding[0]
+            oBModel.position = oBModel.PagesOnBoarding[0]
         }
     }
 }
