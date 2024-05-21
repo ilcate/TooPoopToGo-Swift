@@ -28,7 +28,6 @@ struct InsertOtp: View {
                         .keyboardType(.numberPad)
                         .focused($focusedField, equals: index)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        
                         .onChange(of: oBModel.otp[index], { oldValue, newValue in
                             oBModel.handleTextChange(at: index, newValue: newValue, focusedField: &focusedField)
                         })
@@ -45,6 +44,10 @@ struct InsertOtp: View {
             .padding(.horizontal, 20)
 
             Spacer()
+            if !oBModel.otpOk{
+                Text("The code is wrong, try again!")
+                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .red)
+            }
 
             FullRoundedButton(text: "Confirm Account")
                 .onTapGesture {
@@ -59,3 +62,4 @@ struct InsertOtp: View {
         .background(Color.cLightBrown)
     }
 }
+

@@ -1,7 +1,9 @@
 import SwiftUI
+import Alamofire
 
 struct MapButtonsView: View {
     @ObservedObject var mapViewModel: MapModel
+    @EnvironmentObject var api: ApiManager
     @EnvironmentObject var isTexting: IsTexting
     
     
@@ -72,6 +74,12 @@ struct MapButtonsView: View {
                             .uiButtonStyle(backgroundColor: .white)
                             .onTapGesture {
                                 mapViewModel.resetAndFollow(z: 13)
+                            }
+                        Image("Advice")
+                            .uiButtonStyle(backgroundColor: .white)
+                            .onTapGesture {
+                                let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
+                                api.getBathrooms(lat: 45, long: 9, distance: 10000, headers: headers)
                             }
                     }
                     

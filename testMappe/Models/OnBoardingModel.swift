@@ -13,6 +13,7 @@ final class OnBoardingModel: ObservableObject{
     @Published var email = ""
     @Published var password = ""
     @Published var everithingOk = true
+    @Published var otpOk = true
     @Published var otp = Array(repeating: "", count: 6)
     
     
@@ -42,6 +43,7 @@ final class OnBoardingModel: ObservableObject{
                 switch result {
                 case .success(let token):
                     mutablePath.removeAll()
+                    self.resetValues()
                     completion(mutablePath)
                     onBoarding.onBoarding = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -49,8 +51,7 @@ final class OnBoardingModel: ObservableObject{
                     }
                 case .failure:
                     self.everithingOk = false
-                    self.username = ""
-                    self.password = ""
+                    self.resetValues()
                 }
             }
         }
@@ -70,10 +71,7 @@ final class OnBoardingModel: ObservableObject{
                     completion(mutablePath)
                 case .failure:
                     self.everithingOk = false
-                    self.username = ""
-                    self.firstName = ""
-                    self.email = ""
-                    self.password = ""
+                    self.resetValues()
                 }
             }
             
@@ -91,6 +89,7 @@ final class OnBoardingModel: ObservableObject{
                 case .success:
                     onBoarding.onBoarding = true
                     mutablePath.removeAll()
+                    self.resetValues()
                     completion(mutablePath)
                     let loginInfo = LogInInformation(username: api.username, password: api.password)
                     api.getToken(userData: loginInfo) { result in
@@ -105,8 +104,8 @@ final class OnBoardingModel: ObservableObject{
                             }
                         }
                     }
-                case .failure(let error):
-                    print("sorry but no \(error)")
+                case .failure:
+                    self.otpOk = false 
                 }
             }
         }
@@ -130,6 +129,13 @@ final class OnBoardingModel: ObservableObject{
         for i in 0..<6 where otp[i].count > 1 {
            otp[i] = String(otp[i].last!)
         }
+    }
+    
+    func resetValues(){
+        self.username = ""
+        self.firstName = ""
+        self.email = ""
+        self.password = ""
     }
 
 }

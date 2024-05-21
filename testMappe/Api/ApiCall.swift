@@ -67,6 +67,21 @@ class ApiManager: ObservableObject {
             }
     }
     
+    func getBathrooms(lat:CGFloat, long:CGFloat, distance: CGFloat, headers: HTTPHeaders) {
+        AF.request("\(url)/toilet/list-from-point?distance=\(distance)&latitude=\(lat)&longitude=\(long)", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseString { response in
+                switch response.result {
+                case .success(let responseBody):
+                    print("Response String: \(responseBody)")
+                    
+                case .failure(let error):
+                    print("Failure: \(error)")
+                }
+            }
+    }
+    //da finire
+    
     private func extractCode(from jsonString: String) -> String? {
         guard let jsonData = jsonString.data(using: .utf8) else {
             return nil

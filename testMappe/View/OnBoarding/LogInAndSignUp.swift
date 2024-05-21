@@ -29,6 +29,7 @@ struct LogInAndSignUp: View {
                 HStack{
                     Text("Password")
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
+                        .padding(.bottom, -3)
                     Spacer()
                 }
                 HStack {
@@ -37,15 +38,16 @@ struct LogInAndSignUp: View {
                             .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
                             .disableAutocorrection(true)
                             .autocapitalization(.none)
-                            .padding(.trailing, -24)
+                            .padding(.trailing, -24).padding(.top, 8).padding(.bottom, 8)
                             .focused($isFocused)
+                            
                         
                     } else {
                         SecureField("Enter a password", text: $oBModel.password)
                             .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
                             .disableAutocorrection(true)
                             .autocapitalization(.none)
-                            .padding(.trailing, -24)
+                            .padding(.trailing, -24).padding(.top, 8).padding(.bottom, 8)
                             .focused($isFocused)
                     }
                     Image(!oBModel.passwordVisibility ? "visible" : "invisible")
