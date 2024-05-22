@@ -17,7 +17,8 @@ struct MapView: View {
                     if !mapViewModel.allPoints.isEmpty{
                         ForEvery(mapViewModel.allPoints){ ann in
                             let annotationBinding = Binding.constant(ann)
-                            MapViewAnnotation(coordinate: CLLocationCoordinate2D(latitude: ann.latitude, longitude: ann.longitude)) {
+                            MapViewAnnotation(coordinate: CLLocationCoordinate2D(latitude: ann.coordinates!.coordinates![1], longitude: (ann.coordinates?.coordinates![0])!)) {
+
                                 Annotation(mapViewModel: mapViewModel, ann: annotationBinding)
                             }
                             .allowOverlapWithPuck(true)//fa si che il punto dell'utente sia sotto all'annotation

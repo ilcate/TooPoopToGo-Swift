@@ -16,7 +16,8 @@ struct InformationOfSelectionView: View {
             if let selected = mapViewModel.selected {
                 NavigationLink(destination: DetailBathroom()){
                     HStack(spacing: 0){
-                        Image( uiImage: selected.image[0] ?? UIImage(named: "ImagePlaceHolder")!)
+                        //Image( uiImage: selected.image[0] ?? UIImage(named: "ImagePlaceHolder")!)
+                        Image( uiImage: UIImage(named: "ImagePlaceHolder")!)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 88, height: 96)
@@ -24,7 +25,7 @@ struct InformationOfSelectionView: View {
                             .padding(.vertical, 8).padding(.horizontal, 8)
                         VStack(alignment: .leading, spacing: 0){
                             HStack{
-                                Text(selected.name)
+                                Text(selected.name!)
                                     .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 24, fontColor: .accentColor)
                                 Spacer()
                                 Image("StarFill")

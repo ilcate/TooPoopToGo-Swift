@@ -56,7 +56,7 @@ class ApiManager: ObservableObject {
                 case .success(let responseBody):
                     print("Response String: \(responseBody)")
                     
-                    if let token = self.extractCode(from: responseBody) {
+                    if let token = self.extractToken(from: responseBody) {
                         completion(.success(token))
                     }
                     
@@ -73,7 +73,6 @@ class ApiManager: ObservableObject {
             .responseDecodable(of: [BathroomApi].self) { response in
                 switch response.result {
                 case .success(let responseBody):
-                    print("Response String: \(responseBody)")
                     completion(.success(responseBody))
                 case .failure(let error):
                     print("Failure: \(error)")
@@ -81,7 +80,7 @@ class ApiManager: ObservableObject {
             }
     }
     
-    private func extractCode(from jsonString: String) -> String? {
+    private func extractToken(from jsonString: String) -> String? {
         guard let jsonData = jsonString.data(using: .utf8) else {
             return nil
         }

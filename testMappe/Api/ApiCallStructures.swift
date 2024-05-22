@@ -43,18 +43,53 @@ struct UserInfoResponse: Decodable {
     var used_toilets: [String]
 }
 
-struct BathroomApi: Decodable {
+struct BathroomApi: Decodable, Identifiable, Equatable {
     var id: String?
     var name: String?
     var address: String?
     var coordinates: Coordinates?
     var place_type: String?
-    var is_for_disabled : Bool?
+    var is_for_disabled: Bool?
     var is_free: Bool?
     var is_for_babies: Bool?
+
+    var identifier: String {
+        id ?? UUID().uuidString
+    }
+    
+    static func == (lhs: BathroomApi, rhs: BathroomApi) -> Bool {
+        // Compare all properties for equality
+        return lhs.id == rhs.id &&
+               lhs.name == rhs.name &&
+               lhs.address == rhs.address &&
+               lhs.coordinates == rhs.coordinates &&
+               lhs.place_type == rhs.place_type &&
+               lhs.is_for_disabled == rhs.is_for_disabled &&
+               lhs.is_free == rhs.is_free &&
+               lhs.is_for_babies == rhs.is_for_babies
+    }
+    
+    private var properties: [(String, Any?)] {
+        return [
+            ("id", id),
+            ("name", name),
+            ("address", address),
+            ("coordinates", coordinates),
+            ("place_type", place_type),
+            ("is_for_disabled", is_for_disabled),
+            ("is_free", is_free),
+            ("is_for_babies", is_for_babies)
+        ]
+    }
 }
 
-struct Coordinates: Decodable {
+
+struct Coordinates: Decodable, Equatable {
     var type: String?
     var coordinates: [Double]?
+
+    static func == (lhs: Coordinates, rhs: Coordinates) -> Bool {
+        return lhs.type == rhs.type && lhs.coordinates == rhs.coordinates
+    }
 }
+

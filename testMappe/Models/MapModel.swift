@@ -8,9 +8,9 @@ import Alamofire
 
 
 final class MapModel: ObservableObject{
-    @Published var allPoints : [AnnotationServer] = []
+    @Published var allPoints : [BathroomApi] = []
     @Published var viewport: Viewport = .followPuck(zoom: 13).padding(.all, 20) //gestisce la cam
-    @Published var selected: AnnotationServer? = AnnotationServer( id: "", latitude: 0, longitude: 0, zoom: 0, name: "") //da la possibilità di aggiungere nuove annotation
+    @Published var selected: BathroomApi? = BathroomApi(id: "", name: "", address: "", coordinates: Coordinates(), place_type: "", is_for_disabled: false, is_free: false, is_for_babies: false) //da la possibilità di aggiungere nuove annotation
     @Published var canMove = true//altra gestione della cam
     @Published var customMinZoom = 2.0//altra gestione della cam
     @Published var centerLat = 0.0//altra gestione della cam
@@ -91,7 +91,7 @@ final class MapModel: ObservableObject{
     }
     
     func removeSelection(){
-        selected = AnnotationServer( id: "", latitude: 0, longitude: 0, zoom: 0, name: "")
+        selected = BathroomApi(id: "", name: "", address: "", coordinates: Coordinates(), place_type: "", is_for_disabled: false, is_free: false, is_for_babies: false)
     }
     
     func getCameraCenter(CameraChanged: CameraChanged){
@@ -102,17 +102,19 @@ final class MapModel: ObservableObject{
     }
     
     //questa diventerà il sed annotation
-    func addAnnotation( name: String, image: [UIImage?]){
-        allPoints.append(AnnotationServer(id: "" ,image: image, latitude: centerLat, longitude: centerLong, zoom: 17, name: name))
-        canMove = true
-        customMinZoom = 2
-        newLocationAdded = true
-        
-    }
+//    func addAnnotation( name: String, image: [UIImage?]){
+//        allPoints.append(BathroomApi(id: "" ,image: image, latitude: centerLat, longitude: centerLong, zoom: 17, name: name))
+//        canMove = true
+//        customMinZoom = 2
+//        newLocationAdded = true
+//        
+//    }
     
     
-    func addAnnotationServer( name: String, latitude: Double, longitude: Double , id: String){
-        allPoints.append(AnnotationServer(id: id, image: [UIImage(named: "ImagePlaceHoler3")], latitude: latitude, longitude: longitude, zoom: 17, name: name ))
+    func addAnnotationServer(element : BathroomApi){
+        allPoints.append(BathroomApi(id: element.id, name: element.name, address: element.address, coordinates: element.coordinates, place_type: element.place_type, is_for_disabled: element.is_for_disabled, is_free: element.is_free, is_for_babies: element.is_for_babies))
+        //allPoints.append(BathroomApi(id: id, latitude: latitude, longitude: longitude, zoom: 17, name: name ))
+        print(allPoints)
     }
     
     func tappedAnnotation() -> Bool{
@@ -127,8 +129,8 @@ final class MapModel: ObservableObject{
     }
     
     func checkCoordinates() -> Bool{
-        if viewport.camera?.center?.latitude == selected!.latitude {
-            if viewport.camera?.center?.longitude == selected!.longitude {
+        if viewport.camera?.center?.latitude == selected!.coordinates?.coordinates![1] {
+            if viewport.camera?.center?.longitude == selected!.coordinates?.coordinates![0] {
                 return true
             }
         }
@@ -141,10 +143,13 @@ final class MapModel: ObservableObject{
             api.getBathrooms(lat: self.centerLat, long: self.centerLong, distance: (7800 / (self.currentZoom * 2)), headers: headers) { result in
                 switch result {
                 case .success(let array):
-                    print(array)
                     if !array.isEmpty {
                         for element in array {
-                            self.addAnnotationServer( name: element.name!, latitude: (element.coordinates?.coordinates![1])!, longitude: (element.coordinates?.coordinates![0])!, id: element.id!)
+                            if !self.allPoints.contains(where: { $0.id == element.id }) {
+                                self.addAnnotationServer(element: element)
+                            }
+                           
+                            //TODO: chiedere a edo se spostare il foreach fuori dalla chiamata
                         }
                     }
                 case .failure(let error):
@@ -160,9 +165,6 @@ final class MapModel: ObservableObject{
                 self?.searchAndAdd(api: api)
             }
         }
-    
-    
-    
     
     
 }

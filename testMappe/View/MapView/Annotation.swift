@@ -9,14 +9,14 @@ import SwiftUI
 
 struct Annotation: View {
     @ObservedObject var mapViewModel : MapModel
-    @Binding var ann : AnnotationServer
+    @Binding var ann : BathroomApi
     
     var body: some View {
         VStack{
             Image(mapViewModel.filterSelected)
                 .resizable()
                 .frame(width: 24, height: 24)
-                .foregroundStyle((ann == mapViewModel.selected && mapViewModel.tappedAnnotation() && mapViewModel.filterSelected == "Roll") ? .white : .accent)
+                .foregroundStyle((ann == mapViewModel.selected! && mapViewModel.tappedAnnotation() && mapViewModel.filterSelected == "Roll") ? .white : .accent)
                 .padding(.bottom, 8)
                 .background(
                     Image("Pin")
@@ -25,7 +25,7 @@ struct Annotation: View {
                 )
                 .onTapGesture {
                     withAnimation(.snappy) {
-                        mapViewModel.moveToDestination(cords: [ann.latitude, ann.longitude, ann.zoom], dur: 0.3)
+                        mapViewModel.moveToDestination(cords: [CGFloat((ann.coordinates?.coordinates![1])!), CGFloat((ann.coordinates?.coordinates![0])!), 15], dur: 0.3)
                         mapViewModel.selected = ann
                         
                     }
