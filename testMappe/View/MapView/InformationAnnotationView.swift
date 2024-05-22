@@ -16,7 +16,7 @@ struct InformationOfSelectionView: View {
             if let selected = mapViewModel.selected {
                 NavigationLink(destination: DetailBathroom()){
                     HStack(spacing: 0){
-                        Image(uiImage: selected.image.count > 0 ? selected.image[0]! : UIImage(named: "ImagePlaceHolder")!)
+                        Image( uiImage: selected.image[0] ?? UIImage(named: "ImagePlaceHolder")!)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 88, height: 96)

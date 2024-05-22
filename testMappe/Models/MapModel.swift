@@ -2,22 +2,24 @@ import Foundation
 import SwiftUI
 import PhotosUI
 import CoreLocation
+import Alamofire
 @_spi(Experimental) import MapboxMaps
 
 
 
 final class MapModel: ObservableObject{
-    @Published  var allPoints = [AnnotationServer(text: "💩", latitude: 45.7613222, longitude: 8.690, zoom: 17, name: "Mareblu"),
-                                 AnnotationServer(text: "💩", latitude: 45.7613222, longitude: 8.695, zoom: 17, name: "Acqua Fresca"),
-                                 AnnotationServer(text: "💩", latitude: 45.461786 , longitude: 9.208970, zoom: 17, name: "Onde Serene"),
-                                 AnnotationServer(text: "💩", latitude: 45.461846, longitude:  9.209764, zoom: 17, name: "Arcobaleno Marino"),
-                                 AnnotationServer(text: "💩", latitude:  45.461786, longitude: 9.209378, zoom: 17, name: "Fonte Pulita")]
+    @Published  var allPoints = [AnnotationServer( latitude: 45.7613222, longitude: 8.690, zoom: 17, name: "Mareblu"),
+                                 AnnotationServer( latitude: 45.7613222, longitude: 8.695, zoom: 17, name: "Acqua Fresca"),
+                                 AnnotationServer( latitude: 45.461786 , longitude: 9.208970, zoom: 17, name: "Onde Serene"),
+                                 AnnotationServer( latitude: 45.461846, longitude:  9.209764, zoom: 17, name: "Arcobaleno Marino"),
+                                 AnnotationServer( latitude:  45.461786, longitude: 9.209378, zoom: 17, name: "Fonte Pulita")]
     @Published var viewport: Viewport = .followPuck(zoom: 13).padding(.all, 20) //gestisce la cam
-    @Published var selected: AnnotationServer? = AnnotationServer(text: "💩", latitude: 0, longitude: 0, zoom: 0, name: "") //da la possibilità di aggiungere nuove annotation
+    @Published var selected: AnnotationServer? = AnnotationServer( latitude: 0, longitude: 0, zoom: 0, name: "") //da la possibilità di aggiungere nuove annotation
     @Published var canMove = true//altra gestione della cam
     @Published var customMinZoom = 2.0//altra gestione della cam
     @Published var centerLat = 0.0//altra gestione della cam
     @Published var centerLong = 0.0//altra gestione della cam
+    @Published var neBound : CLLocationCoordinate2D?
     @Published var currentZoom = 0.0//altra gestione della cam
     @Published var search = false
     @Published var searchingInput = ""
@@ -92,20 +94,27 @@ final class MapModel: ObservableObject{
     }
     
     func removeSelection(){
-        selected = AnnotationServer(text: "💩", latitude: 0, longitude: 0, zoom: 0, name: "")
+        selected = AnnotationServer( latitude: 0, longitude: 0, zoom: 0, name: "")
     }
     
     func getCameraCenter(CameraChanged: CameraChanged){
         centerLat = CameraChanged.cameraState.center.latitude
         centerLong = CameraChanged.cameraState.center.longitude
+        //TODO: devo trova i bound neBound = CoordinateBounds
     }
     
-    
-    func addAnnotation(icon: String, name: String, image: [UIImage?]){
-        allPoints.append(AnnotationServer(image: image, text: icon, latitude: centerLat, longitude: centerLong, zoom: 17, name: name))
+    //questa diventerà il sed annotation
+    func addAnnotation( name: String, image: [UIImage?]){
+        allPoints.append(AnnotationServer(image: image, latitude: centerLat, longitude: centerLong, zoom: 17, name: name))
         canMove = true
         customMinZoom = 2
         newLocationAdded = true
+    
+    }
+    
+    
+    func addAnnotationServer( name: String, latitude: Double, longitude: Double ){
+        allPoints.append(AnnotationServer(image: [UIImage(named: "ImagePlaceHoler3")], latitude: latitude, longitude: longitude, zoom: 17, name: name))
     }
     
     func tappedAnnotation() -> Bool{
@@ -129,6 +138,26 @@ final class MapModel: ObservableObject{
         return false
 
     }
+    
+    func searchAndAdd(api : ApiManager){
+        let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
+        print(self.centerLat)
+        print(self.centerLong)
+        api.getBathrooms(lat: self.centerLat, long: self.centerLong, distance: 10000, headers: headers) { result in
+            switch result {
+            case .success(let array):
+                if !array.isEmpty {
+                    for element in array {
+                        self.addAnnotationServer(name: element.name!, latitude: (element.coordinates?.coordinates![0])!, longitude: (element.coordinates?.coordinates![1])!)
+                        
+                        }
+                    }
+            case .failure(let error):
+                print("Error fetching bathrooms: \(error)")
+            }
+        }
+    }
+    
     
    
 }

@@ -13,7 +13,6 @@ import CoreLocation
 struct AnnotationServer: Identifiable, Equatable {
     var id = UUID()
     var image = [UIImage(named: "ImagePlaceHolder")]
-    var text: String
     var latitude: CGFloat
     var longitude: CGFloat
     var zoom: CGFloat
@@ -21,7 +20,6 @@ struct AnnotationServer: Identifiable, Equatable {
     
     static func ==(lhs: AnnotationServer, rhs: AnnotationServer) -> Bool {
         return lhs.id == rhs.id &&
-        lhs.text == rhs.text &&
         lhs.latitude == rhs.latitude &&
         lhs.longitude == rhs.longitude &&
         lhs.zoom == rhs.zoom &&

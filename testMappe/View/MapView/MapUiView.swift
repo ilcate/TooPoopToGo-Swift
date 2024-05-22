@@ -7,7 +7,6 @@ struct MapButtonsView: View {
     @EnvironmentObject var isTexting: IsTexting
     
     
-    
     var body: some View {
         ZStack{
             VStack{
@@ -61,7 +60,6 @@ struct MapButtonsView: View {
                                 }
                                 
                             }
-                            
                         }
                     
                     
@@ -78,9 +76,9 @@ struct MapButtonsView: View {
                         Image("Advice")
                             .uiButtonStyle(backgroundColor: .white)
                             .onTapGesture {
-                                let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
-                                api.getBathrooms(lat: 45, long: 9, distance: 10000, headers: headers)
+                                mapViewModel.searchAndAdd(api: api)
                             }
+
                     }
                     
                 }
@@ -93,7 +91,7 @@ struct MapButtonsView: View {
                             Image("AddAnnotation")
                                 .frame(width: 60, height: 60)
                                 .background(.white)
-                                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                                .clipShape(Circle())
                                 .foregroundStyle(.accent)
                                 .onTapGesture {
                                     mapViewModel.resetAndFollow(z: 18)

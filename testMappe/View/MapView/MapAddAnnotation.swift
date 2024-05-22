@@ -56,7 +56,7 @@ struct SheetAddAn: View {
             FullRoundedButton(text: "Confirm Annotation")
                 .padding(.top, -8)
                 .onTapGesture {
-                    mapViewModel.addAnnotation(icon: "💩", name: mapViewModel.nameNewAnnotation, image: mapViewModel.imagesNewAnnotation)
+                    mapViewModel.addAnnotation(name: mapViewModel.nameNewAnnotation, image: mapViewModel.imagesNewAnnotation)
                     isTexting.page = false
                     dismiss()
                 }

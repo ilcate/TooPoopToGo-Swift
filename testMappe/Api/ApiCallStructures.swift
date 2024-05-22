@@ -42,3 +42,19 @@ struct UserInfoResponse: Decodable {
     var badges: [String]
     var used_toilets: [String]
 }
+
+struct BathroomApi: Decodable {
+    var id: String?
+    var name: String?
+    var address: String?
+    var coordinates: Coordinates?
+    var place_type: String?
+    var is_for_disabled : Bool?
+    var is_free: Bool?
+    var is_for_babies: Bool?
+}
+
+struct Coordinates: Decodable {
+    var type: String?
+    var coordinates: [Double]?
+}

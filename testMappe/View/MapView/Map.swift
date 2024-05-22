@@ -19,7 +19,7 @@ struct MapView: View {
                             Annotation(mapViewModel: mapViewModel, ann: annotationBinding)
                         }
                         .allowOverlapWithPuck(true)//fa si che il punto dell'utente sia sotto all'annotation
-                        .allowOverlap(mapViewModel.currentZoom >= 13 ? true : false)
+                        .allowOverlap(mapViewModel.currentZoom >= 15 ? true : false)
                         .ignoreCameraPadding(false)
                     }
                     Puck2D(bearing: .heading)
@@ -28,6 +28,10 @@ struct MapView: View {
                 .gestureOptions(.init(pitchEnabled: false))
                 .onMapTapGesture(perform: { MapContentGestureContext in
                     mapViewModel.removeSelection()
+                })
+                .onMapIdle(action: { MapIdle in
+                    //print("ciao")
+                    //TODO: chiamare qui l'update della mappa 
                 })
                 .mapStyle(MapStyle.standard(lightPreset: StandardLightPreset(rawValue: colorScheme == .dark ? "night" : "day")))
                 .cameraBounds(CameraBoundsOptions(maxZoom: 18, minZoom: mapViewModel.customMinZoom))
