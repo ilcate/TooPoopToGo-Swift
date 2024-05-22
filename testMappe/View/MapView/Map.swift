@@ -8,10 +8,10 @@ struct MapView: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject var mapViewModel = MapModel()
     
-    
     var body: some View {
        
             ZStack{
+                
                 Map(viewport: $mapViewModel.viewport) {
                     ForEvery(mapViewModel.allPoints){ ann in
                         let annotationBinding = Binding.constant(ann)
@@ -41,6 +41,7 @@ struct MapView: View {
                     mapViewModel.getCameraCenter(CameraChanged: CameraChanged)
                     
                 })
+                
                 .additionalSafeAreaInsets(.horizontal, 8)
                 .additionalSafeAreaInsets(.top, 16)
                 .additionalSafeAreaInsets(.bottom, 24)

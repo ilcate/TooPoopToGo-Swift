@@ -100,6 +100,7 @@ final class MapModel: ObservableObject{
     func getCameraCenter(CameraChanged: CameraChanged){
         centerLat = CameraChanged.cameraState.center.latitude
         centerLong = CameraChanged.cameraState.center.longitude
+       
         //TODO: devo trova i bound neBound = CoordinateBounds
     }
     
@@ -143,12 +144,13 @@ final class MapModel: ObservableObject{
         let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
         print(self.centerLat)
         print(self.centerLong)
-        api.getBathrooms(lat: self.centerLat, long: self.centerLong, distance: 10000, headers: headers) { result in
+        
+        api.getBathrooms(lat: self.centerLat, long: self.centerLong, distance: (7800 / (currentZoom * 2)), headers: headers) { result in
             switch result {
             case .success(let array):
                 if !array.isEmpty {
                     for element in array {
-                        self.addAnnotationServer(name: element.name!, latitude: (element.coordinates?.coordinates![0])!, longitude: (element.coordinates?.coordinates![1])!)
+                        self.addAnnotationServer(name: element.name!, latitude: (element.coordinates?.coordinates![1])!, longitude: (element.coordinates?.coordinates![0])!)
                         
                         }
                     }

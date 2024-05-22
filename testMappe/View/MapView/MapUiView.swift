@@ -97,12 +97,13 @@ struct MapButtonsView: View {
                                     mapViewModel.resetAndFollow(z: 18)
                                     mapViewModel.canMoveCheck(duration: 0.5)
                                 }
-                                .padding(.bottom, mapViewModel.selected?.name != "" && mapViewModel.tappedAnnotation() ? 6 : 72)
+                                .padding(.bottom,   mapViewModel.tappedAnnotation() ?  6 : 72 )
                         }
                     }
                     if mapViewModel.tappedAnnotation() {
                         withAnimation(.snappy){
                             InformationOfSelectionView(mapViewModel: mapViewModel)
+                                .padding(.bottom, 6 )
                         }
                     }
                     
