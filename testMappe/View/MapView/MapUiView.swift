@@ -73,11 +73,6 @@ struct MapButtonsView: View {
                             .onTapGesture {
                                 mapViewModel.resetAndFollow(z: 13)
                             }
-                        Image("Advice")
-                            .uiButtonStyle(backgroundColor: .white)
-                            .onTapGesture {
-                                mapViewModel.searchAndAdd(api: api)
-                            }
 
                     }
                     

@@ -8,13 +8,9 @@ import Alamofire
 
 
 final class MapModel: ObservableObject{
-    @Published  var allPoints = [AnnotationServer( latitude: 45.7613222, longitude: 8.690, zoom: 17, name: "Mareblu"),
-                                 AnnotationServer( latitude: 45.7613222, longitude: 8.695, zoom: 17, name: "Acqua Fresca"),
-                                 AnnotationServer( latitude: 45.461786 , longitude: 9.208970, zoom: 17, name: "Onde Serene"),
-                                 AnnotationServer( latitude: 45.461846, longitude:  9.209764, zoom: 17, name: "Arcobaleno Marino"),
-                                 AnnotationServer( latitude:  45.461786, longitude: 9.209378, zoom: 17, name: "Fonte Pulita")]
+    @Published var allPoints : [AnnotationServer] = []
     @Published var viewport: Viewport = .followPuck(zoom: 13).padding(.all, 20) //gestisce la cam
-    @Published var selected: AnnotationServer? = AnnotationServer( latitude: 0, longitude: 0, zoom: 0, name: "") //da la possibilità di aggiungere nuove annotation
+    @Published var selected: AnnotationServer? = AnnotationServer( id: "", latitude: 0, longitude: 0, zoom: 0, name: "") //da la possibilità di aggiungere nuove annotation
     @Published var canMove = true//altra gestione della cam
     @Published var customMinZoom = 2.0//altra gestione della cam
     @Published var centerLat = 0.0//altra gestione della cam
@@ -32,7 +28,7 @@ final class MapModel: ObservableObject{
     @Published var descNewAnnotation: String = ""
     @Published var imagesNewAnnotation : [UIImage] = []
     @Published var optionsDropDown = ["Public", "Bar", "Restaurant", "Shop"]
-
+    
     
     
     
@@ -94,28 +90,28 @@ final class MapModel: ObservableObject{
     }
     
     func removeSelection(){
-        selected = AnnotationServer( latitude: 0, longitude: 0, zoom: 0, name: "")
+        selected = AnnotationServer( id: "", latitude: 0, longitude: 0, zoom: 0, name: "")
     }
     
     func getCameraCenter(CameraChanged: CameraChanged){
         centerLat = CameraChanged.cameraState.center.latitude
         centerLong = CameraChanged.cameraState.center.longitude
-       
+        
         //TODO: devo trova i bound neBound = CoordinateBounds
     }
     
     //questa diventerà il sed annotation
     func addAnnotation( name: String, image: [UIImage?]){
-        allPoints.append(AnnotationServer(image: image, latitude: centerLat, longitude: centerLong, zoom: 17, name: name))
+        allPoints.append(AnnotationServer(id: "" ,image: image, latitude: centerLat, longitude: centerLong, zoom: 17, name: name))
         canMove = true
         customMinZoom = 2
         newLocationAdded = true
-    
+        
     }
     
     
-    func addAnnotationServer( name: String, latitude: Double, longitude: Double ){
-        allPoints.append(AnnotationServer(image: [UIImage(named: "ImagePlaceHoler3")], latitude: latitude, longitude: longitude, zoom: 17, name: name))
+    func addAnnotationServer( name: String, latitude: Double, longitude: Double , id: String){
+        allPoints.append(AnnotationServer(id: id, image: [UIImage(named: "ImagePlaceHoler3")], latitude: latitude, longitude: longitude, zoom: 17, name: name ))
     }
     
     func tappedAnnotation() -> Bool{
@@ -137,7 +133,7 @@ final class MapModel: ObservableObject{
         }
         
         return false
-
+        
     }
     
     func searchAndAdd(api : ApiManager){
@@ -148,12 +144,12 @@ final class MapModel: ObservableObject{
         api.getBathrooms(lat: self.centerLat, long: self.centerLong, distance: (7800 / (currentZoom * 2)), headers: headers) { result in
             switch result {
             case .success(let array):
+                print(array)
                 if !array.isEmpty {
                     for element in array {
-                        self.addAnnotationServer(name: element.name!, latitude: (element.coordinates?.coordinates![1])!, longitude: (element.coordinates?.coordinates![0])!)
-                        
-                        }
+                        self.addAnnotationServer( name: element.name!, latitude: (element.coordinates?.coordinates![1])!, longitude: (element.coordinates?.coordinates![0])!, id: element.id!)
                     }
+                }
             case .failure(let error):
                 print("Error fetching bathrooms: \(error)")
             }
@@ -161,7 +157,7 @@ final class MapModel: ObservableObject{
     }
     
     
-   
+    
 }
 
 

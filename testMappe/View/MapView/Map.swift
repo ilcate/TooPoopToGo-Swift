@@ -6,6 +6,7 @@ import CoreLocation
 struct MapView: View {
     @EnvironmentObject var tabBarSelection: TabBarSelection
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var api: ApiManager
     @StateObject var mapViewModel = MapModel()
     
     var body: some View {
@@ -13,33 +14,38 @@ struct MapView: View {
             ZStack{
                 
                 Map(viewport: $mapViewModel.viewport) {
-                    ForEvery(mapViewModel.allPoints){ ann in
-                        let annotationBinding = Binding.constant(ann)
-                        MapViewAnnotation(coordinate: CLLocationCoordinate2D(latitude: ann.latitude, longitude: ann.longitude)) {
-                            Annotation(mapViewModel: mapViewModel, ann: annotationBinding)
+                    if !mapViewModel.allPoints.isEmpty{
+                        ForEvery(mapViewModel.allPoints){ ann in
+                            let annotationBinding = Binding.constant(ann)
+                            MapViewAnnotation(coordinate: CLLocationCoordinate2D(latitude: ann.latitude, longitude: ann.longitude)) {
+                                Annotation(mapViewModel: mapViewModel, ann: annotationBinding)
+                            }
+                            .allowOverlapWithPuck(true)//fa si che il punto dell'utente sia sotto all'annotation
+                            .allowOverlap(mapViewModel.currentZoom >= 15 ? true : false)
+                            .ignoreCameraPadding(false)
                         }
-                        .allowOverlapWithPuck(true)//fa si che il punto dell'utente sia sotto all'annotation
-                        .allowOverlap(mapViewModel.currentZoom >= 15 ? true : false)
-                        .ignoreCameraPadding(false)
                     }
+                    
                     Puck2D(bearing: .heading)
                         .showsAccuracyRing(true)
                 }
+                .onMapIdle(action: { MapIdle in
+                    DispatchQueue.main.async {
+                        mapViewModel.searchAndAdd(api: api)
+                        //funziona ma boh
+                    }
+                })
                 .gestureOptions(.init(pitchEnabled: false))
                 .onMapTapGesture(perform: { MapContentGestureContext in
                     mapViewModel.removeSelection()
                 })
-                .onMapIdle(action: { MapIdle in
-                    //print("ciao")
-                    //TODO: chiamare qui l'update della mappa 
-                })
+                
                 .mapStyle(MapStyle.standard(lightPreset: StandardLightPreset(rawValue: colorScheme == .dark ? "night" : "day")))
                 .cameraBounds(CameraBoundsOptions(maxZoom: 18, minZoom: mapViewModel.customMinZoom))
                 .ornamentOptions(OrnamentOptions(scaleBar: ScaleBarViewOptions(visibility: .hidden), compass: CompassViewOptions(visibility: .hidden), logo: LogoViewOptions(margins: .init(x: -10000, y: 0)), attributionButton: AttributionButtonOptions(margins: .init(x: -10000, y: 0))))
                 .onCameraChanged(action: { CameraChanged in
                     mapViewModel.currentZoom = CameraChanged.cameraState.zoom
                     mapViewModel.getCameraCenter(CameraChanged: CameraChanged)
-                    
                 })
                 
                 .additionalSafeAreaInsets(.horizontal, 8)

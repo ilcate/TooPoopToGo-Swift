@@ -11,7 +11,7 @@ import CoreLocation
 @_spi(Experimental) import MapboxMaps
 
 struct AnnotationServer: Identifiable, Equatable {
-    var id = UUID()
+    var id : String
     var image = [UIImage(named: "ImagePlaceHolder")]
     var latitude: CGFloat
     var longitude: CGFloat
