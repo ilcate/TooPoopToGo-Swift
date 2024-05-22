@@ -29,28 +29,23 @@ struct MapView: View {
                     Puck2D(bearing: .heading)
                         .showsAccuracyRing(true)
                 }
-                .onMapIdle(action: { MapIdle in
-                    DispatchQueue.main.async {
-                        mapViewModel.searchAndAdd(api: api)
-                        //funziona ma boh
-                    }
-                })
+               
                 .gestureOptions(.init(pitchEnabled: false))
                 .onMapTapGesture(perform: { MapContentGestureContext in
                     mapViewModel.removeSelection()
                 })
-                
                 .mapStyle(MapStyle.standard(lightPreset: StandardLightPreset(rawValue: colorScheme == .dark ? "night" : "day")))
                 .cameraBounds(CameraBoundsOptions(maxZoom: 18, minZoom: mapViewModel.customMinZoom))
                 .ornamentOptions(OrnamentOptions(scaleBar: ScaleBarViewOptions(visibility: .hidden), compass: CompassViewOptions(visibility: .hidden), logo: LogoViewOptions(margins: .init(x: -10000, y: 0)), attributionButton: AttributionButtonOptions(margins: .init(x: -10000, y: 0))))
                 .onCameraChanged(action: { CameraChanged in
                     mapViewModel.currentZoom = CameraChanged.cameraState.zoom
                     mapViewModel.getCameraCenter(CameraChanged: CameraChanged)
+                    mapViewModel.startCameraChangeTimer(api: api)
                 })
-                
                 .additionalSafeAreaInsets(.horizontal, 8)
                 .additionalSafeAreaInsets(.top, 16)
                 .additionalSafeAreaInsets(.bottom, 24)
+                
                 .ignoresSafeArea(.container)
                 .onAppear{
                     mapViewModel.checkDestination(istTab : tabBarSelection)

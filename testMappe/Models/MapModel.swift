@@ -28,6 +28,7 @@ final class MapModel: ObservableObject{
     @Published var descNewAnnotation: String = ""
     @Published var imagesNewAnnotation : [UIImage] = []
     @Published var optionsDropDown = ["Public", "Bar", "Restaurant", "Shop"]
+    private var cameraChangeTimer: Timer?
     
     
     
@@ -135,26 +136,32 @@ final class MapModel: ObservableObject{
         return false
         
     }
-    
     func searchAndAdd(api : ApiManager){
         let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
-        print(self.centerLat)
-        print(self.centerLong)
-        
-        api.getBathrooms(lat: self.centerLat, long: self.centerLong, distance: (7800 / (currentZoom * 2)), headers: headers) { result in
-            switch result {
-            case .success(let array):
-                print(array)
-                if !array.isEmpty {
-                    for element in array {
-                        self.addAnnotationServer( name: element.name!, latitude: (element.coordinates?.coordinates![1])!, longitude: (element.coordinates?.coordinates![0])!, id: element.id!)
+            api.getBathrooms(lat: self.centerLat, long: self.centerLong, distance: (7800 / (self.currentZoom * 2)), headers: headers) { result in
+                switch result {
+                case .success(let array):
+                    print(array)
+                    if !array.isEmpty {
+                        for element in array {
+                            self.addAnnotationServer( name: element.name!, latitude: (element.coordinates?.coordinates![1])!, longitude: (element.coordinates?.coordinates![0])!, id: element.id!)
+                        }
                     }
+                case .failure(let error):
+                    print("Error fetching bathrooms: \(error)")
                 }
-            case .failure(let error):
-                print("Error fetching bathrooms: \(error)")
-            }
+            
         }
     }
+    
+    func startCameraChangeTimer(api : ApiManager) {
+            cameraChangeTimer?.invalidate()
+            cameraChangeTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+                self?.searchAndAdd(api: api)
+            }
+        }
+    
+    
     
     
     
