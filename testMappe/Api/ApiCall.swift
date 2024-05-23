@@ -132,7 +132,7 @@ class ApiManager: ObservableObject {
 
     func createLocation(name: String, type: String, images: [UIImage], isForDisabled: Bool?, isFree: Bool?, isForBabies: Bool?, long: Double, lat: Double, userToken: String) {
         
-        var params: [String: String] = ["name": name, "type": type, "coordinates": "POINT (\(long) \(lat))"]
+        var params: [String: String] = ["name": name, "type": type, "coordinates": "POINT (\(long) \(lat))" ]
         
         if let isForDisabled = isForDisabled {
             params["is_for_disabled"] = isForDisabled ? "true" : "false"
@@ -143,7 +143,9 @@ class ApiManager: ObservableObject {
         if let isForBabies = isForBabies {
             params["is_for_babies"] = isForBabies ? "true" : "false"
         }
-
+      
+        
+        
         let url = "https://poop.zimahome.casa/toilet/create"
         let headers: HTTPHeaders = ["Authorization": "token \(userToken)"]
 
@@ -155,14 +157,16 @@ class ApiManager: ObservableObject {
             }
 
             for (index, img) in images.enumerated() {
+//                if let imageData = img.jpegData(compressionQuality: 0.5) {
                 if let imageData = img.jpegData(compressionQuality: 0.5) {
-                    let imageName = "\(name)_image\(index).jpg"
-                    multipartFormData.append(imageData, withName: "photo[\(index)]", fileName: imageName, mimeType: "image/jpeg")
-                    // Aggiungi il nome dell'immagine ai parametri
-                    params["photo[\(index)]"] = imageName
+                    let imageName = "\(name)_image\(index).jpeg"
+                    multipartFormData.append(imageData, withName: "photos", fileName: imageName)
+                    
                 }
             }
-        }, to: url, headers: headers).responseString { response in
+            
+        }, to: url, method: .post,  headers: headers).validate()
+            .responseString { response in
             switch response.result {
             case .success(let apiResponse):
                 print("API Response: \(apiResponse)")
@@ -183,7 +187,6 @@ class ApiManager: ObservableObject {
             }
         }
     }
-
 
     
 }
