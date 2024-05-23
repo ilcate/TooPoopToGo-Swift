@@ -25,9 +25,11 @@ final class MapModel: ObservableObject{
     @Published var photosPikerItems: [PhotosPickerItem] = []
     @Published var nameNewAnnotation: String = ""
     @Published var openSheetUploadImage = false
+    @Published var isLoading = false
     @Published var descNewAnnotation: String = ""
     @Published var imagesNewAnnotation : [UIImage] = []
     @Published var optionsDropDown = ["Public", "Bar", "Restaurant", "Shop"]
+    @Published var restrictionsArray = [false, false, false]
     private var cameraChangeTimer: Timer?
     
     
@@ -37,10 +39,9 @@ final class MapModel: ObservableObject{
         let animationDuration = calcDur(cords: cords)
         
         withViewportAnimation(.easeOut(duration: animationDuration)) {
-            viewport = .camera( center: CLLocationCoordinate2D(latitude: cords[0], longitude: cords[1]), zoom: cords[2])
+            viewport = .camera(center: CLLocationCoordinate2D(latitude: cords[0], longitude: cords[1]), zoom: cords[2])
         }
-        
-        
+       
     }
     
     func calcDur(cords: [CGFloat]) -> CGFloat {
@@ -97,18 +98,19 @@ final class MapModel: ObservableObject{
     func getCameraCenter(CameraChanged: CameraChanged){
         centerLat = CameraChanged.cameraState.center.latitude
         centerLong = CameraChanged.cameraState.center.longitude
-        
-        //TODO: devo trova i bound neBound = CoordinateBounds
     }
     
-    //questa diventerà il sed annotation
-//    func addAnnotation( name: String, image: [UIImage?]){
-//        allPoints.append(BathroomApi(id: "" ,image: image, latitude: centerLat, longitude: centerLong, zoom: 17, name: name))
+    func sendPointToServer(name: String, type: String, image: [UIImage], restrictions: [Bool]){
+//            allPoints.append(BathroomApi(id: "" ,image: image, latitude: centerLat, longitude: centerLong, zoom: 17, name: name))
+        print(name)
+        print(type)
+        print(image)
+        print(restrictions)
 //        canMove = true
 //        customMinZoom = 2
 //        newLocationAdded = true
-//        
-//    }
+   
+    }
     
     
     func addAnnotationServer(element : BathroomApi){
@@ -148,9 +150,12 @@ final class MapModel: ObservableObject{
                                 self.addAnnotationServer(element: element)
                             }
                         }
+                       
                     }
+                    self.isLoading = false
                 case .failure(let error):
                     print("Error fetching bathrooms: \(error)")
+                    self.isLoading = false
                 }
             
         }
@@ -159,6 +164,7 @@ final class MapModel: ObservableObject{
     func startCameraChangeTimer(api : ApiManager) {
             cameraChangeTimer?.invalidate()
             cameraChangeTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+                self?.isLoading = true
                 self?.searchAndAdd(api: api)
             }
         }

@@ -16,7 +16,7 @@ struct SheetAddAn: View {
                     TypeSelectionView(optionsDropDown: $mapViewModel.optionsDropDown)
                     TextFieldCustom(stateVariable : $mapViewModel.descNewAnnotation ,  name: "Leave a comment")
                     ImageSelectionView(imagesNewAnnotation: $mapViewModel.imagesNewAnnotation, openSheetUploadImage: $mapViewModel.openSheetUploadImage, photosPikerItems: $mapViewModel.photosPikerItems)
-                    RestrictionsView()
+                    RestrictionsView(restrictions: $mapViewModel.restrictionsArray)
                     RatingsView()
                    
                 }
@@ -55,11 +55,12 @@ struct SheetAddAn: View {
                 .padding(.bottom, 8)
             FullRoundedButton(text: "Confirm Annotation")
                 .padding(.top, -8)
-//                .onTapGesture {
-//                    mapViewModel.addAnnotation(name: mapViewModel.nameNewAnnotation, image: mapViewModel.imagesNewAnnotation)
+                .onTapGesture {
+                    //)mapViewModel.addAnnotation(name: mapViewModel.nameNewAnnotation, image: mapViewModel.imagesNewAnnotation)
+                    mapViewModel.sendPointToServer(name: mapViewModel.nameNewAnnotation, type: mapViewModel.optionsDropDown[0], image : mapViewModel.imagesNewAnnotation, restrictions: mapViewModel.restrictionsArray)
 //                    isTexting.page = false
 //                    dismiss()
-//                }
+                }
         }
         
         

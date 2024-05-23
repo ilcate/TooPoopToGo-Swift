@@ -1,5 +1,6 @@
 import SwiftUI
 import Alamofire
+import Lottie
 
 struct MapButtonsView: View {
     @ObservedObject var mapViewModel: MapModel
@@ -66,6 +67,16 @@ struct MapButtonsView: View {
                 }.padding(.top, 8)
                 
                 HStack{
+                    //LottieView(animation: .named("LoadingAnimation.json"))
+                    if mapViewModel.isLoading{
+                        LottieView(animation: .named("LoadingAnimation.json"))
+                            .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
+                            .configure({ lottieAnimationView in
+                                lottieAnimationView.contentMode = .scaleAspectFill
+                            })
+                            .frame(width: 44, height: 44)
+                    }
+                    
                     Spacer()
                     if  !mapViewModel.search {
                         Image("ResetPosition")

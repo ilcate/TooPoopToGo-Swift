@@ -121,6 +121,9 @@ class ApiManager: ObservableObject {
                 }
             }
     }
+    
+    
+    
     // questo codice dovrebbe essere usato per mandare le immagini
     //    func uploadImage(imgType:String,imgData:Data,imageName:String){
     //       // params to send additional data, for eg. AccessToken or userUserId

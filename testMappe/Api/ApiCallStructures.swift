@@ -52,13 +52,13 @@ struct BathroomApi: Decodable, Identifiable, Equatable {
     var is_for_disabled: Bool?
     var is_free: Bool?
     var is_for_babies: Bool?
+    var photos: [URL]?
 
     var identifier: String {
         id ?? UUID().uuidString
     }
     
     static func == (lhs: BathroomApi, rhs: BathroomApi) -> Bool {
-        // Compare all properties for equality
         return lhs.id == rhs.id &&
                lhs.name == rhs.name &&
                lhs.address == rhs.address &&
@@ -66,7 +66,8 @@ struct BathroomApi: Decodable, Identifiable, Equatable {
                lhs.place_type == rhs.place_type &&
                lhs.is_for_disabled == rhs.is_for_disabled &&
                lhs.is_free == rhs.is_free &&
-               lhs.is_for_babies == rhs.is_for_babies
+               lhs.is_for_babies == rhs.is_for_babies &&
+               lhs.photos == rhs.photos
     }
     
     private var properties: [(String, Any?)] {
@@ -78,10 +79,12 @@ struct BathroomApi: Decodable, Identifiable, Equatable {
             ("place_type", place_type),
             ("is_for_disabled", is_for_disabled),
             ("is_free", is_free),
-            ("is_for_babies", is_for_babies)
+            ("is_for_babies", is_for_babies),
+            ("photos", photos)
         ]
     }
 }
+
 
 
 struct Coordinates: Decodable, Equatable {

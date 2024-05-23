@@ -10,7 +10,9 @@
 		2A0EE7812BC978D600F48FC4 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7802BC978D500F48FC4 /* ViewModifiers.swift */; };
 		2A0EE7862BC97CD300F48FC4 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7852BC97CD300F48FC4 /* MapModel.swift */; };
 		2A0EE7882BC97D4B00F48FC4 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7872BC97D4B00F48FC4 /* Structs.swift */; };
-		2A27C00D2BF8D279006A8FE8 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2A27C00C2BF8D279006A8FE8 /* Lottie */; };
+		2A18B8432BFF36A500C12C9B /* LoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A18B8422BFF36A400C12C9B /* LoadingAnimation.json */; };
+		2A18B8462BFF38B800C12C9B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2A18B8452BFF38B800C12C9B /* Lottie */; };
+		2A18B8482BFF404300C12C9B /* LoadingAnimationWhite.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A18B8472BFF404300C12C9B /* LoadingAnimationWhite.json */; };
 		2A27C00F2BF8D2A8006A8FE8 /* ApiCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27C00E2BF8D2A8006A8FE8 /* ApiCall.swift */; };
 		2A27C0122BF8D5EC006A8FE8 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27C0112BF8D5EC006A8FE8 /* Classes.swift */; };
 		2A27C0152BF8DDAA006A8FE8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2A27C0142BF8DDAA006A8FE8 /* Alamofire */; };
@@ -57,6 +59,8 @@
 		2A0EE7802BC978D500F48FC4 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		2A0EE7852BC97CD300F48FC4 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		2A0EE7872BC97D4B00F48FC4 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		2A18B8422BFF36A400C12C9B /* LoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingAnimation.json; sourceTree = "<group>"; };
+		2A18B8472BFF404300C12C9B /* LoadingAnimationWhite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingAnimationWhite.json; sourceTree = "<group>"; };
 		2A27C00E2BF8D2A8006A8FE8 /* ApiCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCall.swift; sourceTree = "<group>"; };
 		2A27C0112BF8D5EC006A8FE8 /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
 		2A27C0162BF8E60D006A8FE8 /* InsertOtp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertOtp.swift; sourceTree = "<group>"; };
@@ -104,9 +108,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A27C00D2BF8D279006A8FE8 /* Lottie in Frameworks */,
 				2A27C0152BF8DDAA006A8FE8 /* Alamofire in Frameworks */,
 				2A33AF9B2BC041DC00DA90E9 /* MapboxMaps in Frameworks */,
+				2A18B8462BFF38B800C12C9B /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +153,15 @@
 				2A0EE7852BC97CD300F48FC4 /* MapModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		2A18B8492BFF414B00C12C9B /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				2A18B8472BFF404300C12C9B /* LoadingAnimationWhite.json */,
+				2A18B8422BFF36A400C12C9B /* LoadingAnimation.json */,
+			);
+			path = Animations;
 			sourceTree = "<group>";
 		};
 		2A27C0102BF8D2C2006A8FE8 /* Api */ = {
@@ -199,6 +212,7 @@
 				2AE520312BDD0011009AA2BD /* Font */,
 				2A0EE7832BC97C5F00F48FC4 /* Utilities */,
 				2AB2180A2BC03B4A002A32F5 /* Assets.xcassets */,
+				2A18B8492BFF414B00C12C9B /* Animations */,
 				2AB2180C2BC03B4A002A32F5 /* Preview Content */,
 			);
 			path = testMappe;
@@ -260,8 +274,8 @@
 			name = TooPoopToGo;
 			packageProductDependencies = (
 				2A33AF9A2BC041DC00DA90E9 /* MapboxMaps */,
-				2A27C00C2BF8D279006A8FE8 /* Lottie */,
 				2A27C0142BF8DDAA006A8FE8 /* Alamofire */,
+				2A18B8452BFF38B800C12C9B /* Lottie */,
 			);
 			productName = testMappe;
 			productReference = 2AB218032BC03B49002A32F5 /* TooPoopToGo.app */;
@@ -293,8 +307,8 @@
 			mainGroup = 2AB217FA2BC03B49002A32F5;
 			packageReferences = (
 				2A33AF992BC041DC00DA90E9 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
-				2A27C00B2BF8D279006A8FE8 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				2A27C0132BF8DDAA006A8FE8 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				2A18B8442BFF38B800C12C9B /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 2AB218042BC03B49002A32F5 /* Products */;
 			projectDirPath = "";
@@ -314,10 +328,12 @@
 				2AB2180E2BC03B4A002A32F5 /* Preview Assets.xcassets in Resources */,
 				2ADA106E2BDFF2BF00BBC989 /* Manrope-ExtraLight.ttf in Resources */,
 				2ADA10712BDFF2BF00BBC989 /* Manrope-Regular.ttf in Resources */,
+				2A18B8432BFF36A500C12C9B /* LoadingAnimation.json in Resources */,
 				2ADA10722BDFF2BF00BBC989 /* Manrope-Medium.ttf in Resources */,
 				2ADA10732BDFF2BF00BBC989 /* Manrope-Bold.ttf in Resources */,
 				2ADA106F2BDFF2BF00BBC989 /* Manrope-SemiBold.ttf in Resources */,
 				2AB2180B2BC03B4A002A32F5 /* Assets.xcassets in Resources */,
+				2A18B8482BFF404300C12C9B /* LoadingAnimationWhite.json in Resources */,
 				2ADA10702BDFF2BF00BBC989 /* Manrope-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,7 +528,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.christiancatenacci.testMappe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiancatenacci.tooPoopToGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -546,7 +562,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.christiancatenacci.testMappe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiancatenacci.tooPoopToGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -578,9 +594,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2A27C00B2BF8D279006A8FE8 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+		2A18B8442BFF38B800C12C9B /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.4.3;
@@ -605,9 +621,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2A27C00C2BF8D279006A8FE8 /* Lottie */ = {
+		2A18B8452BFF38B800C12C9B /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2A27C00B2BF8D279006A8FE8 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			package = 2A18B8442BFF38B800C12C9B /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
 		};
 		2A27C0142BF8DDAA006A8FE8 /* Alamofire */ = {

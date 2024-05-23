@@ -182,49 +182,42 @@ struct RatingsView: View {
 
 
 
-struct RestrictionsView:  View {
+struct RestrictionsView: View {
+    @Binding var restrictions: [Bool]
+    
+    private let restrictionLabels = [
+        "Disable Allowed?", "For Newborns", "Pay to Use?"]
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("Restrictions")
                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accentColor)
                 .padding(.bottom, -2)
+            
             VStack {
-                HStack {
-                    Text("Disable Allowed?")
-                        .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
-                    Spacer()
-                    Image("CheckBox")
-                        .resizable()
-                        .foregroundStyle(.accent)
-                        .frame(width: 20, height: 20)
+                ForEach(restrictionLabels.indices, id: \.self) { index in
+                    HStack {
+                        Text(restrictionLabels[index])
+                            .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
+                        Spacer()
+                        Image(!restrictions[index] ? "CheckBox" : "CheckBoxChecked")
+                            .resizable()
+                            .foregroundStyle(.accent)
+                            .frame(width: 20, height: 20)
+                            .onTapGesture {
+                                restrictions[index].toggle()
+                            }
+                    }
                 }
-                HStack {
-                    Text("For Newborns")
-                        .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
-                    Spacer()
-                    Image("CheckBoxChecked")
-                        .resizable()
-                        .foregroundStyle(.accent)
-                        .frame(width: 20, height: 20)
-                }
-                HStack {
-                    Text("Pay to Use?")
-                        .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
-                    Spacer()
-                    Image("CheckBox")
-                        .resizable()
-                        .foregroundStyle(.accent)
-                        .frame(width: 20, height: 20)
-                }
-                
             }
             .padding(.vertical, 9)
             .padding(.horizontal, 16)
-            .background(.white)
+            .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
 }
+
 
 
 struct ImageSelectionView:  View {

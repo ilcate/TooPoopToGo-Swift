@@ -13,7 +13,7 @@ struct DetailBathroom: View {
     @State private var images = ["ImagePlaceHolder", "ImagePlaceHolder2", "ImagePlaceHolder3", "ImagePlaceHolder4", "ImagePlaceHolder5"]
     @State private var names = ["MistroFino", "Pisellone", "PerAssurdo", "Filippino"]
     @State private var image : String?
-    @State private var liked  = false
+//    @State private var liked  = false
     @State private var sizeBox : CGFloat?
     //Tutte queste variabili saranno popolate dalla struct che arriva dal back
     @State private var openSheetNavigate =  false
@@ -57,12 +57,12 @@ struct DetailBathroom: View {
                                 print("cercare di capire come farla")
                                 //da capire come fare questa cosa
                             }
-                        Image(liked ? "Liked" : "LikedStroke" )
-                            .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
-                            .uiButtonStyle(backgroundColor: .white)
-                            .onTapGesture {
-                                liked.toggle()
-                            }
+//                        Image(liked ? "Liked" : "LikedStroke" )
+//                            .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+//                            .uiButtonStyle(backgroundColor: .white)
+//                            .onTapGesture {
+//                                liked.toggle()
+//                            }
                     }.padding(.top, 28)
                     Spacer()
                 }.padding(.horizontal, 20)
