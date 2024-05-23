@@ -113,8 +113,6 @@ final class MapModel: ObservableObject{
     
     func addAnnotationServer(element : BathroomApi){
         allPoints.append(BathroomApi(id: element.id, name: element.name, address: element.address, coordinates: element.coordinates, place_type: element.place_type, is_for_disabled: element.is_for_disabled, is_free: element.is_free, is_for_babies: element.is_for_babies))
-        //allPoints.append(BathroomApi(id: id, latitude: latitude, longitude: longitude, zoom: 17, name: name ))
-        print(allPoints)
     }
     
     func tappedAnnotation() -> Bool{
@@ -138,6 +136,7 @@ final class MapModel: ObservableObject{
         return false
         
     }
+    
     func searchAndAdd(api : ApiManager){
         let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
             api.getBathrooms(lat: self.centerLat, long: self.centerLong, distance: (7800 / (self.currentZoom * 2)), headers: headers) { result in
@@ -148,8 +147,6 @@ final class MapModel: ObservableObject{
                             if !self.allPoints.contains(where: { $0.id == element.id }) {
                                 self.addAnnotationServer(element: element)
                             }
-                           
-                            //TODO: chiedere a edo se spostare il foreach fuori dalla chiamata
                         }
                     }
                 case .failure(let error):
