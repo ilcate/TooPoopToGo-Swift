@@ -100,21 +100,20 @@ final class MapModel: ObservableObject{
         centerLong = CameraChanged.cameraState.center.longitude
     }
     
-    func sendPointToServer(name: String, type: String, image: [UIImage], restrictions: [Bool]){
+    func sendPointToServer(name: String, type: String, image: [UIImage], restrictions: [Bool], api : ApiManager){
+        
+        api.createLocation(name: name, type: type, images: image, isForDisabled: restrictions[0], isFree: restrictions[2], isForBabies: restrictions[1],long: centerLong, lat: centerLat, userToken: api.userToken)
 //            allPoints.append(BathroomApi(id: "" ,image: image, latitude: centerLat, longitude: centerLong, zoom: 17, name: name))
-        print(name)
-        print(type)
-        print(image)
-        print(restrictions)
 //        canMove = true
 //        customMinZoom = 2
 //        newLocationAdded = true
+        
    
     }
     
     
     func addAnnotationServer(element : BathroomApi){
-        allPoints.append(BathroomApi(id: element.id, name: element.name, address: element.address, coordinates: element.coordinates, place_type: element.place_type, is_for_disabled: element.is_for_disabled, is_free: element.is_free, is_for_babies: element.is_for_babies))
+        allPoints.append(BathroomApi(id: element.id, photos: element.photos, name: element.name, address: element.address, coordinates: element.coordinates, place_type: element.place_type, is_for_disabled: element.is_for_disabled, is_free: element.is_free, is_for_babies: element.is_for_babies))
     }
     
     func tappedAnnotation() -> Bool{
@@ -150,7 +149,6 @@ final class MapModel: ObservableObject{
                                 self.addAnnotationServer(element: element)
                             }
                         }
-                       
                     }
                     self.isLoading = false
                 case .failure(let error):
@@ -166,7 +164,10 @@ final class MapModel: ObservableObject{
             cameraChangeTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
                 self?.isLoading = true
                 self?.searchAndAdd(api: api)
+                print(self!.allPoints)
+               
             }
+           
         }
     
     

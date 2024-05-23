@@ -25,7 +25,7 @@ struct Annotation: View {
                 )
                 .onTapGesture {
                     withAnimation(.snappy) {
-                        mapViewModel.moveToDestination(cords: [CGFloat((ann.coordinates?.coordinates![1])!), CGFloat((ann.coordinates?.coordinates![0])!), 13], dur: 0.3)
+                        mapViewModel.moveToDestination(cords: [CGFloat((ann.coordinates?.coordinates![1])!), CGFloat((ann.coordinates?.coordinates![0])!), 15], dur: 0.3)
                         mapViewModel.selected = ann
                         
                     }

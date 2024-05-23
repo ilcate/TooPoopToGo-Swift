@@ -1,6 +1,6 @@
 import Foundation
+import SwiftUI
 import Alamofire
-
 
 class ApiManager: ObservableObject {
     @Published var userToken: String {
@@ -8,10 +8,19 @@ class ApiManager: ObservableObject {
             UserDefaults.standard.set(userToken, forKey: "userToken")
         }
     }
-    private var url = "https://poop.zimahome.casa"
+    var url = "https://poop.zimahome.casa"
+    
+    // Mantieni un riferimento alla sessione come variabile di istanza
+    private let session: Session
     
     init() {
         self.userToken = UserDefaults.standard.string(forKey: "userToken") ?? ""
+        
+        // Inizializza la sessione
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 60 // Timeout interval for request
+        configuration.timeoutIntervalForResource = 60 // Timeout interval for resource
+        self.session = Session(configuration: configuration)
     }
     
     @Published var username = ""
@@ -38,7 +47,6 @@ class ApiManager: ObservableObject {
             .responseString { response in
                 switch response.result {
                 case .success(let responseString):
-                    print("Response String: \(responseString)")
                     completion(.success(responseString))
                 case .failure(let error):
                     print("Failure: \(error)")
@@ -54,7 +62,6 @@ class ApiManager: ObservableObject {
             .responseString { response in
                 switch response.result {
                 case .success(let responseBody):
-                    print("Response String: \(responseBody)")
                     
                     if let token = self.extractToken(from: responseBody) {
                         completion(.success(token))
@@ -113,7 +120,6 @@ class ApiManager: ObservableObject {
             .responseDecodable(of: UserInfoResponse.self) { response in
                 switch response.result {
                 case .success(let responseBody):
-                    print("Response Body: \(responseBody)")
                     completion(.success(responseBody))
                 case .failure(let error):
                     print("Failure: \(error)")
@@ -123,30 +129,61 @@ class ApiManager: ObservableObject {
     }
     
     
-    
-    // questo codice dovrebbe essere usato per mandare le immagini
-    //    func uploadImage(imgType:String,imgData:Data,imageName:String){
-    //       // params to send additional data, for eg. AccessToken or userUserId
-    //       let params = ["userID":"userId","accessToken":"your accessToken"]
-    //       print(params)
-    //       AF.upload(multipartFormData: { multiPart in
-    //           for (key,keyValue) in params{
-    //               if let keyData = keyValue.data(using: .utf8){
-    //                   multiPart.append(keyData, withName: key)
-    //               }
-    //           }
-    //
-    //           multiPart.append(imgData, withName: "key",fileName: imageName,mimeType: "image/*")
-    //       }, to: "Your URL",headers: []).responseJSON { apiResponse in
-    //
-    //           switch apiResponse.result{
-    //           case .success(_):
-    //               let apiDictionary = apiResponse.value as? [String:Any]
-    //               print("apiResponse --- \(apiDictionary)")
-    //           case .failure(_):
-    //               print("got an error")
-    //           }
-    //       }
-    //   }
+
+    func createLocation(name: String, type: String, images: [UIImage], isForDisabled: Bool?, isFree: Bool?, isForBabies: Bool?, long: Double, lat: Double, userToken: String) {
+        
+        var params: [String: String] = ["name": name, "type": type, "coordinates": "POINT (\(long) \(lat))"]
+        
+        if let isForDisabled = isForDisabled {
+            params["is_for_disabled"] = isForDisabled ? "true" : "false"
+        }
+        if let isFree = isFree {
+            params["is_free"] = isFree ? "true" : "false"
+        }
+        if let isForBabies = isForBabies {
+            params["is_for_babies"] = isForBabies ? "true" : "false"
+        }
+
+        let url = "https://poop.zimahome.casa/toilet/create"
+        let headers: HTTPHeaders = ["Authorization": "token \(userToken)"]
+
+        session.upload(multipartFormData: { multipartFormData in
+            for (key, value) in params {
+                if let data = value.data(using: .utf8) {
+                    multipartFormData.append(data, withName: key)
+                }
+            }
+
+            for (index, img) in images.enumerated() {
+                if let imageData = img.jpegData(compressionQuality: 0.5) {
+                    let imageName = "\(name)_image\(index).jpg"
+                    multipartFormData.append(imageData, withName: "photo[\(index)]", fileName: imageName, mimeType: "image/jpeg")
+                    // Aggiungi il nome dell'immagine ai parametri
+                    params["photo[\(index)]"] = imageName
+                }
+            }
+        }, to: url, headers: headers).responseString { response in
+            switch response.result {
+            case .success(let apiResponse):
+                print("API Response: \(apiResponse)")
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                if let underlyingError = error.underlyingError as? URLError {
+                    switch underlyingError.code {
+                    case .notConnectedToInternet:
+                        print("No internet connection.")
+                    case .timedOut:
+                        print("Request timed out.")
+                    case .networkConnectionLost:
+                        print("Network connection was lost.")
+                    default:
+                        print("Other network error.")
+                    }
+                }
+            }
+        }
+    }
+
+
     
 }

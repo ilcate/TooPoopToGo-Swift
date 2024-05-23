@@ -4,6 +4,7 @@ import PhotosUI
 struct SheetAddAn: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var isTexting: IsTexting
+    @EnvironmentObject var api: ApiManager
     @ObservedObject var mapViewModel: MapModel
  
     
@@ -57,7 +58,7 @@ struct SheetAddAn: View {
                 .padding(.top, -8)
                 .onTapGesture {
                     //)mapViewModel.addAnnotation(name: mapViewModel.nameNewAnnotation, image: mapViewModel.imagesNewAnnotation)
-                    mapViewModel.sendPointToServer(name: mapViewModel.nameNewAnnotation, type: mapViewModel.optionsDropDown[0], image : mapViewModel.imagesNewAnnotation, restrictions: mapViewModel.restrictionsArray)
+                    mapViewModel.sendPointToServer(name: mapViewModel.nameNewAnnotation, type: mapViewModel.optionsDropDown[0], image : mapViewModel.imagesNewAnnotation, restrictions: mapViewModel.restrictionsArray, api: api)
 //                    isTexting.page = false
 //                    dismiss()
                 }

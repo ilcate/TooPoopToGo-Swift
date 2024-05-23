@@ -45,6 +45,7 @@ struct UserInfoResponse: Decodable {
 
 struct BathroomApi: Decodable, Identifiable, Equatable {
     var id: String?
+    var photos: [Photos]?
     var name: String?
     var address: String?
     var coordinates: Coordinates?
@@ -52,12 +53,11 @@ struct BathroomApi: Decodable, Identifiable, Equatable {
     var is_for_disabled: Bool?
     var is_free: Bool?
     var is_for_babies: Bool?
-    var photos: [URL]?
 
     var identifier: String {
         id ?? UUID().uuidString
     }
-    
+
     static func == (lhs: BathroomApi, rhs: BathroomApi) -> Bool {
         return lhs.id == rhs.id &&
                lhs.name == rhs.name &&
@@ -69,7 +69,7 @@ struct BathroomApi: Decodable, Identifiable, Equatable {
                lhs.is_for_babies == rhs.is_for_babies &&
                lhs.photos == rhs.photos
     }
-    
+
     private var properties: [(String, Any?)] {
         return [
             ("id", id),
@@ -85,7 +85,10 @@ struct BathroomApi: Decodable, Identifiable, Equatable {
     }
 }
 
-
+struct Photos: Decodable, Equatable {
+    var id: String
+    var photo: String
+}
 
 struct Coordinates: Decodable, Equatable {
     var type: String?
@@ -96,3 +99,8 @@ struct Coordinates: Decodable, Equatable {
     }
 }
 
+struct addApiResponse: Decodable {
+    let success: Bool
+    let message: String?
+    
+}

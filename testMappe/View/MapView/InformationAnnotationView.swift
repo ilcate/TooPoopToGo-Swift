@@ -9,22 +9,46 @@ import SwiftUI
 
 struct InformationOfSelectionView: View {
     @ObservedObject var mapViewModel: MapModel
+    @EnvironmentObject var api: ApiManager
     
     var body: some View {
-       
+        
         VStack{
             if let selected = mapViewModel.selected {
                 NavigationLink(destination: DetailBathroom()){
-                    HStack(spacing: 0){
-                        //Image( uiImage: selected.image[0] ?? UIImage(named: "ImagePlaceHolder")!)
-                        Image( uiImage: UIImage(named: "ImagePlaceHolder")!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 88, height: 96)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .padding(.vertical, 8).padding(.horizontal, 8)
-                        VStack(alignment: .leading, spacing: 0){
-                            HStack{
+                    
+                    //TODO: refactora questo ci sono legit 3 cose uguali, coglione!
+                    HStack(spacing: 0) {
+                        if let photos = selected.photos, !photos.isEmpty, let photo = photos.first?.photo, let url = URL(string: "\(api.url)\(photo)") {
+                            AsyncImage(url: url) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 88, height: 96)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 8)
+                            } placeholder: {
+                                Image("noPhoto")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 88, height: 96)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 8)
+                            }
+                        } else {
+                            Image("noPhoto")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 88, height: 96)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .padding(.vertical, 8)
+                                .padding(.horizontal, 8)
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 0) {
+                            HStack {
                                 Text(selected.name!)
                                     .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 24, fontColor: .accentColor)
                                 Spacer()
@@ -40,34 +64,33 @@ struct InformationOfSelectionView: View {
                                 .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accentColor)
                             Spacer()
                             
-                            HStack{
-                                SmallTag(text: "Trending")//ogni bagno avrà un array di tag e io filtro i primi due 
+                            HStack {
+                                SmallTag(text: "Trending") // ogni bagno avrà un array di tag e io filtro i primi due
                                 SmallTag(text: "Cleanest")
-                                
                             }
-                            
                         }
-                        .padding(.trailing, 10).padding(.vertical, 8)
-                        
-                        
+                        .padding(.trailing, 10)
+                        .padding(.vertical, 8)
                     }
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .frame(maxWidth: .infinity, maxHeight: 110)
+                    
+                    
                 }
             }
         }
-           .padding(.bottom, mapViewModel.selected?.name != "" ? 72 : 0)
-           .opacity(mapViewModel.selected?.name != "" ? 1 : 0)
-           .onChange(of: mapViewModel.viewport){
-                   if !mapViewModel.checkCoordinates() {
-                       mapViewModel.removeSelection()
-                   }
-              
-           }
+        .padding(.bottom, mapViewModel.selected?.name != "" ? 72 : 0)
+        .opacity(mapViewModel.selected?.name != "" ? 1 : 0)
+        .onChange(of: mapViewModel.viewport){
+            if !mapViewModel.checkCoordinates() {
+                mapViewModel.removeSelection()
+            }
+            
         }
-        
     }
+    
+}
 
 
 
