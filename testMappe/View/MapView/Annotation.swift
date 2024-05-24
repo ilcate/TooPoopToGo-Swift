@@ -15,7 +15,7 @@ struct Annotation: View {
         VStack{
             Image(mapViewModel.filterSelected)
                 .resizable()
-                .frame(width: 24, height: 24)
+                .frame(width: 20, height: 20)
                 .foregroundStyle((ann == mapViewModel.selected! && mapViewModel.tappedAnnotation() && mapViewModel.filterSelected == "Roll") ? .white : .accent)
                 .padding(.bottom, 8)
                 .background(

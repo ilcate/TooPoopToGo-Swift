@@ -29,7 +29,9 @@ struct MapView: View {
                     Puck2D(bearing: .heading)
                         .showsAccuracyRing(true)
                 }
-               
+                .onStyleLoaded(action: { StyleLoaded in
+                        mapViewModel.startCameraChangeTimer(api: api)
+                })
                 .gestureOptions(.init(pitchEnabled: false))
                 .onMapTapGesture(perform: { MapContentGestureContext in
                     mapViewModel.removeSelection()
@@ -45,7 +47,6 @@ struct MapView: View {
                 .additionalSafeAreaInsets(.horizontal, 8)
                 .additionalSafeAreaInsets(.top, 16)
                 .additionalSafeAreaInsets(.bottom, 24)
-                
                 .ignoresSafeArea(.container)
                 .onAppear{
                     mapViewModel.checkDestination(istTab : tabBarSelection)
@@ -62,6 +63,9 @@ struct MapView: View {
                                 .background(Color.white)
                                 
                         }.padding(.bottom, -5)
+//                            .task {
+//                                mapViewModel.startCameraChangeTimer(api: api)
+//                            }
                        
                     }
                     

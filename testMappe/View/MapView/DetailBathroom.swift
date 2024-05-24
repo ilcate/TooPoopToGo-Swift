@@ -155,8 +155,8 @@ struct DetailBathroom: View {
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 30)
                 .padding(.horizontal, 12)
                 Rectangle()
-                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 2)
-                    .foregroundStyle(.cUltraLightGray)
+                    .frame(maxWidth: .infinity, maxHeight: 2)
+                    .foregroundStyle(.cLightBrown)
                 HStack {
                     VStack(spacing:1){
                         Text("Cleanliness")
@@ -172,7 +172,7 @@ struct DetailBathroom: View {
                     }.frame(maxWidth: .infinity, maxHeight: 30)
                     Rectangle()
                         .frame(maxWidth: 2, maxHeight: .infinity)
-                        .foregroundStyle(.cUltraLightGray)
+                        .foregroundStyle(.cLightBrown)
                         .ignoresSafeArea(.all)
                     VStack(spacing:1){
                         Text("Comfort")
@@ -188,7 +188,7 @@ struct DetailBathroom: View {
                     }.frame(maxWidth: .infinity, maxHeight: 30)
                     Rectangle()
                         .frame(maxWidth: 2, maxHeight: .infinity)
-                        .foregroundStyle(.cUltraLightGray)
+                        .foregroundStyle(.cLightBrown)
                         .ignoresSafeArea(.all)
                     VStack(spacing:1){
                         Text("Accessibility")
@@ -218,13 +218,13 @@ struct DetailBathroom: View {
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(.cUltraLightGray, lineWidth: 2)
+                    .stroke(.cLightBrown, lineWidth: 2)
             )
             .padding(.horizontal, 20).padding(.vertical, 6)
             VStack(spacing: 0){
                 Rectangle()
                     .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 2)
-                    .foregroundStyle(.cUltraLightGray)
+                    .foregroundStyle(.cLightGray)
                 VStack{
                     HStack{
                         Text("Location Reviews")

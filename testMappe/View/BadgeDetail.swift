@@ -102,7 +102,7 @@ struct BadgeDetail: View {
                     }
                     Spacer()
                     Rectangle()
-                        .fill(.cUltraLightGray)
+                        .fill(.cLightBrown)
                         .frame(maxWidth:  2, maxHeight: .infinity )
                     Spacer()
                     VStack{
@@ -116,7 +116,7 @@ struct BadgeDetail: View {
                    
                     Spacer()
                     Rectangle()
-                        .fill(.cUltraLightGray)
+                        .fill(.cLightBrown)
                         .frame(maxWidth:  2, maxHeight: .infinity )
                     Spacer()
                     VStack{
@@ -134,7 +134,7 @@ struct BadgeDetail: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(.cUltraLightGray, lineWidth: 2)
+                        .stroke(.cLightBrown, lineWidth: 2)
                 )
                 
                 HStack{

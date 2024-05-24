@@ -24,7 +24,7 @@ struct SmallTag: View {
                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: Color.accent)
         }
         .padding(.vertical, 5.5).padding(.leading, 5).padding(.trailing, 7)
-        .background(.cUltraLightGray)
+        .background(.cLightBrown)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
@@ -103,7 +103,7 @@ struct FiltersScroller: View {
                     .padding(.vertical, 7)
                     .padding(.leading, 9)
                     .padding(.trailing, 11)
-                    .background(filtersArray[index].selected == false ? Color.cUltraLightGray : Color.accent)
+                    .background(filtersArray[index].selected == false ? Color.cLightBrown : Color.accent)
                     .clipShape(Capsule())
                 }
             }.padding(.horizontal, 20)

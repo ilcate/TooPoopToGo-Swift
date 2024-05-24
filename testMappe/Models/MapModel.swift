@@ -10,7 +10,7 @@ import Alamofire
 final class MapModel: ObservableObject{
     @Published var allPoints : [BathroomApi] = []
     @Published var viewport: Viewport = .followPuck(zoom: 13).padding(.all, 20) //gestisce la cam
-    @Published var selected: BathroomApi? = BathroomApi(id: "", name: "", address: "", coordinates: Coordinates(), place_type: "", is_for_disabled: false, is_free: false, is_for_babies: false) //da la possibilità di aggiungere nuove annotation
+    @Published var selected: BathroomApi? = BathroomApi(id: "", name: "", address: "", coordinates: Coordinates(), place_type: "", is_for_disabled: false, is_free: false, is_for_babies: false)
     @Published var canMove = true//altra gestione della cam
     @Published var customMinZoom = 2.0//altra gestione della cam
     @Published var centerLat = 0.0//altra gestione della cam
@@ -31,7 +31,7 @@ final class MapModel: ObservableObject{
     @Published var optionsDropDown = ["Public", "Bar", "Restaurant", "Shop"]
     @Published var restrictionsArray = [false, false, false]
     private var cameraChangeTimer: Timer?
-    
+    private var firstTime = true
     
     
     
@@ -41,7 +41,7 @@ final class MapModel: ObservableObject{
         withViewportAnimation(.easeOut(duration: animationDuration)) {
             viewport = .camera(center: CLLocationCoordinate2D(latitude: cords[0], longitude: cords[1]), zoom: cords[2])
         }
-       
+        
     }
     
     func calcDur(cords: [CGFloat]) -> CGFloat {
@@ -101,7 +101,7 @@ final class MapModel: ObservableObject{
     }
     
     func sendPointToServer(name: String, type: String, image: [UIImage], restrictions: [Bool], api: ApiManager, completion: @escaping (Bool) -> Void) {
-
+        
         api.createLocation(name: name, type: type, images: image, isForDisabled: restrictions[0], isFree: restrictions[2], isForBabies: restrictions[1], long: centerLong, lat: centerLat, userToken: api.userToken) { result in
             switch result {
             case .success(let userInfoResponse):
@@ -123,7 +123,7 @@ final class MapModel: ObservableObject{
         imagesNewAnnotation = []
         restrictionsArray = [false, false, false]
     }
-
+    
     
     
     func addAnnotationServer(element : BathroomApi){
@@ -154,37 +154,53 @@ final class MapModel: ObservableObject{
     
     func searchAndAdd(api : ApiManager){
         let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
-            api.getBathrooms(lat: self.centerLat, long: self.centerLong, distance: (7800 / (self.currentZoom * 2)), headers: headers) { result in
-                switch result {
-                case .success(let array):
-                    if !array.isEmpty {
-                        for element in array {
-                            if !self.allPoints.contains(where: { $0.id == element.id }) {
-                                self.addAnnotationServer(element: element)
-                            }
+        api.getBathrooms(lat: self.centerLat, long: self.centerLong, distance: (7800 / (self.currentZoom * 2)), headers: headers) { result in
+            switch result {
+            case .success(let array):
+                if !array.isEmpty {
+                    for element in array {
+                        if !self.allPoints.contains(where: { $0.id == element.id }) {
+                            self.addAnnotationServer(element: element)
                         }
                     }
-                    self.isLoading = false
-                case .failure(let error):
-                    print("Error fetching bathrooms: \(error)")
-                    self.isLoading = false
                 }
+                self.isLoading = false
+            case .failure(let error):
+                print("Error fetching bathrooms: \(error)")
+                self.isLoading = false
+            }
+            
+        }
+    }
+    
+    func firstTimeFunction(api : ApiManager){
+        let locationManager = CLLocationManager()
+        centerLat = Double((locationManager.location?.coordinate.latitude)!)
+        centerLong = Double((locationManager.location?.coordinate.longitude)!)
+        currentZoom = 13.0
+        DispatchQueue.main.async {
+            self.searchAndAdd(api: api)
+            self.firstTime = false
+        }
+    }
+    
+    func notFirstTimeFunction(api : ApiManager){
+        cameraChangeTimer?.invalidate()
+        cameraChangeTimer = Timer.scheduledTimer(withTimeInterval:  0.5, repeats: false) { [weak self] _ in
+            self?.isLoading = true
+            self?.searchAndAdd(api: api)
             
         }
     }
     
     func startCameraChangeTimer(api : ApiManager) {
-            cameraChangeTimer?.invalidate()
-            cameraChangeTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
-                self?.isLoading = true
-                self?.searchAndAdd(api: api)
-                print(self!.allPoints)
-               
-            }
-           
+        if firstTime {
+            firstTimeFunction(api: api)
+        }else{
+            notFirstTimeFunction(api: api)
         }
-    
-    
+        
+    }
 }
 
 
