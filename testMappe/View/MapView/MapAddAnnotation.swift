@@ -58,9 +58,16 @@ struct SheetAddAn: View {
                 .padding(.top, -8)
                 .onTapGesture {
                     //)mapViewModel.addAnnotation(name: mapViewModel.nameNewAnnotation, image: mapViewModel.imagesNewAnnotation)
-                    mapViewModel.sendPointToServer(name: mapViewModel.nameNewAnnotation, type: mapViewModel.optionsDropDown[0], image : mapViewModel.imagesNewAnnotation, restrictions: mapViewModel.restrictionsArray, api: api)
-//                    isTexting.page = false
-//                    dismiss()
+                    mapViewModel.sendPointToServer(name: mapViewModel.nameNewAnnotation, type: mapViewModel.optionsDropDown[0], image : mapViewModel.imagesNewAnnotation, restrictions: mapViewModel.restrictionsArray, api: api) { result in
+                        if result {
+                            isTexting.page = false
+                            mapViewModel.resetAddParams()
+                            dismiss()
+                        }else{
+                            print("no eh")
+                        }
+                    }
+                    
                 }
         }
         

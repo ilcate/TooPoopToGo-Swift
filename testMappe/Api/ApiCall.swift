@@ -130,9 +130,9 @@ class ApiManager: ObservableObject {
     
     
 
-    func createLocation(name: String, type: String, images: [UIImage], isForDisabled: Bool?, isFree: Bool?, isForBabies: Bool?, long: Double, lat: Double, userToken: String) {
+    func createLocation(name: String, type: String, images: [UIImage], isForDisabled: Bool?, isFree: Bool?, isForBabies: Bool?, long: Double, lat: Double, userToken: String, completion: @escaping (Result<RegisterResponse, Error>) -> Void) {
         
-        var params: [String: String] = ["name": name, "type": type, "coordinates": "POINT (\(long) \(lat))" ]
+        var params: [String: String] = ["name": name, "type": type, "coordinates": "POINT (\(long) \(lat))"]
         
         if let isForDisabled = isForDisabled {
             params["is_for_disabled"] = isForDisabled ? "true" : "false"
@@ -143,47 +143,37 @@ class ApiManager: ObservableObject {
         if let isForBabies = isForBabies {
             params["is_for_babies"] = isForBabies ? "true" : "false"
         }
-      
-        
         
         let url = "https://poop.zimahome.casa/toilet/create"
         let headers: HTTPHeaders = ["Authorization": "token \(userToken)"]
-
+        
         session.upload(multipartFormData: { multipartFormData in
             for (key, value) in params {
                 if let data = value.data(using: .utf8) {
                     multipartFormData.append(data, withName: key)
                 }
             }
-
+            
             for (index, img) in images.enumerated() {
-//                if let imageData = img.jpegData(compressionQuality: 0.5) {
                 if let imageData = img.jpegData(compressionQuality: 0.5) {
                     let imageName = "\(name)_image\(index).jpeg"
                     multipartFormData.append(imageData, withName: "photos", fileName: imageName)
-                    
                 }
             }
             
-        }, to: url, method: .post,  headers: headers).validate()
-            .responseString { response in
+        }, to: url, method: .post, headers: headers).validate()
+        .responseString { response in
             switch response.result {
             case .success(let apiResponse):
-                print("API Response: \(apiResponse)")
-            case .failure(let error):
-                print("Error: \(error.localizedDescription)")
-                if let underlyingError = error.underlyingError as? URLError {
-                    switch underlyingError.code {
-                    case .notConnectedToInternet:
-                        print("No internet connection.")
-                    case .timedOut:
-                        print("Request timed out.")
-                    case .networkConnectionLost:
-                        print("Network connection was lost.")
-                    default:
-                        print("Other network error.")
-                    }
+                do {
+                    let responseData = Data(apiResponse.utf8)
+                    let decodedResponse = try JSONDecoder().decode(RegisterResponse.self, from: responseData)
+                    completion(.success(decodedResponse))
+                } catch {
+                    completion(.failure(error))
                 }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }

@@ -100,16 +100,30 @@ final class MapModel: ObservableObject{
         centerLong = CameraChanged.cameraState.center.longitude
     }
     
-    func sendPointToServer(name: String, type: String, image: [UIImage], restrictions: [Bool], api : ApiManager){
-        
-        api.createLocation(name: name, type: type, images: image, isForDisabled: restrictions[0], isFree: restrictions[2], isForBabies: restrictions[1],long: centerLong, lat: centerLat, userToken: api.userToken)
-//            allPoints.append(BathroomApi(id: "" ,image: image, latitude: centerLat, longitude: centerLong, zoom: 17, name: name))
-//        canMove = true
-//        customMinZoom = 2
-//        newLocationAdded = true
-        
-   
+    func sendPointToServer(name: String, type: String, image: [UIImage], restrictions: [Bool], api: ApiManager, completion: @escaping (Bool) -> Void) {
+
+        api.createLocation(name: name, type: type, images: image, isForDisabled: restrictions[0], isFree: restrictions[2], isForBabies: restrictions[1], long: centerLong, lat: centerLat, userToken: api.userToken) { result in
+            switch result {
+            case .success(let userInfoResponse):
+                self.canMove = true
+                self.customMinZoom = 2
+                self.newLocationAdded = true
+                print("Location added successfully: \(userInfoResponse)")
+                completion(true)
+            case .failure(let error):
+                print("Failed to add location: \(error.localizedDescription)")
+                completion(false)
+            }
+        }
     }
+    
+    func resetAddParams(){
+        nameNewAnnotation = ""
+        optionsDropDown = ["Public", "Bar", "Restaurant", "Shop"]
+        imagesNewAnnotation = []
+        restrictionsArray = [false, false, false]
+    }
+
     
     
     func addAnnotationServer(element : BathroomApi){
