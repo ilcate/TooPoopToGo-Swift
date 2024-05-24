@@ -40,6 +40,7 @@ final class MapModel: ObservableObject{
         
         withViewportAnimation(.easeOut(duration: animationDuration)) {
             viewport = .camera(center: CLLocationCoordinate2D(latitude: cords[0], longitude: cords[1]), zoom: cords[2])
+            
         }
         
     }
@@ -59,10 +60,10 @@ final class MapModel: ObservableObject{
         
         if total < 10{
             return 0.3
-        }else if total >= 10 && total < 50{
+        } else if total >= 10 && total < 50 {
             return 0.5
-        }else{
-            return total/100+0.3
+        } else {
+            return total / 100 + 0.3
         }
         
     }
@@ -154,17 +155,26 @@ final class MapModel: ObservableObject{
     
     func searchAndAdd(api : ApiManager){
         let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
-        api.getBathrooms(lat: self.centerLat, long: self.centerLong, distance: (7800 / (self.currentZoom * 2)), headers: headers) { result in
+        var dist = (((-383.5 * currentZoom + 5027.5) * 10 / 100) / (18 - currentZoom) + 1 )
+        api.getBathroomsNearToYou(lat: self.centerLat, long: self.centerLong, distance: dist > 1 ? dist : 1, headers: headers) { result in
             switch result {
             case .success(let array):
+                
                 if !array.isEmpty {
-                    for element in array {
-                        if !self.allPoints.contains(where: { $0.id == element.id }) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                        self.allPoints.removeAll()
+                        for element in array {
                             self.addAnnotationServer(element: element)
                         }
+                        self.isLoading = false
+                    }
+                }else{
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                        self.allPoints.removeAll()
+                        self.isLoading = false
                     }
                 }
-                self.isLoading = false
+                
             case .failure(let error):
                 print("Error fetching bathrooms: \(error)")
                 self.isLoading = false
@@ -175,8 +185,8 @@ final class MapModel: ObservableObject{
     
     func firstTimeFunction(api : ApiManager){
         let locationManager = CLLocationManager()
-        centerLat = Double((locationManager.location?.coordinate.latitude)!)
-        centerLong = Double((locationManager.location?.coordinate.longitude)!)
+        centerLat = Double((locationManager.location?.coordinate.latitude) ?? 0)
+        centerLong = Double((locationManager.location?.coordinate.longitude) ?? 0)
         currentZoom = 13.0
         DispatchQueue.main.async {
             self.searchAndAdd(api: api)

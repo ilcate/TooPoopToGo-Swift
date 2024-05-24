@@ -4,22 +4,26 @@ import Alamofire
 
 class ApiManager: ObservableObject {
     @Published var userToken: String {
-        didSet {
-            UserDefaults.standard.set(userToken, forKey: "userToken")
+            didSet {
+                UserDefaults.standard.set(userToken, forKey: "userToken")
+                headers.update(name: "Authorization", value: "token \(userToken)")
+            }
         }
-    }
-    var url = "https://poop.zimahome.casa"
+    
+    let url = "https://poop.zimahome.casa"
+    var headers : HTTPHeaders
     
     // Mantieni un riferimento alla sessione come variabile di istanza
     private let session: Session
     
     init() {
         self.userToken = UserDefaults.standard.string(forKey: "userToken") ?? ""
+        self.headers = HTTPHeaders(["Authorization": "token \(UserDefaults.standard.string(forKey: "userToken") ?? "")"])
         
-        // Inizializza la sessione
+        // Initialize the session
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 60 // Timeout interval for request
-        configuration.timeoutIntervalForResource = 60 // Timeout interval for resource
+        configuration.timeoutIntervalForRequest = 60
+        configuration.timeoutIntervalForResource = 60
         self.session = Session(configuration: configuration)
     }
     
@@ -56,6 +60,20 @@ class ApiManager: ObservableObject {
         
     }
     
+    func searchBathroom(headers: HTTPHeaders, stringToSearch: String) {
+        AF.request("\(url)/toilet/list-verified/\(stringToSearch)", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseString { response in
+                switch response.result {
+                case .success(let responseString):
+                    print(responseString)
+                case .failure(let error):
+                    print("Failure: \(error)")
+                }
+            }
+        
+    }
+    
     func getToken(userData: LogInInformation, completion: @escaping (Result<String, Error>) -> Void) {
         AF.request("\(url)/user/get-token", method: .post, parameters: userData, encoder: JSONParameterEncoder.default)
             .validate(statusCode: 200..<300)
@@ -74,7 +92,7 @@ class ApiManager: ObservableObject {
             }
     }
     
-    func getBathrooms(lat:CGFloat, long:CGFloat, distance: CGFloat, headers: HTTPHeaders, completion: @escaping (Result<[BathroomApi], Error>) -> Void) {
+    func getBathroomsNearToYou(lat:CGFloat, long:CGFloat, distance: CGFloat, headers: HTTPHeaders, completion: @escaping (Result<[BathroomApi], Error>) -> Void) {
         AF.request("\(url)/toilet/list-from-point?distance=\(distance)&latitude=\(lat)&longitude=\(long)", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: [BathroomApi].self) { response in

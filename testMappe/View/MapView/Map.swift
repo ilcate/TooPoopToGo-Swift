@@ -12,7 +12,6 @@ struct MapView: View {
     var body: some View {
        
             ZStack{
-                
                 Map(viewport: $mapViewModel.viewport) {
                     if !mapViewModel.allPoints.isEmpty{
                         ForEvery(mapViewModel.allPoints){ ann in
@@ -29,6 +28,7 @@ struct MapView: View {
                     Puck2D(bearing: .heading)
                         .showsAccuracyRing(true)
                 }
+                
                 .onStyleLoaded(action: { StyleLoaded in
                         mapViewModel.startCameraChangeTimer(api: api)
                 })

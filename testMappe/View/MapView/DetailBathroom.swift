@@ -10,6 +10,8 @@ import SwiftUI
 struct DetailBathroom: View {
     @Environment(\.dismiss) var dismiss
     //@StateObject var mapViewModel: MapModel
+    
+    //TODO: domani mattina fai il fatto che si apre il bagno effettivo
     @State private var images = ["ImagePlaceHolder", "ImagePlaceHolder2", "ImagePlaceHolder3", "ImagePlaceHolder4", "ImagePlaceHolder5"]
     @State private var names = ["MistroFino", "Pisellone", "PerAssurdo", "Filippino"]
     @State private var image : String?

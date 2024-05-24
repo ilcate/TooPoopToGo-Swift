@@ -11,6 +11,7 @@
 //TODO: Importante dividi in pezzi Magari faccio la cartella home con tutti questi pezzettini
 
 import SwiftUI
+import CoreLocation
 
 struct HomeView: View {
     @State private var names = ["MistroFino", "Pisellone", "PerAssurdo", "Filippino"]
@@ -19,6 +20,10 @@ struct HomeView: View {
     var body: some View {
         VStack{
             HeadersViewPages(PageName: "Home")
+                .onAppear{
+                    let locationManager = CLLocationManager()
+                    locationManager.requestWhenInUseAuthorization()
+                }
             Spacer()
             ScrollView{
                 LazyVStack{

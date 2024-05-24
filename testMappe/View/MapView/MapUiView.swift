@@ -6,17 +6,56 @@ struct MapButtonsView: View {
     @ObservedObject var mapViewModel: MapModel
     @EnvironmentObject var api: ApiManager
     @EnvironmentObject var isTexting: IsTexting
+    @FocusState private var isFocused: Bool
     
     
     var body: some View {
         ZStack{
             VStack{
                 HStack{
+                    if mapViewModel.isLoading {
+                        LottieView(animation: .named("DotAnim.json"))
+                            .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
+                            .configure({ lottieAnimationView in
+                                lottieAnimationView.contentMode = .scaleAspectFill
+                            })
+                            .frame(width: 50, height: 34)
+                            .background(.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 1000))
+                            .padding(.horizontal, 8)
+                            .padding(.top, 6)
+                            
+                    }
+                    
+                    if mapViewModel.allPoints.count == 0  {
+                        if !mapViewModel.isLoading {
+                            Text("No results in this area")
+                                .normalTextStyle(fontName: "Manrope-Medium", fontSize: 14, fontColor: .accent)
+                                .frame(width: 185, height: 32)
+                                .background(.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 1000))
+                                .padding(.horizontal, 16).padding(.vertical, 6)
+                        }
+                        
+                    }
+                }.padding(.top, 8)
+                Spacer()
+            }
+            
+            VStack{
+                HStack{
                     ZStack{
-                        HStack{
+                        
+                        HStack {
                             TextField("Search", text: $mapViewModel.searchingInput)
                                 .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
                                 .padding(.trailing, -24)
+                                .focused($isFocused) // Imposta il focus
+                                .onChange(of: mapViewModel.searchingInput) { oldValue, newValue in
+                                    let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
+                                    // TODO: refactora gli headers
+                                    api.searchBathroom(headers: headers, stringToSearch: mapViewModel.searchingInput)
+                                }
                             Image("FIlters")
                                 .resizable()
                                 .frame(width: 24, height: 24)
@@ -24,14 +63,16 @@ struct MapButtonsView: View {
                                 .onTapGesture {
                                     mapViewModel.openSheetFilters = true
                                 }
-                               
                         }
                         .frame(maxWidth: mapViewModel.search ? .infinity : 44)
                         .padding(.horizontal, mapViewModel.search ? 16 : 0)
                         .padding(.vertical, 9)
                         .background(Color.white)
                         .clipShape(Capsule())
-                        
+                        .overlay(
+                            Capsule()
+                                .stroke(.accent, lineWidth: isFocused ? 3 : 0)
+                        )
                         
                         if  !mapViewModel.search {
                             NavigationLink(destination: ProfileView()) {
@@ -42,9 +83,11 @@ struct MapButtonsView: View {
                             
                         }
                     }
-                    
-                    
                     Spacer()
+                    
+                    
+                    
+                    
                     Image(mapViewModel.search ? "Close" : "Search")
                         .uiButtonStyle(backgroundColor: .white)
                         .onTapGesture {
@@ -68,14 +111,7 @@ struct MapButtonsView: View {
                 
                 HStack{
                     //LottieView(animation: .named("LoadingAnimation.json"))
-                    if mapViewModel.isLoading{
-                        LottieView(animation: .named("LoadingAnimation.json"))
-                            .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
-                            .configure({ lottieAnimationView in
-                                lottieAnimationView.contentMode = .scaleAspectFill
-                            })
-                            .frame(width: 44, height: 44)
-                    }
+                   
                     
                     Spacer()
                     if  !mapViewModel.search {
@@ -84,7 +120,7 @@ struct MapButtonsView: View {
                             .onTapGesture {
                                 mapViewModel.resetAndFollow(z: 13)
                             }
-
+                        
                     }
                     
                 }
