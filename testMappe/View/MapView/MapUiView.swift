@@ -107,26 +107,31 @@ struct MapButtonsView: View {
                 
                 if mapViewModel.search {
                     ScrollView{
-                        LazyVStack{
-                            switch mapViewModel.searchedElements {
-                            case .success(let bathrooms):
-                                if let bathrooms = bathrooms {
-                                    ForEach(bathrooms, id: \.id) { bathroom in
-                                        InformationOfSelectionView(bathroom: bathroom)
+                        LazyVStack(spacing: 10){
+                            if mapViewModel.searchingInput != "" {
+                                switch mapViewModel.searchedElements {
+                                case .success(let bathrooms):
+                                    if let bathrooms = bathrooms {
+                                        ForEach(bathrooms, id: \.id) { bathroom in
+                                            InformationOfSelectionView(bathroom: bathroom)
+                                        }
+                                    } else {
+                                        Text("No results")
+                                            .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
                                     }
-                                } else {
+                                case .failure(let error):
+                                    Text("No results")
+                                        .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
+                                case .none:
                                     Text("No results")
                                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
                                 }
-                            case .failure(let error):
-                                Text("No results")
-                                    .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
-                            case .none:
+                            }else{
                                 Text("No results")
                                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
                             }
                         }.padding(.top, 8)
-                    }
+                    }.padding(.bottom, 1)
                 }
                 
                 
