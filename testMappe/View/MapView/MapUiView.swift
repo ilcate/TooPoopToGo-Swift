@@ -119,7 +119,7 @@ struct MapButtonsView: View {
                                         Text("No results")
                                             .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
                                     }
-                                case .failure(let error):
+                                case .failure:
                                     Text("No results")
                                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
                                 case .none:

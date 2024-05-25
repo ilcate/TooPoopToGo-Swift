@@ -13,10 +13,6 @@ struct RegisterRequest: Encodable {
     let first_name: String
     let password: String
     let last_login: [String]?
-    
-    //devo chiedere ad ale perché esistono
-//    let message: String?
-//    let last_login: [String]?
 }
 
 struct RegisterResponse: Decodable {
