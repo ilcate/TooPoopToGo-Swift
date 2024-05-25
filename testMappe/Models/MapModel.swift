@@ -153,33 +153,43 @@ final class MapModel: ObservableObject{
         
     }
     
-    func searchAndAdd(api : ApiManager){
+//       api.getBathroomsNearToYou(lat: self.centerLat, long: self.centerLong, distance: dist > 1 ? dist > 16.5 ? dist > 20 ? dist > 22 ? dist > 23.4 ? dist * 100 : dist * 30 :  dist * 15 : dist * 4.7 : dist : 1, headers: headers) { result in
+       
+    func searchAndAdd(api: ApiManager) {
         let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
-        var dist = (((-383.5 * currentZoom + 5027.5) * 10 / 100) / (18 - currentZoom) + 1 )
-        api.getBathroomsNearToYou(lat: self.centerLat, long: self.centerLong, distance: dist > 1 ? dist : 1, headers: headers) { result in
-            switch result {
-            case .success(let array):
+        let baseDist = ((-383.5 * currentZoom + 5027.5) * 10 / 100) / (20 - currentZoom) + 1
+        let dist: Double
+        
+        switch baseDist {
+        case ..<1:
+            dist = 1
+        case ..<16.5:
+            dist = baseDist
+        case ..<20:
+            dist = baseDist * 4.7
+        case ..<22:
+            dist = baseDist * 15
+        case ..<23.4:
+            dist = baseDist * 30
+        default:
+            dist = baseDist * 100
+        }
                 
-                if !array.isEmpty {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                        self.allPoints.removeAll()
-                        for element in array {
-                            self.addAnnotationServer(element: element)
-                        }
-                        self.isLoading = false
+        api.getBathroomsNearToYou(lat: self.centerLat, long: self.centerLong, distance: dist) { result in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                self.allPoints.removeAll()
+                
+                switch result {
+                case .success(let array):
+                    if !array.isEmpty {
+                        array.forEach { self.addAnnotationServer(element: $0) }
                     }
-                }else{
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                        self.allPoints.removeAll()
-                        self.isLoading = false
-                    }
+                    self.isLoading = false
+                case .failure(let error):
+                    print("Error fetching bathrooms: \(error)")
+                    self.isLoading = false
                 }
-                
-            case .failure(let error):
-                print("Error fetching bathrooms: \(error)")
-                self.isLoading = false
             }
-            
         }
     }
     

@@ -60,7 +60,7 @@ class ApiManager: ObservableObject {
         
     }
     
-    func searchBathroom(headers: HTTPHeaders, stringToSearch: String) {
+    func searchBathroom( stringToSearch: String) {
         AF.request("\(url)/toilet/list-verified/\(stringToSearch)", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseString { response in
@@ -92,7 +92,7 @@ class ApiManager: ObservableObject {
             }
     }
     
-    func getBathroomsNearToYou(lat:CGFloat, long:CGFloat, distance: CGFloat, headers: HTTPHeaders, completion: @escaping (Result<[BathroomApi], Error>) -> Void) {
+    func getBathroomsNearToYou(lat:CGFloat, long:CGFloat, distance: CGFloat, completion: @escaping (Result<[BathroomApi], Error>) -> Void) {
         AF.request("\(url)/toilet/list-from-point?distance=\(distance)&latitude=\(lat)&longitude=\(long)", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: [BathroomApi].self) { response in
@@ -132,7 +132,7 @@ class ApiManager: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "userToken")
     }
     
-    func getUser(headers: HTTPHeaders, completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
+    func getUser( completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
         AF.request("\(url)/user/self-retrieve", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: UserInfoResponse.self) { response in
@@ -161,9 +161,7 @@ class ApiManager: ObservableObject {
         if let isForBabies = isForBabies {
             params["is_for_babies"] = isForBabies ? "true" : "false"
         }
-        
-        let url = "https://poop.zimahome.casa/toilet/create"
-        let headers: HTTPHeaders = ["Authorization": "token \(userToken)"]
+               
         
         session.upload(multipartFormData: { multipartFormData in
             for (key, value) in params {
@@ -179,7 +177,7 @@ class ApiManager: ObservableObject {
                 }
             }
             
-        }, to: url, method: .post, headers: headers).validate()
+        }, to: "\(url)/toilet/create", method: .post, headers: headers).validate()
         .responseString { response in
             switch response.result {
             case .success(let apiResponse):

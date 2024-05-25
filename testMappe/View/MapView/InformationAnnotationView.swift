@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct InformationOfSelectionView: View {
+    
     @ObservedObject var mapViewModel: MapModel
     @EnvironmentObject var api: ApiManager
     

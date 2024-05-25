@@ -45,16 +45,13 @@ struct MapButtonsView: View {
             VStack{
                 HStack{
                     ZStack{
-                        
                         HStack {
                             TextField("Search", text: $mapViewModel.searchingInput)
                                 .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
                                 .padding(.trailing, -24)
-                                .focused($isFocused) // Imposta il focus
+                                .focused($isFocused)
                                 .onChange(of: mapViewModel.searchingInput) { oldValue, newValue in
-                                    let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
-                                    // TODO: refactora gli headers
-                                    api.searchBathroom(headers: headers, stringToSearch: mapViewModel.searchingInput)
+                                    api.searchBathroom( stringToSearch: mapViewModel.searchingInput)
                                 }
                             Image("FIlters")
                                 .resizable()
@@ -85,9 +82,6 @@ struct MapButtonsView: View {
                     }
                     Spacer()
                     
-                    
-                    
-                    
                     Image(mapViewModel.search ? "Close" : "Search")
                         .uiButtonStyle(backgroundColor: .white)
                         .onTapGesture {
@@ -109,10 +103,9 @@ struct MapButtonsView: View {
                     
                 }.padding(.top, 8)
                 
+                
+                
                 HStack{
-                    //LottieView(animation: .named("LoadingAnimation.json"))
-                   
-                    
                     Spacer()
                     if  !mapViewModel.search {
                         Image("ResetPosition")
