@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A0B67AA2C021E75000706ED /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B67A92C021E75000706ED /* Functions.swift */; };
 		2A0EE7812BC978D600F48FC4 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7802BC978D500F48FC4 /* ViewModifiers.swift */; };
 		2A0EE7862BC97CD300F48FC4 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7852BC97CD300F48FC4 /* MapModel.swift */; };
 		2A0EE7882BC97D4B00F48FC4 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7872BC97D4B00F48FC4 /* Structs.swift */; };
@@ -59,6 +60,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A0B67A92C021E75000706ED /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		2A0EE7802BC978D500F48FC4 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		2A0EE7852BC97CD300F48FC4 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		2A0EE7872BC97D4B00F48FC4 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				2A0EE7872BC97D4B00F48FC4 /* Structs.swift */,
 				2A31B46C2BE37E0D000DC8EE /* Components.swift */,
 				2A27C0112BF8D5EC006A8FE8 /* Classes.swift */,
+				2A0B67A92C021E75000706ED /* Functions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				2A6084742BC4438C000FA417 /* Map.swift in Sources */,
 				2A27C00F2BF8D2A8006A8FE8 /* ApiCall.swift in Sources */,
 				2ADA107B2BE0E4EA00BBC989 /* MapSelectPosition.swift in Sources */,
+				2A0B67AA2C021E75000706ED /* Functions.swift in Sources */,
 				2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */,
 				2A0EE7862BC97CD300F48FC4 /* MapModel.swift in Sources */,
 				2AF49B202BF5EAF100800CE5 /* Settings.swift in Sources */,

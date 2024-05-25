@@ -14,7 +14,7 @@ struct InformationOfSelectionView: View {
     var body: some View {
         VStack{
             if bathroom.name != "" {
-                NavigationLink(destination: DetailBathroom()){
+                NavigationLink(destination: DetailBathroom(bathroom: bathroom)){
                     //TODO: refactora questo ci sono legit 3 cose uguali, coglione!
                     HStack(spacing: 0) {
                         if let photos = bathroom.photos, !photos.isEmpty, let photo = photos.first?.photo, let url = URL(string: "\(api.url)\(photo)") {

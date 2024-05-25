@@ -1,45 +1,72 @@
-//
-//  DetailBathroom.swift
-//  testMappe
-//
-//  Created by Christian Catenacci on 06/05/24.
-//
+
 
 import SwiftUI
 
 struct DetailBathroom: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var api : ApiManager
     //@StateObject var mapViewModel: MapModel
     
     //TODO: domani mattina fai il fatto che si apre il bagno effettivo
-    @State private var images = ["ImagePlaceHolder", "ImagePlaceHolder2", "ImagePlaceHolder3", "ImagePlaceHolder4", "ImagePlaceHolder5"]
+    //@State private var images = ["ImagePlaceHolder", "ImagePlaceHolder2", "ImagePlaceHolder3", "ImagePlaceHolder4", "ImagePlaceHolder5"]
     @State private var names = ["MistroFino", "Pisellone", "PerAssurdo", "Filippino"]
-    @State private var image : String?
-//    @State private var liked  = false
+    @State private var currentImage : Photos?
+    //    @State private var liked  = false
     @State private var sizeBox : CGFloat?
     //Tutte queste variabili saranno popolate dalla struct che arriva dal back
     @State private var openSheetNavigate =  false
     @State private var openSheetAddReview =  false
     
+    @State var bathroom : BathroomApi
+    
     var body: some View {
         VStack{
             ZStack{
                 ScrollView(.horizontal){
-                    HStack(spacing: 0){
-                        ForEach(images, id: \.self) { imageName in
-                            Image(imageName)
+                    LazyHStack(spacing: 0){
+                        if !bathroom.photos!.isEmpty {
+                            ForEach(Array(bathroom.photos!.enumerated()), id: \.1.self) { index, _ in
+                                if let photos = bathroom.photos, !photos.isEmpty, let photo = photos[index].photo, let url = URL(string: "\(api.url)\(photo)") {
+                                    AsyncImage(url: url) { image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(maxWidth: .infinity, maxHeight: 320)
+                                            .containerRelativeFrame(.horizontal, count: 1, spacing: 0)
+                                            .clipped()
+                                            .onTapGesture {
+                                                print($currentImage)
+                                            }
+                                    } placeholder: {
+                                        Image("noPhoto")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(maxWidth: .infinity, maxHeight: 320)
+                                            .containerRelativeFrame(.horizontal, count: 1, spacing: 0)
+                                            .clipped()
+                                    }
+                                } else {
+                                    Image("noPhoto")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(maxWidth: .infinity, maxHeight: 320)
+                                        .containerRelativeFrame(.horizontal, count: 1, spacing: 0)
+                                        .clipped()
+                                }
+                            }
+                        }else{
+                            Image("noPhoto")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(maxWidth: .infinity, maxHeight: 320)
                                 .containerRelativeFrame(.horizontal, count: 1, spacing: 0)
                                 .clipped()
-                            
                         }
+                        
                     }
                     .scrollTargetLayout()
                 }
-               
-                .scrollPosition(id: $image, anchor: .center)
+                .scrollPosition(id: $currentImage, anchor: .leading)
                 .scrollIndicators(.hidden)
                 .scrollTargetBehavior(.paging)
                 .ignoresSafeArea(.all, edges: .top)
@@ -57,15 +84,15 @@ struct DetailBathroom: View {
                             .uiButtonStyle(backgroundColor: .white)
                             .onTapGesture {
                                 print("cercare di capire come farla")
-                                //da capire come fare questa cosa
+                                
                             }
-//                        Image(liked ? "Liked" : "LikedStroke" )
-//                            .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
-//                            .uiButtonStyle(backgroundColor: .white)
-//                            .onTapGesture {
-//                                liked.toggle()
-//                            }
-                    }.padding(.top, 28)
+                        //  Image(liked ? "Liked" : "LikedStroke" )
+                        //                            .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                        //                            .uiButtonStyle(backgroundColor: .white)
+                        //                            .onTapGesture {
+                        //                                liked.toggle()
+                        //                            }
+                    }.padding(.top, 8)
                     Spacer()
                 }.padding(.horizontal, 20)
                 
@@ -75,10 +102,10 @@ struct DetailBathroom: View {
                         
                         HStack{
                             HStack(spacing: 6) {
-                                ForEach(images, id: \.self) { imageName in
+                                ForEach(bathroom.photos!, id: \.self) { imageName in
                                     Circle()
                                         .frame(width: 10, height: 10)
-                                        .foregroundStyle(imageName == image ? Material.ultraThick : Material.ultraThin)
+                                        .foregroundStyle(imageName == currentImage ? Material.ultraThick : Material.ultraThin)
                                     
                                 }
                             }
@@ -90,52 +117,49 @@ struct DetailBathroom: View {
                             
                         }
                     }
-                }.padding(.bottom, 40)
-                    .padding(.leading, 20)
+                }
+                .padding(.bottom, 16)
+                .padding(.leading, 20)
                 
             }
             .frame(maxWidth: .infinity, maxHeight: 280)
             .onAppear{
-                image = images[0]
+                currentImage = bathroom.photos![0]
             }
             .navigationBarBackButtonHidden(true)
             
             VStack(spacing: 0){
                 HStack{
-                    Text("Bar Vecchia Sciesa")
-                        .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 26, fontColor: .accent)
+                    Text(bathroom.name!)
+                        .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 30, fontColor: .accent)
                     Spacer()
-                    Text("20 min")
-                        .normalTextStyle(fontName: "Manrope-Medium", fontSize: 20, fontColor: .accent)
                 }
-                HStack{
-                    Text("Milano, MI, Italia")
-                        .normalTextStyle(fontName: "Manrope-Medium", fontSize: 18, fontColor: .accent)
+                HStack( spacing: 4){
+                    Image("PinHole")
+                        .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                        .resizable()
+                        .frame(width: 12, height: 16)
+                        .foregroundStyle(.accent)
+                    Text(formatAddress(bathroom.address ?? ""))
+                        .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accent)
+                
                     Spacer()
-                    HStack(spacing: 2){
-                        Image("PinHole")
-                            .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
-                            .resizable()
-                            .frame(width: 12, height: 16)
-                            .foregroundStyle(.accent)
-                        Text("500m")
-                            .normalTextStyle(fontName: "Manrope-Medium", fontSize: 18, fontColor: .accent)
-                    }
                     
+
                 }
                 
             }
-            .padding(.horizontal, 20).padding(.top, -4)
-                ScrollView(.horizontal){
-                    HStack{
-                        SmallTag(text: "Trending")
-                        SmallTag(text: "Cleanest")
-                        SmallTag(text: "Accessible")
-                        SmallTag(text: "Newest")
-                    }.padding(.horizontal, 20)
-                }
-                .scrollIndicators(.hidden)
-                .padding(.bottom, 4).padding(.top, -4)
+            .padding(.horizontal, 20).padding(.top, -4).padding(.bottom, 8)
+            ScrollView(.horizontal){
+                HStack{
+                    SmallTag(text: "Trending")
+                    SmallTag(text: "Cleanest")
+                    SmallTag(text: "Accessible")
+                    SmallTag(text: "Newest")
+                }.padding(.horizontal, 20)
+            }
+            .scrollIndicators(.hidden)
+            .padding(.bottom, 4).padding(.top, -4)
             
             
             VStack{
@@ -323,7 +347,7 @@ struct DetailBathroom: View {
             }) {
                 ZStack {
                     Color.cLightBrown.ignoresSafeArea(.all)
-                    SheetNavigate()
+                    SheetNavigate(bathroom : bathroom)
                         .presentationDetents([.fraction(0.30)])
                         .presentationCornerRadius(18)
                 }
@@ -349,6 +373,7 @@ struct DetailBathroom: View {
 
 struct SheetNavigate: View {
     @Environment(\.dismiss) var dismiss
+    @State var bathroom : BathroomApi
     
     var body: some View {
         
@@ -357,7 +382,7 @@ struct SheetNavigate: View {
             
             FullRoundedButton(text: "Google Maps")
                 .onTapGesture {
-                    if let url = URL(string: "https://www.google.com/maps/?q=\(45.4654219),\(9.1859243)"), UIApplication.shared.canOpenURL(url) {
+                    if let url = URL(string: "https://www.google.com/maps/?q=\(String(describing: bathroom.coordinates!.coordinates![1])),\(String(describing: bathroom.coordinates!.coordinates![0]))"), UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     } else {
                         UIApplication.shared.open(URL( string: "https://apps.apple.com/it/app/google-maps-gps-e-ristoranti/id585027354")!, options: [:], completionHandler: nil)
@@ -366,7 +391,7 @@ struct SheetNavigate: View {
             
             FullRoundedButton(text: "Apple Maps")
                 .onTapGesture {
-                    if let url = URL(string: "http://maps.apple.com/?daddr=\(45.4654219),\(9.1859243)&dirflg=d&t=m"), UIApplication.shared.canOpenURL(url) {
+                    if let url = URL(string: "http://maps.apple.com/?daddr=\(String(describing: bathroom.coordinates!.coordinates![1])),\(String(describing: bathroom.coordinates!.coordinates![0]))&dirflg=d&t=m"), UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     } else {
                         UIApplication.shared.open(URL(string: "itms-apps://itunes.apple.com/app/id915056765")!, options: [:], completionHandler: nil)
@@ -375,7 +400,7 @@ struct SheetNavigate: View {
             
             FullRoundedButton(text: "Apple Maps")
                 .onTapGesture {
-                    if let url = URL(string: "waze://?ll=\(45.4654219),\(9.1859243)&navigate=yes"), UIApplication.shared.canOpenURL(url) {
+                    if let url = URL(string: "waze://?ll=\(String(describing: bathroom.coordinates!.coordinates![1])),\(String(describing: bathroom.coordinates!.coordinates![0]))&navigate=yes"), UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     } else {
                         UIApplication.shared.open(URL(string: "itms-apps://itunes.apple.com/app/id323229106")!, options: [:], completionHandler: nil)

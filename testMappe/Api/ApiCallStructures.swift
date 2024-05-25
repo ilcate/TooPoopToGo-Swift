@@ -90,9 +90,9 @@ struct BathroomApi: Decodable, Identifiable, Equatable {
     }
 }
 
-struct Photos: Decodable, Equatable {
-    var id: String
-    var photo: String
+struct Photos: Decodable, Equatable, Hashable {
+    var id: String?
+    var photo: String?
 }
 
 struct Coordinates: Decodable, Equatable {
