@@ -30,8 +30,11 @@ final class MapModel: ObservableObject{
     @Published var imagesNewAnnotation : [UIImage] = []
     @Published var optionsDropDown = ["Public", "Bar", "Restaurant", "Shop"]
     @Published var restrictionsArray = [false, false, false]
+    @Published var searchedElements : Result<[BathroomApi]?, Error>? = nil
     private var cameraChangeTimer: Timer?
     private var firstTime = true
+    
+    
     
     
     
@@ -156,7 +159,6 @@ final class MapModel: ObservableObject{
 //       api.getBathroomsNearToYou(lat: self.centerLat, long: self.centerLong, distance: dist > 1 ? dist > 16.5 ? dist > 20 ? dist > 22 ? dist > 23.4 ? dist * 100 : dist * 30 :  dist * 15 : dist * 4.7 : dist : 1, headers: headers) { result in
        
     func searchAndAdd(api: ApiManager) {
-        let headers = HTTPHeaders(["Authorization": "token \(api.userToken)"])
         let baseDist = ((-383.5 * currentZoom + 5027.5) * 10 / 100) / (20 - currentZoom) + 1
         let dist: Double
         

@@ -8,7 +8,6 @@ struct MapButtonsView: View {
     @EnvironmentObject var isTexting: IsTexting
     @FocusState private var isFocused: Bool
     
-    
     var body: some View {
         ZStack{
             VStack{
@@ -51,7 +50,11 @@ struct MapButtonsView: View {
                                 .padding(.trailing, -24)
                                 .focused($isFocused)
                                 .onChange(of: mapViewModel.searchingInput) { oldValue, newValue in
-                                    api.searchBathroom( stringToSearch: mapViewModel.searchingInput)
+                                    if mapViewModel.searchingInput != ""{
+                                        api.searchBathroom(stringToSearch: mapViewModel.searchingInput){ resp in
+                                            mapViewModel.searchedElements = resp
+                                        }
+                                    }
                                 }
                             Image("FIlters")
                                 .resizable()
@@ -76,7 +79,6 @@ struct MapButtonsView: View {
                                 Image("Profile")
                                     .uiButtonStyle(backgroundColor: .white)
                             }
-                            
                             
                         }
                     }
@@ -103,11 +105,34 @@ struct MapButtonsView: View {
                     
                 }.padding(.top, 8)
                 
+                if mapViewModel.search {
+                    ScrollView{
+                        LazyVStack{
+                            switch mapViewModel.searchedElements {
+                            case .success(let bathrooms):
+                                if let bathrooms = bathrooms {
+                                    ForEach(bathrooms, id: \.id) { bathroom in
+                                        InformationOfSelectionView(bathroom: bathroom)
+                                    }
+                                } else {
+                                    Text("No results")
+                                        .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
+                                }
+                            case .failure(let error):
+                                Text("No results")
+                                    .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
+                            case .none:
+                                Text("No results")
+                                    .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
+                            }
+                        }.padding(.top, 8)
+                    }
+                }
                 
                 
                 HStack{
-                    Spacer()
                     if  !mapViewModel.search {
+                        Spacer()
                         Image("ResetPosition")
                             .uiButtonStyle(backgroundColor: .white)
                             .onTapGesture {
@@ -117,12 +142,12 @@ struct MapButtonsView: View {
                     }
                     
                 }
-                
+                if !mapViewModel.search {
                 VStack{
                     Spacer()
                     HStack{
                         Spacer()
-                        if !mapViewModel.search {
+
                             Image("AddAnnotation")
                                 .frame(width: 60, height: 60)
                                 .background(.white)
@@ -132,13 +157,20 @@ struct MapButtonsView: View {
                                     mapViewModel.resetAndFollow(z: 18)
                                     mapViewModel.canMoveCheck(duration: 0.5)
                                 }
-                                .padding(.bottom,   mapViewModel.tappedAnnotation() ?  6 : 72 )
+                                .padding(.bottom,  mapViewModel.tappedAnnotation() ?  6 : 72 )
                         }
                     }
                     if mapViewModel.tappedAnnotation() {
                         withAnimation(.snappy){
-                            InformationOfSelectionView(mapViewModel: mapViewModel)
-                                .padding(.bottom, 6 )
+                            InformationOfSelectionView(bathroom: mapViewModel.selected!)
+                                .padding(.bottom, mapViewModel.selected?.name != "" ? 78 : 6)
+                                .opacity(mapViewModel.selected?.name != "" ? 1 : 0)
+                                .onChange(of: mapViewModel.viewport){
+                                    if !mapViewModel.checkCoordinates() {
+                                        mapViewModel.removeSelection()
+                                    }
+                                    
+                                }
                         }
                     }
                     

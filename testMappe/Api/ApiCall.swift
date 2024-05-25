@@ -60,18 +60,17 @@ class ApiManager: ObservableObject {
         
     }
     
-    func searchBathroom( stringToSearch: String) {
+    func searchBathroom(stringToSearch: String, completion: @escaping (Result<[BathroomApi]?, Error>) -> Void) {
         AF.request("\(url)/toilet/list-verified/\(stringToSearch)", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
-            .responseString { response in
+            .responseDecodable(of: SearchBath.self) { response in
                 switch response.result {
-                case .success(let responseString):
-                    print(responseString)
+                case .success(let responseS):
+                    completion(.success(responseS.results))
                 case .failure(let error):
-                    print("Failure: \(error)")
+                    completion(.failure(error))
                 }
             }
-        
     }
     
     func getToken(userData: LogInInformation, completion: @escaping (Result<String, Error>) -> Void) {

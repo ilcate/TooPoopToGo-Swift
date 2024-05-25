@@ -43,6 +43,11 @@ struct UserInfoResponse: Decodable {
     var used_toilets: [String]
 }
 
+
+struct SearchBath: Decodable{
+    var results : [BathroomApi]?
+}
+
 struct BathroomApi: Decodable, Identifiable, Equatable {
     var id: String?
     var photos: [Photos]?

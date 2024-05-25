@@ -8,19 +8,16 @@
 import SwiftUI
 
 struct InformationOfSelectionView: View {
-    
-    @ObservedObject var mapViewModel: MapModel
+    @State var bathroom : BathroomApi
     @EnvironmentObject var api: ApiManager
     
     var body: some View {
-        
         VStack{
-            if let selected = mapViewModel.selected {
+            if bathroom.name != "" {
                 NavigationLink(destination: DetailBathroom()){
-                    
                     //TODO: refactora questo ci sono legit 3 cose uguali, coglione!
                     HStack(spacing: 0) {
-                        if let photos = selected.photos, !photos.isEmpty, let photo = photos.first?.photo, let url = URL(string: "\(api.url)\(photo)") {
+                        if let photos = bathroom.photos, !photos.isEmpty, let photo = photos.first?.photo, let url = URL(string: "\(api.url)\(photo)") {
                             AsyncImage(url: url) { image in
                                 image
                                     .resizable()
@@ -50,7 +47,7 @@ struct InformationOfSelectionView: View {
                         
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
-                                Text(selected.name!)
+                                Text(bathroom.name!)
                                     .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 24, fontColor: .accentColor)
                                 Spacer()
                                 Image("StarFill")
@@ -66,7 +63,8 @@ struct InformationOfSelectionView: View {
                             Spacer()
                             
                             HStack {
-                                SmallTag(text: "Trending") // ogni bagno avrà un array di tag e io filtro i primi due
+                                // ogni bagno avrà un array di tag e io filtro i primi due
+                                SmallTag(text: "Trending")
                                 SmallTag(text: "Cleanest")
                             }
                         }
@@ -81,14 +79,7 @@ struct InformationOfSelectionView: View {
                 }
             }
         }
-        .padding(.bottom, mapViewModel.selected?.name != "" ? 72 : 0)
-        .opacity(mapViewModel.selected?.name != "" ? 1 : 0)
-        .onChange(of: mapViewModel.viewport){
-            if !mapViewModel.checkCoordinates() {
-                mapViewModel.removeSelection()
-            }
-            
-        }
+        
     }
     
 }
