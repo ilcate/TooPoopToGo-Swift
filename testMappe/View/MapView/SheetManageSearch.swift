@@ -3,6 +3,7 @@ import SwiftUI
 
 //TODO: componenti da componentare e non da ricopiare
 //TODO: se scappa fai qualche view modifier
+//TODO: dovrei farci un model
 
 
 public struct SheetManageSearch: View {

@@ -12,9 +12,39 @@ struct UIButtonStyle: ViewModifier {
     }
 }
 
+struct ResizableImageStyleBig: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .aspectRatio(contentMode: .fill)
+            .frame(maxWidth: .infinity, maxHeight: 320)
+            .containerRelativeFrame(.horizontal, count: 1, spacing: 0)
+            .clipped()
+            .padding(.top, -2)
+    }
+}
+
+
+struct ResizableImageStyleSmall: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 88, height: 96)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .padding(.vertical, 8)
+            .padding(.horizontal, 8)
+    }
+}
+
+
 extension Image {
     func uiButtonStyle(backgroundColor: Color) -> some View {
         self.modifier(UIButtonStyle(backgroundColor: backgroundColor))
+    }
+    func resizableImageStyleBig() -> some View {
+        self.modifier(ResizableImageStyleBig())
+    }
+    func resizableImageStyleSmall() -> some View {
+        self.modifier(ResizableImageStyleSmall())
     }
 }
 

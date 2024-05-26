@@ -2,6 +2,8 @@ import SwiftUI
 import PhotosUI
 
 
+//TODO: cambia tutti gli state in let se non devono variare 
+
 struct CustomDividerView: View {
     var body: some View {
             Rectangle()
@@ -571,3 +573,66 @@ struct ButtonFeed: View {
         
     }
 }
+
+struct CoverDef: View {
+    var body: some View {
+        Image("noPhoto")
+            .resizable()
+            .resizableImageStyleSmall()
+    }
+}
+
+struct ReviewTemp: View {
+    let name : String
+    
+    var body: some View {
+        VStack{
+            HStack{
+                Image("ImagePlaceHolder3")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 40, height: 40)
+                    .clipShape(Circle())
+                VStack(alignment:.leading, spacing: 1){
+                    Text(name)
+                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
+                    Text("3 hours ago")
+                        .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 14, fontColor: .accent)
+                    
+                }
+                Spacer()
+                
+            }.padding(.horizontal, 16)
+            Text("Just had her biggest shit ever and did the review at 14 bathrooms in 3 days! porco dio devo aggiungere testo")
+                .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accent)
+                .padding(.horizontal, 10)
+            
+        }
+        .frame(maxWidth: .infinity, minHeight: 144)
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .containerRelativeFrame(.horizontal, count: 1, spacing: 20)
+        .padding(.trailing, 10)
+    }
+}
+
+struct ReviewsScroller: View {
+    let names : [String]
+    
+    var body: some View {
+        ScrollView(.horizontal){
+            HStack(spacing: 0){
+                ForEach(names, id: \.self) { name in
+                    ReviewTemp(name: name)
+                }
+            }
+            .padding(.trailing, -10)
+            .scrollTargetLayout()
+        }
+        .contentMargins(20, for: .scrollContent)
+        .scrollIndicators(.hidden)
+        .scrollTargetBehavior(.viewAligned)
+        .padding(.vertical, -20)
+    }
+}
+

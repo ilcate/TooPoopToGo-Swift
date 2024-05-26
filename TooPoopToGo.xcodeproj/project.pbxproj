@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		2A0B67AA2C021E75000706ED /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B67A92C021E75000706ED /* Functions.swift */; };
+		2A0BF68C2C036F260053A0A5 /* Components-DetailBathroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BF68B2C036F260053A0A5 /* Components-DetailBathroom.swift */; };
+		2A0BF68E2C036F6A0053A0A5 /* SheetAddReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BF68D2C036F6A0053A0A5 /* SheetAddReview.swift */; };
+		2A0BF6902C036FF20053A0A5 /* SheetNavigate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BF68F2C036FF20053A0A5 /* SheetNavigate.swift */; };
+		2A0BF6922C037CF90053A0A5 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BF6912C037CF90053A0A5 /* HomeModel.swift */; };
+		2A0BF6942C038ED20053A0A5 /* ComponentsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BF6932C038ED20053A0A5 /* ComponentsHome.swift */; };
 		2A0EE7812BC978D600F48FC4 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7802BC978D500F48FC4 /* ViewModifiers.swift */; };
 		2A0EE7862BC97CD300F48FC4 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7852BC97CD300F48FC4 /* MapModel.swift */; };
 		2A0EE7882BC97D4B00F48FC4 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7872BC97D4B00F48FC4 /* Structs.swift */; };
@@ -61,6 +66,11 @@
 
 /* Begin PBXFileReference section */
 		2A0B67A92C021E75000706ED /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		2A0BF68B2C036F260053A0A5 /* Components-DetailBathroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components-DetailBathroom.swift"; sourceTree = "<group>"; };
+		2A0BF68D2C036F6A0053A0A5 /* SheetAddReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetAddReview.swift; sourceTree = "<group>"; };
+		2A0BF68F2C036FF20053A0A5 /* SheetNavigate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetNavigate.swift; sourceTree = "<group>"; };
+		2A0BF6912C037CF90053A0A5 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		2A0BF6932C038ED20053A0A5 /* ComponentsHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsHome.swift; sourceTree = "<group>"; };
 		2A0EE7802BC978D500F48FC4 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		2A0EE7852BC97CD300F48FC4 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		2A0EE7872BC97D4B00F48FC4 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
@@ -125,6 +135,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A0BF68A2C036EED0053A0A5 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2A31B46C2BE37E0D000DC8EE /* Components.swift */,
+				2A0BF6932C038ED20053A0A5 /* ComponentsHome.swift */,
+				2A0BF68B2C036F260053A0A5 /* Components-DetailBathroom.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		2A0EE7822BC97C3900F48FC4 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,7 +167,7 @@
 			children = (
 				2A0EE7802BC978D500F48FC4 /* ViewModifiers.swift */,
 				2A0EE7872BC97D4B00F48FC4 /* Structs.swift */,
-				2A31B46C2BE37E0D000DC8EE /* Components.swift */,
+				2A0BF68A2C036EED0053A0A5 /* Components */,
 				2A27C0112BF8D5EC006A8FE8 /* Classes.swift */,
 				2A0B67A92C021E75000706ED /* Functions.swift */,
 			);
@@ -158,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				2AE78C032BFA3F7A00038AEA /* ProfileModel.swift */,
+				2A0BF6912C037CF90053A0A5 /* HomeModel.swift */,
 				2AE0314C2BFC5FF80087E7FF /* OnBoardingModel.swift */,
 				2A0EE7852BC97CD300F48FC4 /* MapModel.swift */,
 			);
@@ -251,11 +272,13 @@
 				2A6084732BC4438C000FA417 /* Map.swift */,
 				2ADA10802BE0E57800BBC989 /* InformationAnnotationView.swift */,
 				2AED8E852BE93ABD008DBFAF /* DetailBathroom.swift */,
+				2A0BF68F2C036FF20053A0A5 /* SheetNavigate.swift */,
 				2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */,
 				2ADA10782BE0E49000BBC989 /* MapAddAnnotation.swift */,
 				2AFFF9DC2BE7DFAC0095056C /* Annotation.swift */,
 				2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */,
 				2ADA10762BE0E3B400BBC989 /* MapUiView.swift */,
+				2A0BF68D2C036F6A0053A0A5 /* SheetAddReview.swift */,
 				2AA0D6762BF0FAB300F8A249 /* SheetManageSearch.swift */,
 			);
 			path = MapView;
@@ -370,6 +393,7 @@
 			files = (
 				2AED8E862BE93ABD008DBFAF /* DetailBathroom.swift in Sources */,
 				2AFD2EC92BDBB24600208328 /* FeedView.swift in Sources */,
+				2A0BF6902C036FF20053A0A5 /* SheetNavigate.swift in Sources */,
 				2AA0D6772BF0FAB300F8A249 /* SheetManageSearch.swift in Sources */,
 				2AFD2EC72BDBB23200208328 /* HomeView.swift in Sources */,
 				2AE0314D2BFC5FF80087E7FF /* OnBoardingModel.swift in Sources */,
@@ -390,10 +414,14 @@
 				2AE78C042BFA3F7A00038AEA /* ProfileModel.swift in Sources */,
 				2ADA10772BE0E3B400BBC989 /* MapUiView.swift in Sources */,
 				2ADA10792BE0E49000BBC989 /* MapAddAnnotation.swift in Sources */,
+				2A0BF68E2C036F6A0053A0A5 /* SheetAddReview.swift in Sources */,
+				2A0BF6922C037CF90053A0A5 /* HomeModel.swift in Sources */,
 				2A0EE7882BC97D4B00F48FC4 /* Structs.swift in Sources */,
 				2A6084742BC4438C000FA417 /* Map.swift in Sources */,
 				2A27C00F2BF8D2A8006A8FE8 /* ApiCall.swift in Sources */,
+				2A0BF6942C038ED20053A0A5 /* ComponentsHome.swift in Sources */,
 				2ADA107B2BE0E4EA00BBC989 /* MapSelectPosition.swift in Sources */,
+				2A0BF68C2C036F260053A0A5 /* Components-DetailBathroom.swift in Sources */,
 				2A0B67AA2C021E75000706ED /* Functions.swift in Sources */,
 				2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */,
 				2A0EE7862BC97CD300F48FC4 /* MapModel.swift in Sources */,

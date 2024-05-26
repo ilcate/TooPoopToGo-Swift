@@ -105,7 +105,6 @@ final class MapModel: ObservableObject{
     }
     
     func sendPointToServer(name: String, type: String, image: [UIImage], restrictions: [Bool], api: ApiManager, completion: @escaping (Bool) -> Void) {
-        
         api.createLocation(name: name, type: type, images: image, isForDisabled: restrictions[0], isFree: restrictions[2], isForBabies: restrictions[1], long: centerLong, lat: centerLat, userToken: api.userToken) { result in
             switch result {
             case .success(let userInfoResponse):

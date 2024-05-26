@@ -44,7 +44,7 @@ struct SearchBath: Decodable{
     var results : [BathroomApi]?
 }
 
-struct BathroomApi: Decodable, Identifiable, Equatable {
+struct BathroomApi: Decodable, Identifiable, Equatable, Hashable {
     var id: String?
     var photos: [Photos]?
     var name: String?
@@ -84,6 +84,18 @@ struct BathroomApi: Decodable, Identifiable, Equatable {
             ("photos", photos)
         ]
     }
+    
+    func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+            hasher.combine(name)
+            hasher.combine(address)
+            hasher.combine(coordinates)
+            hasher.combine(place_type)
+            hasher.combine(is_for_disabled)
+            hasher.combine(is_free)
+            hasher.combine(is_for_babies)
+            hasher.combine(photos)
+        }
 }
 
 struct Photos: Decodable, Equatable, Hashable {
@@ -91,7 +103,7 @@ struct Photos: Decodable, Equatable, Hashable {
     var photo: String?
 }
 
-struct Coordinates: Decodable, Equatable {
+struct Coordinates: Decodable, Equatable, Hashable {
     var type: String?
     var coordinates: [Double]?
 

@@ -36,7 +36,6 @@ struct ProfileView: View {
                     .ignoresSafeArea()
                
                     VStack(spacing: 12){
-                        //TODO: davvero refactorare i cosi a sinistra
                         VStack(spacing: 8){
                             HStack{
                                 Text("Badges")
@@ -101,7 +100,7 @@ struct ProfileView: View {
                         
                     }
                     .padding(.top, 8)
-                    .task{//è tipo on appear ma async
+                    .task{
                         profileModel.getProfile(api: api)
                     }
                     Spacer()
