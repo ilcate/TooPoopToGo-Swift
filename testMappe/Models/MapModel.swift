@@ -130,7 +130,7 @@ final class MapModel: ObservableObject{
     
     
     func addAnnotationServer(element : BathroomApi){
-        allPoints.append(BathroomApi(id: element.id, photos: element.photos, name: element.name, address: element.address, coordinates: element.coordinates, place_type: element.place_type, is_for_disabled: element.is_for_disabled, is_free: element.is_free, is_for_babies: element.is_for_babies))
+        allPoints.append(BathroomApi(id: element.id, photos: element.photos, name: element.name, address: element.address, coordinates: element.coordinates, place_type: element.place_type, is_for_disabled: element.is_for_disabled, is_free: element.is_free, is_for_babies: element.is_for_babies, updated_at: element.updated_at))
     }
     
     func tappedAnnotation() -> Bool{
@@ -155,7 +155,6 @@ final class MapModel: ObservableObject{
         
     }
     
-//       api.getBathroomsNearToYou(lat: self.centerLat, long: self.centerLong, distance: dist > 1 ? dist > 16.5 ? dist > 20 ? dist > 22 ? dist > 23.4 ? dist * 100 : dist * 30 :  dist * 15 : dist * 4.7 : dist : 1, headers: headers) { result in
        
     func searchAndAdd(api: ApiManager) {
         let baseDist = ((-383.5 * currentZoom + 5027.5) * 10 / 100) / (20 - currentZoom) + 1

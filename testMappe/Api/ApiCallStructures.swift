@@ -1,10 +1,3 @@
-//
-//  ApiCallStructures.swift
-//  TooPoopToGo
-//
-//  Created by Christian Catenacci on 18/05/24.
-//
-
 import Foundation
 
 struct RegisterRequest: Encodable {
@@ -44,13 +37,12 @@ struct SearchBath: Decodable{
     var results : [BathroomApi]?
 }
 
-import Foundation
 
 struct BathroomApi: Decodable, Identifiable, Equatable, Hashable {
     var id: String?
     var photos: [Photos]?
     var name: String?
-    var created_at: String?
+    var updated_at: String?
     var address: String?
     var coordinates: Coordinates?
     var place_type: String?
@@ -58,8 +50,7 @@ struct BathroomApi: Decodable, Identifiable, Equatable, Hashable {
     var is_free: Bool?
     var is_for_babies: Bool?
     var tags: BathroomTags?
-   
-
+    
     init(
         id: String? = nil,
         photos: [Photos]? = nil,
@@ -71,7 +62,7 @@ struct BathroomApi: Decodable, Identifiable, Equatable, Hashable {
         is_free: Bool? = nil,
         is_for_babies: Bool? = nil,
         tags: BathroomTags? = nil,
-        created_at: String? = nil
+        updated_at: String? = nil
     ) {
         self.id = id
         self.photos = photos
@@ -82,57 +73,51 @@ struct BathroomApi: Decodable, Identifiable, Equatable, Hashable {
         self.is_for_disabled = is_for_disabled
         self.is_free = is_free
         self.is_for_babies = is_for_babies
-        self.created_at = created_at
-
-        let dateFormatter = ISO8601DateFormatter()
-        let createdAtDate = dateFormatter.date(from: created_at ?? "")
-        let newest = createdAtDate.map { Calendar.current.isDate($0, equalTo: Date(), toGranularity: .day) } ?? false
-
+        self.updated_at = updated_at
+        
+        let dateFormatter = DateFormatter()
+        var isNew = false
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        let current_date = Date()
+        if let updatedAtString = updated_at, let update_date = dateFormatter.date(from: updatedAtString) {
+            if current_date.timeIntervalSince(update_date) <= 24 * 60 * 60 {
+                isNew = true
+            }
+        }
+        
         self.tags = tags ?? BathroomTags(
             free: is_free ?? false,
             accessible: is_for_disabled ?? false,
             forBabies: is_for_babies ?? false,
-            newest: newest,
+            newest: isNew,
             isPublic: place_type == "Public",
             isBar: place_type == "Bar",
             isRestaurant: place_type == "Restaurant",
             isShop: place_type == "Shop"
         )
     }
-
+    
     var identifier: String {
         id ?? UUID().uuidString
     }
-
+    
     static func == (lhs: BathroomApi, rhs: BathroomApi) -> Bool {
         return lhs.id == rhs.id &&
-               lhs.name == rhs.name &&
-               lhs.address == rhs.address &&
-               lhs.coordinates == rhs.coordinates &&
-               lhs.place_type == rhs.place_type &&
-               lhs.is_for_disabled == rhs.is_for_disabled &&
-               lhs.is_free == rhs.is_free &&
-               lhs.is_for_babies == rhs.is_for_babies &&
-               lhs.photos == rhs.photos &&
-               lhs.tags == rhs.tags &&
-               lhs.created_at == rhs.created_at
+        lhs.name == rhs.name &&
+        lhs.address == rhs.address &&
+        lhs.coordinates == rhs.coordinates &&
+        lhs.place_type == rhs.place_type &&
+        lhs.is_for_disabled == rhs.is_for_disabled &&
+        lhs.is_free == rhs.is_free &&
+        lhs.is_for_babies == rhs.is_for_babies &&
+        lhs.photos == rhs.photos &&
+        lhs.tags == rhs.tags &&
+        lhs.updated_at == rhs.updated_at
     }
-
-    private var properties: [(String, Any?)] {
-        return [
-            ("id", id),
-            ("name", name),
-            ("address", address),
-            ("coordinates", coordinates),
-            ("place_type", place_type),
-            ("is_for_disabled", is_for_disabled),
-            ("is_free", is_free),
-            ("is_for_babies", is_for_babies),
-            ("photos", photos),
-            ("created_at", created_at)
-        ]
-    }
-
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(name)
@@ -144,7 +129,7 @@ struct BathroomApi: Decodable, Identifiable, Equatable, Hashable {
         hasher.combine(is_for_babies)
         hasher.combine(photos)
         hasher.combine(tags)
-        hasher.combine(created_at)
+        hasher.combine(updated_at)
     }
 }
 
@@ -157,7 +142,7 @@ struct BathroomTags: Decodable, Equatable, Hashable {
     var isBar: Bool
     var isRestaurant: Bool
     var isShop: Bool
-
+    
     init(
         free: Bool = false,
         accessible: Bool = false,
@@ -187,7 +172,7 @@ struct Photos: Decodable, Equatable, Hashable {
 struct Coordinates: Decodable, Equatable, Hashable {
     var type: String?
     var coordinates: [Double]?
-
+    
     static func == (lhs: Coordinates, rhs: Coordinates) -> Bool {
         return lhs.type == rhs.type && lhs.coordinates == rhs.coordinates
     }
@@ -197,5 +182,4 @@ struct Coordinates: Decodable, Equatable, Hashable {
 struct addApiResponse: Decodable {
     let success: Bool
     let message: String?
-    
 }

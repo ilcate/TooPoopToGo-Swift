@@ -31,16 +31,29 @@ struct Annotation: View {
                     }
                     
                 }
-
+            
             
             Ellipse()
                 .frame(width: 16, height: 4)
                 .opacity(0.3)
                 .blur(radius: 0.5)
                 .padding(.top, -2)
-        }.opacity(mapViewModel.filterSelected == "Accessible" ?  ann.tags?.accessible == true ? 1 : 0 : 1)
-        
-        
+        }
+        .opacity(annotationOpacity())
+    }
+    
+    private func annotationOpacity() -> Double {
+        switch mapViewModel.filterSelected {
+        case "Accessible": return ann.tags?.accessible == true ? 1 : 0
+        case "Newest": return ann.tags?.newest == true ? 1 : 0
+        case "ForBabies": return ann.tags?.forBabies == true ? 1 : 0
+        case "Free": return ann.tags?.free == true ? 1 : 0
+        case "IsBar": return ann.tags?.isBar == true ? 1 : 0
+        case "IsPublic": return ann.tags?.isPublic == true ? 1 : 0
+        case "IsRestaurant": return ann.tags?.isRestaurant == true ? 1 : 0
+        case "IsShop": return ann.tags?.isShop == true ? 1 : 0
+        default: return 1
+        }
     }
 }
 
