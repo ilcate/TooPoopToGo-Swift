@@ -152,3 +152,19 @@ struct StreakButtons: View {
 
 
 
+struct ButtonPoop : View {
+    var text: String
+    
+    var body: some View {
+        HStack(spacing: 6){
+            Image("DropAPoop")
+                .renderingMode(.original)
+                .resizable()
+                .frame(width: 26, height: 26)
+            Text(text)
+                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .accent)
+        }.padding(.leading, 7).padding(.trailing, 8.5).padding(.vertical, 5)
+            .background(.ultraThickMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 1000))
+    }
+}
