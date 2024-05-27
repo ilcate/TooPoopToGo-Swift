@@ -51,3 +51,104 @@ struct SliderNextToYou: View {
         }
     }
 }
+
+struct StreakButtons: View {
+    @State var streak : Int
+
+    var body: some View {
+        VStack(spacing:6){
+            HStack{
+                Text("Streak")
+                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
+                Spacer()
+            }
+            if streak != 0 {
+                
+                ZStack{
+                    VStack(alignment: .leading){
+                        HStack{
+                            Text("Poop Streak!")
+                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 30, fontColor: .cLightBrown)
+                            Spacer()
+                        }
+                        Spacer()
+                    }.padding(.top, 12)
+                    VStack{
+                        Spacer()
+                        HStack(alignment: .bottom){
+                            VStack(alignment: .leading){
+                                Text("Keep it going!")
+                                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
+                                
+                                ButtonPoop(text: "Drop a Poop")
+                                    .onTapGesture {
+                                        streak += 1
+                                    }
+                            }
+
+                            Spacer()
+                        }
+                        
+                    }.padding(.bottom, 16)
+                    VStack{
+                        Spacer()
+                        HStack{
+                            Spacer()
+                            Text("\(streak)")
+                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 100, fontColor: .cLightBrown)
+                        }
+                        
+                    }
+                    .padding(.bottom, -12)
+                    
+                }
+                .padding(.horizontal, 16)
+                .frame(maxWidth: .infinity, maxHeight: 140)
+                .background(
+                    Image("ImagePlaceHolder8")
+                        .resizable()
+                        .scaledToFill()
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+            }else{
+                VStack{
+                    HStack(alignment: .bottom){
+                        Text("You lost a")
+                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .cLightBrown)
+                        Text("342")
+                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 38, fontColor: .cLightBrown)
+                            .padding(.vertical, -5)
+                        Text("days streak!")
+                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .cLightBrown)
+                    }.padding(.bottom, 8)
+                    
+                    Spacer()
+                    HStack(alignment: .bottom){
+                        Text("You forgot to Poop?")
+                            .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown)
+                        Spacer()
+                        ButtonPoop(text: "Restart")
+                            .onTapGesture {
+                                streak += 1
+                            }
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical)
+                .frame(maxWidth: .infinity, minHeight: 133)
+                .background(
+                    Image("StreakBreack")
+                        .resizable()
+                        .scaledToFill()
+                    
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+            }
+            
+            
+        }.padding(.horizontal, 20)
+    }
+}
+
+
+
