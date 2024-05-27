@@ -12,63 +12,34 @@ struct Annotation: View {
     @Binding var ann : BathroomApi
     
     var body: some View {
-        if mapViewModel.filterSelected != "Roll"{
-            if ann.tags?.accessible != false {
-                VStack{
-                    Image(mapViewModel.filterSelected)
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle((ann == mapViewModel.selected! && mapViewModel.tappedAnnotation() && mapViewModel.filterSelected == "Roll") ? .white : .accent)
-                        .padding(.bottom, 8)
-                        .background(
-                            Image("Pin")
-                                .renderingMode(.template)
-                                .foregroundStyle(ann == mapViewModel.selected && mapViewModel.tappedAnnotation() ? .accent: .white)
-                        )
-                        .onTapGesture {
-                            withAnimation(.snappy) {
-                                mapViewModel.moveToDestination(cords: [CGFloat((ann.coordinates?.coordinates![1])!), CGFloat((ann.coordinates?.coordinates![0])!), 15], dur: 0.3)
-                                mapViewModel.selected = ann
-                            }
-                            
-                        }
-
-                    
-                    Ellipse()
-                        .frame(width: 16, height: 4)
-                        .opacity(0.3)
-                        .blur(radius: 0.5)
-                        .padding(.top, -2)
-                }
-            }
-        }else{
-            VStack{
-                Image(mapViewModel.filterSelected)
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .foregroundStyle((ann == mapViewModel.selected! && mapViewModel.tappedAnnotation() && mapViewModel.filterSelected == "Roll") ? .white : .accent)
-                    .padding(.bottom, 8)
-                    .background(
-                        Image("Pin")
-                            .renderingMode(.template)
-                            .foregroundStyle(ann == mapViewModel.selected && mapViewModel.tappedAnnotation() ? .accent: .white)
-                    )
-                    .onTapGesture {
-                        withAnimation(.snappy) {
-                            mapViewModel.moveToDestination(cords: [CGFloat((ann.coordinates?.coordinates![1])!), CGFloat((ann.coordinates?.coordinates![0])!), 15], dur: 0.3)
-                            mapViewModel.selected = ann
-                        }
-                        
+        VStack{
+            Image(mapViewModel.filterSelected)
+                .resizable()
+                .frame(width: 20, height: 20)
+                .foregroundStyle((ann == mapViewModel.selected! && mapViewModel.tappedAnnotation() && mapViewModel.filterSelected == "Roll") ? .white : .accent)
+                .padding(.bottom, 8)
+                .background(
+                    Image("Pin")
+                        .renderingMode(.template)
+                        .foregroundStyle(ann == mapViewModel.selected && mapViewModel.tappedAnnotation() ? .accent: .white)
+                )
+                .onTapGesture {
+                    withAnimation(.snappy) {
+                        mapViewModel.moveToDestination(cords: [CGFloat((ann.coordinates?.coordinates![1])!), CGFloat((ann.coordinates?.coordinates![0])!), 15], dur: 0.3)
+                        mapViewModel.selected = ann
+                        print(ann)
                     }
+                    
+                }
 
-                
-                Ellipse()
-                    .frame(width: 16, height: 4)
-                    .opacity(0.3)
-                    .blur(radius: 0.5)
-                    .padding(.top, -2)
-            }
-        }
+            
+            Ellipse()
+                .frame(width: 16, height: 4)
+                .opacity(0.3)
+                .blur(radius: 0.5)
+                .padding(.top, -2)
+        }.opacity(mapViewModel.filterSelected == "Accessible" ?  ann.tags?.accessible == true ? 1 : 0 : 1)
+        
         
     }
 }

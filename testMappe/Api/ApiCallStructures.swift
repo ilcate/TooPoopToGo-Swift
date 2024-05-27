@@ -50,6 +50,7 @@ struct BathroomApi: Decodable, Identifiable, Equatable, Hashable {
     var id: String?
     var photos: [Photos]?
     var name: String?
+    var created_at: String?
     var address: String?
     var coordinates: Coordinates?
     var place_type: String?
@@ -57,7 +58,7 @@ struct BathroomApi: Decodable, Identifiable, Equatable, Hashable {
     var is_free: Bool?
     var is_for_babies: Bool?
     var tags: BathroomTags?
-    var created_at: String?
+   
 
     init(
         id: String? = nil,
