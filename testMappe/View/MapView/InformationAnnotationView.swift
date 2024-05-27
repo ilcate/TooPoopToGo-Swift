@@ -8,30 +8,36 @@
 import SwiftUI
 
 struct InformationOfSelectionView: View {
-    @State var bathroom: BathroomApi
+    var bathroom: BathroomApi
     @EnvironmentObject var api: ApiManager
-
+    @State var loading = false
+    
     var body: some View {
         VStack {
-            if let name = bathroom.name, !name.isEmpty {
+            if  !bathroom.name!.isEmpty {
                 NavigationLink(destination: DetailBathroom(bathroom: bathroom)) {
                     HStack(spacing: 0) {
-                        if let photos = bathroom.photos, !photos.isEmpty, let photo = photos.first?.photo, let url = URL(string: "\(api.url)\(photo)") {
-                            AsyncImage(url: url) { image in
-                                image
-                                    .resizable()
-                                    .resizableImageStyleSmall()
-                            } placeholder: {
+                        if !loading{
+                            if let photos = bathroom.photos, !photos.isEmpty, let photo = photos.first?.photo, let url = URL(string: "\(api.url)\(photo)") {
+                                AsyncImage(url: url) { image in
+                                    image
+                                        .resizable()
+                                        .resizableImageStyleSmall()
+                                } placeholder: {
+                                    CoverDef()
+                                }
+                            } else {
                                 CoverDef()
                             }
-                        } else {
+                        }else{
                             CoverDef()
                         }
+                        
 
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
                                 HStack{
-                                    Text(name)
+                                    Text(bathroom.name!)
                                         .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 24, fontColor: .accentColor)
                                     Spacer()
                                 }
@@ -40,7 +46,7 @@ struct InformationOfSelectionView: View {
                                 Image("StarFill")
                                     .resizable()
                                     .frame(width: 14, height: 14)
-                                    .foregroundColor(.accentColor) // Usa foregroundColor invece di foregroundStyle
+                                    .foregroundColor(.accentColor)
                                     .padding(.trailing, -4)
                                 Text("4.99")
                                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 16, fontColor: .accentColor)
@@ -60,6 +66,11 @@ struct InformationOfSelectionView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .frame(maxWidth: .infinity, maxHeight: 110)
                 }
+            }
+        }.onChange(of: bathroom) {
+            loading = true
+            DispatchQueue.main.async {
+                loading = false
             }
         }
     }

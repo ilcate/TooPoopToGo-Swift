@@ -4,33 +4,23 @@ import Alamofire
 
 class ApiManager: ObservableObject {
     @Published var userToken: String {
-            didSet {
-                UserDefaults.standard.set(userToken, forKey: "userToken")
-                headers.update(name: "Authorization", value: "token \(userToken)")
-            }
+        didSet {
+            UserDefaults.standard.set(userToken, forKey: "userToken")
+            headers.update(name: "Authorization", value: "token \(userToken)")
         }
+    }
     
     let url = "https://poop.zimahome.casa"
-    var headers : HTTPHeaders
-    
-    // Mantieni un riferimento alla sessione come variabile di istanza
-    private let session: Session
+    var headers: HTTPHeaders
     
     init() {
         self.userToken = UserDefaults.standard.string(forKey: "userToken") ?? ""
         self.headers = HTTPHeaders(["Authorization": "token \(UserDefaults.standard.string(forKey: "userToken") ?? "")"])
-        
-        // Initialize the session
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 60
-        configuration.timeoutIntervalForResource = 60
-        self.session = Session(configuration: configuration)
     }
     
     @Published var username = ""
     @Published var password = ""
     @Published var email = ""
-    
     
     func createAccount(parameters: RegisterRequest, completion: @escaping (Result<RegisterResponse, Error>) -> Void) {
         AF.request("\(url)/user/create", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
@@ -57,7 +47,6 @@ class ApiManager: ObservableObject {
                     completion(.failure(error))
                 }
             }
-        
     }
     
     func searchBathroom(stringToSearch: String, completion: @escaping (Result<[BathroomApi]?, Error>) -> Void) {
@@ -79,11 +68,9 @@ class ApiManager: ObservableObject {
             .responseString { response in
                 switch response.result {
                 case .success(let responseBody):
-                    
                     if let token = self.extractToken(from: responseBody) {
                         completion(.success(token))
                     }
-                    
                 case .failure(let error):
                     print("Failure: \(error)")
                     completion(.failure(error))
@@ -91,7 +78,7 @@ class ApiManager: ObservableObject {
             }
     }
     
-    func getBathroomsNearToYou(lat:CGFloat, long:CGFloat, distance: CGFloat, completion: @escaping (Result<[BathroomApi], Error>) -> Void) {
+    func getBathroomsNearToYou(lat: CGFloat, long: CGFloat, distance: CGFloat, completion: @escaping (Result<[BathroomApi], Error>) -> Void) {
         AF.request("\(url)/toilet/list-from-point?distance=\(distance)&latitude=\(lat)&longitude=\(long)", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: [BathroomApi].self) { response in
@@ -131,7 +118,7 @@ class ApiManager: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "userToken")
     }
     
-    func getUser( completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
+    func getUser(completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
         AF.request("\(url)/user/self-retrieve", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: UserInfoResponse.self) { response in
@@ -145,9 +132,7 @@ class ApiManager: ObservableObject {
             }
     }
     
-    
-
-    func createLocation(name: String, type: String, images: [UIImage], isForDisabled: Bool?, isFree: Bool?, isForBabies: Bool?, long: Double, lat: Double, userToken: String, completion: @escaping (Result<RegisterResponse, Error>) -> Void) {
+    func createLocation(name: String, type: String, images: [UIImage], isForDisabled: Bool?, isFree: Bool?, isForBabies: Bool?, long: Double, lat: Double, completion: @escaping (Result<RegisterResponse, Error>) -> Void) {
         
         var params: [String: String] = ["name": name, "type": type, "coordinates": "POINT (\(long) \(lat))"]
         
@@ -160,9 +145,8 @@ class ApiManager: ObservableObject {
         if let isForBabies = isForBabies {
             params["is_for_babies"] = isForBabies ? "true" : "false"
         }
-               
         
-        session.upload(multipartFormData: { multipartFormData in
+        AF.upload(multipartFormData: { multipartFormData in
             for (key, value) in params {
                 if let data = value.data(using: .utf8) {
                     multipartFormData.append(data, withName: key)
@@ -192,6 +176,4 @@ class ApiManager: ObservableObject {
             }
         }
     }
-
-    
 }

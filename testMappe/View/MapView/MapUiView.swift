@@ -162,22 +162,25 @@ struct MapButtonsView: View {
                                     mapViewModel.resetAndFollow(z: 18)
                                     mapViewModel.canMoveCheck(duration: 0.5)
                                 }
-                                .padding(.bottom,  mapViewModel.tappedAnnotation() ?  6 : 72 )
+                                
                         }
                     }
-                    if mapViewModel.tappedAnnotation() {
-                        withAnimation(.snappy){
-                            InformationOfSelectionView(bathroom: mapViewModel.selected!)
-                                .padding(.bottom, mapViewModel.selected?.name != "" ? 78 : 6)
-                                .opacity(mapViewModel.selected?.name != "" ? 1 : 0)
-                                .onChange(of: mapViewModel.viewport){
-                                    if !mapViewModel.checkCoordinates() {
-                                        mapViewModel.removeSelection()
+                    VStack{
+                        if mapViewModel.tappedAnnotation() {
+                            withAnimation(.snappy){
+                                InformationOfSelectionView(bathroom: mapViewModel.selected!)
+                                    .padding(.bottom, mapViewModel.selected?.name != "" ? 78 : 6)
+                                    .opacity(mapViewModel.selected?.name != "" ? 1 : 0)
+                                    .onChange(of: mapViewModel.viewport){
+                                        if !mapViewModel.checkCoordinates() {
+                                            mapViewModel.removeSelection()
+                                        }
+            
                                     }
-                                    
-                                }
+                            }
                         }
-                    }
+                    }.padding(.top, mapViewModel.tappedAnnotation() ?  6 : 64)
+                    
                     
                 }
                 
