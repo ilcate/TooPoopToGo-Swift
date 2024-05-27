@@ -181,7 +181,6 @@ struct MapButtonsView: View {
                         }
                     }.padding(.top, mapViewModel.tappedAnnotation() ?  6 : 64)
                     
-                    
                 }
                 
                 

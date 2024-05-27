@@ -32,7 +32,6 @@ struct InformationOfSelectionView: View {
                         }else{
                             CoverDef()
                         }
-                        
 
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
@@ -51,7 +50,7 @@ struct InformationOfSelectionView: View {
                                 Text("4.99")
                                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 16, fontColor: .accentColor)
                             }
-                            Text("400m from you")
+                            Text(getStreet(bathroom.address ?? "" ))
                                 .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accentColor)
                             Spacer()
                             HStack {
@@ -60,7 +59,7 @@ struct InformationOfSelectionView: View {
                             }
                         }
                         .padding(.trailing, 10)
-                        .padding(.vertical, 8)
+                        .padding(.bottom, 7).padding(.top, 3)
                     }
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 10))

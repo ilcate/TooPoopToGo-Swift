@@ -21,3 +21,17 @@ func formatAddress(_ address: String) -> String {
         return "No address provided"
     }
 }
+
+func getStreet(_ address: String) -> String {
+    if address == "" {
+        return "No street provided"
+    }
+    let components = address.components(separatedBy: ",")    
+    if components.count >= 3 {
+        let formattedAddress = "\(components[0])"
+        return formattedAddress
+    } else {
+        return "No address provided"
+    }
+}
+
