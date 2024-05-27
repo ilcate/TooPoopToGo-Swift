@@ -8,11 +8,11 @@ struct FiltersScroller: View {
         Filters(image: UIImage(named: "BabiesCircle"), name: "Babies", selected: false),
         Filters(image: UIImage(named: "FreeCircle"), name: "Free", selected: false),
         Filters(image: UIImage(named: "AccessibleCircle"), name: "Accessible", selected: false),
-        Filters(image: UIImage(named: "PublicCircle"), name: "Public", selected: false),
-        Filters(image: UIImage(named: "RestaurantCircle"), name: "Restaurant", selected: false),
+        Filters(image: UIImage(named: "PublicCircle"), name: "IsPublic", selected: false),
+        Filters(image: UIImage(named: "RestaurantCircle"), name: "IsRestaurant", selected: false),
         Filters(image: UIImage(named: "NewestCircle"), name: "Newest", selected: false),
-        Filters(image: UIImage(named: "BarCircle"), name: "Bar", selected: false),
-        Filters(image: UIImage(named: "ShopCircle"), name: "Shop", selected: false)
+        Filters(image: UIImage(named: "BarCircle"), name: "IsBar", selected: false),
+        Filters(image: UIImage(named: "ShopCircle"), name: "IsShop", selected: false)
     ]
     
     
