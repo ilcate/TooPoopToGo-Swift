@@ -13,7 +13,7 @@ import CoreLocation
 
 struct Filters: Identifiable{
     var id = UUID()
-    var image: UIImage
+    var image: UIImage?
     var name: String
     var selected = false 
     

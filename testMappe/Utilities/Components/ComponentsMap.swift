@@ -5,12 +5,14 @@ import PhotosUI
 struct FiltersScroller: View {
     @ObservedObject var mapViewModel : MapModel
     @State var filtersArray = [
-        Filters(image: UIImage(named: "TrendingCircle")!, name: "Trending", selected: false),
-        Filters(image: UIImage(named: "FreeCircle")!, name: "Free", selected: false),
-        Filters(image: UIImage(named: "AccessibleCircle")!, name: "Accessible", selected: false),
-        Filters(image: UIImage(named: "LikedCircle")!, name: "Liked", selected: false),
-        Filters(image: UIImage(named: "CleanestCircle")!, name: "Cleanest", selected: false),
-        Filters(image: UIImage(named: "NewestCircle")!, name: "Newest", selected: false)
+        Filters(image: UIImage(named: "BabiesCircle"), name: "Babies", selected: false),
+        Filters(image: UIImage(named: "FreeCircle"), name: "Free", selected: false),
+        Filters(image: UIImage(named: "AccessibleCircle"), name: "Accessible", selected: false),
+        Filters(image: UIImage(named: "PublicCircle"), name: "Public", selected: false),
+        Filters(image: UIImage(named: "RestaurantCircle"), name: "Restaurant", selected: false),
+        Filters(image: UIImage(named: "NewestCircle"), name: "Newest", selected: false),
+        Filters(image: UIImage(named: "BarCircle"), name: "Bar", selected: false),
+        Filters(image: UIImage(named: "ShopCircle"), name: "Shop", selected: false)
     ]
     
     
@@ -19,7 +21,7 @@ struct FiltersScroller: View {
             LazyHStack{
                 ForEach(filtersArray.indices, id: \.self) { index in
                     HStack(spacing: 6){
-                        Image(uiImage: filtersArray[index].image)
+                        Image(uiImage: filtersArray[index].image!)
                             .resizable()
                             .frame(width: 26, height: 26)
                             .clipShape(.circle)
