@@ -7,6 +7,7 @@ struct DetailBathroom: View {
     
     @State private var openSheetNavigate =  false
     @State private var openSheetAddReview =  false
+    @State var informationStat = GetRatingStats(overall_rating: "0", cleanliness_rating: "0", comfort_rating: "0", accessibility_rating: "0", review_count: 0)
     
     @State var bathroom : BathroomApi
     
@@ -32,6 +33,16 @@ struct DetailBathroom: View {
                     Spacer()
                     
                 }
+            }.task {
+                api.getRevStats(idB: bathroom.id!) { result in
+                        switch result {
+                        case .success(let stats):
+                            informationStat = stats
+                            print(informationStat)
+                        case .failure(let error):
+                            print("Failed to fetch review stats: \(error)")
+                        }
+                    }
             }
             .padding(.horizontal, 20).padding(.top, -4).padding(.bottom, 8)
             
@@ -47,7 +58,7 @@ struct DetailBathroom: View {
             .scrollIndicators(.hidden)
             .padding(.bottom, 4).padding(.top, -4)
             
-            RatingsBathroomDetail()
+            RatingsBathroomDetail(informationStat : $informationStat)
             
             Spacer()
             

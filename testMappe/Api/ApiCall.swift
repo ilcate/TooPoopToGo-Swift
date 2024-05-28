@@ -153,6 +153,20 @@ class ApiManager: ObservableObject {
                 }
     }
     
+    func getRevStats(idB: String, completion: @escaping (Result<GetRatingStats, Error>) -> Void) {
+        AF.request("\(url)/toilet/retrieve-toilet-rating/\(idB)", method: .get, headers: headers )
+                .validate(statusCode: 200..<300)
+                .responseDecodable(of: GetRatingStats.self){ response in
+                    switch response.result {
+                    case .success(let responseBody):
+                        completion(.success(responseBody))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+    }
+    
+    
     
     func createLocation(name: String, type: String, images: [UIImage], isForDisabled: Bool?, isFree: Bool?, isForBabies: Bool?, long: Double, lat: Double, completion: @escaping (Result<RegisterResponse, Error>) -> Void) {
         

@@ -99,11 +99,13 @@ struct ImageSliderDetailBathroom: View {
 }
 
 struct RatingsBathroomDetail: View {
+    @Binding var informationStat : GetRatingStats
+    
     var body: some View {
         VStack{
             Spacer()
             HStack{
-                Text("“A great experience”")
+                Text( informationStat.review_count == 0 ? "Has no reviews" : informationStat.review_count == 1 ? "With \(informationStat.review_count) review" :   informationStat.review_count > 1 ? "With \(informationStat.review_count) reviews" : "Has no reviews")
                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 20, fontColor: .accent)
                 Spacer()
                 HStack(spacing: 4){
@@ -111,7 +113,7 @@ struct RatingsBathroomDetail: View {
                         .resizable()
                         .frame(width: 13, height: 13)
                         .foregroundColor(.accentColor)
-                    Text("4.99")
+                    Text(informationStat.overall_rating)
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .accent)
                 }
             }

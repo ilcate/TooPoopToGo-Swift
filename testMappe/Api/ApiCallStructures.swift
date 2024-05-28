@@ -198,3 +198,11 @@ struct AddRating: Encodable {
     let accessibility_rating: Int?
     let review : String?
 }
+
+struct GetRatingStats: Decodable {
+    let overall_rating: String
+    let cleanliness_rating: String
+    let comfort_rating: String
+    let accessibility_rating: String
+    let review_count : Int
+}

@@ -98,7 +98,7 @@ struct RatingsView: View {
             VStack {
                 RatingsStars(RatingName: "Cleanliness", RatingStars: $cleanStar)
                 RatingsStars(RatingName: "Comfort", RatingStars: $comfortStar)
-                RatingsStars(RatingName: "Mood", RatingStars: $moodStar)
+                RatingsStars(RatingName: "Accessible", RatingStars: $moodStar)
                 
             }
             .padding(.vertical, 9)
