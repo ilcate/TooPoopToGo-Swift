@@ -18,9 +18,9 @@ struct SmallTag: View {
     var body: some View {
         HStack(spacing: 2){
             Image("\(text)Stroke")
-                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
                 .resizable()
-                .frame(width: 16, height: 16)
+                .renderingMode(.template)
+                .frame(width: 20, height: 20)
                 .foregroundStyle(.accent)
             Text(text)
                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: Color.accent)
@@ -260,49 +260,93 @@ struct ButtonFeed: View {
     }
 }
 
-
 struct ReviewTemp: View {
-    let name : String
-    
+    let review: Review
+    @State var ratingAVG = ""
     var body: some View {
-        VStack{
-            HStack{
+        VStack {
+            HStack {
                 Image("ImagePlaceHolder3")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())
-                VStack(alignment:.leading, spacing: 1){
-                    Text(name)
-                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
-                    Text("3 hours ago")
-                        .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 14, fontColor: .accent)
-                    
+                VStack(alignment: .leading, spacing: -2) {
+                    Text(review.username)
+                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 19, fontColor: .accent)
+                    Text(timeElapsedSince(review.createdAt))
+                        .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent.opacity(0.4))
+                        
                 }
                 Spacer()
-                
+                HStack(spacing: 4){
+                    Image("StarFill")
+                        .resizable()
+                        .frame(width: 13, height: 13)
+                        .foregroundColor(.accentColor)
+                    Text(ratingAVG)
+                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .accent)
+                }
+            }
+            .padding(.horizontal, 16)
+            HStack{
+                Text(review.review)
+                    .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accent)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(3)
+                Spacer()
             }.padding(.horizontal, 16)
-            Text("Just had her biggest shit ever and did the review at 14 bathrooms in 3 days! porco dio devo aggiungere testo")
-                .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accent)
-                .padding(.horizontal, 10)
-            
+           
+            Spacer()
         }
-        .frame(maxWidth: .infinity, minHeight: 144)
-        .background(.white)
+        .padding(.top, 12)
+        .frame(maxWidth: .infinity, minHeight: 144, maxHeight: 144)
+        .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .containerRelativeFrame(.horizontal, count: 1, spacing: 20)
         .padding(.trailing, 10)
+        .padding(.bottom, -6)
+        .onAppear{
+            if let floatValue1 = Float(review.accessibilityRating), let floatValue2 = Float(review.cleanlinessRating) , let floatValue3 = Float(review.comfortRating){
+                let average = (floatValue1 + floatValue2 + floatValue3) / 3.0
+                ratingAVG =  String(format: "%.2f", average)
+            } else {
+                ratingAVG = "0"
+            }
+        }
     }
+    
+    
 }
 
+
+
+
+
 struct ReviewsScroller: View {
-    let names : [String]
+    let reviews: [Review]?
     
     var body: some View {
-        ScrollView(.horizontal){
-            HStack(spacing: 0){
-                ForEach(names, id: \.self) { name in
-                    ReviewTemp(name: name)
+        ScrollView(.horizontal) {
+            HStack(spacing: 0) {
+                if !reviews!.isEmpty{
+                    if let reviews = reviews {
+                        ForEach(reviews, id: \.self) { review in
+                            ReviewTemp(review: review)
+                        }
+                    }
+                } else {
+                    VStack {
+                        Text("This place has no reviews. \n Add the first one!")
+                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 16, fontColor: .accent)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 144)
+                    .background(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .containerRelativeFrame(.horizontal, count: 1, spacing: 20)
+                    .padding(.trailing, 10)
+                    .padding(.bottom, -6)
                 }
             }
             .padding(.trailing, -10)

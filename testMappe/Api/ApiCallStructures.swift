@@ -33,6 +33,30 @@ struct UserInfoResponse: Decodable {
 }
 
 
+struct ListOFRewievs: Decodable {
+    var results : [Review]?
+}
+
+struct Review: Decodable, Identifiable, Hashable {
+    let cleanlinessRating: String
+    let comfortRating: String
+    let accessibilityRating: String
+    let review: String
+    let id: String
+    let username: String
+    let createdAt: String
+
+    enum CodingKeys: String, CodingKey {
+        case cleanlinessRating = "cleanliness_rating"
+        case comfortRating = "comfort_rating"
+        case accessibilityRating = "accessibility_rating"
+        case review
+        case id
+        case username
+        case createdAt = "created_at"
+    }
+}
+
 struct SearchBath: Decodable{
     var results : [BathroomApi]?
 }
@@ -166,4 +190,11 @@ struct Coordinates: Decodable, Equatable, Hashable {
 struct addApiResponse: Decodable {
     let success: Bool
     let message: String?
+}
+
+struct AddRating: Encodable {
+    let cleanliness_rating: Int?
+    let comfort_rating: Int?
+    let accessibility_rating: Int?
+    let review : String?
 }

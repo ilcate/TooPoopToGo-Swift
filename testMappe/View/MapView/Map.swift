@@ -20,7 +20,7 @@ struct MapView: View {
                                 Annotation(mapViewModel: mapViewModel, ann: annotationBinding)
                             }
                             .allowOverlapWithPuck(true)//fa si che il punto dell'utente sia sotto all'annotation
-                            .allowOverlap(mapViewModel.currentZoom >= 15 ? true : false)
+                            .allowOverlap(mapViewModel.currentZoom >= 14 ? true : false)
                             .ignoreCameraPadding(false)
                         }
                     }

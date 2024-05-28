@@ -22,7 +22,9 @@ class HomeModel : ObservableObject{
                         array.forEach { e in
                             self.nextToYou.append(e)
                         }
+                       
                     }
+                    
                 case .failure(let error):
                     print("Error fetching bathrooms: \(error)")
                 }

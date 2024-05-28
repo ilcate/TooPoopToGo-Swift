@@ -95,8 +95,7 @@ public struct SheetManageSearch: View {
                             )
                     }
                 }
-                .frame(maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-
+                .frame(maxHeight: .infinity)
             }
             .frame(height: 14)
             .padding(.horizontal, 20)
@@ -110,14 +109,13 @@ public struct SheetManageSearch: View {
                     .frame(maxWidth: .infinity, maxHeight: 40)
             }
             
-            RatingsView()
-                .padding(.horizontal, 20)
+//            RatingsView()
+//                .padding(.horizontal, 20)
 
             FullRoundedButton(text: "Confirm Filters")
                 .padding(.top, 8)  .padding(.bottom, 4)
               
-            
-            
+                        
         }
     }
 }

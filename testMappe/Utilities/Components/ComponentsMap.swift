@@ -59,7 +59,7 @@ struct FiltersScroller: View {
 
 struct RatingsStars: View {
     var RatingName: String
-    @State var RatingStars: [Stars]
+    @Binding var RatingStars: [Stars]
     
     var body: some View {
         HStack{
@@ -86,9 +86,9 @@ struct RatingsStars: View {
 
 
 struct RatingsView: View {
-    var cleanStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
-    var comfortStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
-    var moodStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
+    @Binding var cleanStar : [Stars]
+    @Binding var comfortStar : [Stars]
+    @Binding var moodStar : [Stars]
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -96,9 +96,9 @@ struct RatingsView: View {
                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accentColor)
                 .padding(.bottom, -2)
             VStack {
-                RatingsStars(RatingName: "Cleanliness", RatingStars: cleanStar)
-                RatingsStars(RatingName: "Comfort", RatingStars: comfortStar)
-                RatingsStars(RatingName: "Mood", RatingStars: moodStar)
+                RatingsStars(RatingName: "Cleanliness", RatingStars: $cleanStar)
+                RatingsStars(RatingName: "Comfort", RatingStars: $comfortStar)
+                RatingsStars(RatingName: "Mood", RatingStars: $moodStar)
                 
             }
             .padding(.vertical, 9)

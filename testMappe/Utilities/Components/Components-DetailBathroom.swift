@@ -106,14 +106,13 @@ struct RatingsBathroomDetail: View {
                 Text("“A great experience”")
                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 20, fontColor: .accent)
                 Spacer()
-                HStack(spacing: 2){
+                HStack(spacing: 4){
                     Image("StarFill")
                         .resizable()
-                        .foregroundStyle(.accent)
-                        .frame(width: 14, height: 14)
+                        .frame(width: 13, height: 13)
+                        .foregroundColor(.accentColor)
                     Text("4.99")
-                        .normalTextStyle(fontName: "Manrope-Regular", fontSize: 18, fontColor: .accent)
-                    
+                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .accent)
                 }
             }
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 30)
@@ -189,22 +188,24 @@ struct RatingsBathroomDetail: View {
 }
 
 struct ReviewsBathroomDetail: View {
-    @State private var names = ["MistroFino", "Pisellone", "PerAssurdo", "Filippino"]
-    @State var openSheetNavigate : Bool
-    @State  var openSheetAddReview : Bool
-    
-    
+    @State private var names: [Review] = []
+    @Binding var openSheetNavigate: Bool
+    @Binding var openSheetAddReview: Bool
+    @State var reviewsArray: Result<[Review]?, Error>? = nil
+    @State var api: ApiManager
+    let idBathroom: String
+
     var body: some View {
-        VStack(spacing: 0){
+        VStack(spacing: 0) {
             Rectangle()
-                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 2)
+                .frame(maxWidth: .infinity, maxHeight: 2)
                 .foregroundStyle(.cLightGray)
-            VStack{
-                HStack{
+            VStack {
+                HStack {
                     Text("Location Reviews")
-                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 16, fontColor: .accent)
+                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
                     Spacer()
-                    HStack(spacing: 1){
+                    HStack(spacing: 1) {
                         Image("Close")
                             .resizable()
                             .frame(width: 12, height: 12)
@@ -225,7 +226,7 @@ struct ReviewsBathroomDetail: View {
                 .padding(.top, 8)
                 .padding(.bottom, 2)
                 
-                ReviewsScroller(names: names)
+                ReviewsScroller(reviews: names)
                 
                 Spacer()
                 
@@ -238,8 +239,19 @@ struct ReviewsBathroomDetail: View {
                 Spacer()
                 
             }
+            .task {
+                api.getReviews(idB: idBathroom) { result in
+                    switch result {
+                    case .success(let reviews):
+                        names = reviews.reversed()
+                    case .failure(let error):
+                        print("Failed to fetch reviews: \(error)")
+                        names = []
+                    }
+                }
+            }
         }
-        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.cLightBrown)
         .padding(.top, 6)
     }

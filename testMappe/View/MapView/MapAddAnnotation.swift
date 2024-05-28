@@ -19,7 +19,7 @@ struct SheetAddAn: View {
                     TextFieldCustom(stateVariable : $mapViewModel.descNewAnnotation ,  name: "Leave a comment")
                     ImageSelectionView(imagesNewAnnotation: $mapViewModel.imagesNewAnnotation, openSheetUploadImage: $mapViewModel.openSheetUploadImage, photosPikerItems: $mapViewModel.photosPikerItems)
                     RestrictionsView(restrictions: $mapViewModel.restrictionsArray)
-                    RatingsView()
+                    //RatingsView()
                    
                 }
                 .padding(.horizontal, 20)

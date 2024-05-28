@@ -20,7 +20,7 @@ struct SliderNextToYou: View {
                 VStack {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
-                            ForEach(homeModel.nextToYou, id: \.self) { bathroom in
+                            ForEach(homeModel.nextToYou.reversed(), id: \.self) { bathroom in
                                 InformationOfSelectionView(bathroom: bathroom)
                                     .padding(.vertical, 3)
                                     .frame(width: 350)
@@ -38,7 +38,7 @@ struct SliderNextToYou: View {
                 .padding(.vertical, -1)
             } else {
                 Text("No bathroom next to you")
-                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .accent)
+                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 17, fontColor: .accent)
                     .padding()
                     .frame(maxWidth: .infinity, minHeight: 114)
                     .background(Color.white)

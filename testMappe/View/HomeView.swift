@@ -16,7 +16,7 @@ struct HomeView: View {
     @EnvironmentObject var api: ApiManager
     @StateObject var homeModel = HomeModel()
     
-    @State private var names = ["MistroFino", "Pisellone", "PerAssurdo", "Filippino"]
+//    @State private var names = ["MistroFino", "Pisellone", "PerAssurdo", "Filippino"]
     @State private var streak = 0
     
     var body: some View {
@@ -98,14 +98,14 @@ struct HomeView: View {
                     
                     SliderNextToYou(homeModel: homeModel)
                     
-                    VStack(spacing: 6){
-                        HStack{
-                            Text("Friends Reviews")
-                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
-                            Spacer()
-                        }.padding(.horizontal, 20)
-                        ReviewsScroller(names: names)
-                    }.padding(.bottom, 12)
+//                    VStack(spacing: 6){
+//                        HStack{
+//                            Text("Friends Reviews")
+//                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
+//                            Spacer()
+//                        }.padding(.horizontal, 20)
+//                        ReviewsScroller(reviews: names)
+//                    }.padding(.bottom, 12)
                     
                 }
             }

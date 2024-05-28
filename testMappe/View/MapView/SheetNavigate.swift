@@ -35,7 +35,7 @@ struct SheetNavigate: View {
                     }
                 }
             
-            FullRoundedButton(text: "Apple Maps")
+            FullRoundedButton(text: "Waze")
                 .onTapGesture {
                     if let url = URL(string: "waze://?ll=\(String(describing: bathroom.coordinates!.coordinates![1])),\(String(describing: bathroom.coordinates!.coordinates![0]))&navigate=yes"), UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)

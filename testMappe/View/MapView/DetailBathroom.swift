@@ -37,8 +37,9 @@ struct DetailBathroom: View {
             
             ScrollView(.horizontal){
                 HStack{
-                    SmallTag(text: "Trending")
-                    SmallTag(text: "Cleanest")
+                    SmallTag(text: String(bathroom.place_type!.capitalized))
+                    SmallTag(text: "Free")
+                    SmallTag(text: "Babies")
                     SmallTag(text: "Accessible")
                     SmallTag(text: "Newest")
                 }.padding(.horizontal, 20)
@@ -50,7 +51,7 @@ struct DetailBathroom: View {
             
             Spacer()
             
-            ReviewsBathroomDetail(openSheetNavigate: openSheetNavigate, openSheetAddReview: openSheetAddReview)
+            ReviewsBathroomDetail(openSheetNavigate: $openSheetNavigate, openSheetAddReview: $openSheetAddReview, api: api, idBathroom: bathroom.id!)
             
         }.ignoresSafeArea(.all, edges: .bottom)
             .sheet(isPresented: $openSheetNavigate, onDismiss: {
@@ -69,7 +70,7 @@ struct DetailBathroom: View {
             }) {
                 ZStack {
                     Color.cLightBrown.ignoresSafeArea(.all)
-                    SheetAddReview()
+                    SheetAddReview(idB: bathroom.id!)
                         .presentationDetents([.fraction(0.48)])
                         .presentationCornerRadius(18)
                 }

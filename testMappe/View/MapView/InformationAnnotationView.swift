@@ -54,8 +54,9 @@ struct InformationOfSelectionView: View {
                                 .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accentColor)
                             Spacer()
                             HStack {
-                                SmallTag(text: "Trending")
-                                SmallTag(text: "Cleanest")
+                                SmallTag(text: String(bathroom.place_type!.capitalized))
+                                SmallTag(text: "Free")
+                               
                             }
                         }
                         .padding(.trailing, 10)
