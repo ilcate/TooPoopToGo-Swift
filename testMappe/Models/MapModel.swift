@@ -130,7 +130,7 @@ final class MapModel: ObservableObject{
     
     
     func addAnnotationServer(element : BathroomApi){
-        allPoints.append(BathroomApi(id: element.id, photos: element.photos, name: element.name, address: element.address, coordinates: element.coordinates, place_type: element.place_type, is_for_disabled: element.is_for_disabled, is_free: element.is_free, is_for_babies: element.is_for_babies, updated_at: element.updated_at))
+        allPoints.append(BathroomApi(id: element.id, photos: element.photos, name: element.name, address: element.address, coordinates: element.coordinates, place_type: element.place_type, is_for_disabled: element.is_for_disabled, is_free: element.is_free, is_for_babies: element.is_for_babies, tags: element.tags, updated_at: element.updated_at))
     }
     
     func tappedAnnotation() -> Bool{

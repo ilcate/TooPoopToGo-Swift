@@ -48,10 +48,10 @@ struct Annotation: View {
         case "Newest": return ann.tags?.newest == true ? 1 : 0
         case "ForBabies": return ann.tags?.forBabies == true ? 1 : 0
         case "Free": return ann.tags?.free == true ? 1 : 0
-        case "IsBar": return ann.tags?.isBar == true ? 1 : 0
-        case "IsPublic": return ann.tags?.isPublic == true ? 1 : 0
-        case "IsRestaurant": return ann.tags?.isRestaurant == true ? 1 : 0
-        case "IsShop": return ann.tags?.isShop == true ? 1 : 0
+        case "Public": return ann.place_type?.capitalized == "Public" ? 1 : 0
+        case "Restaurant": return ann.place_type?.capitalized == "Restaurant" ? 1 : 0
+        case "Bar": return ann.place_type?.capitalized == "Bar" ? 1 : 0
+        case "Shop" :return ann.place_type?.capitalized == "Shop" ? 1 : 0
         default: return 1
         }
     }

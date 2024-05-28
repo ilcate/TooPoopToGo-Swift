@@ -11,13 +11,16 @@ func formatAddress(_ address: String) -> String {
     if address == "" {
         return "No address provided"
     }
-    let components = address.components(separatedBy: ",")
-    let comp = components[1].components(separatedBy: " ")
+    var components = address.components(separatedBy: ",")
     
-    if components.count >= 3 {
+    if components.count > 3 {
+        let formattedAddress = "\(components[1]), \(components[2]), \(components[4])"
+        return formattedAddress
+    } else if components.count == 3 {
+        let comp = components[1].components(separatedBy: " ")
         let formattedAddress = "\(components[0]), \(comp[2]), \(components[2])"
         return formattedAddress
-    } else {
+    }else {
         return "No address provided"
     }
 }
@@ -27,7 +30,11 @@ func getStreet(_ address: String) -> String {
         return "No street provided"
     }
     let components = address.components(separatedBy: ",")    
-    if components.count >= 3 {
+    if components.count > 3 {
+        let formattedAddress = "\(components[1])"
+        return formattedAddress
+    }
+    if components.count == 3 {
         let formattedAddress = "\(components[0])"
         return formattedAddress
     } else {

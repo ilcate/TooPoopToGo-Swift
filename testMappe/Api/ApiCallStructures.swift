@@ -92,11 +92,7 @@ struct BathroomApi: Decodable, Identifiable, Equatable, Hashable {
             free: is_free ?? false,
             accessible: is_for_disabled ?? false,
             forBabies: is_for_babies ?? false,
-            newest: isNew,
-            isPublic: place_type == "Public",
-            isBar: place_type == "Bar",
-            isRestaurant: place_type == "Restaurant",
-            isShop: place_type == "Shop"
+            newest: isNew
         )
     }
     
@@ -138,29 +134,17 @@ struct BathroomTags: Decodable, Equatable, Hashable {
     var accessible: Bool
     var forBabies: Bool
     var newest: Bool
-    var isPublic: Bool
-    var isBar: Bool
-    var isRestaurant: Bool
-    var isShop: Bool
     
     init(
         free: Bool = false,
         accessible: Bool = false,
         forBabies: Bool = false,
-        newest: Bool = false,
-        isPublic: Bool = false,
-        isBar: Bool = false,
-        isRestaurant: Bool = false,
-        isShop: Bool = false
+        newest: Bool = false
     ) {
         self.free = free
         self.accessible = accessible
         self.forBabies = forBabies
         self.newest = newest
-        self.isPublic = isPublic
-        self.isBar = isBar
-        self.isRestaurant = isRestaurant
-        self.isShop = isShop
     }
 }
 
