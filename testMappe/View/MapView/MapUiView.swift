@@ -152,7 +152,6 @@ struct MapButtonsView: View {
                     Spacer()
                     HStack{
                         Spacer()
-
                             Image("AddAnnotation")
                                 .frame(width: 60, height: 60)
                                 .background(.white)
@@ -162,14 +161,13 @@ struct MapButtonsView: View {
                                     mapViewModel.resetAndFollow(z: 18)
                                     mapViewModel.canMoveCheck(duration: 0.5)
                                 }
+                                .padding(.bottom, mapViewModel.selected?.name != ""  ? 0 : 72)
                                 
                         }
-                    }
-                    VStack{
+                    
                         if mapViewModel.tappedAnnotation() {
                             withAnimation(.snappy){
                                 InformationOfSelectionView(bathroom: mapViewModel.selected!)
-                                    .padding(.bottom, mapViewModel.selected?.name != "" ? 78 : 6)
                                     .opacity(mapViewModel.selected?.name != "" ? 1 : 0)
                                     .onChange(of: mapViewModel.viewport){
                                         if !mapViewModel.checkCoordinates() {
@@ -177,10 +175,13 @@ struct MapButtonsView: View {
                                         }
             
                                     }
+                                    .padding(.top, 6)
                             }
+                            
                         }
-                    }.padding(.top, mapViewModel.tappedAnnotation() ?  6 : 64)
+                    } .padding(.bottom, mapViewModel.selected?.name != "" ? 72 : 6)
                     
+
                 }
                 
                 

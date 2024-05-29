@@ -2,6 +2,9 @@ import SwiftUI
 import PhotosUI
 
 struct SheetAddAn: View {
+    @State var cleanStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
+    @State var comfortStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
+    @State var moodStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var isTexting: IsTexting
     @EnvironmentObject var api: ApiManager
@@ -19,7 +22,7 @@ struct SheetAddAn: View {
                     TextFieldCustom(stateVariable : $mapViewModel.descNewAnnotation ,  name: "Leave a comment")
                     ImageSelectionView(imagesNewAnnotation: $mapViewModel.imagesNewAnnotation, openSheetUploadImage: $mapViewModel.openSheetUploadImage, photosPikerItems: $mapViewModel.photosPikerItems)
                     RestrictionsView(restrictions: $mapViewModel.restrictionsArray)
-                    //RatingsView()
+                    RatingsView(cleanStar: $cleanStar, comfortStar: $comfortStar, moodStar: $moodStar)
                    
                 }
                 .padding(.horizontal, 20)
@@ -64,8 +67,10 @@ struct SheetAddAn: View {
                         clicked = true
                         mapViewModel.sendPointToServer(name: mapViewModel.nameNewAnnotation, type: mapViewModel.optionsDropDown[0], image : mapViewModel.imagesNewAnnotation, restrictions: mapViewModel.restrictionsArray, api: api) { result in
                             if result {
+                                
                                 isTexting.page = false
                                 mapViewModel.resetAddParams()
+//                                mapViewModel.sendReview(api: api, cleanStar: cleanStar, comfortStar: comfortStar, moodStar: moodStar, idB: idB)
                                 dismiss()
                                 clicked = false
                             }else{

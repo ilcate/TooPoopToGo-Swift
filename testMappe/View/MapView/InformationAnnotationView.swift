@@ -11,10 +11,11 @@ struct InformationOfSelectionView: View {
     var bathroom: BathroomApi
     @EnvironmentObject var api: ApiManager
     @State var loading = false
+    @State var arrOfTags : [Bool] = [false, false, false, false, false, false, false, false]
     
     var body: some View {
         VStack {
-            if  !bathroom.name!.isEmpty {
+            if !bathroom.name!.isEmpty {
                 NavigationLink(destination: DetailBathroom(bathroom: bathroom)) {
                     HStack(spacing: 0) {
                         if !loading{
@@ -53,14 +54,15 @@ struct InformationOfSelectionView: View {
                             Text(getStreet(bathroom.address ?? "" ))
                                 .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accentColor)
                             Spacer()
-                            HStack {
-                                SmallTag(text: String(bathroom.place_type!.capitalized))
-                                SmallTag(text: "Free")
-                               
-                            }
+                            DisplayTagsB(arrBool: arrOfTags, limit: 2)
+                            
                         }
                         .padding(.trailing, 10)
                         .padding(.bottom, 7).padding(.top, 3)
+                        .task{
+                            arrOfTags = getBathroomTags(bathroom: bathroom)
+                           
+                        }
                     }
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -70,6 +72,7 @@ struct InformationOfSelectionView: View {
         }.onChange(of: bathroom) {
             loading = true
             DispatchQueue.main.async {
+                arrOfTags = getBathroomTags(bathroom: bathroom)
                 loading = false
             }
         }

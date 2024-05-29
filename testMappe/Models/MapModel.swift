@@ -221,6 +221,14 @@ final class MapModel: ObservableObject{
         }
         
     }
+    
+    func sendReview(api : ApiManager, cleanStar : [Stars], comfortStar : [Stars] , moodStar : [Stars], idB : String){
+        let lastIndexClean = cleanStar.lastIndex(where: { $0.selected  })! + 1
+        let lastIndexComfort = comfortStar.lastIndex(where: { $0.selected })! + 1
+        let lastIndexAccessibility = moodStar.lastIndex(where: { $0.selected })! + 1
+        
+        api.addReview(idB: idB, parameters: AddRating(cleanliness_rating: lastIndexClean, comfort_rating: lastIndexComfort, accessibility_rating: lastIndexAccessibility, review: descNewAnnotation ))
+    }
 }
 
 

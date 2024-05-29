@@ -99,16 +99,17 @@ struct ImageSliderDetailBathroom: View {
 }
 
 struct RatingsBathroomDetail: View {
-    @Binding var informationStat : GetRatingStats
+    @Binding var informationStat: GetRatingStats
+    @State var starToDisplay: [Int] = [5, 5, 5] // Default to 5 stars if values are unavailable
     
     var body: some View {
-        VStack{
+        VStack {
             Spacer()
-            HStack{
-                Text( informationStat.review_count == 0 ? "Has no reviews" : informationStat.review_count == 1 ? "With \(informationStat.review_count) review" :   informationStat.review_count > 1 ? "With \(informationStat.review_count) reviews" : "Has no reviews")
+            HStack {
+                Text(informationStat.review_count == 0 ? "Has no reviews" : informationStat.review_count == 1 ? "With \(informationStat.review_count) review" : "With \(informationStat.review_count) reviews")
                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 20, fontColor: .accent)
                 Spacer()
-                HStack(spacing: 4){
+                HStack(spacing: 4) {
                     Image("StarFill")
                         .resizable()
                         .frame(width: 13, height: 13)
@@ -117,56 +118,57 @@ struct RatingsBathroomDetail: View {
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .accent)
                 }
             }
-            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 30)
+            .frame(maxWidth: .infinity, maxHeight: 30)
             .padding(.horizontal, 12)
             Rectangle()
                 .frame(maxWidth: .infinity, maxHeight: 2)
                 .foregroundStyle(.cLightBrown)
             HStack {
-                VStack(spacing:1){
+                VStack(spacing: 1) {
                     Text("Cleanliness")
                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 15, fontColor: .accent)
-                    HStack(spacing: 0.5){
-                        ForEach(0..<5) { index in
+                    HStack(spacing: 0.5) {
+                        ForEach(0..<starToDisplay[0], id: \.self) { _ in
                             Image("StarFill")
                                 .resizable()
                                 .foregroundStyle(.accent)
                                 .frame(width: 12, height: 12)
                         }
                     }
-                }.frame(maxWidth: .infinity, maxHeight: 30)
+                }
+                .frame(maxWidth: .infinity, maxHeight: 30)
                 Rectangle()
                     .frame(maxWidth: 2, maxHeight: .infinity)
                     .foregroundStyle(.cLightBrown)
                     .ignoresSafeArea(.all)
-                VStack(spacing:1){
+                VStack(spacing: 1) {
                     Text("Comfort")
                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 15, fontColor: .accent)
-                    HStack(spacing: 0.4){
-                        ForEach(0..<5) { index in
+                    HStack(spacing: 0.4) {
+                        ForEach(0..<starToDisplay[1], id: \.self) { _ in
                             Image("StarFill")
                                 .resizable()
                                 .foregroundStyle(.accent)
                                 .frame(width: 12, height: 12)
                         }
                     }
-                }.frame(maxWidth: .infinity, maxHeight: 30)
+                }
+                .frame(maxWidth: .infinity, maxHeight: 30)
                 Rectangle()
                     .frame(maxWidth: 2, maxHeight: .infinity)
                     .foregroundStyle(.cLightBrown)
                     .ignoresSafeArea(.all)
-                VStack(spacing:1){
+                VStack(spacing: 1) {
                     Text("Accessibility")
                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 15, fontColor: .accent)
-                    HStack(spacing: 0){
-                        ForEach(0..<5) { index in
+                    HStack(spacing: 0) {
+                        ForEach(0..<starToDisplay[2], id: \.self) { _ in
                             Image("StarFill")
                                 .resizable()
                                 .foregroundStyle(.accent)
                                 .frame(width: 12, height: 12)
                         }
                     }
-                    
                 }
                 .padding(.horizontal, -2)
                 .frame(maxWidth: .infinity, maxHeight: 30)
@@ -175,19 +177,35 @@ struct RatingsBathroomDetail: View {
             .padding(.top, -10)
             .padding(.horizontal, 12)
             .ignoresSafeArea(.all)
-            
-            
-            
         }
-        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 105)
+        .frame(maxWidth: .infinity, maxHeight: 105)
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(.cLightBrown, lineWidth: 2)
         )
-        .padding(.horizontal, 20).padding(.vertical, 6)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 6)
+        .task{
+            if let cleanlinessRating = Double(informationStat.cleanliness_rating),
+               let comfortRating = Double(informationStat.comfort_rating),
+               let accessibilityRating = Double(informationStat.accessibility_rating) {
+                
+                let roundedCleanliness = Int(cleanlinessRating.rounded())
+                let roundedComfort = Int(comfortRating.rounded())
+                let roundedAccessibility = Int(accessibilityRating.rounded())
+                
+                starToDisplay = [roundedCleanliness, roundedComfort, roundedAccessibility]
+                print("starToDisplay: \(starToDisplay)")
+            } else {
+                starToDisplay = [5, 5, 5] // Default values if conversion fails
+            }
+        }
     }
+    
+    
 }
+
 
 struct ReviewsBathroomDetail: View {
     @State private var names: [Review] = []
@@ -196,7 +214,7 @@ struct ReviewsBathroomDetail: View {
     @State var reviewsArray: Result<[Review]?, Error>? = nil
     @State var api: ApiManager
     let idBathroom: String
-
+    
     var body: some View {
         VStack(spacing: 0) {
             Rectangle()
@@ -256,5 +274,21 @@ struct ReviewsBathroomDetail: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.cLightBrown)
         .padding(.top, 6)
+    }
+}
+
+
+struct DisplayTagsB: View {
+    let arrOfAllTags = ["Accessible", "Free", "Babies", "Newest", "Public", "Shop", "Restaurant", "Bar"]
+    let arrBool: [Bool]
+    let limit: Int
+    
+    var body: some View {
+        HStack {
+            let displayedTags = arrOfAllTags.indices.filter { arrBool[$0] }.prefix(limit)
+            ForEach(displayedTags, id: \.self) { index in
+                SmallTag(text: arrOfAllTags[index])
+            }
+        }
     }
 }

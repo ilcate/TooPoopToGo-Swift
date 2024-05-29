@@ -19,8 +19,8 @@ class HomeModel : ObservableObject{
                 case .success(let array):
                     if !array.isEmpty {
                         self.nextToYou.removeAll()
-                        array.forEach { e in
-                            self.nextToYou.append(e)
+                        array.forEach { element in
+                            self.nextToYou.append(BathroomApi(id: element.id, photos: element.photos, name: element.name, address: element.address, coordinates: element.coordinates, place_type: element.place_type, is_for_disabled: element.is_for_disabled, is_free: element.is_free, is_for_babies: element.is_for_babies, tags: element.tags, updated_at: element.updated_at))
                         }
                        
                     }

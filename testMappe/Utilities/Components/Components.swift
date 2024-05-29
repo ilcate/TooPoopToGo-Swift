@@ -188,7 +188,7 @@ struct FeedNotification : View {
     var body: some View {
         VStack{
             HStack(alignment: .top){
-                
+
                 Image("ImagePlaceHolder3")
                     .resizable()
                     .scaledToFill()
@@ -316,8 +316,9 @@ struct ReviewTemp: View {
         }
     }
     
-    
 }
+
+
 
 
 

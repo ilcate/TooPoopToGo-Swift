@@ -197,11 +197,12 @@ class ApiManager: ObservableObject {
             }
             
         }, to: "\(url)/toilet/create", method: .post, headers: headers).validate()
-        .responseString { response in
+        .responseString { response in //metttici la tesponse decodable 
             switch response.result {
             case .success(let apiResponse):
                 do {
                     let responseData = Data(apiResponse.utf8)
+                    print(responseData)
                     let decodedResponse = try JSONDecoder().decode(RegisterResponse.self, from: responseData)
                     completion(.success(decodedResponse))
                 } catch {

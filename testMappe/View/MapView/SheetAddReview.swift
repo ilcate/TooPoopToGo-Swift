@@ -6,6 +6,7 @@ struct SheetAddReview: View {
     @State var comfortStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
     @State var moodStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
     @EnvironmentObject var api: ApiManager
+    @EnvironmentObject var mapViewModel: MapModel
     @State var idB : String
     
     @State private var descNewAnnotation = ""
@@ -22,11 +23,7 @@ struct SheetAddReview: View {
             
             FullRoundedButton(text: "Send Review!")
                 .onTapGesture {
-                    let lastIndexClean = cleanStar.lastIndex(where: { $0.selected  })! + 1
-                    let lastIndexComfort = comfortStar.lastIndex(where: { $0.selected })! + 1
-                    let lastIndexAccessibility = moodStar.lastIndex(where: { $0.selected })! + 1
-                    
-                    api.addReview(idB: idB, parameters: AddRating(cleanliness_rating: lastIndexClean, comfort_rating: lastIndexComfort, accessibility_rating: lastIndexAccessibility, review: descNewAnnotation ))
+                    mapViewModel.sendReview(api: api, cleanStar: cleanStar, comfortStar: comfortStar, moodStar: moodStar, idB: idB)
                     
                     dismiss()
                 }

@@ -54,20 +54,48 @@ func timeElapsedSince(_ dateString: String) -> String {
     }
     
     let elapsedTime = Date().timeIntervalSince(date)
+    let minutes = elapsedTime / 60
     let hours = elapsedTime / 3600
     let days = elapsedTime / 86400
+    let weeks = elapsedTime / (86400 * 7)
     
-    if days >= 1 {
+    if weeks >= 1 {
+        if Int(weeks) == 1 {
+            return "1 week ago"
+        } else {
+            return "\(Int(weeks)) weeks ago"
+        }
+    } else if days >= 1 {
         if Int(days) == 1 {
             return "1 day ago"
         } else {
             return "\(Int(days)) days ago"
         }
-    } else {
+    } else if hours >= 1 {
         if Int(hours) == 1 {
             return "1 hour ago"
         } else {
             return "\(Int(hours)) hours ago"
         }
+    } else {
+        if Int(minutes) == 1 {
+            return "1 minute ago"
+        } else {
+            return "\(Int(minutes)) minutes ago"
+        }
     }
+}
+
+
+func getBathroomTags(bathroom : BathroomApi) -> [Bool]{
+    return [
+        bathroom.tags!.accessible ? true : false,
+        bathroom.tags!.free ? true : false,
+        bathroom.tags!.forBabies ? true : false,
+        bathroom.tags!.newest ? true : false,
+        bathroom.place_type?.capitalized == "Public" ? true : false,
+        bathroom.place_type?.capitalized == "Shop" ? true : false,
+        bathroom.place_type?.capitalized == "Restaurant" ? true : false,
+        bathroom.place_type?.capitalized == "Bar" ? true : false,
+    ]
 }
