@@ -17,33 +17,51 @@ struct ImageSliderDetailBathroom: View {
     
     var body: some View {
         ZStack{
-            ScrollView(.horizontal){
-                LazyHStack(spacing: 0){
-                    if !bathroom.photos!.isEmpty {
-                        ForEach(Array(bathroom.photos!.enumerated()), id: \.1.self) { index, _ in
-                            if let photos = bathroom.photos, !photos.isEmpty, let photo = photos[index].photo, let url = URL(string: "\(api.url)\(photo)") {
-                                AsyncImage(url: url) { image in
-                                    image
-                                        .resizable()
-                                        .resizableImageStyleBig()
-                                } placeholder: {
+            if bathroom.photos?.count != 1 {
+                ScrollView(.horizontal){
+                    LazyHStack(spacing: 0){
+                        if !bathroom.photos!.isEmpty {
+                            ForEach(Array(bathroom.photos!.enumerated()), id: \.1.self) { index, _ in
+                                if let photos = bathroom.photos, !photos.isEmpty, let photo = photos[index].photo, let url = URL(string: "\(api.url)\(photo)") {
+                                    AsyncImage(url: url) { image in
+                                        image
+                                            .resizable()
+                                            .resizableImageStyleBig()
+                                    } placeholder: {
+                                        DeatailImageDef()
+                                    }
+                                } else {
                                     DeatailImageDef()
                                 }
-                            } else {
-                                DeatailImageDef()
                             }
+                        }else{
+                            DeatailImageDef()
                         }
-                    }else{
+                        
+                    }
+                    .scrollTargetLayout()
+                }
+                .scrollPosition(id: $currentImage, anchor: .leading)
+                .scrollIndicators(.hidden)
+                .scrollTargetBehavior(.paging)
+                .ignoresSafeArea(.all, edges: .top)
+            }else{
+                VStack{
+                    if let photos = bathroom.photos, !photos.isEmpty, let photo = photos[0].photo, let url = URL(string: "\(api.url)\(photo)") {
+                        AsyncImage(url: url) { image in
+                            image
+                                .resizable()
+                                .resizableImageStyleBig()
+                            
+                        } placeholder: {
+                            DeatailImageDef()
+                        }
+                    } else {
                         DeatailImageDef()
                     }
-                    
-                }
-                .scrollTargetLayout()
+                }.ignoresSafeArea(.all, edges: .top)
+                
             }
-            .scrollPosition(id: $currentImage, anchor: .leading)
-            .scrollIndicators(.hidden)
-            .scrollTargetBehavior(.paging)
-            .ignoresSafeArea(.all, edges: .top)
             
             VStack{
                 HStack{
@@ -60,34 +78,38 @@ struct ImageSliderDetailBathroom: View {
                             print("cercare di capire come farla")
                             
                         }
-                }.padding(.top, 8)
+                }.padding(.top, bathroom.photos!.count > 1 ? 8 : 28)
                 Spacer()
             }.padding(.horizontal, 20)
             
-            VStack {
-                Spacer()
-                withAnimation(.smooth) {
-                    
-                    HStack{
-                        HStack(spacing: 6) {
-                            ForEach(bathroom.photos!, id: \.self) { imageName in
-                                Circle()
-                                    .frame(width: 10, height: 10)
-                                    .foregroundStyle(imageName == currentImage ? Material.ultraThick : Material.ultraThin)
-                                
+            if bathroom.photos!.count > 1 {
+                VStack {
+                    Spacer()
+                    withAnimation(.smooth) {
+                        
+                        HStack{
+
+                            HStack(spacing: 6) {
+                                ForEach(bathroom.photos!, id: \.self) { imageName in
+                                    Circle()
+                                        .frame(width: 10, height: 10)
+                                        .foregroundStyle(imageName == currentImage ? Material.ultraThick : Material.ultraThin)
+                                    
+                                }
                             }
+                            .padding(.vertical, 2)
+                            .padding(.horizontal, 3.5)
+                            
+                            Spacer()
+                            
+                            
                         }
-                        .padding(.vertical, 2)
-                        .padding(.horizontal, 3.5)
-                        
-                        Spacer()
-                        
-                        
                     }
                 }
+                .padding(.bottom, 16)
+                .padding(.leading, 20)
             }
-            .padding(.bottom, 16)
-            .padding(.leading, 20)
+            
             
         }
         .frame(maxWidth: .infinity, maxHeight: 280)

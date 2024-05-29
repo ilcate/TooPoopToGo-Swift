@@ -104,7 +104,7 @@ final class MapModel: ObservableObject{
         centerLong = CameraChanged.cameraState.center.longitude
     }
     
-    func sendPointToServer(name: String, type: String, image: [UIImage], restrictions: [Bool], api: ApiManager, completion: @escaping (Bool) -> Void) {
+    func sendPointToServer(name: String, type: String, image: [UIImage], restrictions: [Bool], api: ApiManager, completion: @escaping (String) -> Void) {
         api.createLocation(name: name, type: type, images: image, isForDisabled: restrictions[0], isFree: restrictions[2], isForBabies: restrictions[1], long: centerLong, lat: centerLat) { result in
             switch result {
             case .success(let userInfoResponse):
@@ -112,10 +112,10 @@ final class MapModel: ObservableObject{
                 self.customMinZoom = 2
                 self.newLocationAdded = true
                 print("Location added successfully: \(userInfoResponse)")
-                completion(true)
+                completion(userInfoResponse.id!)
             case .failure(let error):
                 print("Failed to add location: \(error.localizedDescription)")
-                completion(false)
+                completion("")
             }
         }
     }

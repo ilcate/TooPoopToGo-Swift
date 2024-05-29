@@ -168,7 +168,7 @@ class ApiManager: ObservableObject {
     
     
     
-    func createLocation(name: String, type: String, images: [UIImage], isForDisabled: Bool?, isFree: Bool?, isForBabies: Bool?, long: Double, lat: Double, completion: @escaping (Result<RegisterResponse, Error>) -> Void) {
+    func createLocation(name: String, type: String, images: [UIImage], isForDisabled: Bool?, isFree: Bool?, isForBabies: Bool?, long: Double, lat: Double, completion: @escaping (Result<BathroomApi, Error>) -> Void) {
         
         var params: [String: String] = ["name": name, "type": type, "coordinates": "POINT (\(long) \(lat))"]
         
@@ -196,21 +196,28 @@ class ApiManager: ObservableObject {
                 }
             }
             
-        }, to: "\(url)/toilet/create", method: .post, headers: headers).validate()
-        .responseString { response in //metttici la tesponse decodable 
-            switch response.result {
-            case .success(let apiResponse):
-                do {
-                    let responseData = Data(apiResponse.utf8)
-                    print(responseData)
-                    let decodedResponse = try JSONDecoder().decode(RegisterResponse.self, from: responseData)
-                    completion(.success(decodedResponse))
-                } catch {
-                    completion(.failure(error))
+        }, to: "\(url)/toilet/create", method: .post, headers: headers)
+            .validate()
+            .responseDecodable(of: BathroomApi.self) { response in
+                switch response.result {
+                case .success(let responseBody):
+                    completion(.success(responseBody))
+                case .failure(let error):
+                    print("Failure: \(error)")
                 }
-            case .failure(let error):
-                completion(.failure(error))
-            }
+//            switch response.result {
+//            case .success(let apiResponse):
+//                do {
+//                    let responseData = Data(apiResponse.utf8)
+//                    print(responseData)
+//                    let decodedResponse = try JSONDecoder().decode(RegisterResponse.self, from: responseData)
+//                    completion(.success(decodedResponse))
+//                } catch {
+//                    completion(.failure(error))
+//                }
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
         }
     }
 }

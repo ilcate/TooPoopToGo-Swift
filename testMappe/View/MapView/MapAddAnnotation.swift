@@ -66,11 +66,10 @@ struct SheetAddAn: View {
                     if clicked == false {
                         clicked = true
                         mapViewModel.sendPointToServer(name: mapViewModel.nameNewAnnotation, type: mapViewModel.optionsDropDown[0], image : mapViewModel.imagesNewAnnotation, restrictions: mapViewModel.restrictionsArray, api: api) { result in
-                            if result {
-                                
+                            if result != "" {
                                 isTexting.page = false
                                 mapViewModel.resetAddParams()
-//                                mapViewModel.sendReview(api: api, cleanStar: cleanStar, comfortStar: comfortStar, moodStar: moodStar, idB: idB)
+                              mapViewModel.sendReview(api: api, cleanStar: cleanStar, comfortStar: comfortStar, moodStar: moodStar, idB: result)
                                 dismiss()
                                 clicked = false
                             }else{

@@ -57,11 +57,21 @@ struct DetailBathroom: View {
             .padding(.bottom, 4)
             .padding(.top, -4)
 
+            
             if informationStat.review_count > 0 {
                 RatingsBathroomDetail(informationStat: $informationStat)
             } else {
                 Text("Loading ratings...")
-                    .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 20, fontColor: .accent)
+                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 17, fontColor: .accent)
+                    .frame(maxWidth: .infinity, minHeight: 105)
+                    .background(Color.white)
+                    .cornerRadius(12)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(.cLightBrown, lineWidth: 2)
+                    )
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 6)
             }
 
             Spacer()

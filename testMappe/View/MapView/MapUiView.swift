@@ -148,7 +148,7 @@ struct MapButtonsView: View {
                     
                 }
                 if !mapViewModel.search {
-                VStack{
+                    VStack (spacing : 6){
                     Spacer()
                     HStack{
                         Spacer()
@@ -161,10 +161,9 @@ struct MapButtonsView: View {
                                     mapViewModel.resetAndFollow(z: 18)
                                     mapViewModel.canMoveCheck(duration: 0.5)
                                 }
-                                .padding(.bottom, mapViewModel.selected?.name != ""  ? 0 : 72)
+                               
                                 
                         }
-                    
                         if mapViewModel.tappedAnnotation() {
                             withAnimation(.snappy){
                                 InformationOfSelectionView(bathroom: mapViewModel.selected!)
@@ -173,13 +172,14 @@ struct MapButtonsView: View {
                                         if !mapViewModel.checkCoordinates() {
                                             mapViewModel.removeSelection()
                                         }
-            
+                                        
                                     }
                                     .padding(.top, 6)
                             }
-                            
                         }
-                    } .padding(.bottom, mapViewModel.selected?.name != "" ? 72 : 6)
+                        
+                    } 
+                .padding(.bottom, 72)
                     
 
                 }
