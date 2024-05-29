@@ -229,6 +229,7 @@ final class MapModel: ObservableObject{
         
         api.addReview(idB: idB, parameters: AddRating(cleanliness_rating: lastIndexClean, comfort_rating: lastIndexComfort, accessibility_rating: lastIndexAccessibility, review: descNewAnnotation ))
     }
+
 }
 
 

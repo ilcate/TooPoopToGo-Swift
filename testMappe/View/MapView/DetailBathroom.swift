@@ -16,7 +16,7 @@ struct DetailBathroom: View {
             ImageSliderDetailBathroom(bathroom: bathroom)
             VStack(spacing: 0) {
                 HStack {
-                    Text(bathroom.name!)
+                    Text(bathroom.name!.capitalized)
                         .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 30, fontColor: .accent)
                     Spacer()
                 }
@@ -32,7 +32,7 @@ struct DetailBathroom: View {
                 }
             }
             .padding(.horizontal, 20)
-            .padding(.top, -4)
+            .padding(.top, bathroom.photos!.count > 1 ? -4 : -10)
             .padding(.bottom, 8)
             .task {
                 api.getRevStats(idB: bathroom.id!) { result in

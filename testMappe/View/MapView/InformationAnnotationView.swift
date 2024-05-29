@@ -12,6 +12,7 @@ struct InformationOfSelectionView: View {
     @EnvironmentObject var api: ApiManager
     @State var loading = false
     @State var arrOfTags : [Bool] = [false, false, false, false, false, false, false, false]
+    @State var ovRating = ""
     
     var body: some View {
         VStack {
@@ -34,21 +35,21 @@ struct InformationOfSelectionView: View {
                             CoverDef()
                         }
 
-                        VStack(alignment: .leading, spacing: 0) {
+                        VStack(alignment: .leading, spacing: -4) {
                             HStack {
                                 HStack{
-                                    Text(bathroom.name!)
+                                    Text(bathroom.name!.capitalized)
                                         .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 24, fontColor: .accentColor)
                                     Spacer()
                                 }
-                               
+    
                                 Spacer()
                                 Image("StarFill")
                                     .resizable()
-                                    .frame(width: 14, height: 14)
+                                    .frame(width: 12, height: 12)
                                     .foregroundColor(.accentColor)
-                                    .padding(.trailing, -4)
-                                Text("4.99")
+                                    .padding(.trailing, -6)
+                                Text(ovRating)
                                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 16, fontColor: .accentColor)
                             }
                             Text(getStreet(bathroom.address ?? "" ))
@@ -61,7 +62,15 @@ struct InformationOfSelectionView: View {
                         .padding(.bottom, 7).padding(.top, 3)
                         .task{
                             arrOfTags = getBathroomTags(bathroom: bathroom)
-                           
+                            api.getRevStats(idB: bathroom.id!) { res in
+                                switch res{
+                                case .success(let stats):
+                                    ovRating = stats.overall_rating
+                                case .failure(let error):
+                                    print("Failed to fetch review stats: \(error)")
+                                }
+                            
+                            }
                         }
                     }
                     .background(Color.white)
@@ -73,6 +82,15 @@ struct InformationOfSelectionView: View {
             loading = true
             DispatchQueue.main.async {
                 arrOfTags = getBathroomTags(bathroom: bathroom)
+                api.getRevStats(idB: bathroom.id!) { res in
+                    switch res{
+                    case .success(let stats):
+                        ovRating = stats.overall_rating
+                    case .failure(let error):
+                        print("Failed to fetch review stats: \(error)")
+                    }
+                
+                }
                 loading = false
             }
         }

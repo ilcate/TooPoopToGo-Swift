@@ -60,6 +60,7 @@ struct ImageSliderDetailBathroom: View {
                         DeatailImageDef()
                     }
                 }.ignoresSafeArea(.all, edges: .top)
+                    
                 
             }
             
@@ -149,14 +150,7 @@ struct RatingsBathroomDetail: View {
                 VStack(spacing: 1) {
                     Text("Cleanliness")
                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 15, fontColor: .accent)
-                    HStack(spacing: 0.5) {
-                        ForEach(0..<starToDisplay[0], id: \.self) { _ in
-                            Image("StarFill")
-                                .resizable()
-                                .foregroundStyle(.accent)
-                                .frame(width: 12, height: 12)
-                        }
-                    }
+                    dispStarsRating(starToDisplay: starToDisplay[0])
                 }
                 .frame(maxWidth: .infinity, maxHeight: 30)
                 Rectangle()
@@ -166,14 +160,7 @@ struct RatingsBathroomDetail: View {
                 VStack(spacing: 1) {
                     Text("Comfort")
                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 15, fontColor: .accent)
-                    HStack(spacing: 0.4) {
-                        ForEach(0..<starToDisplay[1], id: \.self) { _ in
-                            Image("StarFill")
-                                .resizable()
-                                .foregroundStyle(.accent)
-                                .frame(width: 12, height: 12)
-                        }
-                    }
+                    dispStarsRating(starToDisplay: starToDisplay[1])
                 }
                 .frame(maxWidth: .infinity, maxHeight: 30)
                 Rectangle()
@@ -183,14 +170,8 @@ struct RatingsBathroomDetail: View {
                 VStack(spacing: 1) {
                     Text("Accessibility")
                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 15, fontColor: .accent)
-                    HStack(spacing: 0) {
-                        ForEach(0..<starToDisplay[2], id: \.self) { _ in
-                            Image("StarFill")
-                                .resizable()
-                                .foregroundStyle(.accent)
-                                .frame(width: 12, height: 12)
-                        }
-                    }
+                    
+                    dispStarsRating(starToDisplay: starToDisplay[2])
                 }
                 .padding(.horizontal, -2)
                 .frame(maxWidth: .infinity, maxHeight: 30)
@@ -216,16 +197,38 @@ struct RatingsBathroomDetail: View {
                 let roundedCleanliness = Int(cleanlinessRating.rounded())
                 let roundedComfort = Int(comfortRating.rounded())
                 let roundedAccessibility = Int(accessibilityRating.rounded())
-                
                 starToDisplay = [roundedCleanliness, roundedComfort, roundedAccessibility]
-                print("starToDisplay: \(starToDisplay)")
+                
             } else {
-                starToDisplay = [5, 5, 5] // Default values if conversion fails
+                starToDisplay = [5, 5, 5]
             }
         }
     }
     
     
+}
+
+struct dispStarsRating: View {
+    let starToDisplay : Int
+    
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(0..<starToDisplay, id: \.self) { _ in
+                Image("StarFill")
+                    .resizable()
+                    .foregroundStyle(.accent)
+                    .frame(width: 12, height: 12)
+            }
+            if starToDisplay < 5 {
+                ForEach(0..<5 - starToDisplay, id: \.self) { _ in
+                    Image("StarEmpty")
+                        .resizable()
+                        .foregroundStyle(.accent)
+                        .frame(width: 12, height: 12)
+                }
+            }
+        }
+    }
 }
 
 

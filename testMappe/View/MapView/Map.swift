@@ -63,10 +63,6 @@ struct MapView: View {
                                 .background(Color.white)
                                 
                         }.padding(.bottom, -5)
-//                            .task {
-//                                mapViewModel.startCameraChangeTimer(api: api)
-//                            }
-                       
                     }
                     
                     MapButtonsView(mapViewModel: mapViewModel)

@@ -50,7 +50,7 @@ struct MapButtonsView: View {
                                 .padding(.trailing, -24)
                                 .focused($isFocused)
                                 .onChange(of: mapViewModel.searchingInput) { oldValue, newValue in
-                                    if mapViewModel.searchingInput != ""{
+                                    if mapViewModel.searchingInput != "" {
                                         api.searchBathroom(stringToSearch: mapViewModel.searchingInput){ resp in
                                             mapViewModel.searchedElements = resp
                                         }
