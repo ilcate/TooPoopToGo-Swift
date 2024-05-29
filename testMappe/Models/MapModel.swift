@@ -227,7 +227,7 @@ final class MapModel: ObservableObject{
         let lastIndexComfort = comfortStar.lastIndex(where: { $0.selected })! + 1
         let lastIndexAccessibility = moodStar.lastIndex(where: { $0.selected })! + 1
         
-        api.addReview(idB: idB, parameters: AddRating(cleanliness_rating: lastIndexClean, comfort_rating: lastIndexComfort, accessibility_rating: lastIndexAccessibility, review: descNewAnnotation ))
+        api.addReview(idB: idB, parameters: AddRating(cleanliness_rating: lastIndexClean, comfort_rating: lastIndexComfort, accessibility_rating: lastIndexAccessibility, review: descNewAnnotation))
     }
 
 }
