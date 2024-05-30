@@ -37,7 +37,7 @@ struct ContentView: View {
             }
             
             }else if  onBoarding.onBoarding && api.userToken == ""{
-                Loader()
+                Loader(text: "Setting up all your preferences, \n please wait...")
             } else{
                 ZStack{
                     TabView(selection: $tabBarSelection.selectedTab) {

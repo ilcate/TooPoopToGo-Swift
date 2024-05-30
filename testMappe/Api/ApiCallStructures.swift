@@ -32,18 +32,22 @@ struct UserInfoResponse: Decodable {
     var used_toilets: [String]
 }
 
-
 struct ListOFRewievs: Decodable {
-    var results : [Review]?
+    var results: [Review]?
 }
 
-struct Review: Decodable, Identifiable, Hashable {
+struct UserRev: Decodable, Equatable, Hashable {
+    var photo_user: String?
+    var username: String
+}
+
+struct Review: Decodable, Identifiable, Equatable, Hashable {
     let cleanlinessRating: String
     let comfortRating: String
     let accessibilityRating: String
     let review: String
     let id: String
-    let username: String
+    let user: UserRev
     let createdAt: String
 
     enum CodingKeys: String, CodingKey {
@@ -52,8 +56,31 @@ struct Review: Decodable, Identifiable, Hashable {
         case accessibilityRating = "accessibility_rating"
         case review
         case id
-        case username
+        case user
         case createdAt = "created_at"
+    }
+
+
+    
+    
+    static func ==(lhs: Review, rhs: Review) -> Bool {
+        return lhs.id == rhs.id &&
+               lhs.cleanlinessRating == rhs.cleanlinessRating &&
+               lhs.comfortRating == rhs.comfortRating &&
+               lhs.accessibilityRating == rhs.accessibilityRating &&
+               lhs.review == rhs.review &&
+               lhs.user == rhs.user &&
+               lhs.createdAt == rhs.createdAt
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(cleanlinessRating)
+        hasher.combine(comfortRating)
+        hasher.combine(accessibilityRating)
+        hasher.combine(review)
+        hasher.combine(user)
+        hasher.combine(createdAt)
     }
 }
 

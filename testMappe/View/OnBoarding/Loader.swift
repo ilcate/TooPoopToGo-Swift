@@ -6,33 +6,24 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct Loader: View {
     @State var isAnimating = false
     @EnvironmentObject var api : ApiManager
+    let text : String
 
     
     var body: some View {
         VStack{
             ZStack{
-                VStack{
-                    Circle()
-                        .fill(.cMidBrown.opacity(0.2))
-                        .frame(width: 250)
-                    HStack(spacing: 90){
-                        Circle()
-                            .fill(.cMidBrown.opacity(0.2))
-                            .frame(width: 250)
-                        
-                        Circle()
-                            .fill(.cMidBrown.opacity(0.2))
-                            .frame(width: 250)
-                            
-                    }.padding(.vertical, -20)
-                    Circle()
-                        .fill(.cMidBrown.opacity(0.2))
-                        .frame(width: 250)
-                }
+                LottieView(animation: .named("LoadingScreen3.json"))
+                    .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
+                    .configure({ lottieAnimationView in
+                        lottieAnimationView.contentMode = .scaleAspectFill
+                    })
+                    .opacity(0.2)
+                    .ignoresSafeArea()
 //                .animation(.linear(duration: 20).repeatForever(autoreverses: false), value: isAnimating)
 //                .onAppear {
 //                    self.isAnimating = true
@@ -46,7 +37,7 @@ struct Loader: View {
                         .padding(.bottom, -35)
                     Text("Too Poop To Go")
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 38, fontColor: .white)
-                    Text("Setting up all your preferences, \n please wait...")
+                    Text(text)
                         .normalTextStyle(fontName: "Manrope-Medium", fontSize: 18, fontColor: .white)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 50)

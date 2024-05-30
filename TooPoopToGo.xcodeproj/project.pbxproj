@@ -24,6 +24,9 @@
 		2A27C0122BF8D5EC006A8FE8 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27C0112BF8D5EC006A8FE8 /* Classes.swift */; };
 		2A27C0152BF8DDAA006A8FE8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2A27C0142BF8DDAA006A8FE8 /* Alamofire */; };
 		2A27C0172BF8E60D006A8FE8 /* InsertOtp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27C0162BF8E60D006A8FE8 /* InsertOtp.swift */; };
+		2A29666B2C08612C00380664 /* LoadingScreen.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A29666A2C08612C00380664 /* LoadingScreen.json */; };
+		2A29666D2C0861FC00380664 /* LoadingScreen2.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A29666C2C0861FC00380664 /* LoadingScreen2.json */; };
+		2A29666F2C08628F00380664 /* LoadingScreen3.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A29666E2C08628F00380664 /* LoadingScreen3.json */; };
 		2A31B46D2BE37E0D000DC8EE /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A31B46C2BE37E0D000DC8EE /* Components.swift */; };
 		2A33AF9B2BC041DC00DA90E9 /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 2A33AF9A2BC041DC00DA90E9 /* MapboxMaps */; };
 		2A4499F32C0088B3000F381A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A4499F22C0088B3000F381A /* GoogleService-Info.plist */; };
@@ -81,6 +84,9 @@
 		2A27C00E2BF8D2A8006A8FE8 /* ApiCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCall.swift; sourceTree = "<group>"; };
 		2A27C0112BF8D5EC006A8FE8 /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
 		2A27C0162BF8E60D006A8FE8 /* InsertOtp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertOtp.swift; sourceTree = "<group>"; };
+		2A29666A2C08612C00380664 /* LoadingScreen.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingScreen.json; sourceTree = "<group>"; };
+		2A29666C2C0861FC00380664 /* LoadingScreen2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingScreen2.json; sourceTree = "<group>"; };
+		2A29666E2C08628F00380664 /* LoadingScreen3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingScreen3.json; sourceTree = "<group>"; };
 		2A31B46C2BE37E0D000DC8EE /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		2A4499F22C0088B3000F381A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2A4893C62BC03DF300366033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -191,6 +197,9 @@
 		2A18B8492BFF414B00C12C9B /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				2A29666E2C08628F00380664 /* LoadingScreen3.json */,
+				2A29666C2C0861FC00380664 /* LoadingScreen2.json */,
+				2A29666A2C08612C00380664 /* LoadingScreen.json */,
 				2A18B8472BFF404300C12C9B /* LoadingAnimationWhite.json */,
 				2AA1E0732C00B4D300B2E3BF /* DotAnim.json */,
 				2A18B8422BFF36A400C12C9B /* LoadingAnimation.json */,
@@ -371,16 +380,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A29666B2C08612C00380664 /* LoadingScreen.json in Resources */,
 				2ADA10742BDFF2BF00BBC989 /* Manrope-ExtraBold.ttf in Resources */,
 				2AB2180E2BC03B4A002A32F5 /* Preview Assets.xcassets in Resources */,
 				2ADA106E2BDFF2BF00BBC989 /* Manrope-ExtraLight.ttf in Resources */,
 				2ADA10712BDFF2BF00BBC989 /* Manrope-Regular.ttf in Resources */,
 				2AA1E0742C00B4D300B2E3BF /* DotAnim.json in Resources */,
 				2A18B8432BFF36A500C12C9B /* LoadingAnimation.json in Resources */,
+				2A29666D2C0861FC00380664 /* LoadingScreen2.json in Resources */,
 				2A4499F32C0088B3000F381A /* GoogleService-Info.plist in Resources */,
 				2ADA10722BDFF2BF00BBC989 /* Manrope-Medium.ttf in Resources */,
 				2ADA10732BDFF2BF00BBC989 /* Manrope-Bold.ttf in Resources */,
 				2ADA106F2BDFF2BF00BBC989 /* Manrope-SemiBold.ttf in Resources */,
+				2A29666F2C08628F00380664 /* LoadingScreen3.json in Resources */,
 				2AB2180B2BC03B4A002A32F5 /* Assets.xcassets in Resources */,
 				2A18B8482BFF404300C12C9B /* LoadingAnimationWhite.json in Resources */,
 				2ADA10702BDFF2BF00BBC989 /* Manrope-Light.ttf in Resources */,

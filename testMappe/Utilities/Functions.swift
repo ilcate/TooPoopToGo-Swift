@@ -99,3 +99,13 @@ func getBathroomTags(bathroom : BathroomApi) -> [Bool]{
         bathroom.place_type?.capitalized == "Bar" ? true : false,
     ]
 }
+
+
+func getAvg(review: Review) -> String {
+    if let floatValue1 = Float(review.accessibilityRating), let floatValue2 = Float(review.cleanlinessRating) , let floatValue3 = Float(review.comfortRating){
+        let average = (floatValue1 + floatValue2 + floatValue3) / 3.0
+        return String(format: "%.2f", average)
+    } else {
+        return "0"
+    }
+}

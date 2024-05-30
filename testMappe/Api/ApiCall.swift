@@ -133,7 +133,7 @@ class ApiManager: ObservableObject {
     }
     
     func getReviews(idB: String, completion: @escaping (Result<[Review], Error>) -> Void) {
-        AF.request("\(url)/user/list-all-ratings/\(idB)", method: .get, headers: headers)
+        AF.request("\(url)/toilet/list-toilet-ratings/\(idB)", method: .get, headers: headers)
                 .validate(statusCode: 200..<300)
                 .responseDecodable(of: ListOFRewievs.self) { response in
                     switch response.result {
@@ -170,7 +170,7 @@ class ApiManager: ObservableObject {
     
     func createLocation(name: String, type: String, images: [UIImage], isForDisabled: Bool?, isFree: Bool?, isForBabies: Bool?, long: Double, lat: Double, completion: @escaping (Result<BathroomApi, Error>) -> Void) {
         
-        var params: [String: String] = ["name": name, "type": type, "coordinates": "POINT (\(long) \(lat))"]
+        var params: [String: String] = ["name": name, "place_type": type, "coordinates": "POINT (\(long) \(lat))"]
         
         if let isForDisabled = isForDisabled {
             params["is_for_disabled"] = isForDisabled ? "true" : "false"
@@ -203,21 +203,9 @@ class ApiManager: ObservableObject {
                 case .success(let responseBody):
                     completion(.success(responseBody))
                 case .failure(let error):
-                    print("Failure: \(error)")
+                    completion(.failure(error))
+                   
                 }
-//            switch response.result {
-//            case .success(let apiResponse):
-//                do {
-//                    let responseData = Data(apiResponse.utf8)
-//                    print(responseData)
-//                    let decodedResponse = try JSONDecoder().decode(RegisterResponse.self, from: responseData)
-//                    completion(.success(decodedResponse))
-//                } catch {
-//                    completion(.failure(error))
-//                }
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
         }
     }
 }

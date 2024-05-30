@@ -272,7 +272,7 @@ struct ReviewTemp: View {
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())
                 VStack(alignment: .leading, spacing: -2) {
-                    Text(review.username)
+                    Text(review.user.username)
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 19, fontColor: .accent)
                     Text(timeElapsedSince(review.createdAt))
                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent.opacity(0.4))
@@ -307,12 +307,8 @@ struct ReviewTemp: View {
         .padding(.trailing, 10)
         .padding(.bottom, -6)
         .onAppear{
-            if let floatValue1 = Float(review.accessibilityRating), let floatValue2 = Float(review.cleanlinessRating) , let floatValue3 = Float(review.comfortRating){
-                let average = (floatValue1 + floatValue2 + floatValue3) / 3.0
-                ratingAVG =  String(format: "%.2f", average)
-            } else {
-                ratingAVG = "0"
-            }
+            ratingAVG = getAvg(review: review)
+            
         }
     }
     
