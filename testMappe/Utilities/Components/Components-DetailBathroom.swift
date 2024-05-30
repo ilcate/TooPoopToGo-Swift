@@ -115,7 +115,12 @@ struct ImageSliderDetailBathroom: View {
         }
         .frame(maxWidth: .infinity, maxHeight: 280)
         .onAppear{
-            currentImage = bathroom.photos![0]
+            
+            if !bathroom.photos!.isEmpty{
+                print(bathroom.photos)
+                currentImage = bathroom.photos![0]
+            }
+           
         }
         .navigationBarBackButtonHidden(true)
     }

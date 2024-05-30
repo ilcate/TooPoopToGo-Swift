@@ -13,14 +13,7 @@ struct SheetAddAn: View {
  
     
     var body: some View {
-        if clicked{
-            Loader(text: "Your request is almost ready! \n Please wait a few seconds.")
-                .onDisappear{
-                    isTexting.page = false
-                }
-                .navigationBarBackButtonHidden(true)
-                .ignoresSafeArea()
-        }else{
+        
             ZStack{
                 VStack{
                     VStack {
@@ -75,18 +68,25 @@ struct SheetAddAn: View {
                                 if clicked == false && mapViewModel.nameNewAnnotation != "" {
                                     clicked = true
                                     let type = mapViewModel.optionsDropDown[0].lowercased()
-                                    mapViewModel.sendPointToServer(name: mapViewModel.nameNewAnnotation, type: type, image : mapViewModel.imagesNewAnnotation, restrictions: mapViewModel.restrictionsArray, api: api) { result in
-                                        if result != "" {
-                                            isTexting.page = false
-                                            mapViewModel.resetAddParams()
-                                            mapViewModel.sendReview(api: api, cleanStar: cleanStar, comfortStar: comfortStar, moodStar: moodStar, idB: result)
-                                            dismiss()
-                                            clicked = false
-                                        }else{
-                                            clicked = false
-                                            print("no eh")
+                                    DispatchQueue.main.async {
+                                        mapViewModel.sendPointToServer(name: mapViewModel.nameNewAnnotation, type: type, image : mapViewModel.imagesNewAnnotation, restrictions: mapViewModel.restrictionsArray, api: api) { result in
+                                            if result != "" {
+                                                isTexting.page = false
+                                                mapViewModel.resetAddParams()
+                                                mapViewModel.sendReview(api: api, cleanStar: cleanStar, comfortStar: comfortStar, moodStar: moodStar, idB: result)
+                                                dismiss()
+                                                clicked = false
+                                            }else{
+                                                clicked = false
+                                                print("no eh")
+                                            }
                                         }
                                     }
+                                    dismiss()
+                                    mapViewModel.canMove = true
+                                    mapViewModel.customMinZoom = 2
+                                    mapViewModel.newLocationAdded = true
+                                    
                                 } else{
                                     print("no")
                                 }
@@ -94,7 +94,7 @@ struct SheetAddAn: View {
                                 
                             }
                     }
-                }
+                
                 
             }
             

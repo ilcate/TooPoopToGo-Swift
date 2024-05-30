@@ -108,9 +108,7 @@ final class MapModel: ObservableObject{
         api.createLocation(name: name, type: type, images: image, isForDisabled: restrictions[0], isFree: restrictions[2], isForBabies: restrictions[1], long: centerLong, lat: centerLat) { result in
             switch result {
             case .success(let userInfoResponse):
-                self.canMove = true
-                self.customMinZoom = 2
-                self.newLocationAdded = true
+                
                 print("Location added successfully: \(userInfoResponse)")
                 completion(userInfoResponse.id!)
             case .failure(let error):
