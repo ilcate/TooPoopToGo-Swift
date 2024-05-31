@@ -262,4 +262,17 @@ class ApiManager: ObservableObject {
                    }
                }
     }
+    
+    func searchUser(stringToSearch: String, completion: @escaping (Result<[UserInfoResponse]?, Error>) -> Void) {
+        AF.request("\(url)/user/search/\(stringToSearch)", method: .get, headers: headers)
+               .validate(statusCode: 200..<300)
+               .responseDecodable(of: SearchUsers.self) { response in
+                   switch response.result {
+                   case .success(let searchedUsers):
+                       print("Success: \(searchedUsers)")
+                   case .failure(let error):
+                       print("Error: \(error)")
+                   }
+               }
+    }
 }

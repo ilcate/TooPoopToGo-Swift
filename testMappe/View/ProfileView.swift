@@ -33,7 +33,7 @@ struct ProfileView: View {
                         VStack(alignment: .leading) {
                             Text(profileModel.userInfo.username.capitalized)
                                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 32, fontColor: .accent)
-                            Text("\(profileModel.userInfo.friends_number) Friends - \(profileModel.userInfo.badges.count) Badges")
+                            Text("\(profileModel.userInfo.friends_number ?? 0) Friends - \(profileModel.userInfo.badges!.count) Badges")
                                 .normalTextStyle(fontName: "Manrope-Medium", fontSize: 18, fontColor: .accent)
                         }
                         .padding(.leading, 16)

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FeedView: View {
+    @EnvironmentObject var api: ApiManager
     var body: some View {
         VStack{
             HeadersViewPages(PageName: "Feed")
@@ -24,9 +25,11 @@ struct FeedView: View {
             }
             
         }.background(.cLightBrown)
+            .onAppear{
+                api.searchUser(stringToSearch: "a") { resp in
+                    print(resp)
+                }
+            }
     }
 }
 
-#Preview {
-    FeedView()
-}

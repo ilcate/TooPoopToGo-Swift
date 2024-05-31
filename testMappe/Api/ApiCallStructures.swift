@@ -28,9 +28,9 @@ struct UserInfoResponse: Decodable {
     var username: String
     var photo_user: String?
     var id: String
-    var friends_number: Int
-    var badges: [String]
-    var used_toilets: [String]
+    var friends_number: Int?
+    var badges: [String]?
+    var used_toilets: [String]?
 }
 
 struct ListOFRewievs: Decodable {
@@ -240,3 +240,11 @@ struct PoopStreak: Decodable {
     let streak_status: String
     let poop_count: Int
 }
+
+
+
+struct SearchUsers: Decodable {
+    let results: [UserInfoResponse]?
+}
+
+
