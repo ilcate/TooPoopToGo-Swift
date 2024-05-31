@@ -95,7 +95,7 @@ struct HomeView: View {
                     }.padding(.horizontal, 20)
                     
                     
-                    StreakButtons(streak: streak)
+                    StreakButtons(homeModel: homeModel)
                     
                     SliderNextToYou(homeModel: homeModel, mapViewModel: mapViewModel)
                     
@@ -113,5 +113,8 @@ struct HomeView: View {
             
             
         }.background(.cLightBrown)
+            .task {
+                homeModel.fetchPS(api: api)
+            }
     }
 }

@@ -7,6 +7,8 @@ class HomeModel : ObservableObject{
     @Published var nextToYou : [BathroomApi] = []
     @Published var centerLat : Double = 0 //Double((locationManager.location?.coordinate.latitude) ?? 0)
     @Published var centerLong : Double = 0 // Double((locationManager.location?.coordinate.longitude) ?? 0)
+    @Published var status: String = ""
+    @Published var count: Int = 0
     
     
     func foundNextToYou(api: ApiManager){
@@ -30,4 +32,30 @@ class HomeModel : ObservableObject{
                 }
         }
     }
+    
+    func fetchPS(api: ApiManager){
+        api.getPoopStreak(){ response in
+            switch response {
+            case .success(let poopStreak):
+                self.status = poopStreak.streak_status
+                self.count = poopStreak.poop_count
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
+    }
+    
+    func updatePS(api: ApiManager){
+        api.updatePoopStreak(){ response in
+            switch response {
+            case .success(let poopStreak):
+                self.status = poopStreak.streak_status
+                self.count = poopStreak.poop_count
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
+    }
+    
+    
 }

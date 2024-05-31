@@ -234,3 +234,9 @@ struct GetRatingStats: Decodable {
     let accessibility_rating: String
     let review_count : Int
 }
+
+
+struct PoopStreak: Decodable {
+    let streak_status: String
+    let poop_count: Int
+}

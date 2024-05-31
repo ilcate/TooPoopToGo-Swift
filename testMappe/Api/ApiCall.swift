@@ -211,7 +211,7 @@ class ApiManager: ObservableObject {
         }
     }
     
-    func uploadProfilePicture(image: UIImage, userId: String,completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
+    func uploadProfilePicture(image: UIImage, userId: String, completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
         AF.upload(multipartFormData: { multipartFormData in
                 if let imageData = image.jpegData(compressionQuality: 0.3) {
                     multipartFormData.append(imageData, withName: "photo_user", fileName: "photo_user.jpg")
@@ -226,6 +226,40 @@ class ApiManager: ObservableObject {
                 case .failure(let error):
                     print("Error: \(error)")
                 }
-            }
+        }
+    }
+    
+    
+    
+    func getPoopStreak(completion: @escaping(Result<PoopStreak, Error>) -> Void) {
+
+        AF.request("\(url)/poop-streak/get-poop-streak", method: .get, headers: headers)
+               .validate(statusCode: 200..<300)
+               .responseDecodable(of: PoopStreak.self) { response in
+                   switch response.result {
+                   case .success(let poopStreak):
+                       completion(.success(poopStreak))
+                       print("Success: \(poopStreak)")
+                   case .failure(let error):
+                       completion(.failure(error))
+                       print("Error: \(error)")
+                   }
+               }
+    }
+    
+    func updatePoopStreak(completion: @escaping(Result<PoopStreak, Error>) -> Void) {
+
+        AF.request("\(url)/poop-streak/update-poop-streak", method: .patch, headers: headers)
+               .validate(statusCode: 200..<300)
+               .responseDecodable(of: PoopStreak.self) { response in
+                   switch response.result {
+                   case .success(let poopStreak):
+                       completion(.success(poopStreak))
+                       print("Success: \(poopStreak)")
+                   case .failure(let error):
+                       completion(.failure(error))
+                       print("Error: \(error)")
+                   }
+               }
     }
 }

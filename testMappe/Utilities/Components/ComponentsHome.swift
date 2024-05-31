@@ -6,7 +6,7 @@ struct SliderNextToYou: View {
     @ObservedObject var homeModel: HomeModel
     @EnvironmentObject var api: ApiManager
     @ObservedObject var mapViewModel: MapModel
-
+    
     var body: some View {
         VStack(spacing: 6) {
             HStack {
@@ -25,7 +25,7 @@ struct SliderNextToYou: View {
                                 InformationOfSelectionView(bathroom: bathroom, mapViewModel: mapViewModel)
                                     .padding(.vertical, 3)
                                     .frame(width: 350)
-                                    
+                                
                             }
                         }
                         .padding(.leading, 20)
@@ -54,8 +54,9 @@ struct SliderNextToYou: View {
 }
 
 struct StreakButtons: View {
-    @State var streak : Int
-
+    @ObservedObject var homeModel: HomeModel
+    @EnvironmentObject var api: ApiManager
+    
     var body: some View {
         VStack(spacing:6){
             HStack{
@@ -63,8 +64,7 @@ struct StreakButtons: View {
                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
                 Spacer()
             }
-            if streak != 0 {
-                
+            if homeModel.status == "active" || homeModel.status == "on_cooldown" {
                 ZStack{
                     VStack(alignment: .leading){
                         HStack{
@@ -81,12 +81,19 @@ struct StreakButtons: View {
                                 Text("Keep it going!")
                                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
                                 
-                                ButtonPoop(text: "Drop a Poop")
-                                    .onTapGesture {
-                                        streak += 1
-                                    }
+                                
+                                if homeModel.status == "active"{
+                                    ButtonPoop(text: "Drop a Poop")
+                                        .onTapGesture {
+                                            homeModel.updatePS(api: api)
+                                        }
+                                } else if  homeModel.status == "on_cooldown" {
+                                    ButtonPoop(text: "Done")
+                                    
+                                }
+                                
                             }
-
+                            
                             Spacer()
                         }
                         
@@ -95,7 +102,7 @@ struct StreakButtons: View {
                         Spacer()
                         HStack{
                             Spacer()
-                            Text("\(streak)")
+                            Text("\(homeModel.count)")
                                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 100, fontColor: .cLightBrown)
                         }
                         
@@ -111,16 +118,17 @@ struct StreakButtons: View {
                         .scaledToFill()
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 16))
-            }else{
+            } else if homeModel.status == "expired"  {
                 VStack{
                     HStack(alignment: .bottom){
                         Text("You lost a")
                             .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .cLightBrown)
-                        Text("342")
+                        Text("\(homeModel.count)")
                             .normalTextStyle(fontName: "Manrope-Bold", fontSize: 38, fontColor: .cLightBrown)
                             .padding(.vertical, -5)
                         Text("days streak!")
                             .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .cLightBrown)
+                        Spacer()
                     }.padding(.bottom, 8)
                     
                     Spacer()
@@ -130,7 +138,7 @@ struct StreakButtons: View {
                         Spacer()
                         ButtonPoop(text: "Restart")
                             .onTapGesture {
-                                streak += 1
+                                homeModel.updatePS(api: api)
                             }
                     }
                 }
@@ -144,10 +152,15 @@ struct StreakButtons: View {
                     
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 16))
+            }else{
+                RoundedRectangle(cornerRadius: 16)
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity, minHeight: 132)
             }
             
             
         }.padding(.horizontal, 20)
+           
     }
 }
 
@@ -157,15 +170,20 @@ struct ButtonPoop : View {
     var text: String
     
     var body: some View {
+        
         HStack(spacing: 6){
-            Image("DropAPoop")
-                .renderingMode(.original)
-                .resizable()
-                .frame(width: 26, height: 26)
+            if text != "Done"{
+                Image("DropAPoop")
+                    .renderingMode(.original)
+                    .resizable()
+                    .frame(width: 26, height: 26)
+            }
             Text(text)
-                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .accent)
-        }.padding(.leading, 7).padding(.trailing, 8.5).padding(.vertical, 5)
-            .background(.ultraThickMaterial)
+                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: text != "Done" ? .accent : .white)
+                .frame(height: 26)
+        }.padding(.leading, text != "Done" ? 7 : 12).padding(.trailing, text != "Done" ? 8.5 : 12).padding(.vertical, 5)
+            .background(text != "Done" ? .white : .cPurpura)
             .clipShape(RoundedRectangle(cornerRadius: 1000))
+        
     }
 }
