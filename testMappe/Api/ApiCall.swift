@@ -209,7 +209,7 @@ class ApiManager: ObservableObject {
         }
     }
     
-    func createLocation(image: UIImage, userId: String ) {
+    func uploadProfilePicture(image: UIImage, userId: String ) {
         
         AF.upload(multipartFormData: { multipartFormData in
                 if let imageData = image.jpegData(compressionQuality: 0.8) {

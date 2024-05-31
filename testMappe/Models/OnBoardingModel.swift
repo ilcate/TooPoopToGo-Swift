@@ -68,6 +68,7 @@ final class OnBoardingModel: ObservableObject{
                     api.email = self.email
                     api.username =  self.username
                     api.password =  self.password
+//                    api.id = self.
                     mutablePath.append("InsertOtp")
                     completion(mutablePath)
                 case .failure:
@@ -84,9 +85,9 @@ final class OnBoardingModel: ObservableObject{
         let otpToSend = SendOtp(otp: otpString, email: api.email)
         var mutablePath = path
 
-        api.activateAccount(parameters: otpToSend) { result in
+        api.activateAccount(parameters: otpToSend) { res in
             DispatchQueue.main.async {
-                switch result {
+                switch res {
                 case .success:
                     onBoarding.onBoarding = true
                     mutablePath.removeAll()
@@ -98,7 +99,8 @@ final class OnBoardingModel: ObservableObject{
                             switch result {
                             case .success(let token):
                                 api.saveToken(token: token)
-                                let renderer = ImageRenderer(content: ProfilePictureCustom()).uiImage
+//                                let renderer = ImageRenderer(content: ProfilePictureCustom()).uiImage
+//                                api.uploadProfilePicture(image: renderer!, userId: api.i)
                             case .failure(_):
                                 mutablePath.append("LogIn")
                                 completion(mutablePath)

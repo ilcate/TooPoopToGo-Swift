@@ -32,6 +32,11 @@
 		2A4499F32C0088B3000F381A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A4499F22C0088B3000F381A /* GoogleService-Info.plist */; };
 		2A55F26A2BF7840B002D7203 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A55F2692BF7840B002D7203 /* OnBoarding.swift */; };
 		2A55F26D2BF7885B002D7203 /* LogInAndSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A55F26C2BF7885B002D7203 /* LogInAndSignUp.swift */; };
+		2A5DF2C32C09AE00001990E4 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5DF2C22C09AE00001990E4 /* ViewModifiers.swift */; };
+		2A5DF2D02C09B090001990E4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5DF2CF2C09B090001990E4 /* Alamofire */; };
+		2A5DF2DD2C09B711001990E4 /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5DF2DC2C09B711001990E4 /* Structures.swift */; };
+		2A5DF2DF2C09B933001990E4 /* ApiCallWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5DF2DE2C09B933001990E4 /* ApiCallWatch.swift */; };
+		2A5DF2E12C09BA40001990E4 /* HomeModelWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5DF2E02C09BA40001990E4 /* HomeModelWatch.swift */; };
 		2A5E1AF02BF7A5A100871183 /* ChoseLogM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E1AEF2BF7A5A100871183 /* ChoseLogM.swift */; };
 		2A6084742BC4438C000FA417 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084732BC4438C000FA417 /* Map.swift */; };
 		2A6084762BC44472000FA417 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084752BC44472000FA417 /* TestView.swift */; };
@@ -43,6 +48,11 @@
 		2AB218092BC03B49002A32F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB218082BC03B49002A32F5 /* ContentView.swift */; };
 		2AB2180B2BC03B4A002A32F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AB2180A2BC03B4A002A32F5 /* Assets.xcassets */; };
 		2AB2180E2BC03B4A002A32F5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AB2180D2BC03B4A002A32F5 /* Preview Assets.xcassets */; };
+		2ACCA04B2C09AA2500946C53 /* ToPoopToGoWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACCA04A2C09AA2500946C53 /* ToPoopToGoWatchApp.swift */; };
+		2ACCA04D2C09AA2500946C53 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACCA04C2C09AA2500946C53 /* ContentView.swift */; };
+		2ACCA04F2C09AA2700946C53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2ACCA04E2C09AA2700946C53 /* Assets.xcassets */; };
+		2ACCA0522C09AA2700946C53 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2ACCA0512C09AA2700946C53 /* Preview Assets.xcassets */; };
+		2ACCA0552C09AA2700946C53 /* ToPoopToGoWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2ACCA0482C09AA2500946C53 /* ToPoopToGoWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2ADA106E2BDFF2BF00BBC989 /* Manrope-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADA10672BDFF2BF00BBC989 /* Manrope-ExtraLight.ttf */; };
 		2ADA106F2BDFF2BF00BBC989 /* Manrope-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADA10682BDFF2BF00BBC989 /* Manrope-SemiBold.ttf */; };
 		2ADA10702BDFF2BF00BBC989 /* Manrope-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADA10692BDFF2BF00BBC989 /* Manrope-Light.ttf */; };
@@ -68,6 +78,30 @@
 		2AFFF9DD2BE7DFAC0095056C /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFF9DC2BE7DFAC0095056C /* Annotation.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2ACCA0532C09AA2700946C53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AB217FB2BC03B49002A32F5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2ACCA0472C09AA2500946C53;
+			remoteInfo = "ToPoopToGoWatch Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2ACCA0402C09A14200946C53 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				2ACCA0552C09AA2700946C53 /* ToPoopToGoWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2A0B67A92C021E75000706ED /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		2A0BF68B2C036F260053A0A5 /* Components-DetailBathroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components-DetailBathroom.swift"; sourceTree = "<group>"; };
@@ -92,6 +126,18 @@
 		2A4893C62BC03DF300366033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2A55F2692BF7840B002D7203 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
 		2A55F26C2BF7885B002D7203 /* LogInAndSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInAndSignUp.swift; sourceTree = "<group>"; };
+		2A5DF2C22C09AE00001990E4 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
+		2A5DF2C42C09AE8F001990E4 /* ToPoopToGoWatch-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ToPoopToGoWatch-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		2A5DF2C62C09AEBD001990E4 /* Manrope-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Bold.ttf"; sourceTree = "<group>"; };
+		2A5DF2C72C09AEBD001990E4 /* Manrope-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Regular.ttf"; sourceTree = "<group>"; };
+		2A5DF2C82C09AEBD001990E4 /* Manrope-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-ExtraBold.ttf"; sourceTree = "<group>"; };
+		2A5DF2C92C09AEBD001990E4 /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
+		2A5DF2CA2C09AEBD001990E4 /* Manrope-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Medium.ttf"; sourceTree = "<group>"; };
+		2A5DF2CB2C09AEBD001990E4 /* Manrope-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Light.ttf"; sourceTree = "<group>"; };
+		2A5DF2CC2C09AEBD001990E4 /* Manrope-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-ExtraLight.ttf"; sourceTree = "<group>"; };
+		2A5DF2DC2C09B711001990E4 /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
+		2A5DF2DE2C09B933001990E4 /* ApiCallWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCallWatch.swift; sourceTree = "<group>"; };
+		2A5DF2E02C09BA40001990E4 /* HomeModelWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModelWatch.swift; sourceTree = "<group>"; };
 		2A5E1AEF2BF7A5A100871183 /* ChoseLogM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoseLogM.swift; sourceTree = "<group>"; };
 		2A6084732BC4438C000FA417 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		2A6084752BC44472000FA417 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
@@ -103,6 +149,11 @@
 		2AB218082BC03B49002A32F5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2AB2180A2BC03B4A002A32F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2AB2180D2BC03B4A002A32F5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2ACCA0482C09AA2500946C53 /* ToPoopToGoWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ToPoopToGoWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2ACCA04A2C09AA2500946C53 /* ToPoopToGoWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToPoopToGoWatchApp.swift; sourceTree = "<group>"; };
+		2ACCA04C2C09AA2500946C53 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2ACCA04E2C09AA2700946C53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2ACCA0512C09AA2700946C53 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2ADA10672BDFF2BF00BBC989 /* Manrope-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Manrope-ExtraLight.ttf"; path = "../../../../../Downloads/Manrope/static/Manrope-ExtraLight.ttf"; sourceTree = "<group>"; };
 		2ADA10682BDFF2BF00BBC989 /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Manrope-SemiBold.ttf"; path = "../../../../../Downloads/Manrope/static/Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
 		2ADA10692BDFF2BF00BBC989 /* Manrope-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Manrope-Light.ttf"; path = "../../../../../Downloads/Manrope/static/Manrope-Light.ttf"; sourceTree = "<group>"; };
@@ -137,6 +188,14 @@
 				2A33AF9B2BC041DC00DA90E9 /* MapboxMaps in Frameworks */,
 				2A18B8462BFF38B800C12C9B /* Lottie in Frameworks */,
 				2AA1E06A2C008E2D00B2E3BF /* FirebaseAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2ACCA0452C09AA2500946C53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A5DF2D02C09B090001990E4 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +287,38 @@
 			path = OnBoarding;
 			sourceTree = "<group>";
 		};
+		2A5DF2C12C09ADDA001990E4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2A5DF2C22C09AE00001990E4 /* ViewModifiers.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		2A5DF2C52C09AEAD001990E4 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				2A5DF2C62C09AEBD001990E4 /* Manrope-Bold.ttf */,
+				2A5DF2C82C09AEBD001990E4 /* Manrope-ExtraBold.ttf */,
+				2A5DF2CC2C09AEBD001990E4 /* Manrope-ExtraLight.ttf */,
+				2A5DF2CB2C09AEBD001990E4 /* Manrope-Light.ttf */,
+				2A5DF2CA2C09AEBD001990E4 /* Manrope-Medium.ttf */,
+				2A5DF2C72C09AEBD001990E4 /* Manrope-Regular.ttf */,
+				2A5DF2C92C09AEBD001990E4 /* Manrope-SemiBold.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		2A5DF2D12C09B0FF001990E4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2A5DF2DC2C09B711001990E4 /* Structures.swift */,
+				2A5DF2E02C09BA40001990E4 /* HomeModelWatch.swift */,
+				2A5DF2DE2C09B933001990E4 /* ApiCallWatch.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		2AA1E0682C008E2D00B2E3BF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				2AB218052BC03B49002A32F5 /* testMappe */,
+				2ACCA0492C09AA2500946C53 /* ToPoopToGoWatch Watch App */,
 				2AB218042BC03B49002A32F5 /* Products */,
 				2AA1E0682C008E2D00B2E3BF /* Frameworks */,
 			);
@@ -248,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				2AB218032BC03B49002A32F5 /* TooPoopToGo.app */,
+				2ACCA0482C09AA2500946C53 /* ToPoopToGoWatch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -274,6 +367,29 @@
 			isa = PBXGroup;
 			children = (
 				2AB2180D2BC03B4A002A32F5 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2ACCA0492C09AA2500946C53 /* ToPoopToGoWatch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				2A5DF2C42C09AE8F001990E4 /* ToPoopToGoWatch-Watch-App-Info.plist */,
+				2ACCA04A2C09AA2500946C53 /* ToPoopToGoWatchApp.swift */,
+				2ACCA04C2C09AA2500946C53 /* ContentView.swift */,
+				2A5DF2D12C09B0FF001990E4 /* Models */,
+				2A5DF2C12C09ADDA001990E4 /* Utils */,
+				2ACCA04E2C09AA2700946C53 /* Assets.xcassets */,
+				2A5DF2C52C09AEAD001990E4 /* Font */,
+				2ACCA0502C09AA2700946C53 /* Preview Content */,
+			);
+			path = "ToPoopToGoWatch Watch App";
+			sourceTree = "<group>";
+		};
+		2ACCA0502C09AA2700946C53 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				2ACCA0512C09AA2700946C53 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -320,10 +436,12 @@
 				2AB217FF2BC03B49002A32F5 /* Sources */,
 				2AB218002BC03B49002A32F5 /* Frameworks */,
 				2AB218012BC03B49002A32F5 /* Resources */,
+				2ACCA0402C09A14200946C53 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2ACCA0542C09AA2700946C53 /* PBXTargetDependency */,
 			);
 			name = TooPoopToGo;
 			packageProductDependencies = (
@@ -334,6 +452,26 @@
 			);
 			productName = testMappe;
 			productReference = 2AB218032BC03B49002A32F5 /* TooPoopToGo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2ACCA0472C09AA2500946C53 /* ToPoopToGoWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2ACCA0562C09AA2700946C53 /* Build configuration list for PBXNativeTarget "ToPoopToGoWatch Watch App" */;
+			buildPhases = (
+				2ACCA0442C09AA2500946C53 /* Sources */,
+				2ACCA0452C09AA2500946C53 /* Frameworks */,
+				2ACCA0462C09AA2500946C53 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ToPoopToGoWatch Watch App";
+			packageProductDependencies = (
+				2A5DF2CF2C09B090001990E4 /* Alamofire */,
+			);
+			productName = "ToPoopToGoWatch Watch App";
+			productReference = 2ACCA0482C09AA2500946C53 /* ToPoopToGoWatch Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -347,6 +485,9 @@
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					2AB218022BC03B49002A32F5 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					2ACCA0472C09AA2500946C53 = {
 						CreatedOnToolsVersion = 15.3;
 					};
 				};
@@ -371,6 +512,7 @@
 			projectRoot = "";
 			targets = (
 				2AB218022BC03B49002A32F5 /* TooPoopToGo */,
+				2ACCA0472C09AA2500946C53 /* ToPoopToGoWatch Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -396,6 +538,15 @@
 				2AB2180B2BC03B4A002A32F5 /* Assets.xcassets in Resources */,
 				2A18B8482BFF404300C12C9B /* LoadingAnimationWhite.json in Resources */,
 				2ADA10702BDFF2BF00BBC989 /* Manrope-Light.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2ACCA0462C09AA2500946C53 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2ACCA0522C09AA2700946C53 /* Preview Assets.xcassets in Resources */,
+				2ACCA04F2C09AA2700946C53 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,7 +599,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2ACCA0442C09AA2500946C53 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A5DF2E12C09BA40001990E4 /* HomeModelWatch.swift in Sources */,
+				2A5DF2DD2C09B711001990E4 /* Structures.swift in Sources */,
+				2A5DF2C32C09AE00001990E4 /* ViewModifiers.swift in Sources */,
+				2ACCA04D2C09AA2500946C53 /* ContentView.swift in Sources */,
+				2ACCA04B2C09AA2500946C53 /* ToPoopToGoWatchApp.swift in Sources */,
+				2A5DF2DF2C09B933001990E4 /* ApiCallWatch.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2ACCA0542C09AA2700946C53 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2ACCA0472C09AA2500946C53 /* ToPoopToGoWatch Watch App */;
+			targetProxy = 2ACCA0532C09AA2700946C53 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2AB2180F2BC03B4A002A32F5 /* Debug */ = {
@@ -573,6 +745,7 @@
 		2AB218122BC03B4A002A32F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -608,6 +781,7 @@
 		2AB218132BC03B4A002A32F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -640,6 +814,70 @@
 			};
 			name = Release;
 		};
+		2ACCA0572C09AA2700946C53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ToPoopToGoWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 6TS2KBH3FR;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ToPoopToGoWatch-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = ToPoopToGoWatch;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "$(PRODUCT_BUNDLE_PACKAGE_TYPE)";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.christiancatenacci.tooPoopToGo;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiancatenacci.tooPoopToGo.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+			};
+			name = Debug;
+		};
+		2ACCA0582C09AA2700946C53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ToPoopToGoWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 6TS2KBH3FR;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ToPoopToGoWatch-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = ToPoopToGoWatch;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "$(PRODUCT_BUNDLE_PACKAGE_TYPE)";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.christiancatenacci.tooPoopToGo;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiancatenacci.tooPoopToGo.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -657,6 +895,15 @@
 			buildConfigurations = (
 				2AB218122BC03B4A002A32F5 /* Debug */,
 				2AB218132BC03B4A002A32F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2ACCA0562C09AA2700946C53 /* Build configuration list for PBXNativeTarget "ToPoopToGoWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2ACCA0572C09AA2700946C53 /* Debug */,
+				2ACCA0582C09AA2700946C53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -713,6 +960,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A33AF992BC041DC00DA90E9 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
 			productName = MapboxMaps;
+		};
+		2A5DF2CF2C09B090001990E4 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A27C0132BF8DDAA006A8FE8 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		2AA1E0692C008E2D00B2E3BF /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
