@@ -39,7 +39,11 @@ struct AddImageSheet: View {
                                         if imagesNewAnnotation.count < maxPhotoLimit {
                                             imagesNewAnnotation.append(image)
                                         }
-                                        dismiss()
+                                        
+                                        if maxPhotoLimit == 1 {
+                                            dismiss()
+
+                                        }
                                     }
                                 }
                             case .failure(let error):
