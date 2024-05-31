@@ -26,6 +26,7 @@ struct LogInInformation: Encodable{
 
 struct UserInfoResponse: Decodable {
     var username: String
+    var photo_user: String?
     var id: String
     var friends_number: Int
     var badges: [String]

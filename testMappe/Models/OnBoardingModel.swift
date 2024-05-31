@@ -12,7 +12,8 @@ final class OnBoardingModel: ObservableObject{
     @Published var firstName = ""
     @Published var email = ""
     @Published var password = ""
-    @Published var everithingOk = true
+    @Published var everithingOklog = true
+    @Published var everithingOkreg = true
     @Published var otpOk = true
     @Published var otp = Array(repeating: "", count: 6)
     
@@ -50,7 +51,7 @@ final class OnBoardingModel: ObservableObject{
                         api.saveToken(token: token)
                     }
                 case .failure:
-                    self.everithingOk = false
+                    self.everithingOklog = false
                     self.resetValues()
                 }
             }
@@ -68,11 +69,10 @@ final class OnBoardingModel: ObservableObject{
                     api.email = self.email
                     api.username =  self.username
                     api.password =  self.password
-//                    api.id = self.
                     mutablePath.append("InsertOtp")
                     completion(mutablePath)
                 case .failure:
-                    self.everithingOk = false
+                    self.everithingOkreg = false
                     self.resetValues()
                 }
             }
@@ -99,8 +99,10 @@ final class OnBoardingModel: ObservableObject{
                             switch result {
                             case .success(let token):
                                 api.saveToken(token: token)
-//                                let renderer = ImageRenderer(content: ProfilePictureCustom()).uiImage
-//                                api.uploadProfilePicture(image: renderer!, userId: api.i)
+                                let renderer = ImageRenderer(content: ProfilePictureCustom()).uiImage
+                                api.uploadProfilePicture(image: renderer!, userId: api.id){ resp in
+                                    print(resp)
+                                }
                             case .failure(_):
                                 mutablePath.append("LogIn")
                                 completion(mutablePath)

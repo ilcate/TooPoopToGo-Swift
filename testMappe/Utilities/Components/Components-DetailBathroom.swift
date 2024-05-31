@@ -292,7 +292,7 @@ struct ReviewsBathroomDetail: View {
                 api.getReviews(idB: idBathroom) { result in
                     switch result {
                     case .success(let reviews):
-                        names = reviews.reversed()
+                        names = reviews
                     case .failure(let error):
                         print("Failed to fetch reviews: \(error)")
                         names = []

@@ -13,11 +13,12 @@ struct InformationOfSelectionView: View {
     @State var loading = false
     @State var arrOfTags : [Bool] = [false, false, false, false, false, false, false, false]
     @State var ovRating = ""
+    @StateObject var mapViewModel: MapModel
     
     var body: some View {
         VStack {
             if !bathroom.name!.isEmpty {
-                NavigationLink(destination: DetailBathroom(bathroom: bathroom)) {
+                NavigationLink(destination: DetailBathroom(mapViewModel:mapViewModel, bathroom: bathroom )) {
                     HStack(spacing: 0) {
                         if !loading{
                             if let photos = bathroom.photos, !photos.isEmpty, let photo = photos.first?.photo, let url = URL(string: "\(api.url)\(photo)") {

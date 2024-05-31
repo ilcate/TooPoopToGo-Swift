@@ -7,7 +7,7 @@ import SwiftUI
 
 
 public struct SheetManageSearch: View {
-    @ObservedObject var mapViewModel : MapModel
+    @EnvironmentObject var mapViewModel : MapModel
     
     @State private var range = 100.0...3904.35
     @State private var selection  = 100.0...300.0
@@ -105,7 +105,7 @@ public struct SheetManageSearch: View {
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
                     Spacer()
                 }.padding(.horizontal, 20)
-                FiltersScroller(mapViewModel: mapViewModel)
+                FiltersScroller()
                     .frame(maxWidth: .infinity, maxHeight: 40)
             }
             

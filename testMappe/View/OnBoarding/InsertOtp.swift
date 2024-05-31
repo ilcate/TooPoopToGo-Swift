@@ -1,4 +1,5 @@
 import SwiftUI
+//on appear svuota tutto
 
 struct InsertOtp: View {
     @EnvironmentObject var api: ApiManager

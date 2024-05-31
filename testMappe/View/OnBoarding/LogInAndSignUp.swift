@@ -72,8 +72,13 @@ struct LogInAndSignUp: View {
                 )
             }
             .padding(.horizontal, 20)
-            if !oBModel.everithingOk{
+            if !oBModel.everithingOklog{
                 Text("Something went wrong, try again")
+                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .red)
+                Spacer()
+            }
+            if !oBModel.everithingOkreg{
+                Text("This name is alredy used")
                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .red)
                 Spacer()
             }else{

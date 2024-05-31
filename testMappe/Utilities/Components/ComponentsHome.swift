@@ -5,6 +5,7 @@ import SwiftUI
 struct SliderNextToYou: View {
     @ObservedObject var homeModel: HomeModel
     @EnvironmentObject var api: ApiManager
+    @ObservedObject var mapViewModel: MapModel
 
     var body: some View {
         VStack(spacing: 6) {
@@ -21,7 +22,7 @@ struct SliderNextToYou: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
                             ForEach(homeModel.nextToYou.reversed(), id: \.self) { bathroom in
-                                InformationOfSelectionView(bathroom: bathroom)
+                                InformationOfSelectionView(bathroom: bathroom, mapViewModel: mapViewModel)
                                     .padding(.vertical, 3)
                                     .frame(width: 350)
                                     

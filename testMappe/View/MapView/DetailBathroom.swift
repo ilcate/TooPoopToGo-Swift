@@ -4,7 +4,7 @@ import SwiftUI
 struct DetailBathroom: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var api: ApiManager
-
+    @ObservedObject var mapViewModel: MapModel
     @State private var openSheetNavigate = false
     @State private var openSheetAddReview = false
     @State var informationStat = GetRatingStats(overall_rating: "0", cleanliness_rating: "0", comfort_rating: "0", accessibility_rating: "0", review_count: 0)
@@ -93,7 +93,7 @@ struct DetailBathroom: View {
         }) {
             ZStack {
                 Color.cLightBrown.ignoresSafeArea(.all)
-                SheetAddReview(idB: bathroom.id!)
+                SheetAddReview(mapViewModel: mapViewModel, idB: bathroom.id!)
                     .presentationDetents([.fraction(0.48)])
                     .presentationCornerRadius(18)
             }

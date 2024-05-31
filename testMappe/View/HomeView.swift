@@ -14,6 +14,7 @@ import CoreLocation
 
 struct HomeView: View {
     @EnvironmentObject var api: ApiManager
+    @ObservedObject var mapViewModel: MapModel
     @StateObject var homeModel = HomeModel()
     
 //    @State private var names = ["MistroFino", "Pisellone", "PerAssurdo", "Filippino"]
@@ -96,7 +97,7 @@ struct HomeView: View {
                     
                     StreakButtons(streak: streak)
                     
-                    SliderNextToYou(homeModel: homeModel)
+                    SliderNextToYou(homeModel: homeModel, mapViewModel: mapViewModel)
                     
 //                    VStack(spacing: 6){
 //                        HStack{

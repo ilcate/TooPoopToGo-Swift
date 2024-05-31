@@ -112,7 +112,7 @@ struct MapButtonsView: View {
                                 case .success(let bathrooms):
                                     if let bathrooms = bathrooms, !bathrooms.isEmpty {
                                         ForEach(bathrooms, id: \.id) { element in
-                                             InformationOfSelectionView(bathroom: BathroomApi(id: element.id, photos: element.photos, name: element.name, address: element.address, coordinates: element.coordinates, place_type: element.place_type, is_for_disabled: element.is_for_disabled, is_free: element.is_free, is_for_babies: element.is_for_babies, tags: element.tags, updated_at: element.updated_at))
+                                            InformationOfSelectionView(bathroom: BathroomApi(id: element.id, photos: element.photos, name: element.name, address: element.address, coordinates: element.coordinates, place_type: element.place_type, is_for_disabled: element.is_for_disabled, is_free: element.is_free, is_for_babies: element.is_for_babies, tags: element.tags, updated_at: element.updated_at), mapViewModel: mapViewModel)
         
                                         }
                                     } else {
@@ -185,7 +185,7 @@ struct MapButtonsView: View {
                         }
                         if mapViewModel.tappedAnnotation() {
                             withAnimation(.snappy){
-                                InformationOfSelectionView(bathroom: mapViewModel.selected!)
+                                InformationOfSelectionView(bathroom: mapViewModel.selected!, mapViewModel: mapViewModel)
                                     .opacity(mapViewModel.selected?.name != "" ? 1 : 0)
                                     .onChange(of: mapViewModel.viewport){
                                         if !mapViewModel.checkCoordinates() {
@@ -247,7 +247,7 @@ struct MapButtonsView: View {
         }) {
             ZStack {
                 Color.cLightBrown.ignoresSafeArea(.all)
-                SheetManageSearch(mapViewModel: mapViewModel)
+                SheetManageSearch()
                     .presentationDetents([.fraction(0.58)])
                     .presentationCornerRadius(18)
             }

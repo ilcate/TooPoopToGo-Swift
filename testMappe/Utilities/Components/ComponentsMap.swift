@@ -3,7 +3,7 @@ import SwiftUI
 import PhotosUI
 
 struct FiltersScroller: View {
-    @ObservedObject var mapViewModel : MapModel
+    @EnvironmentObject var mapViewModel : MapModel
     @State var filtersArray = [
         Filters(image: UIImage(named: "AccessibleCircle"), name: "Accessible", selected: false),
         Filters(image: UIImage(named: "FreeCircle"), name: "Free", selected: false),
@@ -145,36 +145,20 @@ struct RestrictionsView: View {
     }
 }
 
-struct ImageSelectionView:  View {
+struct ImageSelectionView: View {
     @Binding var imagesNewAnnotation: [UIImage]
     @Binding var openSheetUploadImage: Bool
-    @Binding var photosPikerItems: [PhotosPickerItem]
-    
+    @Binding var photosPickerItems: [PhotosPickerItem]
     
     var body: some View {
         VStack(alignment: .leading) {
             if imagesNewAnnotation.isEmpty {
                 ImageUploadView(openSheetUploadImage: $openSheetUploadImage)
             } else {
-                ChangeImageView(imagesNewAnnotation: $imagesNewAnnotation, openSheetUploadImage: $openSheetUploadImage )
+                ChangeImageView(imagesNewAnnotation: $imagesNewAnnotation, openSheetUploadImage: $openSheetUploadImage)
             }
         }
-        .onChange(of: photosPikerItems) { _, _ in
-            Task {
-                for item in photosPikerItems{
-                    if let data = try? await item.loadTransferable(type: Data.self) {
-                        if let image = UIImage(data: data) {
-                            if imagesNewAnnotation.count <= 4 {
-                                imagesNewAnnotation.append(image)
-                                openSheetUploadImage = false
-                            }
-                        }
-                    }
-                }
-                
-                photosPikerItems.removeAll()
-            }
-        }
+        
     }
 }
 

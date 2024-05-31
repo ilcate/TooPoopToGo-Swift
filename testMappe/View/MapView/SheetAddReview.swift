@@ -6,10 +6,9 @@ struct SheetAddReview: View {
     @State var comfortStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
     @State var moodStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
     @EnvironmentObject var api: ApiManager
-    @EnvironmentObject var mapViewModel: MapModel
+    @ObservedObject var mapViewModel: MapModel
     @State var idB : String
     
-    @State private var descNewAnnotation = ""
     
     var body: some View {
         VStack{
@@ -17,7 +16,7 @@ struct SheetAddReview: View {
             RatingsView(cleanStar: $cleanStar, comfortStar: $comfortStar, moodStar: $moodStar)
                 .padding(.horizontal, 20)
             
-            TextFieldCustom(stateVariable : $descNewAnnotation ,  name: "Leave a comment")
+            TextFieldCustom(stateVariable : $mapViewModel.descNewAnnotation ,  name: "Leave a comment")
                 .padding(.horizontal, 20)
                 .padding(.bottom, 8)
             

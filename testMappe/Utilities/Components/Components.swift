@@ -263,14 +263,11 @@ struct ButtonFeed: View {
 struct ReviewTemp: View {
     let review: Review
     @State var ratingAVG = ""
+    
     var body: some View {
         VStack {
             HStack {
-                Image("ImagePlaceHolder3")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 40, height: 40)
-                    .clipShape(Circle())
+                ProfileP(link: review.user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
                 VStack(alignment: .leading, spacing: -2) {
                     Text(review.user.username)
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 19, fontColor: .accent)
@@ -377,12 +374,47 @@ struct ProfilePictureCustom: View {
                 .renderingMode(.template)
                 .foregroundColor(.white)
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 70, height: 70)
-                .padding(.bottom, -20)
+                .frame(width: 500, height: 500)
                 
         }
-        .frame(width: 100, height: 100)
+        .frame(width: 1000, height: 1000)
         .background(Circle().fill(randomColor()))
         .clipShape(Circle())
+    }
+}
+
+
+struct ProfileP :View {
+    let link : String
+    let size : CGFloat
+    let padding : CGFloat
+    
+    var body: some View {
+        VStack{
+            if let photoURL = URL(string: link) {
+                AsyncImage(url: photoURL) { phase in
+                    switch phase {
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(Circle())
+                    default:
+                        Image("noPhoto")
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(Circle())
+                            
+                    }
+                }
+            } else {
+                Image("noPhoto")
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
+            }
+        }
+        .frame(width: size, height: size)
+        .padding(.leading, padding)
     }
 }

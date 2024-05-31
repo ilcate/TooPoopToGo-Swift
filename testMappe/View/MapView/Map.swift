@@ -17,7 +17,7 @@ struct MapView: View {
                         ForEvery(mapViewModel.allPoints){ ann in
                             let annotationBinding = Binding.constant(ann)
                             MapViewAnnotation(coordinate: CLLocationCoordinate2D(latitude: (ann.coordinates?.coordinates![1])!, longitude: (ann.coordinates?.coordinates![0])!)) {
-                                Annotation(mapViewModel: mapViewModel, ann: annotationBinding)
+                                Annotation( mapViewModel: mapViewModel, ann: annotationBinding)
                             }
                             .allowOverlapWithPuck(true)//fa si che il punto dell'utente sia sotto all'annotation
                             .allowOverlap(mapViewModel.currentZoom >= 14 ? true : false)
@@ -56,7 +56,7 @@ struct MapView: View {
                     if !mapViewModel.search{
                         VStack{
                             Spacer()
-                            FiltersScroller(mapViewModel: mapViewModel)
+                            FiltersScroller()
                                 .padding(.bottom, 16)
                                 .padding(.top, 4)
                                 .frame(maxWidth: .infinity, maxHeight: 70)
@@ -75,7 +75,7 @@ struct MapView: View {
                 }
                 
                 if mapViewModel.canMove == false {
-                    MapSelectPositionView(mapViewModel: mapViewModel)
+                    MapSelectPositionView(mapViewModel:mapViewModel)
                         .toolbar(.hidden, for: .tabBar)
                 }
                 

@@ -1,12 +1,6 @@
-//
-//  Settings.swift
-//  testMappe
-//
-//  Created by Christian Catenacci on 16/05/24.
-//
+
 
 import SwiftUI
-import Lottie
 
 struct SettingsView: View {
     @EnvironmentObject var api : ApiManager
@@ -25,9 +19,9 @@ struct SettingsView: View {
                         dismiss()
                     }
                 }
+           
             
-        }.background(.black)
-        
+        }
     }
 }
 

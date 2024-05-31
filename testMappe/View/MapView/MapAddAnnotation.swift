@@ -23,7 +23,7 @@ struct SheetAddAn: View {
                                 TextFieldCustom(stateVariable: $mapViewModel.nameNewAnnotation,  name: "Location Name" )
                                 TypeSelectionView(optionsDropDown: $mapViewModel.optionsDropDown)
                                 TextFieldCustom(stateVariable : $mapViewModel.descNewAnnotation ,  name: "Leave a comment")
-                                ImageSelectionView(imagesNewAnnotation: $mapViewModel.imagesNewAnnotation, openSheetUploadImage: $mapViewModel.openSheetUploadImage, photosPikerItems: $mapViewModel.photosPikerItems)
+                                ImageSelectionView(imagesNewAnnotation: $mapViewModel.imagesNewAnnotation, openSheetUploadImage: $mapViewModel.openSheetUploadImage, photosPickerItems: $mapViewModel.photosPikerItems)
                                 RestrictionsView(restrictions: $mapViewModel.restrictionsArray)
                                 RatingsView(cleanStar: $cleanStar, comfortStar: $comfortStar, moodStar: $moodStar)
                                 
@@ -39,7 +39,7 @@ struct SheetAddAn: View {
                         }) {
                             ZStack {
                                 Color.cLightBrown.ignoresSafeArea(.all)
-                                AddImageSheet(photosPickerItems: $mapViewModel.photosPikerItems, imagesNewAnnotation:  $mapViewModel.imagesNewAnnotation)
+                                AddImageSheet(photosPickerItems: $mapViewModel.photosPikerItems, imagesNewAnnotation:  $mapViewModel.imagesNewAnnotation , isMaxFivePhotos: true)
                                     .presentationDetents([.fraction(0.26)])
                                     .presentationCornerRadius(18)
                             }
@@ -76,8 +76,8 @@ struct SheetAddAn: View {
                                     DispatchQueue.main.async {
                                         mapViewModel.sendPointToServer(name: mapViewModel.nameNewAnnotation, type: type, image : mapViewModel.imagesNewAnnotation, restrictions: mapViewModel.restrictionsArray, api: api) { result in
                                             if result != "" {
-                                                mapViewModel.resetAddParams()
                                                 mapViewModel.sendReview(api: api, cleanStar: cleanStar, comfortStar: comfortStar, moodStar: moodStar, idB: result)
+                                                mapViewModel.resetAddParams()
                                                 dismiss()
                                                 clicked = false
                                             }else{

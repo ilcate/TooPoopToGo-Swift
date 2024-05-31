@@ -21,13 +21,15 @@ class ApiManager: ObservableObject {
     @Published var username = ""
     @Published var password = ""
     @Published var email = ""
+    @Published var id = ""
     
-    func createAccount(parameters: RegisterRequest, completion: @escaping (Result<RegisterResponse, Error>) -> Void) {
+    func createAccount(parameters: RegisterRequest, completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
         AF.request("\(url)/user/create", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
             .validate(statusCode: 200..<300)
-            .responseDecodable(of: RegisterResponse.self) { response in
+            .responseDecodable(of: UserInfoResponse.self) { response in
                 switch response.result {
                 case .success(let data):
+                    self.id = data.id
                     completion(.success(data))
                 case .failure(let error):
                     completion(.failure(error))
@@ -209,17 +211,17 @@ class ApiManager: ObservableObject {
         }
     }
     
-    func uploadProfilePicture(image: UIImage, userId: String ) {
-        
+    func uploadProfilePicture(image: UIImage, userId: String,completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
         AF.upload(multipartFormData: { multipartFormData in
-                if let imageData = image.jpegData(compressionQuality: 0.8) {
-                    multipartFormData.append(imageData, withName: "photo_user", fileName: "photo_user.jpg", mimeType: "image/jpeg")
+                if let imageData = image.jpegData(compressionQuality: 0.3) {
+                    multipartFormData.append(imageData, withName: "photo_user", fileName: "photo_user.jpg")
                 }
             }, to: "\(url)/user/update/\(userId)", method: .patch, headers: headers)
             .validate()
-            .responseString { response in
+            .responseDecodable(of: UserInfoResponse.self) { response in
                 switch response.result {
                 case .success(let responseString):
+                    completion(.success(responseString))
                     print("Success: \(responseString)")
                 case .failure(let error):
                     print("Error: \(error)")

@@ -9,6 +9,7 @@ struct ContentView: View {
     @StateObject var onBoarding = OnBoarding()
     @StateObject var api = ApiManager()
     @StateObject var oBModel = OnBoardingModel()
+    @StateObject var mapViewModel = MapModel()
     @State private var path: [String] = []
     
     //istanziazione dell'object
@@ -47,7 +48,7 @@ struct ContentView: View {
                             }
                             .padding(.bottom, isTexting.texting ? -50 : 5)
                             .tag(1)
-                        HomeView()
+                        HomeView(mapViewModel: mapViewModel)
                             .tabItem {
                                 Image("HomeTB")
                             }
@@ -90,7 +91,6 @@ struct ContentView: View {
             
           
         }
-        
         .environmentObject(tabBarSelection)
         .environmentObject(isTexting)//fa si che tutti i figli abbiatno all'interno l'istanza dell'object e sia uguale in tutte
         .environmentObject(onBoarding)
