@@ -25,7 +25,8 @@ struct SettingsView: View {
                         dismiss()
                     }
                 }
-        }
+            
+        }.background(.black)
         
     }
 }

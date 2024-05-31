@@ -61,6 +61,7 @@ final class OnBoardingModel: ObservableObject{
         let parameters = RegisterRequest(username: username, email: email, first_name: firstName, password: password, last_login: nil)
         var mutablePath = path
         api.createAccount(parameters: parameters){ result in
+            print(result)
             DispatchQueue.main.async {
                 switch result {
                 case .success:
@@ -97,6 +98,7 @@ final class OnBoardingModel: ObservableObject{
                             switch result {
                             case .success(let token):
                                 api.saveToken(token: token)
+                                let renderer = ImageRenderer(content: ProfilePictureCustom()).uiImage
                             case .failure(_):
                                 mutablePath.append("LogIn")
                                 completion(mutablePath)

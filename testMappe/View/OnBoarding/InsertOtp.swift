@@ -32,7 +32,6 @@ struct InsertOtp: View {
                             oBModel.handleTextChange(at: index, newValue: newValue, focusedField: &focusedField)
                         })
                     
-                    
                         .onReceive(oBModel.otp.publisher.collect()) { _ in
                             oBModel.sanitizeOTP()
                         }

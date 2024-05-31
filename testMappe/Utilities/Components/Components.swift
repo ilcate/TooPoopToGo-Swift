@@ -326,24 +326,19 @@ struct ReviewsScroller: View {
     var body: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 0) {
-                if !reviews!.isEmpty{
+                if !reviews!.isEmpty {
                     if let reviews = reviews {
                         ForEach(reviews, id: \.self) { review in
-                            ReviewTemp(review: review)
+                            if !review.review.isEmpty{
+                                ReviewTemp(review: review)
+                            }
+                        }
+                        if reviews.count == 1 && reviews[0].review == "" {
+                            NoReviews()
                         }
                     }
                 } else {
-                    VStack {
-                        Text("This place has no reviews. \n Add the first one!")
-                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 16, fontColor: .accent)
-                            .multilineTextAlignment(.center)
-                    }
-                    .frame(maxWidth: .infinity, minHeight: 144)
-                    .background(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .containerRelativeFrame(.horizontal, count: 1, spacing: 20)
-                    .padding(.trailing, 10)
-                    .padding(.bottom, -6)
+                    NoReviews()
                 }
             }
             .padding(.trailing, -10)
@@ -356,3 +351,38 @@ struct ReviewsScroller: View {
     }
 }
 
+struct NoReviews: View {
+    var body: some View {
+        VStack {
+            Text("This place has no comments or reviews. \n Add the first one!")
+                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 16, fontColor: .accent)
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity, minHeight: 144)
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .containerRelativeFrame(.horizontal, count: 1, spacing: 20)
+        .padding(.trailing, 10)
+        .padding(.bottom, -6)
+        
+    }
+}
+
+
+struct ProfilePictureCustom: View {
+    var body: some View {
+        VStack {
+            Image("ProfilePerson")
+                .resizable()
+                .renderingMode(.template)
+                .foregroundColor(.white)
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 70, height: 70)
+                .padding(.bottom, -20)
+                
+        }
+        .frame(width: 100, height: 100)
+        .background(Circle().fill(randomColor()))
+        .clipShape(Circle())
+    }
+}

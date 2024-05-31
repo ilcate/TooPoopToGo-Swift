@@ -117,7 +117,6 @@ struct ImageSliderDetailBathroom: View {
         .onAppear{
             
             if !bathroom.photos!.isEmpty{
-                print(bathroom.photos)
                 currentImage = bathroom.photos![0]
             }
            

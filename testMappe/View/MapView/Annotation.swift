@@ -35,7 +35,6 @@ struct Annotation: View {
                 .blur(radius: 0.5)
                 .padding(.top, -2)
         }
-//        .opacity(annotationOpacity())
     }
     func imageToDisplay() -> String{
         switch mapViewModel.filterSelected {

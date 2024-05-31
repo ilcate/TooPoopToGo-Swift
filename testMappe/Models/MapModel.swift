@@ -120,6 +120,7 @@ final class MapModel: ObservableObject{
     
     func resetAddParams(){
         nameNewAnnotation = ""
+        descNewAnnotation = ""
         optionsDropDown = ["Public", "Bar", "Restaurant", "Shop"]
         imagesNewAnnotation = []
         restrictionsArray = [false, false, false]

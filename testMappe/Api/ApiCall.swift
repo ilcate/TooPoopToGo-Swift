@@ -208,4 +208,22 @@ class ApiManager: ObservableObject {
                 }
         }
     }
+    
+    func createLocation(image: UIImage, userId: String ) {
+        
+        AF.upload(multipartFormData: { multipartFormData in
+                if let imageData = image.jpegData(compressionQuality: 0.8) {
+                    multipartFormData.append(imageData, withName: "photo_user", fileName: "photo_user.jpg", mimeType: "image/jpeg")
+                }
+            }, to: "\(url)/user/update/\(userId)", method: .patch, headers: headers)
+            .validate()
+            .responseString { response in
+                switch response.result {
+                case .success(let responseString):
+                    print("Success: \(responseString)")
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
+            }
+    }
 }

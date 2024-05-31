@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 func formatAddress(_ address: String) -> String {
     if address == "" {
@@ -108,4 +109,10 @@ func getAvg(review: Review) -> String {
     } else {
         return "0"
     }
+}
+
+func randomColor() -> Color {
+    let colors = ["CRed", "CBlue", "CLightBlue", "CGreenF", "CYellow", "COrange", "CPink", "CVioletF"]
+    let randomColor = colors.randomElement()!
+    return Color(randomColor)
 }

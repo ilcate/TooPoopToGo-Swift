@@ -11,17 +11,10 @@ struct BadgeDetail: View {
     @Environment(\.dismiss) var dismiss
     var maxProgression = 12.0
     var currentProgress = 10.0
-    
     @State var isAnimating = false
 
-    
-    
     var body: some View {
-        
-
         ZStack{
-            
-            
                 Image("Lights")
                     .resizable()
                     .renderingMode(.original)
