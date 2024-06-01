@@ -2,13 +2,13 @@ import SwiftUI
 import PhotosUI
 
 
-//TODO: cambia tutti gli state in let se non devono variare 
+//TODO: cambia tutti gli state in let se non devono variare
 
 struct CustomDividerView: View {
     var body: some View {
-            Rectangle()
-                .frame(maxWidth: .infinity, maxHeight: 2)
-                .foregroundStyle(.cLightGray)
+        Rectangle()
+            .frame(maxWidth: .infinity, maxHeight: 2)
+            .foregroundStyle(.cLightGray)
     }
 }
 
@@ -155,7 +155,7 @@ struct HeaderView:  View {
 
 
 struct HeadersViewPages: View {
-     var PageName: String
+    var PageName: String
     
     var body: some View {
         HStack{
@@ -176,10 +176,107 @@ struct HeadersViewPages: View {
     }
 }
 
+struct HeadersFeedView: View {
+    @EnvironmentObject var api: ApiManager
+    @EnvironmentObject var isTexting: IsTexting
+    @FocusState private var isFocused: Bool
+    @Binding var isSearching: Bool
+    @Binding var users: [UserInfoResponse]
+    @State var field = ""
+    
+    var body: some View {
+        HStack {
+            ZStack{
+                TextField("Search friends!", text: $field)
+                    .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
+                    .padding(.trailing, -24)
+                    .focused($isFocused)
+                    .onTapGesture {
+                        isTexting.texting = true
+                        isTexting.page = true
+                    }
+                    .onChange(of: field) { oldValue, newValue in
+                        if !newValue.isEmpty {
+                            api.searchUser(stringToSearch: field) { resp in
+                                switch resp {
+                                case .success(let us):
+                                    users = us!
+                                    print(users)
+                                case .failure(let error):
+                                    print("Error: \(error)")
+                                }
+                            }
+                        } else {
+                            users.removeAll()
+                        }
+                    }
+                    .onChange(of: isFocused) { oldValue, newValue in
+                        if !isFocused {
+                            isTexting.page = false
+                        }
+                    }
+                
+                    .frame(maxWidth: isSearching ? .infinity : 44)
+                    .padding(.horizontal, isSearching ? 16 : 0)
+                    .padding(.vertical, 9)
+                    .background(Color.white)
+                    .clipShape(Capsule())
+                    .overlay(
+                        Capsule()
+                            .stroke(.accent, lineWidth: isFocused ? 3 : 0)
+                    )
+                
+                if !isSearching {
+                    HStack{
+                        NavigationLink(destination: ProfileView()) {
+                            Image("Profile")
+                                .uiButtonStyle(backgroundColor: .white)
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            Spacer()
+            if !isSearching {
+                Text("Feed")
+                    .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 22, fontColor: .accent)
+            }
+            Spacer()
+            Image(isSearching ? "Close" : "Search")
+                .uiButtonStyle(backgroundColor: .white)
+                .onTapGesture {
+                    
+                    if isTexting.texting == true {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        isTexting.texting = false
+                    } else {
+                        isTexting.page = false
+                    }
+                    
+                    withAnimation(.easeOut(duration: 0.2)) {
+                        isSearching.toggle()
+                    }
+                    
+                    if isSearching == false {
+                        users.removeAll()
+                    }
+                    
+                }
+        }.padding(.horizontal, 20).padding(.top, 8)
+    }
+}
+
+
+
+
 
 
 struct FeedNotification : View {
+    @EnvironmentObject var api: ApiManager
     var name: String
+    var id: String
     var time: String
     var badgeName: String
     var isFriendRequest : Bool
@@ -188,7 +285,7 @@ struct FeedNotification : View {
     var body: some View {
         VStack{
             HStack(alignment: .top){
-
+                
                 Image("ImagePlaceHolder3")
                     .resizable()
                     .scaledToFill()
@@ -213,20 +310,25 @@ struct FeedNotification : View {
                 Spacer()
                 if isFriendRequest{
                     ButtonFeed(text: "Accept")
+                        .onTapGesture {
+                            api.acceptFriendRequest(userId: id)
+                        }
                     ButtonFeed(text: "Decline")
+                        .onTapGesture {
+                            api.rejectFriendRequest(userId: id)
+                        }
                     
                 }else{
                     ButtonFeed(text: "View Badge")
                     ButtonFeed(text: "Cheer")
                 }
-                    
+                
                 
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 12)
-
+            
         }
-        
         .frame(maxWidth: .infinity)
         .background(.white)
         .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -247,8 +349,10 @@ struct ButtonFeed: View {
         }else{
             HStack(spacing: 4){
                 Image("LikedStroke")
+                    .resizable()
                     .renderingMode(.template)
                     .foregroundStyle(.white)
+                    .frame(width: 16, height: 14)
                 Text(text)
                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 17, fontColor: .cLightBrown)
             }.padding(.vertical, 5).padding(.horizontal, 8)
@@ -273,7 +377,7 @@ struct ReviewTemp: View {
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 19, fontColor: .accent)
                     Text(timeElapsedSince(review.createdAt))
                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent.opacity(0.4))
-                        
+                    
                 }
                 Spacer()
                 HStack(spacing: 4){
@@ -293,7 +397,7 @@ struct ReviewTemp: View {
                     .lineLimit(3)
                 Spacer()
             }.padding(.horizontal, 16)
-           
+            
             Spacer()
         }
         .padding(.top, 12)
@@ -375,7 +479,7 @@ struct ProfilePictureCustom: View {
                 .foregroundColor(.white)
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 500, height: 500)
-                
+            
         }
         .frame(width: 1000, height: 1000)
         .background(Circle().fill(randomColor()))
@@ -404,7 +508,7 @@ struct ProfileP :View {
                             .resizable()
                             .scaledToFill()
                             .clipShape(Circle())
-                            
+                        
                     }
                 }
             } else {

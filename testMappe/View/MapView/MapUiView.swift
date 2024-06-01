@@ -49,6 +49,15 @@ struct MapButtonsView: View {
                                 .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
                                 .padding(.trailing, -24)
                                 .focused($isFocused)
+                                .onTapGesture {
+                                    isTexting.texting = true
+                                    isTexting.page = true
+                                }
+                                .onChange(of: isFocused) { oldValue, newValue in
+                                    if !isFocused {
+                                        isTexting.page = false
+                                    }
+                                }
                                 .onChange(of: mapViewModel.searchingInput) { oldValue, newValue in
                                     if mapViewModel.searchingInput != "" {
                                         api.searchBathroom(stringToSearch: mapViewModel.searchingInput){ resp in
@@ -56,13 +65,13 @@ struct MapButtonsView: View {
                                         }
                                     }
                                 }
-                            Image("FIlters")
-                                .resizable()
-                                .frame(width: 24, height: 24)
-                                .foregroundStyle(.accent)
-                                .onTapGesture {
-                                    mapViewModel.openSheetFilters = true
-                                }
+//                            Image("FIlters")
+//                                .resizable()
+//                                .frame(width: 24, height: 24)
+//                                .foregroundStyle(.accent)
+//                                .onTapGesture {
+//                                    mapViewModel.openSheetFilters = true
+//                                }
                         }
                         .frame(maxWidth: mapViewModel.search ? .infinity : 44)
                         .padding(.horizontal, mapViewModel.search ? 16 : 0)
@@ -96,7 +105,6 @@ struct MapButtonsView: View {
                                     
                                 } else {
                                     isTexting.page = false
-                                    
                                 }
                                 
                             }

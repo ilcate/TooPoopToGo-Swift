@@ -24,7 +24,7 @@ struct LogInInformation: Encodable{
 }
 
 
-struct UserInfoResponse: Decodable {
+struct UserInfoResponse: Decodable, Identifiable, Hashable {
     var username: String
     var photo_user: String?
     var id: String

@@ -58,7 +58,7 @@ struct ContentView: View {
                             .tabItem {
                                 Image("FeedTB")
                             }
-                            .padding(.bottom, 10)
+                            .padding(.bottom, isTexting.texting ? -50 : 10)
                             .tag(2)
                         BadgeView()
                             .tabItem {

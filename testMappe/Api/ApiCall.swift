@@ -269,10 +269,51 @@ class ApiManager: ObservableObject {
                .responseDecodable(of: SearchUsers.self) { response in
                    switch response.result {
                    case .success(let searchedUsers):
-                       print("Success: \(searchedUsers)")
+                       completion(.success(searchedUsers.results))
                    case .failure(let error):
                        print("Error: \(error)")
                    }
                }
     }
+    
+    func getSpecificUser(userId: String, completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
+        AF.request("\(url)/user/retrieve/\(userId)", method: .get, headers: headers)
+               .validate(statusCode: 200..<300)
+               .responseDecodable(of: UserInfoResponse.self) { response in
+                   switch response.result {
+                   case .success(let searchedUsers):
+                       print(searchedUsers)
+                       completion(.success(searchedUsers))
+                   case .failure(let error):
+                       print("Error: \(error)")
+                   }
+               }
+    }
+    
+    func sendFriendRequest(userId: String) {
+        AF.request("\(url)/user/add-friend/\(userId)", method: .post, headers: headers)
+               .validate(statusCode: 200..<300)
+               .responseString { response in
+                   print(response)
+               }
+    }
+    
+    func acceptFriendRequest(userId: String) {
+        AF.request("\(url)/user/accept-friend-request/\(userId)", method: .patch, headers: headers)
+               .validate(statusCode: 200..<300)
+               .responseString { response in
+                   print(response)
+               }
+    }
+    
+    func rejectFriendRequest(userId: String) {
+        AF.request("\(url)/user/reject-friend-request/\(userId)", method: .patch, headers: headers)
+               .validate(statusCode: 200..<300)
+               .responseString { response in
+                   print(response)
+               }
+    }
+    
+    
+    
 }
