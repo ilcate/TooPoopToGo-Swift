@@ -26,7 +26,7 @@ struct FriendsProfileView: View {
                     switch result {
                     case .success(let friendStatus):
                         status = friendStatus
-                    case .failure(let error):
+                    case .failure:
                         status = "none"
                     }
                 }

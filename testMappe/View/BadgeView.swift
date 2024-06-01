@@ -1,60 +1,62 @@
-//
-//  BadgeView.swift
-//  testMappe
-//
-//  Created by Christian Catenacci on 26/04/24.
-//
-
 import SwiftUI
 
 struct BadgeView: View {
+    @EnvironmentObject var api: ApiManager
+    
     let columns: [GridItem] = [GridItem(.flexible()),
                                GridItem(.flexible()),
                                GridItem(.flexible()),
                                GridItem(.flexible())]
     
-    let badges = [
-        "Review Writer",
-        "Feedback Guru",
-        "Evaluation Expert",
-        "Opinion Master",
-        "Assessment Ace",
-        "Critique Champion",
-        "Insight Innovator",
-        "Analysis Aficionado",
-        "Judgment Jedi",
-        "Feedback Fiend"
-    ]
+    @State var badges = [BadgesInfo(badge_name: "", badge_photo: "", is_completed: false, date_completed: "")]
     
     var body: some View {
-        VStack{
+        VStack {
             HeadersViewPages(PageName: "Badges")
             Spacer()
             
-            ScrollView{
-                LazyVGrid(columns: columns){
+            ScrollView {
+                LazyVGrid(columns: columns) {
                     ForEach(badges, id: \.self) { badge in
                         NavigationLink(destination: BadgeDetail()) {
-                            VStack{
-                                Image("ImagePlaceHolder7")
-                                    .resizable()
-                                    .renderingMode(.original)
-                                    .frame(width: 58, height: 58)
-                                Text(badge)
+                            VStack {
+                                if let badgePhoto = badge.badge_photo,
+                                   let imageURL = URL(string: "\(api.url)\(badgePhoto)") {
+                                    SVGImageView(url: imageURL)
+                                } else {
+                                    Image("noPhoto")
+                                        .resizable()
+                                        .frame(width: 58, height: 58)
+                                }
+                                
+                                Text(badge.badge_name)
                                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .accent)
                                     .lineLimit(1)
                                     .truncationMode(.tail)
                             }
                             .padding(8)
                             .frame(width: 80)
-                            .background(.white)
+                            .background(Color.white)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .padding(.bottom, 8)
                         }
                     }
-                }.padding(.horizontal, 20)
-                    .padding(.top, 8)
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 8)
             }
-        }.background(.cLightBrown)
+        }
+        .background(Color.cLightBrown)
+        .task {
+            api.getBadges { resp in
+                switch resp {
+                case .success(let arr):
+                    print("Successfully loaded badges: \(arr)")
+                    badges = arr
+                case .failure(let error):
+                    print("Failed to load badges: \(error)")
+                }
+            }
+        }
     }
 }

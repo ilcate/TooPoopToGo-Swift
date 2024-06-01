@@ -239,10 +239,8 @@ class ApiManager: ObservableObject {
                    switch response.result {
                    case .success(let poopStreak):
                        completion(.success(poopStreak))
-                       print("Success: \(poopStreak)")
                    case .failure(let error):
                        completion(.failure(error))
-                       print("Error: \(error)")
                    }
                }
     }
@@ -324,5 +322,20 @@ class ApiManager: ObservableObject {
                 }
             }
     }
+    
+    
+    func getBadges(completion: @escaping (Result<[BadgesInfo], Error>) -> Void) {
+        AF.request("\(url)/badge/list-all", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: [BadgesInfo].self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
 
 }

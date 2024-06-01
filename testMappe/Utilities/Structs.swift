@@ -8,6 +8,9 @@
 import Foundation
 import SwiftUI
 import CoreLocation
+import SDWebImage
+import SDWebImageSVGCoder
+
 @_spi(Experimental) import MapboxMaps
 
 
@@ -75,3 +78,18 @@ struct GestureProperties {
 }
 
 
+
+struct SVGImageView: View {
+    let url: URL
+
+    var body: some View {
+        WebImage(url: url)
+            .placeholder {
+                Image("noPhoto")
+                    .resizable()
+            }
+            .resizable()
+            .indicator(.activity) // Activity Indicator while loading
+            .frame(width: 58, height: 58)
+    }
+}
