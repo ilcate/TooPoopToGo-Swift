@@ -15,6 +15,7 @@ struct UserInformationStandards: View {
     let username : String
     let friendsNumber: Int
     let id: String
+    @Binding var status: String
     
     
     var body: some View {
@@ -48,17 +49,39 @@ struct UserInformationStandards: View {
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 32, fontColor: .accent)
                         .padding(.bottom, -2)
                     HStack{
-                        if !isYourProfile{
+                        if !isYourProfile &&  status != "pending" && status != "accepted" {
                             VStack{
                                 Text("Send Request")
                                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown).padding(.horizontal, 10).padding(.vertical, 2)
+                                
                             }
                             .background(.accent)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             .onTapGesture {
                                 api.sendFriendRequest(userId: id)
                             }
+                        } else if !isYourProfile && status != "accepted" && status == "pending" {
+                            VStack{
+                                Text("Request Sent")
+                                    .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .white).padding(.horizontal, 10).padding(.vertical, 2)
+                                
+                            }
+                            .background(.cLightBrown)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                            
+                        } else if !isYourProfile && status == "accepted" && status != "pending" {
+                            VStack{
+                                Text("Remove Friend")
+                                    .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .white).padding(.horizontal, 10).padding(.vertical, 2)
+                                
+                            }
+                            .background(.cLightBrown)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            
                         }
+                        
+                        
                         Text("\(friendsNumber) Friends")
                             .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accent)
                     }

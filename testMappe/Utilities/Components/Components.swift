@@ -285,6 +285,13 @@ struct FeedNotification : View {
     var body: some View {
         VStack{
             HStack(alignment: .top){
+                //                NavigationLink(destination: {
+                //                    if review.user.id == api.userId {
+                //                        ProfileView()
+                //                    } else {
+                //                        FriendsProfileView(id: review.user.id)
+                //                    }
+                //                }) {
                 
                 Image("ImagePlaceHolder3")
                     .resizable()
@@ -299,6 +306,7 @@ struct FeedNotification : View {
                 }.padding(.top, -2)
                 
                 Spacer()
+//            }
             }
             .padding(.vertical, 12)
             .padding(.horizontal, 16)

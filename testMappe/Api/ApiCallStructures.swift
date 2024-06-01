@@ -242,6 +242,9 @@ struct PoopStreak: Decodable {
     let poop_count: Int
 }
 
+struct RequestStatus: Decodable {
+    let request_status: String
+}
 
 
 struct SearchUsers: Decodable {

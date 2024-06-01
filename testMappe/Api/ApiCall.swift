@@ -281,7 +281,6 @@ class ApiManager: ObservableObject {
                .responseDecodable(of: UserInfoResponse.self) { response in
                    switch response.result {
                    case .success(let searchedUsers):
-                       print(searchedUsers)
                        completion(.success(searchedUsers))
                    case .failure(let error):
                        print("Error: \(error)")
@@ -312,4 +311,18 @@ class ApiManager: ObservableObject {
                    print(response)
                }
     }
+    
+    func statusFriendRequest(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        AF.request("\(url)/user/friendship-status/\(userId)", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: RequestStatus.self) { response in
+                switch response.result {
+                case .success(let requestStatus):
+                    completion(.success(requestStatus.request_status))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+
 }

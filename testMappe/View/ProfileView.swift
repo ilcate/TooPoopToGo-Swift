@@ -5,11 +5,12 @@ struct ProfileView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var api: ApiManager
     @StateObject var profileModel = ProfileModel()
+    @State var status = "none"
     
     var body: some View {
         ZStack {
             VStack {
-                UserInformationStandards(profilePicture: profileModel.userInfo.photo_user!, isYourProfile: true, openSheetUploadImage: $profileModel.openSheetUploadImage, username: profileModel.userInfo.username, friendsNumber: profileModel.userInfo.friends_number ?? 0, id: profileModel.userInfo.id)
+                UserInformationStandards(profilePicture: profileModel.userInfo.photo_user!, isYourProfile: true, openSheetUploadImage: $profileModel.openSheetUploadImage, username: profileModel.userInfo.username, friendsNumber: profileModel.userInfo.friends_number ?? 0, id: profileModel.userInfo.id, status: $status)
                 OtherInformationUser()
                 Spacer()
             }
