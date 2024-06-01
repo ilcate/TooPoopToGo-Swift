@@ -32,7 +32,7 @@ struct FeedView: View {
                         LazyVStack(spacing: 2) {
                             NavigationLink(destination: FriendsProfileView(id: user.id )) {
                                 HStack {
-                                    ProfileP(link: user.photo_user ?? "", size: 40, padding: 0)
+                                    ProfileP(link: user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
                                         .padding(.trailing, 8)
                                         .padding(.leading, 12)
                                     Text(user.username.capitalized)
