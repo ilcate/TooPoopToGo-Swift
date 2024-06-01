@@ -49,6 +49,9 @@ final class OnBoardingModel: ObservableObject{
                     onBoarding.onBoarding = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         api.saveToken(token: token)
+                        api.getUser { resp in
+                            print("id saved")
+                        }
                     }
                 case .failure:
                     self.everithingOklog = false
@@ -100,7 +103,7 @@ final class OnBoardingModel: ObservableObject{
                             case .success(let token):
                                 api.saveToken(token: token)
                                 let renderer = ImageRenderer(content: ProfilePictureCustom()).uiImage
-                                api.uploadProfilePicture(image: renderer!, userId: api.id){ resp in
+                                api.uploadProfilePicture(image: renderer!, userId: api.userId){ resp in
                                     print(resp)
                                 }
                             case .failure(_):

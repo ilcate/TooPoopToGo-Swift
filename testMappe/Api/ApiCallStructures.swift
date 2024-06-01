@@ -40,6 +40,7 @@ struct ListOFRewievs: Decodable {
 struct UserRev: Decodable, Equatable, Hashable {
     var photo_user: String?
     var username: String
+    var id: String
 }
 
 struct Review: Decodable, Identifiable, Equatable, Hashable {

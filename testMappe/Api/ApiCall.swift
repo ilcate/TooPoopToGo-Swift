@@ -16,12 +16,17 @@ class ApiManager: ObservableObject {
     init() {
         self.userToken = UserDefaults.standard.string(forKey: "userToken") ?? ""
         self.headers = HTTPHeaders(["Authorization": "token \(UserDefaults.standard.string(forKey: "userToken") ?? "")"])
+        self.userId = UserDefaults.standard.string(forKey: "userId") ?? ""
     }
     
     @Published var username = ""
     @Published var password = ""
     @Published var email = ""
-    @Published var id = ""
+    @Published var userId = "" {
+        didSet {
+            UserDefaults.standard.set(userId, forKey: "userId")
+        }
+    }
     
     func createAccount(parameters: RegisterRequest, completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
         AF.request("\(url)/user/create", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
@@ -29,7 +34,7 @@ class ApiManager: ObservableObject {
             .responseDecodable(of: UserInfoResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    self.id = data.id
+                    self.userId = data.id
                     completion(.success(data))
                 case .failure(let error):
                     completion(.failure(error))
@@ -126,6 +131,7 @@ class ApiManager: ObservableObject {
             .responseDecodable(of: UserInfoResponse.self) { response in
                 switch response.result {
                 case .success(let responseBody):
+                    self.userId = responseBody.id
                     completion(.success(responseBody))
                 case .failure(let error):
                     print("Failure: \(error)")
@@ -168,8 +174,6 @@ class ApiManager: ObservableObject {
                 }
     }
     
-    
-    
     func createLocation(name: String, type: String, images: [UIImage], isForDisabled: Bool?, isFree: Bool?, isForBabies: Bool?, long: Double, lat: Double, completion: @escaping (Result<BathroomApi, Error>) -> Void) {
         
         var params: [String: String] = ["name": name, "place_type": type, "coordinates": "POINT (\(long) \(lat))"]
@@ -206,7 +210,6 @@ class ApiManager: ObservableObject {
                     completion(.success(responseBody))
                 case .failure(let error):
                     completion(.failure(error))
-                   
                 }
         }
     }
@@ -229,10 +232,7 @@ class ApiManager: ObservableObject {
         }
     }
     
-    
-    
     func getPoopStreak(completion: @escaping(Result<PoopStreak, Error>) -> Void) {
-
         AF.request("\(url)/poop-streak/get-poop-streak", method: .get, headers: headers)
                .validate(statusCode: 200..<300)
                .responseDecodable(of: PoopStreak.self) { response in
@@ -248,7 +248,6 @@ class ApiManager: ObservableObject {
     }
     
     func updatePoopStreak(completion: @escaping(Result<PoopStreak, Error>) -> Void) {
-
         AF.request("\(url)/poop-streak/update-poop-streak", method: .patch, headers: headers)
                .validate(statusCode: 200..<300)
                .responseDecodable(of: PoopStreak.self) { response in
@@ -313,7 +312,4 @@ class ApiManager: ObservableObject {
                    print(response)
                }
     }
-    
-    
-    
 }

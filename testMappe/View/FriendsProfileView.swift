@@ -13,20 +13,12 @@ struct FriendsProfileView: View {
     @State var userSelected = UserInfoResponse(username: "", photo_user: "", id: "" , friends_number: 0, badges: [""])
     @State var uslessBool = false
     
-    
     var body: some View {
         ZStack{
             VStack{
                 UserInformationStandards(profilePicture: userSelected.photo_user!.replacingOccurrences(of: "http://", with: "https://"), isYourProfile: false, openSheetUploadImage: $uslessBool, username: userSelected.username, friendsNumber: userSelected.friends_number!, id: id)
                 OtherInformationUser()
                 Spacer()
-               
-    //            Text(userSelected.username)
-    //                .padding(.bottom, 20)
-    //            Text("send friend request")
-    //                .onTapGesture {
-    //                    api.sendFriendRequest(userId: id)
-    //                }
             }.task {
                 api.getSpecificUser(userId: id) { resp in
                     switch resp {
