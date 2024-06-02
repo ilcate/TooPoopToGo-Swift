@@ -56,7 +56,7 @@ struct MapView: View {
                     if !mapViewModel.search{
                         VStack{
                             Spacer()
-                            FiltersScroller()
+                            FiltersScroller(mapViewModel: mapViewModel)
                                 .padding(.bottom, 16)
                                 .padding(.top, 4)
                                 .frame(maxWidth: .infinity, maxHeight: 70)

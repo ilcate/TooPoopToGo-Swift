@@ -105,7 +105,7 @@ public struct SheetManageSearch: View {
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
                     Spacer()
                 }.padding(.horizontal, 20)
-                FiltersScroller()
+                FiltersScroller(mapViewModel: mapViewModel)
                     .frame(maxWidth: .infinity, maxHeight: 40)
             }
             

@@ -3,7 +3,7 @@ import SwiftUI
 import PhotosUI
 
 struct FiltersScroller: View {
-    @EnvironmentObject var mapViewModel : MapModel
+    @ObservedObject var mapViewModel : MapModel
     @State var filtersArray = [
         Filters(image: UIImage(named: "AccessibleCircle"), name: "Accessible", selected: false),
         Filters(image: UIImage(named: "FreeCircle"), name: "Free", selected: false),
