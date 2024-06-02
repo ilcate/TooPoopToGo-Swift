@@ -83,3 +83,20 @@ extension SecureField {
         self.modifier(NormalTextStyle(fontName: fontName, fontSize: fontSize, fontColor: fontColor))
     }
 }
+
+
+struct GrayscaleModifier: ViewModifier {
+    let amount: Double
+    
+    func body(content: Content) -> some View {
+        content
+            .saturation(1 - amount)
+    }
+}
+
+
+extension View {
+    func applyGrayscale(_ amount: Double) -> some View {
+        self.modifier(GrayscaleModifier(amount: amount))
+    }
+}

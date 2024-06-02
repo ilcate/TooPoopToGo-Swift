@@ -77,3 +77,5 @@ struct GestureProperties {
     var lastOffset: CGFloat = 0
 }
 
+
+

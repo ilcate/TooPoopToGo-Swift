@@ -14,29 +14,33 @@ struct BadgeDetail: View {
     @EnvironmentObject var api: ApiManager
     @Binding var id : String
     @Binding var com : Int
-    let completed : Bool
-    let completedDate : String
+    @Binding var completed : Bool
+    @Binding var completedDate : String
     @State var badgeSel = BadgesInfoDetailed(name: "", description: "", badge_requirement_threshold: 0, badge_photo: "")
     @State var isAnimating = false
     
     var body: some View {
         ZStack{
-            Image("Lights")
-                .resizable()
-                .renderingMode(.original)
-                .frame(maxWidth: 800, maxHeight: 800)
-                .rotationEffect(Angle(degrees: self.isAnimating ? 360.0 : 0.0))
-                .animation(.linear(duration: 20).repeatForever(autoreverses: false), value: isAnimating)
-                .onAppear {
-                    self.isAnimating = true
-                }
-                .padding(.top, -180)
+            if completed {
+                Image("Lights")
+                    .resizable()
+                    .renderingMode(.original)
+                    .frame(maxWidth: 800, maxHeight: 800)
+                    .rotationEffect(Angle(degrees: self.isAnimating ? 360.0 : 0.0))
+                    .animation(.linear(duration: 20).repeatForever(autoreverses: false), value: isAnimating)
+                    .onAppear {
+                        self.isAnimating = true
+                    }
+                    .padding(.top, -130)
+            }
+            
             VStack{
                 UpperSheet(text: "Badge information", pBottom: 14, pHor: 0)
                     .padding(.top, 16)
                 WebImage(url: URL(string: "\(badgeSel.badge_photo.replacingOccurrences(of: "http://", with: "https://"))"), options: [], context: [.imageThumbnailPixelSize : CGSize.zero])
                     .resizable()
                     .frame(width: 150, height: 150)
+                    .applyGrayscale(completed ? 0 : 1)
                 
                 HStack{
                     Text(badgeSel.name)
@@ -48,7 +52,7 @@ struct BadgeDetail: View {
                 
                 HStack{
                     Text(badgeSel.description)
-                        .normalTextStyle(fontName: "Manrope-Regular", fontSize: 16, fontColor: .accent)
+                        .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
                     Spacer()
                 }
                 
@@ -70,25 +74,25 @@ struct BadgeDetail: View {
                         
                         HStack{
                             Text("Progression")
-                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .cLightBrown)
+                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
                             Spacer()
                             Text("\(Int(com))/\(Int(badgeSel.badge_requirement_threshold))")
-                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .cLightBrown)
+                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
                         }
                         .padding(.horizontal, 16)
                     }
                 } else {
                     ZStack{
                         Rectangle()
-                            .fill(.cMidBrown)
+                            .fill(.accent)
                             .frame(maxWidth: .infinity, maxHeight: 26 )
                             .clipShape(RoundedRectangle(cornerRadius: 1000))
                         HStack{
                             Text("Completed")
-                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .cLightBrown)
+                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
                             Spacer()
-                            Text("\(completedDate)")
-                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .cLightBrown)
+                            Text(completedDate)
+                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
                         }
                         .padding(.horizontal, 16)
                     }

@@ -310,10 +310,19 @@ class ApiManager: ObservableObject {
                }
     }
     
+    func removeFriend(userId: String) {
+        AF.request("\(url)/user/remove-friend/\(userId)", method: .delete, headers: headers)
+               .validate(statusCode: 200..<300)
+               .responseString { response in
+                   print(response)
+               }
+    }
+    
     func statusFriendRequest(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
         AF.request("\(url)/user/friendship-status/\(userId)", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: RequestStatus.self) { response in
+                print(response.result)
                 switch response.result {
                 case .success(let requestStatus):
                     completion(.success(requestStatus.request_status))
@@ -355,6 +364,33 @@ class ApiManager: ObservableObject {
         AF.request("\(url)/feed/list", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: GetFeed.self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    
+    func getMyFriends(completion: @escaping (Result<[UserInfoResponse], Error>) -> Void) {
+        AF.request("\(url)/feed/list", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: [UserInfoResponse].self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    func getOtherFriends(id: String, completion: @escaping (Result<[UserInfoResponse], Error>) -> Void) {
+        AF.request("\(url)/feed/list", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: [UserInfoResponse].self) { response in
                 switch response.result {
                 case .success(let responseB):
                     completion(.success(responseB))

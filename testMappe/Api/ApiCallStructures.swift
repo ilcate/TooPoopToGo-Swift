@@ -271,11 +271,12 @@ struct BadgesInfoDetailed: Decodable {
 }
 
 struct GetFeed: Decodable {
-    let name : String
-    var description : String
-    let badge_requirement_threshold : Int
-    let badge_photo : String
+    let result : [Feed]
 }
 
+struct Feed: Decodable{
+    var ciao : String
+    var miao : String
+}
 
 

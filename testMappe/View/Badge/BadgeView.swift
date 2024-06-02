@@ -1,5 +1,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
+import CoreImage
+import CoreImage.CIFilterBuiltins
 
 struct BadgeView: View {
     @EnvironmentObject var api: ApiManager
@@ -24,29 +26,30 @@ struct BadgeView: View {
             ScrollView {
                 LazyVGrid(columns: columns) {
                     ForEach(badges, id: \.self) { badge in
-                       
-                            VStack {
-                                WebImage(url: URL(string: "\(api.url)\(badge.badge_photo!)"), options: [], context: [.imageThumbnailPixelSize : CGSize.zero])
+                        VStack {
+                            if let imageURL = URL(string: "\(api.url)\(badge.badge_photo ?? "")") {
+                                WebImage(url: imageURL, options: [], context: [.imageThumbnailPixelSize : CGSize.zero])
                                     .resizable()
                                     .frame(width: 58, height: 58)
-                                Text(badge.badge_name)
-                                    .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .accent)
-                                    .lineLimit(1)
-                                    .truncationMode(.tail)
+                                    .applyGrayscale(badge.is_completed ? 0 : 1)
                             }
-                            .padding(8)
-                            .frame(width: 80)
-                            .background(Color.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                            .padding(.bottom, 8)
-                            .onTapGesture {
-                                tappedId = badge.badge_id
-                                com = badge.completion
-                                completed = badge.is_completed
-                                openDetailSheet = true
-                                completedDate = badge.date_completed ?? ""
-                            }
-                        
+                            Text(badge.badge_name)
+                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .accent)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                        }
+                        .padding(8)
+                        .frame(width: 80)
+                        .background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .padding(.bottom, 8)
+                        .onTapGesture {
+                            tappedId = badge.badge_id
+                            com = badge.completion
+                            completed = badge.is_completed
+                            openDetailSheet = true
+                            completedDate = formattedDate(badge.date_completed) 
+                        }
                     }
                 }
                 .padding(.horizontal, 20)
@@ -65,13 +68,13 @@ struct BadgeView: View {
             }
         }
         .sheet(isPresented: $openDetailSheet) {
-            ZStack{
+            ZStack {
                 Color.cLightBrown.ignoresSafeArea(.all)
-                BadgeDetail(id: $tappedId, com: $com, completed: completed, completedDate: completedDate)
+                BadgeDetail(id: $tappedId, com: $com, completed: $completed, completedDate: $completedDate)
                     .presentationDetents([.fraction(0.58)])
                     .presentationCornerRadius(18)
             }
-           
         }
     }
 }
+

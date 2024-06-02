@@ -43,6 +43,26 @@ func getStreet(_ address: String) -> String {
     }
 }
 
+func formattedDate(_ dateString: String?) -> String {
+    guard let dateString = dateString else { return "" }
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+    dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+    
+    if let date = dateFormatter.date(from: dateString) {
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateStyle = .medium
+        outputFormatter.timeStyle = .none
+        outputFormatter.locale = Locale.current
+        
+        return outputFormatter.string(from: date)
+    }
+    
+    return dateString
+}
+
 
 func timeElapsedSince(_ dateString: String) -> String {
     let dateFormatter = DateFormatter()

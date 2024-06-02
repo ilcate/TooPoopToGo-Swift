@@ -40,6 +40,7 @@
 		2A5E1AF02BF7A5A100871183 /* ChoseLogM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E1AEF2BF7A5A100871183 /* ChoseLogM.swift */; };
 		2A6084742BC4438C000FA417 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084732BC4438C000FA417 /* Map.swift */; };
 		2A6084762BC44472000FA417 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084752BC44472000FA417 /* TestView.swift */; };
+		2A6401FD2C0CBF2200F3F1EA /* UsersFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6401FC2C0CBF2200F3F1EA /* UsersFriend.swift */; };
 		2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69F7452BE4F986004AB59C /* ProfileView.swift */; };
 		2AA0D6772BF0FAB300F8A249 /* SheetManageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0D6762BF0FAB300F8A249 /* SheetManageSearch.swift */; };
 		2AA1E06A2C008E2D00B2E3BF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2AA1E0692C008E2D00B2E3BF /* FirebaseAuth */; };
@@ -145,6 +146,7 @@
 		2A5E1AEF2BF7A5A100871183 /* ChoseLogM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoseLogM.swift; sourceTree = "<group>"; };
 		2A6084732BC4438C000FA417 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		2A6084752BC44472000FA417 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		2A6401FC2C0CBF2200F3F1EA /* UsersFriend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersFriend.swift; sourceTree = "<group>"; };
 		2A69F7452BE4F986004AB59C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2AA0D6762BF0FAB300F8A249 /* SheetManageSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetManageSearch.swift; sourceTree = "<group>"; };
 		2AA1E0732C00B4D300B2E3BF /* DotAnim.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DotAnim.json; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 				2AED8E852BE93ABD008DBFAF /* DetailBathroom.swift */,
 				2A0BF68F2C036FF20053A0A5 /* SheetNavigate.swift */,
 				2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */,
+				2A6401FC2C0CBF2200F3F1EA /* UsersFriend.swift */,
 				2ADA10782BE0E49000BBC989 /* MapAddAnnotation.swift */,
 				2AFFF9DC2BE7DFAC0095056C /* Annotation.swift */,
 				2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */,
@@ -616,6 +619,7 @@
 				2A0B67AA2C021E75000706ED /* Functions.swift in Sources */,
 				2A0BF6972C0463E50053A0A5 /* ComponentsMap.swift in Sources */,
 				2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */,
+				2A6401FD2C0CBF2200F3F1EA /* UsersFriend.swift in Sources */,
 				2A0EE7862BC97CD300F48FC4 /* MapModel.swift in Sources */,
 				2AF49B202BF5EAF100800CE5 /* Settings.swift in Sources */,
 				2A55F26A2BF7840B002D7203 /* OnBoarding.swift in Sources */,

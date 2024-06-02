@@ -28,29 +28,11 @@ struct FeedView: View {
                 } .transition(.identity)
                     .padding(.top, 8)
             } else {
+                
                 ScrollView {
                     LazyVStack(spacing: 12) {
-                            ForEach(users) { user in
-                            NavigationLink(destination: FriendsProfileView(id: user.id )) {
-                                HStack {
-                                    ProfileP(link: user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
-                                        .padding(.trailing, 8)
-                                        .padding(.leading, 12)
-                                    Text(user.username.capitalized)
-                                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
-                                        .padding(.bottom, 1)
-                                    Spacer()
-                                    Image("LightArrow")
-                                        .resizable()
-                                        .rotationEffect(.degrees(90))
-                                        .frame(width: 18, height: 18)
-                                        .padding(.trailing, 12)
-                                }
-                                .frame(maxWidth: .infinity, minHeight: 60)
-                                .background(Color.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 14))
-                                .padding(.horizontal, 20)
-                            }
+                        ForEach($users) { user in
+                                UserClickable(user: user)
                            
                         }
                     } .padding(.top, 8)
@@ -63,3 +45,5 @@ struct FeedView: View {
         .animation(.easeOut(duration: 0.2), value: isSearching)
     }
 }
+
+

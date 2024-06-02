@@ -69,30 +69,7 @@ struct HomeView: View {
                     .frame(maxWidth: .infinity, maxHeight: 170)
                     .padding(.top, 8)
                     
-                    VStack(spacing: 6){
-                        HStack{
-                            Text("Next badge")
-                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
-                            Spacer()
-                        }
-                        HStack{
-                            VStack(alignment: .leading, spacing: -16){
-                                Text("Reviews Writer")
-                                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
-                                Text("80%")
-                                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 48, fontColor: .accent)
-                            }.padding(.leading, 16).padding(.top, 6)
-                            Spacer()
-                            Image("ImagePlaceHolder7")
-                                .resizable()
-                                .renderingMode(.original)
-                                .frame(width: 60 , height: 60)
-                                .padding(.trailing, 16)
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: 86)
-                        .background(.cLightBrown50)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                    }.padding(.horizontal, 20)
+                    NextBadge()
                     
                     
                     StreakButtons(homeModel: homeModel)

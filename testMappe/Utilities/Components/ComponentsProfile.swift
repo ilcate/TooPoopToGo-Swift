@@ -69,12 +69,15 @@ struct UserInformationStandards: View {
                             }
                             .background(.cLightBrown)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
-
+                            
                             
                         } else if !isYourProfile && status == "accepted" && status != "pending" {
                             VStack{
                                 Text("Remove Friend")
                                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .white).padding(.horizontal, 10).padding(.vertical, 2)
+                                    .onTapGesture{
+                                        api.removeFriend(userId: id)
+                                    }
                                 
                             }
                             .background(.cLightBrown)
@@ -82,9 +85,15 @@ struct UserInformationStandards: View {
                             
                         }
                         
-                        
-                        Text("\(friendsNumber) Friends")
-                            .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accent)
+                        if friendsNumber > 0 {
+                            NavigationLink(destination: UsersFriend(id: id, isYourProfile: isYourProfile, name: username)) {
+                                Text("\(friendsNumber) Friends")
+                                    .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accent)
+                            }
+                        } else {
+                            Text("\(friendsNumber) Friends")
+                                .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accent)
+                        }
                     }
                     
                 }
@@ -176,5 +185,29 @@ struct HeaderProfile: View {
     }
 }
 
-
-
+struct UserClickable: View {
+    @Binding var user : UserInfoResponse
+    
+    var body: some View {
+        NavigationLink(destination: FriendsProfileView(id: user.id)) {
+            HStack {
+                ProfileP(link: user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
+                    .padding(.trailing, 8)
+                    .padding(.leading, 12)
+                Text(user.username.capitalized)
+                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
+                    .padding(.bottom, 1)
+                Spacer()
+                Image("LightArrow")
+                    .resizable()
+                    .rotationEffect(.degrees(90))
+                    .frame(width: 18, height: 18)
+                    .padding(.trailing, 12)
+            }
+            .frame(maxWidth: .infinity, minHeight: 60)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .padding(.horizontal, 20)
+        }
+    }
+}
