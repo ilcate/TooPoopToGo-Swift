@@ -77,19 +77,3 @@ struct GestureProperties {
     var lastOffset: CGFloat = 0
 }
 
-
-
-struct SVGImageView: View {
-    let url: URL
-
-    var body: some View {
-        WebImage(url: url)
-            .placeholder {
-                Image("noPhoto")
-                    .resizable()
-            }
-            .resizable()
-            .indicator(.activity) // Activity Indicator while loading
-            .frame(width: 58, height: 58)
-    }
-}

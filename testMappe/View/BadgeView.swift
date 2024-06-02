@@ -1,4 +1,5 @@
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct BadgeView: View {
     @EnvironmentObject var api: ApiManager
@@ -20,15 +21,9 @@ struct BadgeView: View {
                     ForEach(badges, id: \.self) { badge in
                         NavigationLink(destination: BadgeDetail()) {
                             VStack {
-                                if let badgePhoto = badge.badge_photo,
-                                   let imageURL = URL(string: "\(api.url)\(badgePhoto)") {
-                                    SVGImageView(url: imageURL)
-                                } else {
-                                    Image("noPhoto")
-                                        .resizable()
-                                        .frame(width: 58, height: 58)
-                                }
-                                
+                                WebImage(url: URL(string: "\(api.url)\(badge.badge_photo!)"), options: [], context: [.imageThumbnailPixelSize : CGSize.zero])
+                                    .resizable()
+                                    .frame(width: 58, height: 58)
                                 Text(badge.badge_name)
                                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .accent)
                                     .lineLimit(1)

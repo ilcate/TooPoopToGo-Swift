@@ -6,7 +6,10 @@
 //
 
 import SwiftUI
+import SDWebImageSVGCoder
 import FirebaseCore
+import SDWebImageSVGCoder
+
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
@@ -18,8 +21,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 
+
 @main
 struct TooPoopToGo: App {
+    init() {
+        setUpDependencies() 
+    }
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     var body: some Scene {
@@ -28,3 +35,12 @@ struct TooPoopToGo: App {
         }
     }
 }
+
+private extension TooPoopToGo {
+    
+    func setUpDependencies() {
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
+    }
+}
+
+
