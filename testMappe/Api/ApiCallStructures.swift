@@ -254,10 +254,26 @@ struct SearchUsers: Decodable {
 
 
 struct BadgesInfo: Decodable , Hashable {
+    let id : String
     let badge_name : String
     var badge_photo : String?
     let is_completed : Bool
     let date_completed : String?
+}
+
+
+struct BadgesInfoDetailed: Decodable {
+    let name : String
+    var description : String
+    let badge_requirement_threshold : Int
+    let badge_photo : String
+}
+
+struct GetFeed: Decodable {
+    let name : String
+    var description : String
+    let badge_requirement_threshold : Int
+    let badge_photo : String
 }
 
 

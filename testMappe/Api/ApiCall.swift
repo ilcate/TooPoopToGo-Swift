@@ -337,5 +337,32 @@ class ApiManager: ObservableObject {
             }
     }
     
+    func getSpecificBadge(badgeId : String ,completion: @escaping (Result<BadgesInfoDetailed, Error>) -> Void) {
+        AF.request("\(url)/badge/retrieve/\(badgeId)", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: BadgesInfoDetailed.self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    
+    func feedList(completion: @escaping (Result<GetFeed, Error>) -> Void) {
+        AF.request("\(url)/feed/list", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: GetFeed.self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
 
 }

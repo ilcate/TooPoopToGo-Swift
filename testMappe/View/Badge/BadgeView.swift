@@ -3,13 +3,15 @@ import SDWebImageSwiftUI
 
 struct BadgeView: View {
     @EnvironmentObject var api: ApiManager
-    
+    @State var openDetailSheet = false
+    @State var tappedId = ""
+
     let columns: [GridItem] = [GridItem(.flexible()),
                                GridItem(.flexible()),
                                GridItem(.flexible()),
                                GridItem(.flexible())]
     
-    @State var badges = [BadgesInfo(badge_name: "", badge_photo: "", is_completed: false, date_completed: "")]
+    @State var badges = [BadgesInfo(id: "", badge_name: "", badge_photo: "", is_completed: false, date_completed: "")]
     
     var body: some View {
         VStack {
@@ -19,7 +21,7 @@ struct BadgeView: View {
             ScrollView {
                 LazyVGrid(columns: columns) {
                     ForEach(badges, id: \.self) { badge in
-                        NavigationLink(destination: BadgeDetail()) {
+                       
                             VStack {
                                 WebImage(url: URL(string: "\(api.url)\(badge.badge_photo!)"), options: [], context: [.imageThumbnailPixelSize : CGSize.zero])
                                     .resizable()
@@ -34,7 +36,11 @@ struct BadgeView: View {
                             .background(Color.white)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .padding(.bottom, 8)
-                        }
+                            .onTapGesture {
+                                tappedId = badge.id
+                                openDetailSheet = true
+                            }
+                        
                     }
                 }
                 .padding(.horizontal, 20)
@@ -46,12 +52,20 @@ struct BadgeView: View {
             api.getBadges { resp in
                 switch resp {
                 case .success(let arr):
-                    print("Successfully loaded badges: \(arr)")
                     badges = arr
                 case .failure(let error):
                     print("Failed to load badges: \(error)")
                 }
             }
+        }
+        .sheet(isPresented: $openDetailSheet) {
+            ZStack{
+                Color.cLightBrown.ignoresSafeArea(.all)
+                BadgeDetail(id: $tappedId)
+                    .presentationDetents([.fraction(0.58)])
+                    .presentationCornerRadius(18)
+            }
+           
         }
     }
 }

@@ -22,7 +22,6 @@ struct FriendsProfileView: View {
                 Spacer()
             }.task {
                 api.statusFriendRequest(userId: id) { result in
-                    print(result)
                     switch result {
                     case .success(let friendStatus):
                         status = friendStatus
@@ -43,7 +42,6 @@ struct FriendsProfileView: View {
                 }
             } .navigationBarBackButtonHidden(true)
                 .background(.cLightBrown)
-            
             
             HeaderProfile(screenName: "Profile")
         }

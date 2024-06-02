@@ -59,6 +59,7 @@ struct UserInformationStandards: View {
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             .onTapGesture {
                                 api.sendFriendRequest(userId: id)
+                                status = "pending"
                             }
                         } else if !isYourProfile && status != "accepted" && status == "pending" {
                             VStack{

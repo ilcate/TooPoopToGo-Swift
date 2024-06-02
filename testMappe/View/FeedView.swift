@@ -19,17 +19,18 @@ struct FeedView: View {
             Spacer()
             if !isSearching {
                 ScrollView {
-                    VStack(spacing: 4) {
+                    VStack(spacing: 12) {
                         FeedNotification(name: "Mistro.fino", id: "", time: "2h", badgeName: "", isFriendRequest: true)
                         FeedNotification(name: "MarelloPisello", id: "", time: "3h", badgeName: "one hundred days of poop streak", isFriendRequest: false)
-                            .padding(.top, 8)
+                          
                         
                     }
                 } .transition(.identity)
+                    .padding(.top, 8)
             } else {
                 ScrollView {
-                    ForEach(users) { user in
-                        LazyVStack {
+                    LazyVStack(spacing: 12) {
+                            ForEach(users) { user in
                             NavigationLink(destination: FriendsProfileView(id: user.id )) {
                                 HStack {
                                     ProfileP(link: user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
@@ -48,12 +49,11 @@ struct FeedView: View {
                                 .frame(maxWidth: .infinity, minHeight: 60)
                                 .background(Color.white)
                                 .clipShape(RoundedRectangle(cornerRadius: 14))
-                                .padding(.bottom, -4)
                                 .padding(.horizontal, 20)
                             }
-                            .padding(.top, 8)
+                           
                         }
-                    }
+                    } .padding(.top, 8)
                 }
                 .transition(.identity)
 

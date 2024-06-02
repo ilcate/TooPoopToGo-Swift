@@ -96,6 +96,7 @@ struct DetailBathroom: View {
                 SheetAddReview(mapViewModel: mapViewModel, idB: bathroom.id!)
                     .presentationDetents([.fraction(0.48)])
                     .presentationCornerRadius(18)
+                
             }
         }
     }

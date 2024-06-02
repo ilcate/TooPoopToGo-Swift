@@ -79,7 +79,7 @@ struct ImageSliderDetailBathroom: View {
                             print("cercare di capire come farla")
                             
                         }
-                }.padding(.top, bathroom.photos!.count > 1 ? 8 : 28)
+                }.padding(.top, 8)
                 Spacer()
             }.padding(.horizontal, 20)
             

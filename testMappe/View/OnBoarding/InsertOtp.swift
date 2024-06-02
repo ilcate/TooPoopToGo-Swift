@@ -1,5 +1,4 @@
 import SwiftUI
-//on appear svuota tutto
 
 struct InsertOtp: View {
     @EnvironmentObject var api: ApiManager
@@ -21,30 +20,14 @@ struct InsertOtp: View {
 
             Spacer()
 
-            HStack(spacing: 8) {
-                ForEach(0..<6) { index in
-                    TextField("", text: $oBModel.otp[index])
-                        .frame(width: 40, height: 40)
-                        .multilineTextAlignment(.center)
-                        .keyboardType(.numberPad)
-                        .focused($focusedField, equals: index)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .onChange(of: oBModel.otp[index], { oldValue, newValue in
-                            oBModel.handleTextChange(at: index, newValue: newValue, focusedField: &focusedField)
-                        })
-                    
-                        .onReceive(oBModel.otp.publisher.collect()) { _ in
-                            oBModel.sanitizeOTP()
-                        }
+            OTPTextField(numberOfFields: 6, otpValues: $oBModel.otp)
+                .onAppear {
+                    focusedField = 0
                 }
-            }
-            .onAppear {
-                focusedField = 0
-            }
-            .padding(.horizontal, 20)
+                .padding(.horizontal, 20)
 
             Spacer()
-            if !oBModel.otpOk{
+            if !oBModel.otpOk {
                 Text("The code is wrong, try again!")
                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .red)
             }
@@ -63,3 +46,54 @@ struct InsertOtp: View {
     }
 }
 
+struct OTPTextField: View {
+    let numberOfFields: Int
+    @Binding var otpValues: [String]
+    @FocusState private var fieldFocus: Int?
+    @State private var oldValue = ""
+
+    var body: some View {
+        HStack(spacing: 10) {
+            ForEach(0..<numberOfFields, id: \.self) { index in
+                TextField("", text: $otpValues[index], onEditingChanged: { editing in
+                    if editing {
+                        oldValue = otpValues[index]
+                    }
+                })
+                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
+                .keyboardType(.numberPad)
+                .frame(width: 48, height: 48)
+                .background(.cLightGray)
+                .cornerRadius(5)
+                .multilineTextAlignment(.center)
+                .focused($fieldFocus, equals: index)
+                .onChange(of: otpValues[index]) { o, newValue in
+                    if !newValue.isEmpty {
+                        if otpValues[index].count > 1 {
+                            let currentValue = Array(otpValues[index])
+                            if String(currentValue[0]) == oldValue {
+                                otpValues[index] = String(currentValue.suffix(1))
+                            } else {
+                                otpValues[index] = String(currentValue.prefix(1))
+                            }
+                        }
+
+                        if index == numberOfFields - 1 {
+                            fieldFocus = nil
+                        } else {
+                            fieldFocus = (fieldFocus ?? 0) + 1
+                        }
+                    } else {
+                        fieldFocus = (fieldFocus ?? 0) - 1
+                    }
+                }
+            }
+        }
+    }
+}
+
+extension String {
+    subscript(offset: Int) -> String {
+        String(self[index(startIndex, offsetBy: offset)])
+    }
+}
