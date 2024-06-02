@@ -9,6 +9,7 @@ import Alamofire
 
 final class MapModel: ObservableObject{
     @Published var allPoints : [BathroomApi] = []
+    @Published var names : [Review] = []
     @Published var viewport: Viewport = .followPuck(zoom: 13).padding(.all, 20) //gestisce la cam
     @Published var selected: BathroomApi? = BathroomApi(id: "", name: "", address: "", coordinates: Coordinates(), place_type: "", is_for_disabled: false, is_free: false, is_for_babies: false)
     @Published var canMove = true//altra gestione della cam
@@ -229,6 +230,20 @@ final class MapModel: ObservableObject{
         
         api.addReview(idB: idB, parameters: AddRating(cleanliness_rating: lastIndexClean, comfort_rating: lastIndexComfort, accessibility_rating: lastIndexAccessibility, review: descNewAnnotation))
     }
+    
+    
+    func getRev(api : ApiManager, idb: String){
+        api.getReviews(idB: idb) { result in
+            switch result {
+            case .success(let reviews):
+                self.names = reviews
+            case .failure(let error):
+                print("Failed to fetch reviews: \(error)")
+                self.names = []
+            }
+        }
+    }
+
 
 }
 

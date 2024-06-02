@@ -79,7 +79,7 @@ struct ImageSliderDetailBathroom: View {
                             print("cercare di capire come farla")
                             
                         }
-                }.padding(.top, 8)
+                }.padding(.top, bathroom.photos?.count == 1 ? 28 : 8)
                 Spacer()
             }.padding(.horizontal, 20)
             
@@ -237,9 +237,9 @@ struct dispStarsRating: View {
 
 
 struct ReviewsBathroomDetail: View {
-    @State private var names: [Review] = []
     @Binding var openSheetNavigate: Bool
     @Binding var openSheetAddReview: Bool
+    @ObservedObject var mapViewModel : MapModel
     @State var reviewsArray: Result<[Review]?, Error>? = nil
     @State var api: ApiManager
     let idBathroom: String
@@ -275,7 +275,7 @@ struct ReviewsBathroomDetail: View {
                 .padding(.top, 8)
                 .padding(.bottom, 2)
                 
-                ReviewsScroller(reviews: names)
+                ReviewsScroller(reviews: mapViewModel.names)
                 
                 Spacer()
                 
@@ -289,15 +289,8 @@ struct ReviewsBathroomDetail: View {
                 
             }
             .task {
-                api.getReviews(idB: idBathroom) { result in
-                    switch result {
-                    case .success(let reviews):
-                        names = reviews
-                    case .failure(let error):
-                        print("Failed to fetch reviews: \(error)")
-                        names = []
-                    }
-                }
+                
+                mapViewModel.getRev(api: api, idb: idBathroom)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

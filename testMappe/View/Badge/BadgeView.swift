@@ -5,13 +5,16 @@ struct BadgeView: View {
     @EnvironmentObject var api: ApiManager
     @State var openDetailSheet = false
     @State var tappedId = ""
+    @State var completed = false
+    @State var com = 0
+    @State var completedDate = ""
 
     let columns: [GridItem] = [GridItem(.flexible()),
                                GridItem(.flexible()),
                                GridItem(.flexible()),
                                GridItem(.flexible())]
     
-    @State var badges = [BadgesInfo(id: "", badge_name: "", badge_photo: "", is_completed: false, date_completed: "")]
+    @State var badges = [BadgesInfo(badge_id: "", badge_name: "", badge_photo: "", is_completed: false, date_completed: "", completion: 0)]
     
     var body: some View {
         VStack {
@@ -37,8 +40,11 @@ struct BadgeView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .padding(.bottom, 8)
                             .onTapGesture {
-                                tappedId = badge.id
+                                tappedId = badge.badge_id
+                                com = badge.completion
+                                completed = badge.is_completed
                                 openDetailSheet = true
+                                completedDate = badge.date_completed ?? ""
                             }
                         
                     }
@@ -61,7 +67,7 @@ struct BadgeView: View {
         .sheet(isPresented: $openDetailSheet) {
             ZStack{
                 Color.cLightBrown.ignoresSafeArea(.all)
-                BadgeDetail(id: $tappedId)
+                BadgeDetail(id: $tappedId, com: $com, completed: completed, completedDate: completedDate)
                     .presentationDetents([.fraction(0.58)])
                     .presentationCornerRadius(18)
             }

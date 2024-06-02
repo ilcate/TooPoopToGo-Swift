@@ -13,8 +13,10 @@ struct BadgeDetail: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var api: ApiManager
     @Binding var id : String
+    @Binding var com : Int
+    let completed : Bool
+    let completedDate : String
     @State var badgeSel = BadgesInfoDetailed(name: "", description: "", badge_requirement_threshold: 0, badge_photo: "")
-    var currentProgress = 0.0
     @State var isAnimating = false
     
     var body: some View {
@@ -32,7 +34,6 @@ struct BadgeDetail: View {
             VStack{
                 UpperSheet(text: "Badge information", pBottom: 14, pHor: 0)
                     .padding(.top, 16)
-                
                 WebImage(url: URL(string: "\(badgeSel.badge_photo.replacingOccurrences(of: "http://", with: "https://"))"), options: [], context: [.imageThumbnailPixelSize : CGSize.zero])
                     .resizable()
                     .frame(width: 150, height: 150)
@@ -53,27 +54,46 @@ struct BadgeDetail: View {
                 
                 Spacer()
                 
-//                ZStack{
-//                    GeometryReader { geometry in
-//                        Rectangle()
-//                            .fill(.cMidBrown)
-//                            .frame(maxWidth: geometry.size.width, maxHeight: 26 )
-//                            .clipShape(RoundedRectangle(cornerRadius: 1000))
-//                        Rectangle()
-//                            .fill(.accent)
-//                            .frame(maxWidth: geometry.size.width * (currentProgress/Double(badgeSel.badge_requirement_threshold)), maxHeight: 26 )
-//                            .clipShape(RoundedRectangle(cornerRadius: 1000))
-//                    }.frame(height: 26)
-//                    
-//                    HStack{
-//                        Text("Progression")
-//                            .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .cLightBrown)
-//                        Spacer()
-//                        Text("\(Int(currentProgress))/\(Int(badgeSel.badge_requirement_threshold))")
-//                            .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .cLightBrown)
-//                    }
-//                    .padding(.horizontal, 16)
-//                }
+                
+                if !completed || com != 100 {
+                    ZStack{
+                        GeometryReader { geometry in
+                            Rectangle()
+                                .fill(.cMidBrown)
+                                .frame(maxWidth: geometry.size.width, maxHeight: 26 )
+                                .clipShape(RoundedRectangle(cornerRadius: 1000))
+                            Rectangle()
+                                .fill(.accent)
+                                .frame(maxWidth: geometry.size.width * (Double(com > 8 ? com : 8) / 100.0 ), maxHeight: 26 )
+                                .clipShape(RoundedRectangle(cornerRadius: 1000))
+                        }.frame(height: 26)
+                        
+                        HStack{
+                            Text("Progression")
+                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .cLightBrown)
+                            Spacer()
+                            Text("\(Int(com))/\(Int(badgeSel.badge_requirement_threshold))")
+                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .cLightBrown)
+                        }
+                        .padding(.horizontal, 16)
+                    }
+                } else {
+                    ZStack{
+                        Rectangle()
+                            .fill(.cMidBrown)
+                            .frame(maxWidth: .infinity, maxHeight: 26 )
+                            .clipShape(RoundedRectangle(cornerRadius: 1000))
+                        HStack{
+                            Text("Completed")
+                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .cLightBrown)
+                            Spacer()
+                            Text("\(completedDate)")
+                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .cLightBrown)
+                        }
+                        .padding(.horizontal, 16)
+                    }
+                }
+               
                 
             }
             .padding(.horizontal, 20)

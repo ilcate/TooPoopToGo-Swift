@@ -75,7 +75,7 @@ struct DetailBathroom: View {
             }
 
             Spacer()
-            ReviewsBathroomDetail(openSheetNavigate: $openSheetNavigate, openSheetAddReview: $openSheetAddReview, api: api, idBathroom: bathroom.id!)
+            ReviewsBathroomDetail(openSheetNavigate: $openSheetNavigate, openSheetAddReview: $openSheetAddReview, mapViewModel: mapViewModel, api: api, idBathroom: bathroom.id!)
         }
         .ignoresSafeArea(.all, edges: .bottom)
         .sheet(isPresented: $openSheetNavigate, onDismiss: {
@@ -90,6 +90,7 @@ struct DetailBathroom: View {
         }
         .sheet(isPresented: $openSheetAddReview, onDismiss: {
             openSheetAddReview = false
+            mapViewModel.getRev(api: api, idb: bathroom.id!)
         }) {
             ZStack {
                 Color.cLightBrown.ignoresSafeArea(.all)

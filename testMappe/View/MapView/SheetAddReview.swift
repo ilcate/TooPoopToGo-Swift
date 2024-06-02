@@ -8,24 +8,45 @@ struct SheetAddReview: View {
     @EnvironmentObject var api: ApiManager
     @ObservedObject var mapViewModel: MapModel
     @State var idB : String
+    @State var showError = false
     
     
     var body: some View {
         VStack{
-            UpperSheet(text: "Describe how you felt", pBottom: 12, pHor: 20)
+            UpperSheet(text: "Describe how you felt", pBottom: 10, pHor: 20)
+                .padding(.top, 10)
             RatingsView(cleanStar: $cleanStar, comfortStar: $comfortStar, moodStar: $moodStar)
                 .padding(.horizontal, 20)
             
-            TextFieldCustom(stateVariable : $mapViewModel.descNewAnnotation ,  name: "Leave a comment")
+            TextFieldCustom(stateVariable : $mapViewModel.descNewAnnotation, name: "Leave a comment")
                 .padding(.horizontal, 20)
                 .padding(.bottom, 8)
             
-            FullRoundedButton(text: "Send Review!")
-                .onTapGesture {
-                    mapViewModel.sendReview(api: api, cleanStar: cleanStar, comfortStar: comfortStar, moodStar: moodStar, idB: idB)
-                    
-                    dismiss()
+            ZStack{
+                FullRoundedButton(text: "Send Review!")
+                    .onTapGesture {
+                        if  mapViewModel.descNewAnnotation != ""{
+                            mapViewModel.sendReview(api: api, cleanStar: cleanStar, comfortStar: comfortStar, moodStar: moodStar, idB: idB)
+                            mapViewModel.resetAddParams()
+                            
+                            dismiss()
+                        } else {
+                            showError = true
+                        }
+                       
+                    }
+                
+                if showError {
+                    Text("Remember to comment it")
+                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .red)
+                        .padding(.bottom, 70)
                 }
+                
+                
+            } .padding(.bottom, -20).ignoresSafeArea()
+            
+            
+            
             
         }
         
