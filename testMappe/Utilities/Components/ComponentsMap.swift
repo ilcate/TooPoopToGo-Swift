@@ -190,10 +190,12 @@ struct ImageUploadView:  View {
 }
 
 
-struct ChangeImageView:  View {
+struct ChangeImageView: View {
     @Binding var imagesNewAnnotation: [UIImage]
     @Binding var openSheetUploadImage: Bool
     
+    @State private var selectedImageIndices: Set<Int> = []
+
     var body: some View {
         Text("Change Image")
             .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accentColor)
@@ -204,30 +206,40 @@ struct ChangeImageView:  View {
             Spacer()
             ForEach(imagesNewAnnotation.indices, id: \.self) { index in
                 let image = imagesNewAnnotation[index]
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 24, height: 24)
-                    .clipShape(Circle())
-                    .onTapGesture {
-                        if let indexToRemove = imagesNewAnnotation.firstIndex(where: { $0 == image }) {
-                            imagesNewAnnotation.remove(at: indexToRemove)
+                if selectedImageIndices.contains(index) {
+                    Image("Close")
+                        .resizable()
+                        .renderingMode(.template)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
+                        .background(.cLightBrown)
+                        .foregroundStyle(.accent)
+                        .clipShape(Circle())
+                        .onTapGesture {
+                            selectedImageIndices.remove(index)
+                            imagesNewAnnotation.remove(at: index)
                         }
-                    }
+                } else {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 24, height: 24)
+                        .clipShape(Circle())
+                        .onTapGesture {
+                            selectedImageIndices.insert(index)
+                        }
+                }
             }
-            
         }
         .padding(.vertical, 9)
         .padding(.horizontal, 20)
-        .background(.white)
-        .clipShape(.capsule)
+        .background(Color.white)
+        .clipShape(Capsule())
         .onTapGesture {
             openSheetUploadImage.toggle()
         }
     }
-    
 }
-
 
 struct TypeSelectionView:  View {
     @Binding var optionsDropDown: [String]

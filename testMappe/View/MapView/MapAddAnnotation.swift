@@ -9,6 +9,9 @@ struct SheetAddAn: View {
     @EnvironmentObject var isTexting: IsTexting
     @EnvironmentObject var api: ApiManager
     @ObservedObject var mapViewModel: MapModel
+    //TODO: refactora la gestione degli errori
+    @State var showError = false
+    @State var textError = "Name and comment are required"
     @State var clicked = false
  
     
@@ -17,7 +20,16 @@ struct SheetAddAn: View {
             ZStack{
                 VStack{
                     VStack {
-                        HeaderView(mapViewModel: mapViewModel)
+                        ZStack{
+                            HeaderView(mapViewModel: mapViewModel)
+                            if showError {
+                                Text(textError)
+                                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 16, fontColor: .red)
+                                    .padding(.bottom, -24)
+                            }
+                           
+                        }
+                       
                         ScrollView {
                             VStack(spacing: 16) {
                                 TextFieldCustom(stateVariable: $mapViewModel.nameNewAnnotation,  name: "Location Name" )
@@ -65,7 +77,7 @@ struct SheetAddAn: View {
                             .padding(.top, -8)
                             .onTapGesture {
                                 
-                                if clicked == false && mapViewModel.nameNewAnnotation != "" {
+                                if clicked == false && mapViewModel.nameNewAnnotation != "" && mapViewModel.descNewAnnotation != ""{
                                     clicked = true
                                     let type = mapViewModel.optionsDropDown[0].lowercased()
                                     dismiss()
@@ -88,8 +100,15 @@ struct SheetAddAn: View {
                                     }
                                     
                                     
-                                } else{
-                                    print("no")
+                                } else if clicked == false && mapViewModel.nameNewAnnotation == "" && mapViewModel.descNewAnnotation != ""{
+                                    showError = true
+                                    textError = "Name is required"
+                                }else if clicked == false && mapViewModel.nameNewAnnotation != "" && mapViewModel.descNewAnnotation == ""{
+                                    showError = true
+                                    textError = "Comment is required"
+                                } else if clicked == false && mapViewModel.nameNewAnnotation == "" && mapViewModel.descNewAnnotation == ""{
+                                    showError = true
+                                    textError = "Name and comment are required"
                                 }
                                 
                                 
