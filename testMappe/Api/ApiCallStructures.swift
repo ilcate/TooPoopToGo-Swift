@@ -280,3 +280,45 @@ struct Feed: Decodable{
 }
 
 
+
+
+struct Response: Decodable {
+    let count: Int
+    let next: String?
+    let previous: String?
+    let results: [Result]
+}
+
+struct Result: Decodable {
+    let id: String
+    let createdAt: String
+    let updatedAt: String
+    let content: String
+    let contentType: String
+    let badge: Badge?
+    let toilet: Toilet?
+    let friendRequest: FriendRequest?
+    let user: String
+    let relatedObjectId: String
+
+}
+
+struct Badge: Decodable {
+    let id: String
+    let badgeName: String
+    let badgePhoto: String?
+
+}
+
+struct FriendRequest: Decodable {
+    let id: String
+    let fromUser: String
+    let toUser: String
+    let requestStatus: String
+}
+
+struct Toilet: Decodable {
+    let id: String
+    let toilet: String
+
+}

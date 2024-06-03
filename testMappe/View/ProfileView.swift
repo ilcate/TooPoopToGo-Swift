@@ -14,7 +14,7 @@ struct ProfileView: View {
                 OtherInformationUser()
                 Spacer()
             }
-            HeaderProfile(screenName: "Profile")
+            HeaderProfile(screenName: "Profile", name: profileModel.userInfo.username)
             .task {
                 profileModel.getProfile(api: api)
             }

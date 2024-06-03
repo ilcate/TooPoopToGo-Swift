@@ -77,7 +77,6 @@ struct ImageSliderDetailBathroom: View {
                         .uiButtonStyle(backgroundColor: .white)
                         .onTapGesture {
                             print("cercare di capire come farla")
-                            
                         }
                 }.padding(.top, bathroom.photos?.count == 1 ? 28 : 8)
                 Spacer()

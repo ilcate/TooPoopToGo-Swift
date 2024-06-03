@@ -34,7 +34,7 @@ struct UsersFriend: View {
                     }
                     Spacer()
                 }.padding(.top, 60)
-                HeaderProfile(screenName: name)
+                HeaderProfile(screenName: name, name: "")
             }
            
         }

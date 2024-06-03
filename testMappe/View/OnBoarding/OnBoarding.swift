@@ -3,6 +3,8 @@ import SwiftUI
 struct OnBoardingView: View {
     @ObservedObject var oBModel: OnBoardingModel
     @Binding var path: [String]
+    let arrText2 = ["With our intuitive map and location-based search, you’ll never have to wander around looking for a restroom again.", "Share your experience by rating the toilets. Your reviews help others make informed decisions and encourage to maintain high standards.", "Follow other reviewers, comment on their posts, and exchange tips on finding the best restrooms. Together, we can make every toilet visit a pleasant one!", "You’re all set! Dive into T.P.T.G: Review and start exploring the best toilets around you. Happy toilet hunting!"]
+    let arrText1 = ["Find Toilets Near You", "Share Your Experiences", "Join the Community", "Start Exploring!"]
 
     var body: some View {
         VStack {
@@ -24,22 +26,27 @@ struct OnBoardingView: View {
             ZStack {
                 ScrollView(.horizontal) {
                     HStack(spacing: 0) {
-                        ForEach(oBModel.PagesOnBoarding, id: \.self) { name in
+                        ForEach(Array(oBModel.PagesOnBoarding.enumerated()), id: \.element) { index, name in
                             VStack {
-                                Image("ImagePlaceHolder3")
+                                Spacer()
+                                Image("onBoarding\(index + 1)")
                                     .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 260, height: 340)
+                                    .renderingMode(.original)
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 280, height: 280)
+                                    .padding(.top, 36)
 
                                 VStack(spacing: 12) {
-                                    Text("\(name) fun in town")
+                                    Text(arrText1[index])
                                         .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 26, fontColor: .accent)
-                                    Text("Welcome to Too Poop To Go, your best firend when in need for a nice and comfy toilet!")
+                                        .padding(.top, 70)
+                                    Text(arrText2[index])
                                         .normalTextStyle(fontName: "Manrope-Medium", fontSize: 18, fontColor: .accent)
-                                        .padding(.horizontal, 36)
+                                        .padding(.horizontal, 32)
                                         .multilineTextAlignment(.center)
+                                    Spacer()
                                 }
-                                .padding(.top, 28)
+                               
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .containerRelativeFrame(.horizontal, count: 1, spacing: 20)
@@ -80,9 +87,10 @@ struct OnBoardingView: View {
                 }
 
         }
-        .background(Color.cLightBrown)
+        .background(Color.white)
         .onAppear {
             oBModel.position = oBModel.PagesOnBoarding[0]
         }
     }
 }
+

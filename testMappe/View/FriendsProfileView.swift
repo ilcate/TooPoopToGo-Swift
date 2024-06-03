@@ -42,7 +42,7 @@ struct FriendsProfileView: View {
             } .navigationBarBackButtonHidden(true)
                 .background(.cLightBrown)
             
-            HeaderProfile(screenName: "Profile")
+            HeaderProfile(screenName: "Profile" , name: userSelected.username)
         }
         
         

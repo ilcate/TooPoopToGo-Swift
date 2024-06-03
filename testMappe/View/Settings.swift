@@ -7,6 +7,7 @@ struct SettingsView: View {
     @EnvironmentObject var onBoarding : OnBoarding
     @Environment(\.dismiss) var dismiss
     
+    
     var body: some View {
     
         VStack{
@@ -32,7 +33,7 @@ struct SettingsView: View {
                 }.padding(.top, 62)
                 
                 
-                HeaderProfile(screenName: "Settings")
+                HeaderProfile(screenName: "Settings", name: "")
             }.navigationBarBackButtonHidden()
             
             
