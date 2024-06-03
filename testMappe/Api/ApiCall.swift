@@ -28,6 +28,7 @@ class ApiManager: ObservableObject {
         }
     }
     
+    
     func createAccount(parameters: RegisterRequest, completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
         AF.request("\(url)/user/create", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
             .validate(statusCode: 200..<300)
@@ -375,7 +376,7 @@ class ApiManager: ObservableObject {
     
     
     func getMyFriends(completion: @escaping (Result<[UserInfoResponse], Error>) -> Void) {
-        AF.request("\(url)/feed/list", method: .get, headers: headers)
+        AF.request("\(url)/user/list-my-friends", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: [UserInfoResponse].self) { response in
                 switch response.result {
@@ -388,7 +389,7 @@ class ApiManager: ObservableObject {
     }
     
     func getOtherFriends(id: String, completion: @escaping (Result<[UserInfoResponse], Error>) -> Void) {
-        AF.request("\(url)/feed/list", method: .get, headers: headers)
+        AF.request("\(url)/user/list-user-friends/\(id)", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: [UserInfoResponse].self) { response in
                 switch response.result {
@@ -401,4 +402,16 @@ class ApiManager: ObservableObject {
     }
     
 
+    func getFeed(id: String, completion: @escaping (Result<FeedResponse, Error>) -> Void) {
+        AF.request("\(url)/feed/list", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: FeedResponse.self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
 }

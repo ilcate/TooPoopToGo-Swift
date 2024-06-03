@@ -289,55 +289,49 @@ struct HeadersFeedView: View {
 
 struct FeedNotification : View {
     @EnvironmentObject var api: ApiManager
-    var name: String
-    var id: String
-    var time: String
-    var badgeName: String
-    var isFriendRequest : Bool
-    
+    var notification : ResultFeed
+    @State var userInformation = UserInfoResponse(username: "", id: "")
     
     var body: some View {
         VStack{
             HStack(alignment: .top){
-                //                NavigationLink(destination: {
-                //                    if review.user.id == api.userId {
-                //                        ProfileView()
-                //                    } else {
-                //                        FriendsProfileView(id: review.user.id)
-                //                    }
-                //                }) {
-                
-                Image("ImagePlaceHolder3")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 44, height: 44)
-                    .clipShape(Circle())
-                VStack(alignment: .leading, spacing: -1.5){
-                    Text(name)
-                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
-                    Text(isFriendRequest ? "has requested to follow you." : "has earned a new badge: \(badgeName)" )
-                        .normalTextStyle(fontName: "Manrope-Medium", fontSize: 17, fontColor: .accent)
-                }.padding(.top, -2)
-                
-                Spacer()
-//            }
+                NavigationLink(destination: {
+                    if userInformation.id == api.userId {
+                        ProfileView()
+                    } else {
+                        FriendsProfileView(id: userInformation.id)
+                    }
+                }) {
+                    
+                    
+                    ProfileP(link: userInformation.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "" , size: 44, padding: 0)
+                    
+                    VStack(alignment: .leading, spacing: -1.5){
+                        Text(userInformation.username)
+                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
+                        Text(notification.content)
+                            .normalTextStyle(fontName: "Manrope-Medium", fontSize: 17, fontColor: .accent)
+                    }.padding(.top, -2)
+                    
+                    Spacer()
+                }
             }
             .padding(.vertical, 12)
             .padding(.horizontal, 16)
             
             HStack(alignment: .bottom){
-                Text(time)
+                Text(timeElapsedSince(notification.created_at))
                     .normalTextStyle(fontName: "Manrope-Medium", fontSize: 17, fontColor: .cLightBrown50)
                     .padding(.bottom, -2.5)
                 Spacer()
-                if isFriendRequest{
+                if notification.content_type == "friend_request" {
                     ButtonFeed(text: "Accept")
                         .onTapGesture {
-                            api.acceptFriendRequest(userId: id)
+                            api.acceptFriendRequest(userId: notification.friend_request!.id)
                         }
                     ButtonFeed(text: "Decline")
                         .onTapGesture {
-                            api.rejectFriendRequest(userId: id)
+                            api.rejectFriendRequest(userId: notification.friend_request!.id)
                         }
                     
                 }else{
@@ -355,6 +349,20 @@ struct FeedNotification : View {
         .background(.white)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .padding(.horizontal, 20)
+        .task {
+            if notification.content_type == "friend_request" {
+                print(notification)
+                api.getSpecificUser(userId: notification.friend_request!.from_user) { userRetrieve in
+                    switch userRetrieve {
+                    case .success(let user):
+                        userInformation = user
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
+            
+        }
     }
 }
 
@@ -390,7 +398,7 @@ struct ReviewTemp: View {
     let review: Review
     @State var ratingAVG = ""
     @EnvironmentObject var api : ApiManager
-
+    
     
     var body: some View {
         VStack {

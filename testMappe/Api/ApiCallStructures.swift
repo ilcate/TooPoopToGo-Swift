@@ -282,42 +282,40 @@ struct Feed: Decodable{
 
 
 
-struct Response: Decodable {
+struct FeedResponse: Decodable {
     let count: Int
     let next: String?
     let previous: String?
-    let results: [Result]
+    let results: [ResultFeed]
 }
 
-struct Result: Decodable {
+struct ResultFeed: Decodable, Identifiable {
     let id: String
-    let createdAt: String
-    let updatedAt: String
+    let created_at: String
+    let updated_at: String
     let content: String
-    let contentType: String
-    let badge: Badge?
-    let toilet: Toilet?
-    let friendRequest: FriendRequest?
+    let content_type: String
+    let badge: BadgeFeed?
+    let toilet: ToiletFeed?
+    let friend_request: FriendRequestFeed?
     let user: String
-    let relatedObjectId: String
-
 }
 
-struct Badge: Decodable {
+struct BadgeFeed: Decodable {
     let id: String
-    let badgeName: String
-    let badgePhoto: String?
+    let badge_name: String
+    let badge_photo: String?
 
 }
 
-struct FriendRequest: Decodable {
+struct FriendRequestFeed: Decodable {
     let id: String
-    let fromUser: String
-    let toUser: String
-    let requestStatus: String
+    let from_user: String
+    let to_user: String
+    let request_status: String
 }
 
-struct Toilet: Decodable {
+struct ToiletFeed: Decodable {
     let id: String
     let toilet: String
 

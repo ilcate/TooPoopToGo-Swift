@@ -12,6 +12,7 @@ struct FeedView: View {
     @EnvironmentObject var isTexting: IsTexting
     @State var isSearching = false
     @State var users : [UserInfoResponse] = []
+    @State var feedDisp : [ResultFeed] = []
     
     var body: some View {
         VStack {
@@ -20,10 +21,10 @@ struct FeedView: View {
             if !isSearching {
                 ScrollView {
                     VStack(spacing: 12) {
-                        FeedNotification(name: "Mistro.fino", id: "", time: "2h", badgeName: "", isFriendRequest: true)
-                        FeedNotification(name: "MarelloPisello", id: "", time: "3h", badgeName: "one hundred days of poop streak", isFriendRequest: false)
-                          
-                        
+                        ForEach(feedDisp) { notification in
+                            FeedNotification(notification: notification)
+                        }
+                       
                     }
                 } .transition(.identity)
                     .padding(.top, 8)
@@ -43,6 +44,16 @@ struct FeedView: View {
         }
         .background(Color.cLightBrown)
         .animation(.easeOut(duration: 0.2), value: isSearching)
+        .task {
+            api.getFeed(id: api.userId) { resp in
+                switch resp{
+                case .success(let feed):
+                    feedDisp = feed.results
+                case.failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
 }
 
