@@ -289,12 +289,13 @@ struct HeadersFeedView: View {
 
 struct FeedNotification : View {
     @EnvironmentObject var api: ApiManager
+    @EnvironmentObject var tabBarSelection: TabBarSelection
     var notification : ResultFeed
     @State var userInformation = UserInfoResponse(username: "", id: "")
     
     var body: some View {
         VStack{
-            HStack(alignment: .top){
+            HStack{
                 NavigationLink(destination: {
                     if userInformation.id == api.userId {
                         ProfileView()
@@ -303,24 +304,33 @@ struct FeedNotification : View {
                     }
                 }) {
                     
-                    
-                    ProfileP(link: userInformation.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "" , size: 44, padding: 0)
-                    
+                    if  notification.content_type == "friend_request" {
+                        ProfileP(link: userInformation.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "" , size: 44, padding: 0)
+                    } else {
+                        Image("Aicon")
+                            .resizable()
+                            .frame(width: 44, height: 44)
+                            .clipShape(Circle())
+                    }
+
                     VStack(alignment: .leading, spacing: -1.5){
-                        Text(userInformation.username)
+                        Text( notification.content_type != "friend_request" ? "Notify": userInformation.username )
                             .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
+                            .padding(.top, 20)
                         Text(notification.content)
                             .normalTextStyle(fontName: "Manrope-Medium", fontSize: 17, fontColor: .accent)
-                    }.padding(.top, -2)
+                            .multilineTextAlignment(.leading)
+                    }
                     
                     Spacer()
                 }
             }
-            .padding(.vertical, 12)
+            .padding(.bottom, 12)
+            .padding(.top, -10)
             .padding(.horizontal, 16)
             
             HStack(alignment: .bottom){
-                Text(timeElapsedSince(notification.created_at))
+                Text(timeElapsedSinceShort(notification.created_at))
                     .normalTextStyle(fontName: "Manrope-Medium", fontSize: 17, fontColor: .cLightBrown50)
                     .padding(.bottom, -2.5)
                 Spacer()
@@ -335,8 +345,11 @@ struct FeedNotification : View {
                         }
                     
                 }else{
-                    ButtonFeed(text: "View Badge")
-                    ButtonFeed(text: "Cheer")
+                    ButtonFeed(text: "View Badges")
+                        .onTapGesture {
+                            self.tabBarSelection.selectedTab = 3
+                        }
+                   
                 }
                 
                 
@@ -345,13 +358,12 @@ struct FeedNotification : View {
             .padding(.bottom, 12)
             
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, minHeight: 100)
         .background(.white)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .padding(.horizontal, 20)
         .task {
-            if notification.content_type == "friend_request" {
-                print(notification)
+            if notification.content_type == "friend_request" && notification.friend_request != nil {
                 api.getSpecificUser(userId: notification.friend_request!.from_user) { userRetrieve in
                     switch userRetrieve {
                     case .success(let user):
@@ -361,7 +373,6 @@ struct FeedNotification : View {
                     }
                 }
             }
-            
         }
     }
 }
@@ -372,9 +383,9 @@ struct ButtonFeed: View {
     var body: some View {
         if text != "Cheer" {
             Text(text)
-                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 17, fontColor: text == "View Badge" || text == "Decline" ? .white : .cLightBrown)
+                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 17, fontColor: text == "View Badges" || text == "Decline" ? .white : .cLightBrown)
                 .padding(.vertical, 5).padding(.horizontal, 8)
-                .background(text == "View Badge" || text == "Decline" ? .cLightBrown50 : .accent)
+                .background(text == "View Badges" || text == "Decline" ? .cLightBrown50 : .accent)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
         }else{
             HStack(spacing: 4){

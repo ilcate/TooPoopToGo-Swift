@@ -38,6 +38,7 @@ struct UsersFriend: View {
             }
            
         }
+        .background(.cLightBrown)
         .navigationBarBackButtonHidden(true)
         .task {
             if isYourProfile {

@@ -107,6 +107,49 @@ func timeElapsedSince(_ dateString: String) -> String {
     }
 }
 
+func timeElapsedSinceShort(_ dateString: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+    dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+    
+    guard let date = dateFormatter.date(from: dateString) else {
+        return "Invalid Date"
+    }
+    
+    let elapsedTime = Date().timeIntervalSince(date)
+    let minutes = elapsedTime / 60
+    let hours = elapsedTime / 3600
+    let days = elapsedTime / 86400
+    let weeks = elapsedTime / (86400 * 7)
+    
+    if weeks >= 1 {
+        if Int(weeks) == 1 {
+            return "1w"
+        } else {
+            return "\(Int(weeks))w"
+        }
+    } else if days >= 1 {
+        if Int(days) == 1 {
+            return "1d"
+        } else {
+            return "\(Int(days))d"
+        }
+    } else if hours >= 1 {
+        if Int(hours) == 1 {
+            return "1h"
+        } else {
+            return "\(Int(hours))h"
+        }
+    } else {
+        if Int(minutes) == 1 {
+            return "1m"
+        } else {
+            return "\(Int(minutes))m"
+        }
+    }
+}
+
 
 func getBathroomTags(bathroom : BathroomApi) -> [Bool]{
     return [

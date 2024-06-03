@@ -22,7 +22,10 @@ struct FeedView: View {
                 ScrollView {
                     VStack(spacing: 12) {
                         ForEach(feedDisp) { notification in
-                            FeedNotification(notification: notification)
+                            
+                                FeedNotification(notification: notification)
+
+                            
                         }
                        
                     }
