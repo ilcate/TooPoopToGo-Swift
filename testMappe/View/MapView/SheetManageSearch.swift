@@ -72,7 +72,7 @@ public struct SheetManageSearch: View {
                                         translation = min(max(translation, 0), slider2.offset - minimumDistance)
                                         slider1.offset = translation
                                         calculateNewRange(reader.size)
-
+                                        
                                     }.onEnded{ _ in
                                         slider1.lastOffset = slider1.offset
                                     }
@@ -109,13 +109,13 @@ public struct SheetManageSearch: View {
                     .frame(maxWidth: .infinity, maxHeight: 40)
             }
             
-//            RatingsView()
-//                .padding(.horizontal, 20)
-
+            //            RatingsView()
+            //                .padding(.horizontal, 20)
+            
             FullRoundedButton(text: "Confirm Filters")
                 .padding(.top, 8)  .padding(.bottom, 4)
-              
-                        
+            
+            
         }
     }
 }

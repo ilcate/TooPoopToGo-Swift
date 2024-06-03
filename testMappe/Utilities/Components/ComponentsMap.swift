@@ -114,6 +114,8 @@ struct RestrictionsView: View {
     
     private let restrictionLabels = [
         "Disable Allowed?", "For Newborns", "Pay to Use?"]
+    private let restrictionImages = [
+        "Accessible", "Babies", "Free"]
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -124,6 +126,10 @@ struct RestrictionsView: View {
             VStack {
                 ForEach(restrictionLabels.indices, id: \.self) { index in
                     HStack {
+                        Image("\(restrictionImages[index])Stroke")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .padding(.leading, -2)
                         Text(restrictionLabels[index])
                             .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
                         Spacer()
@@ -137,8 +143,8 @@ struct RestrictionsView: View {
                     }
                 }
             }
-            .padding(.vertical, 9)
-            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 12)
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
@@ -251,6 +257,13 @@ struct TypeSelectionView:  View {
                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accentColor)
                 .padding(.bottom, -2)
             HStack {
+                
+                VStack(alignment: .center){
+                    Image("\(optionsDropDown[0])Stroke")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                }.frame(width: 30, height: 30)
+                    .padding(.leading, -5)
                 Text(optionsDropDown[0])
                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accentColor)
                 Spacer()
@@ -274,9 +287,18 @@ struct TypeSelectionView:  View {
                 ForEach(optionsDropDown.indices.dropFirst(), id: \.self) { index in
                     let element = optionsDropDown[index]
                     HStack {
+                        VStack(alignment: .center){
+                            Image("\(element)Stroke")
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                        }.frame(width: 30, height: 30)
+                            .padding(.leading, -8)
+                       
                         Text(element)
                             .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accentColor)
                         Spacer()
+                        
+                       
                     }
                     .padding(.vertical, 10)
                     .padding(.horizontal, 20)
