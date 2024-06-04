@@ -1,9 +1,8 @@
-
 import Foundation
 import SwiftUI
 import Alamofire
 
-final class OnBoardingModel: ObservableObject{
+final class OnBoardingModel: ObservableObject {
     var PagesOnBoarding = ["Find", "Review", "More", "Pipo"]
     @Published var position: String?
     @Published var navigateToLogInAndSignUp = false
@@ -17,6 +16,14 @@ final class OnBoardingModel: ObservableObject{
     @Published var otpOk = true
     @Published var otp = Array(repeating: "", count: 6)
     
+    var emailIsValid: Bool {
+        let emailPattern = #"^\S+@\S+\.\S+$"#
+        let result = email.range(
+            of: emailPattern,
+            options: .regularExpression
+        )
+        return result != nil
+    }
     
     func nextButton(path: [String], completion: @escaping ([String]) -> Void) {
         var mutablePath = path
@@ -36,7 +43,7 @@ final class OnBoardingModel: ObservableObject{
         }
     }
     
-    func doLogIn(path: [String], api: ApiManager, onBoarding: OnBoarding , completion: @escaping ([String]) -> Void){
+    func doLogIn(path: [String], api: ApiManager, onBoarding: OnBoarding, completion: @escaping ([String]) -> Void) {
         let info = LogInInformation(username: username, password: password)
         var mutablePath = path
         api.getToken(userData: info) { result in
@@ -49,8 +56,8 @@ final class OnBoardingModel: ObservableObject{
                     onBoarding.onBoarding = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         api.saveToken(token: token)
-                        api.getUser { resp in
-                            print("id saved")
+                        api.getUser { _ in
+                            print("User ID saved")
                         }
                     }
                 case .failure:
@@ -61,17 +68,16 @@ final class OnBoardingModel: ObservableObject{
         }
     }
     
-    func doRegister(path: [String],  api: ApiManager, completion: @escaping ([String]) -> Void){
+    func doRegister(path: [String], api: ApiManager, completion: @escaping ([String]) -> Void) {
         let parameters = RegisterRequest(username: username, email: email, first_name: firstName, password: password, last_login: nil)
         var mutablePath = path
-        api.createAccount(parameters: parameters){ result in
-            print(result)
+        api.createAccount(parameters: parameters) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success:
                     api.email = self.email
-                    api.username =  self.username
-                    api.password =  self.password
+                    api.username = self.username
+                    api.password = self.password
                     mutablePath.append("InsertOtp")
                     completion(mutablePath)
                 case .failure:
@@ -79,11 +85,10 @@ final class OnBoardingModel: ObservableObject{
                     self.resetValues()
                 }
             }
-            
         }
     }
     
-    func insertOTP(path: [String],  api: ApiManager, onBoarding: OnBoarding, completion: @escaping ([String]) -> Void){
+    func insertOTP(path: [String], api: ApiManager, onBoarding: OnBoarding, completion: @escaping ([String]) -> Void) {
         let otpString = otp.joined()
         let otpToSend = SendOtp(otp: otpString, email: api.email)
         var mutablePath = path
@@ -103,10 +108,10 @@ final class OnBoardingModel: ObservableObject{
                             case .success(let token):
                                 api.saveToken(token: token)
                                 let renderer = ImageRenderer(content: ProfilePictureCustom()).uiImage
-                                api.uploadProfilePicture(image: renderer!, userId: api.userId){ resp in
+                                api.uploadProfilePicture(image: renderer!, userId: api.userId) { resp in
                                     print(resp)
                                 }
-                            case .failure(_):
+                            case .failure:
                                 mutablePath.append("LogIn")
                                 completion(mutablePath)
                                 onBoarding.onBoarding = false
@@ -114,37 +119,38 @@ final class OnBoardingModel: ObservableObject{
                         }
                     }
                 case .failure:
-                    self.otpOk = false 
+                    self.otpOk = false
                 }
             }
         }
     }
+
     func handleTextChange(at index: Int, newValue: String, focusedField: inout Int?) {
-            if newValue.count > 1 {
-                otp[index] = String(newValue.last!)
-            } else if !newValue.isEmpty {
-                otp[index] = newValue
-            }
-            
-            if !newValue.isEmpty {
-                if index < 5 {
-                    focusedField = index + 1
-                } else {
-                    focusedField = nil
-                }
+        if newValue.count > 1 {
+            otp[index] = String(newValue.last!)
+        } else if !newValue.isEmpty {
+            otp[index] = newValue
+        }
+
+        if !newValue.isEmpty {
+            if index < 5 {
+                focusedField = index + 1
+            } else {
+                focusedField = nil
             }
         }
+    }
+
     func sanitizeOTP() {
         for i in 0..<6 where otp[i].count > 1 {
-           otp[i] = String(otp[i].last!)
+            otp[i] = String(otp[i].last!)
         }
     }
     
-    func resetValues(){
-        self.username = ""
-        self.firstName = ""
-        self.email = ""
-        self.password = ""
+    func resetValues() {
+        username = ""
+        firstName = ""
+        email = ""
+        password = ""
     }
-
 }

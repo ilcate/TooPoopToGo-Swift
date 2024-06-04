@@ -40,6 +40,12 @@
 		2A5E1AF02BF7A5A100871183 /* ChoseLogM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E1AEF2BF7A5A100871183 /* ChoseLogM.swift */; };
 		2A6084742BC4438C000FA417 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084732BC4438C000FA417 /* Map.swift */; };
 		2A6084762BC44472000FA417 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084752BC44472000FA417 /* TestView.swift */; };
+		2A61C2092C0E49090010313A /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A61C2082C0E49090010313A /* WidgetKit.framework */; };
+		2A61C20B2C0E49090010313A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A61C20A2C0E49090010313A /* SwiftUI.framework */; };
+		2A61C20E2C0E49090010313A /* TooPoopToGoWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A61C20D2C0E49090010313A /* TooPoopToGoWidgetBundle.swift */; };
+		2A61C2102C0E49090010313A /* TooPoopToGoWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A61C20F2C0E49090010313A /* TooPoopToGoWidget.swift */; };
+		2A61C2122C0E490B0010313A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A61C2112C0E490B0010313A /* Assets.xcassets */; };
+		2A61C2162C0E490B0010313A /* TooPoopToGoWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2A61C2072C0E49090010313A /* TooPoopToGoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2A6401FD2C0CBF2200F3F1EA /* UsersFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6401FC2C0CBF2200F3F1EA /* UsersFriend.swift */; };
 		2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69F7452BE4F986004AB59C /* ProfileView.swift */; };
 		2AA0D6772BF0FAB300F8A249 /* SheetManageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0D6762BF0FAB300F8A249 /* SheetManageSearch.swift */; };
@@ -84,6 +90,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2A61C2142C0E490B0010313A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AB217FB2BC03B49002A32F5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2A61C2062C0E49090010313A;
+			remoteInfo = TooPoopToGoWidgetExtension;
+		};
 		2ACCA0532C09AA2700946C53 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2AB217FB2BC03B49002A32F5 /* Project object */;
@@ -94,6 +107,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		2A61C2172C0E490B0010313A /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2A61C2162C0E490B0010313A /* TooPoopToGoWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2ACCA0402C09A14200946C53 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -146,6 +170,13 @@
 		2A5E1AEF2BF7A5A100871183 /* ChoseLogM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoseLogM.swift; sourceTree = "<group>"; };
 		2A6084732BC4438C000FA417 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		2A6084752BC44472000FA417 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		2A61C2072C0E49090010313A /* TooPoopToGoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TooPoopToGoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A61C2082C0E49090010313A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		2A61C20A2C0E49090010313A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		2A61C20D2C0E49090010313A /* TooPoopToGoWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooPoopToGoWidgetBundle.swift; sourceTree = "<group>"; };
+		2A61C20F2C0E49090010313A /* TooPoopToGoWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooPoopToGoWidget.swift; sourceTree = "<group>"; };
+		2A61C2112C0E490B0010313A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2A61C2132C0E490B0010313A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A6401FC2C0CBF2200F3F1EA /* UsersFriend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersFriend.swift; sourceTree = "<group>"; };
 		2A69F7452BE4F986004AB59C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2AA0D6762BF0FAB300F8A249 /* SheetManageSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetManageSearch.swift; sourceTree = "<group>"; };
@@ -188,6 +219,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2A61C2042C0E49090010313A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A61C20B2C0E49090010313A /* SwiftUI.framework in Frameworks */,
+				2A61C2092C0E49090010313A /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2AB218002BC03B49002A32F5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -330,9 +370,22 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2A61C20C2C0E49090010313A /* TooPoopToGoWidget */ = {
+			isa = PBXGroup;
+			children = (
+				2A61C20D2C0E49090010313A /* TooPoopToGoWidgetBundle.swift */,
+				2A61C20F2C0E49090010313A /* TooPoopToGoWidget.swift */,
+				2A61C2112C0E490B0010313A /* Assets.xcassets */,
+				2A61C2132C0E490B0010313A /* Info.plist */,
+			);
+			path = TooPoopToGoWidget;
+			sourceTree = "<group>";
+		};
 		2AA1E0682C008E2D00B2E3BF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2A61C2082C0E49090010313A /* WidgetKit.framework */,
+				2A61C20A2C0E49090010313A /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -342,6 +395,7 @@
 			children = (
 				2AB218052BC03B49002A32F5 /* testMappe */,
 				2ACCA0492C09AA2500946C53 /* ToPoopToGoWatch Watch App */,
+				2A61C20C2C0E49090010313A /* TooPoopToGoWidget */,
 				2AB218042BC03B49002A32F5 /* Products */,
 				2AA1E0682C008E2D00B2E3BF /* Frameworks */,
 			);
@@ -352,6 +406,7 @@
 			children = (
 				2AB218032BC03B49002A32F5 /* TooPoopToGo.app */,
 				2ACCA0482C09AA2500946C53 /* ToPoopToGoWatch Watch App.app */,
+				2A61C2072C0E49090010313A /* TooPoopToGoWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -450,6 +505,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2A61C2062C0E49090010313A /* TooPoopToGoWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A61C21A2C0E490B0010313A /* Build configuration list for PBXNativeTarget "TooPoopToGoWidgetExtension" */;
+			buildPhases = (
+				2A61C2032C0E49090010313A /* Sources */,
+				2A61C2042C0E49090010313A /* Frameworks */,
+				2A61C2052C0E49090010313A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TooPoopToGoWidgetExtension;
+			productName = TooPoopToGoWidgetExtension;
+			productReference = 2A61C2072C0E49090010313A /* TooPoopToGoWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		2AB218022BC03B49002A32F5 /* TooPoopToGo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2AB218112BC03B4A002A32F5 /* Build configuration list for PBXNativeTarget "TooPoopToGo" */;
@@ -458,11 +530,13 @@
 				2AB218002BC03B49002A32F5 /* Frameworks */,
 				2AB218012BC03B49002A32F5 /* Resources */,
 				2ACCA0402C09A14200946C53 /* Embed Watch Content */,
+				2A61C2172C0E490B0010313A /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				2ACCA0542C09AA2700946C53 /* PBXTargetDependency */,
+				2A61C2152C0E490B0010313A /* PBXTargetDependency */,
 			);
 			name = TooPoopToGo;
 			packageProductDependencies = (
@@ -507,6 +581,9 @@
 				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
+					2A61C2062C0E49090010313A = {
+						CreatedOnToolsVersion = 15.3;
+					};
 					2AB218022BC03B49002A32F5 = {
 						CreatedOnToolsVersion = 15.3;
 					};
@@ -539,11 +616,20 @@
 			targets = (
 				2AB218022BC03B49002A32F5 /* TooPoopToGo */,
 				2ACCA0472C09AA2500946C53 /* ToPoopToGoWatch Watch App */,
+				2A61C2062C0E49090010313A /* TooPoopToGoWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2A61C2052C0E49090010313A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A61C2122C0E490B0010313A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2AB218012BC03B49002A32F5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -579,6 +665,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2A61C2032C0E49090010313A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A61C20E2C0E49090010313A /* TooPoopToGoWidgetBundle.swift in Sources */,
+				2A61C2102C0E49090010313A /* TooPoopToGoWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2AB217FF2BC03B49002A32F5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -644,6 +739,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2A61C2152C0E490B0010313A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2A61C2062C0E49090010313A /* TooPoopToGoWidgetExtension */;
+			targetProxy = 2A61C2142C0E490B0010313A /* PBXContainerItemProxy */;
+		};
 		2ACCA0542C09AA2700946C53 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2ACCA0472C09AA2500946C53 /* ToPoopToGoWatch Watch App */;
@@ -652,6 +752,60 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		2A61C2182C0E490B0010313A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6TS2KBH3FR;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TooPoopToGoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TooPoopToGoWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiancatenacci.tooPoopToGo.TooPoopToGoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2A61C2192C0E490B0010313A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6TS2KBH3FR;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TooPoopToGoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TooPoopToGoWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiancatenacci.tooPoopToGo.TooPoopToGoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		2AB2180F2BC03B4A002A32F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -912,6 +1066,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2A61C21A2C0E490B0010313A /* Build configuration list for PBXNativeTarget "TooPoopToGoWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A61C2182C0E490B0010313A /* Debug */,
+				2A61C2192C0E490B0010313A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2AB217FE2BC03B49002A32F5 /* Build configuration list for PBXProject "TooPoopToGo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -314,7 +314,7 @@ struct FeedNotification : View {
                     }
 
                     VStack(alignment: .leading, spacing: -1.5){
-                        Text( notification.content_type != "friend_request" ? "Notify": userInformation.username )
+                        Text( notification.content_type != "friend_request" ? "Notice": userInformation.username )
                             .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
                             .padding(.top, 20)
                         Text(notification.content)
@@ -335,16 +335,25 @@ struct FeedNotification : View {
                     .padding(.bottom, -2.5)
                 Spacer()
                 if notification.content_type == "friend_request" {
-                    ButtonFeed(text: "Accept")
-                        .onTapGesture {
-                            api.acceptFriendRequest(userId: notification.friend_request!.id)
-                        }
-                    ButtonFeed(text: "Decline")
-                        .onTapGesture {
-                            api.rejectFriendRequest(userId: notification.friend_request!.id)
-                        }
+                    if notification.friend_request!.request_status == "accepted" {
+                        ButtonFeed(text: "Accepted")
+                            .onTapGesture {
+                                api.rejectFriendRequest(userId: notification.friend_request!.id)
+                            }
+                    }else{
+                        ButtonFeed(text: "Accept")
+                            .onTapGesture {
+                                api.acceptFriendRequest(userId: notification.friend_request!.id)
+                            }
+                        ButtonFeed(text: "Decline")
+                            .onTapGesture {
+                                api.rejectFriendRequest(userId: notification.friend_request!.id)
+                            }
+                        
+                    }
                     
-                }else{
+                }
+                else{
                     ButtonFeed(text: "View Badges")
                         .onTapGesture {
                             self.tabBarSelection.selectedTab = 3

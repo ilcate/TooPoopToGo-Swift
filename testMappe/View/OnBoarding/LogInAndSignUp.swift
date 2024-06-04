@@ -7,8 +7,7 @@ struct LogInAndSignUp: View {
     @FocusState private var isFocused: Bool
     @State var isLogIn: Bool
     @ObservedObject var oBModel: OnBoardingModel
-    
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -18,13 +17,13 @@ struct LogInAndSignUp: View {
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 6)
-            
-            
+
             VStack {
                 TextFieldCustom(stateVariable: $oBModel.username, name: "Username")
                 if !isLogIn {
                     TextFieldCustom(stateVariable: $oBModel.firstName, name: "First name")
                     TextFieldCustom(stateVariable: $oBModel.email, name: "Email")
+                        .background(oBModel.emailIsValid ? Color.white : Color.red.opacity(0.3))
                 }
                 HStack{
                     Text("Password")
@@ -40,8 +39,6 @@ struct LogInAndSignUp: View {
                             .autocapitalization(.none)
                             .padding(.trailing, -24).padding(.top, 8).padding(.bottom, 8)
                             .focused($isFocused)
-                            
-                        
                     } else {
                         SecureField("Enter a password", text: $oBModel.password)
                             .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
@@ -72,16 +69,16 @@ struct LogInAndSignUp: View {
                 )
             }
             .padding(.horizontal, 20)
-            if !oBModel.everithingOklog{
+            if !oBModel.everithingOklog {
                 Text("Something went wrong, try again")
                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .red)
                 Spacer()
             }
-            if !oBModel.everithingOkreg{
-                Text("This name is alredy used")
+            if !oBModel.everithingOkreg {
+                Text("This name is already used")
                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .red)
                 Spacer()
-            }else{
+            } else {
                 Spacer()
             }
             
@@ -93,7 +90,7 @@ struct LogInAndSignUp: View {
             FullRoundedButton(text: !isLogIn ? "Join now!" : "Log In")
                 .onTapGesture {
                     if isLogIn {
-                        oBModel.doLogIn(path: path, api: api, onBoarding: onBoarding){ updatedPath in
+                        oBModel.doLogIn(path: path, api: api, onBoarding: onBoarding) { updatedPath in
                             path = updatedPath
                         }
                     } else {
