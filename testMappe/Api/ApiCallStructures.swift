@@ -62,8 +62,6 @@ struct Review: Decodable, Identifiable, Equatable, Hashable {
         case createdAt = "created_at"
     }
 
-
-    
     
     static func ==(lhs: Review, rhs: Review) -> Bool {
         return lhs.id == rhs.id &&

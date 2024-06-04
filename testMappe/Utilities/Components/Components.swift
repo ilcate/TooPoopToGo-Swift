@@ -306,6 +306,7 @@ struct FeedNotification : View {
                     
                     if  notification.content_type == "friend_request" {
                         ProfileP(link: userInformation.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "" , size: 44, padding: 0)
+                            .padding(.bottom, notification.friend_request?.request_status == "accepted" ? -28 : 0)
                     } else {
                         Image("Aicon")
                             .resizable()
