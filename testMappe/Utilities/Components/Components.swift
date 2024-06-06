@@ -92,13 +92,11 @@ struct FullRoundedButtonRed: View {
 
 
 
-
-struct TextFieldCustom:  View {
-    @Binding var stateVariable : String
-    @State var name : String
+struct TextFieldCustom: View {
+    @Binding var stateVariable: String
+    @State var name: String
     @FocusState private var isFocused
-    
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text(name)
@@ -106,20 +104,26 @@ struct TextFieldCustom:  View {
                 .padding(.bottom, -2)
             TextField("Insert here", text: $stateVariable)
                 .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
+                .onChange(of: stateVariable) { oldValue, newValue in
+                    if newValue.count > 110 {
+                        stateVariable = String(newValue.prefix(110))
+                    }
+                }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 10)
-                .background(.white)
-                .clipShape(.capsule)
+                .background(Color.white)
+                .clipShape(Capsule())
                 .focused($isFocused)
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
                 .overlay(
                     Capsule()
-                        .stroke(.accent, lineWidth: isFocused ? 3 : 0)
+                        .stroke(Color.accent, lineWidth: isFocused ? 3 : 0)
                 )
         }
     }
 }
+
 
 struct HeaderView:  View {
     @EnvironmentObject var isTexting: IsTexting
@@ -356,13 +360,17 @@ struct FeedNotification : View {
                         
                     }
                     
-                }
-                else{
+                } else if notification.content_type == "badge_update" {
                     ButtonFeed(text: "View Badges")
                         .onTapGesture {
                             self.tabBarSelection.selectedTab = 3
                         }
                    
+                } else {
+                    ButtonFeed(text: "View Bathroom")
+//                        .onTapGesture {
+//                            self.tabBarSelection.selectedTab = 3
+//                        }
                 }
                 
                 
@@ -396,9 +404,9 @@ struct ButtonFeed: View {
     var body: some View {
         if text != "Cheer" {
             Text(text)
-                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 17, fontColor: text == "View Badges" || text == "Decline" ? .white : .cLightBrown)
+                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 17, fontColor: text == "View Badges" || text == "View Bathroom" || text == "Accepted" ?  .accent.opacity(0.7) : .cLightBrown)
                 .padding(.vertical, 5).padding(.horizontal, 8)
-                .background(text == "View Badges" || text == "Decline" ? .cLightBrown50 : .accent)
+                .background(text == "View Badges" || text == "View Bathroom" || text == "Accepted" ? .cLightBrown50.opacity(0.3) : text == "Decline" ? .cMidBrown : .accent)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
         }else{
             HStack(spacing: 4){

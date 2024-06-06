@@ -6,6 +6,7 @@ struct DetailBathroom: View {
     @EnvironmentObject var api: ApiManager
     @ObservedObject var mapViewModel: MapModel
     @State private var openSheetNavigate = false
+    @State var userHasRated = true
     @State private var openSheetAddReview = false
     @State var informationStat = GetRatingStats(overall_rating: "0", cleanliness_rating: "0", comfort_rating: "0", accessibility_rating: "0", review_count: 0)
     @State var bathroom: BathroomApi
@@ -43,6 +44,7 @@ struct DetailBathroom: View {
                         print("Failed to fetch review stats: \(error)")
                     }
                 }
+                
             }
             
 
@@ -75,7 +77,7 @@ struct DetailBathroom: View {
             }
 
             Spacer()
-            ReviewsBathroomDetail(openSheetNavigate: $openSheetNavigate, openSheetAddReview: $openSheetAddReview, mapViewModel: mapViewModel, api: api, idBathroom: bathroom.id!)
+            ReviewsBathroomDetail(openSheetNavigate: $openSheetNavigate, openSheetAddReview: $openSheetAddReview, mapViewModel: mapViewModel, userHasRated: $userHasRated, api: api, idBathroom: bathroom.id!)
         }
         .ignoresSafeArea(.all, edges: .bottom)
         .sheet(isPresented: $openSheetNavigate, onDismiss: {
@@ -91,6 +93,14 @@ struct DetailBathroom: View {
         .sheet(isPresented: $openSheetAddReview, onDismiss: {
             openSheetAddReview = false
             mapViewModel.getRev(api: api, idb: bathroom.id!)
+            api.getHasRated(id:  bathroom.id!) { result in
+                switch result {
+                case .success(let bool):
+                    userHasRated = bool
+                case .failure(let error):
+                    print("Failed to fetch review stats: \(error)")
+                }
+            }
         }) {
             ZStack {
                 Color.cLightBrown.ignoresSafeArea(.all)

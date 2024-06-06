@@ -319,7 +319,7 @@ struct ToiletFeed: Decodable {
 
 }
 
-struct hasRated: Decodable {
+struct HasRated: Decodable {
     let has_rated : Bool
 
 }

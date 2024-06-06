@@ -414,4 +414,17 @@ class ApiManager: ObservableObject {
                 }
             }
     }
+    
+    func getHasRated(id: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        AF.request("\(url)/toilet/user-has-rated/\(id)", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: HasRated.self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB.has_rated))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
 }

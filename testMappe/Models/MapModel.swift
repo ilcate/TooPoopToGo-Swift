@@ -237,6 +237,7 @@ final class MapModel: ObservableObject{
             switch result {
             case .success(let reviews):
                 self.names = reviews
+                
             case .failure(let error):
                 print("Failed to fetch reviews: \(error)")
                 self.names = []

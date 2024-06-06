@@ -29,7 +29,7 @@ struct FeedView: View {
                             .padding(.bottom, 8)
                     }
               
-                }else{
+                } else {
                     ScrollView {
                         VStack(spacing: 12) {
                             ForEach(feedModel.feedToDisplay) { notification in
