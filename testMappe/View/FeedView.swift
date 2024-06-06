@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct FeedView: View {
     @EnvironmentObject var api: ApiManager
     @EnvironmentObject var isTexting: IsTexting
+    @StateObject var feedModel = FeedModel()
     @State var isSearching = false
     @State var users : [UserInfoResponse] = []
     @State var feedDisp : [ResultFeed] = []
@@ -19,18 +21,27 @@ struct FeedView: View {
             HeadersFeedView(isSearching: $isSearching , users: $users)
             Spacer()
             if !isSearching {
-                ScrollView {
-                    VStack(spacing: 12) {
-                        ForEach(feedDisp) { notification in
-                            
-                                FeedNotification(notification: notification)
-
-                            
-                        }
-                       
+                if feedModel.feedToDisplay.isEmpty{
+                    VStack{
+                        Spacer()
+                        Text("Nothing here, try to do something")
+                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 16, fontColor: .accent)
+                            .padding(.bottom, 8)
                     }
-                } .transition(.identity)
-                    .padding(.top, 8)
+              
+                }else{
+                    ScrollView {
+                        VStack(spacing: 12) {
+                            ForEach(feedModel.feedToDisplay) { notification in
+                                FeedNotification(notification: notification, feedModel: feedModel)
+
+                            }
+                           
+                        }
+                    } .transition(.identity)
+                        .padding(.top, 8)
+                }
+                
             } else {
                 
                 ScrollView {
@@ -48,14 +59,7 @@ struct FeedView: View {
         .background(Color.cLightBrown)
         .animation(.easeOut(duration: 0.2), value: isSearching)
         .task {
-            api.getFeed(id: api.userId) { resp in
-                switch resp{
-                case .success(let feed):
-                    feedDisp = feed.results
-                case.failure(let error):
-                    print(error)
-                }
-            }
+            feedModel.getFeedUpdated(api: api)
         }
     }
 }

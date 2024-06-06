@@ -291,6 +291,7 @@ struct FeedNotification : View {
     @EnvironmentObject var api: ApiManager
     @EnvironmentObject var tabBarSelection: TabBarSelection
     var notification : ResultFeed
+    @ObservedObject var feedModel : FeedModel
     @State var userInformation = UserInfoResponse(username: "", id: "")
     
     var body: some View {
@@ -306,7 +307,7 @@ struct FeedNotification : View {
                     
                     if  notification.content_type == "friend_request" {
                         ProfileP(link: userInformation.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "" , size: 44, padding: 0)
-                            .padding(.bottom, notification.friend_request?.request_status == "accepted" ? -28 : 0)
+                            .padding(.bottom, -28)
                     } else {
                         Image("Aicon")
                             .resizable()
@@ -345,10 +346,12 @@ struct FeedNotification : View {
                         ButtonFeed(text: "Accept")
                             .onTapGesture {
                                 api.acceptFriendRequest(userId: notification.friend_request!.id)
+                                feedModel.getFeedUpdated(api: api)
                             }
                         ButtonFeed(text: "Decline")
                             .onTapGesture {
                                 api.rejectFriendRequest(userId: notification.friend_request!.id)
+                                feedModel.getFeedUpdated(api: api)
                             }
                         
                     }
@@ -471,8 +474,6 @@ struct ReviewTemp: View {
         .padding(.bottom, -6)
         .onAppear{
             ratingAVG = getAvg(review: review)
-            
-            print(api.userId)
         }
     }
     

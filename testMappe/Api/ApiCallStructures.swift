@@ -315,6 +315,11 @@ struct FriendRequestFeed: Decodable {
 
 struct ToiletFeed: Decodable {
     let id: String
-    let toilet: String
+    let name: String
+
+}
+
+struct hasRated: Decodable {
+    let has_rated : Bool
 
 }

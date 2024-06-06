@@ -23,7 +23,6 @@ struct LogInAndSignUp: View {
                 if !isLogIn {
                     TextFieldCustom(stateVariable: $oBModel.firstName, name: "First name")
                     TextFieldCustom(stateVariable: $oBModel.email, name: "Email")
-                        .background(oBModel.emailIsValid ? Color.white : Color.red.opacity(0.3))
                 }
                 HStack{
                     Text("Password")
@@ -74,6 +73,11 @@ struct LogInAndSignUp: View {
                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .red)
                 Spacer()
             }
+            if oBModel.showErrorMail {
+                Text("Your email is not valid")
+                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .red)
+                Spacer()
+            }
             if !oBModel.everithingOkreg {
                 Text("This name is already used")
                     .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .red)
@@ -94,8 +98,12 @@ struct LogInAndSignUp: View {
                             path = updatedPath
                         }
                     } else {
-                        oBModel.doRegister(path: path, api: api) { updatedPath in
-                            path = updatedPath
+                        if oBModel.emailIsValid  {
+                            oBModel.doRegister(path: path, api: api) { updatedPath in
+                                path = updatedPath
+                            }
+                        } else {
+                            oBModel.showErrorMail = true
                         }
                     }
                 }

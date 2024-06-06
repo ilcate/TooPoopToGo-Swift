@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Alamofire
 
 func formatAddress(_ address: String) -> String {
     if address == "" {
@@ -179,3 +180,4 @@ func randomColor() -> Color {
     let randomColor = colors.randomElement()!
     return Color(randomColor)
 }
+

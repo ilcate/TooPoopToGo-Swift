@@ -30,6 +30,8 @@
 		2A31B46D2BE37E0D000DC8EE /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A31B46C2BE37E0D000DC8EE /* Components.swift */; };
 		2A33AF9B2BC041DC00DA90E9 /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 2A33AF9A2BC041DC00DA90E9 /* MapboxMaps */; };
 		2A4499F32C0088B3000F381A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A4499F22C0088B3000F381A /* GoogleService-Info.plist */; };
+		2A51DF3C2C11AE1D00DF8725 /* NotHere.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A51DF3B2C11AE1D00DF8725 /* NotHere.json */; };
+		2A51DF3E2C11B58200DF8725 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A51DF3D2C11B58200DF8725 /* FeedModel.swift */; };
 		2A55F26A2BF7840B002D7203 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A55F2692BF7840B002D7203 /* OnBoarding.swift */; };
 		2A55F26D2BF7885B002D7203 /* LogInAndSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A55F26C2BF7885B002D7203 /* LogInAndSignUp.swift */; };
 		2A5DF2C32C09AE00001990E4 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5DF2C22C09AE00001990E4 /* ViewModifiers.swift */; };
@@ -153,6 +155,8 @@
 		2A31B46C2BE37E0D000DC8EE /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		2A4499F22C0088B3000F381A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2A4893C62BC03DF300366033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2A51DF3B2C11AE1D00DF8725 /* NotHere.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NotHere.json; sourceTree = "<group>"; };
+		2A51DF3D2C11B58200DF8725 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		2A55F2692BF7840B002D7203 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
 		2A55F26C2BF7885B002D7203 /* LogInAndSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInAndSignUp.swift; sourceTree = "<group>"; };
 		2A5DF2C22C09AE00001990E4 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
@@ -299,6 +303,7 @@
 				2AE78C032BFA3F7A00038AEA /* ProfileModel.swift */,
 				2A0BF6912C037CF90053A0A5 /* HomeModel.swift */,
 				2AE0314C2BFC5FF80087E7FF /* OnBoardingModel.swift */,
+				2A51DF3D2C11B58200DF8725 /* FeedModel.swift */,
 				2A0EE7852BC97CD300F48FC4 /* MapModel.swift */,
 			);
 			path = Models;
@@ -307,6 +312,7 @@
 		2A18B8492BFF414B00C12C9B /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				2A51DF3B2C11AE1D00DF8725 /* NotHere.json */,
 				2A29666E2C08628F00380664 /* LoadingScreen3.json */,
 				2A29666C2C0861FC00380664 /* LoadingScreen2.json */,
 				2A29666A2C08612C00380664 /* LoadingScreen.json */,
@@ -647,6 +653,7 @@
 				2ADA10732BDFF2BF00BBC989 /* Manrope-Bold.ttf in Resources */,
 				2ADA106F2BDFF2BF00BBC989 /* Manrope-SemiBold.ttf in Resources */,
 				2A29666F2C08628F00380664 /* LoadingScreen3.json in Resources */,
+				2A51DF3C2C11AE1D00DF8725 /* NotHere.json in Resources */,
 				2AB2180B2BC03B4A002A32F5 /* Assets.xcassets in Resources */,
 				2A18B8482BFF404300C12C9B /* LoadingAnimationWhite.json in Resources */,
 				2ADA10702BDFF2BF00BBC989 /* Manrope-Light.ttf in Resources */,
@@ -690,6 +697,7 @@
 				2A0EE7812BC978D600F48FC4 /* ViewModifiers.swift in Sources */,
 				2AEAB74A2BF8E8F800B149C1 /* ApiCallStructures.swift in Sources */,
 				2ADA10832BE0E66700BBC989 /* AddImageSheet.swift in Sources */,
+				2A51DF3E2C11B58200DF8725 /* FeedModel.swift in Sources */,
 				2A27C0122BF8D5EC006A8FE8 /* Classes.swift in Sources */,
 				2A6084762BC44472000FA417 /* TestView.swift in Sources */,
 				2A27C0172BF8E60D006A8FE8 /* InsertOtp.swift in Sources */,
@@ -866,6 +874,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -922,6 +931,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
@@ -1012,9 +1022,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "ToPoopToGoWatch-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = ToPoopToGoWatch;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "$(PRODUCT_BUNDLE_PACKAGE_TYPE)";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = APPL;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.christiancatenacci.tooPoopToGo;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1027,7 +1038,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -1044,9 +1055,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "ToPoopToGoWatch-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = ToPoopToGoWatch;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "$(PRODUCT_BUNDLE_PACKAGE_TYPE)";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = APPL;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.christiancatenacci.tooPoopToGo;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1059,7 +1071,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};

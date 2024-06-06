@@ -130,6 +130,7 @@ struct RestrictionsView: View {
                             .resizable()
                             .frame(width: 24, height: 24)
                             .padding(.leading, -2)
+                            .foregroundStyle(.accent)
                         Text(restrictionLabels[index])
                             .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
                         Spacer()
@@ -262,6 +263,7 @@ struct TypeSelectionView:  View {
                     Image("\(optionsDropDown[0])Stroke")
                         .resizable()
                         .frame(width: 24, height: 24)
+                        .foregroundStyle(.accent)
                 }.frame(width: 30, height: 30)
                     .padding(.leading, -5)
                 Text(optionsDropDown[0])
@@ -291,6 +293,7 @@ struct TypeSelectionView:  View {
                             Image("\(element)Stroke")
                                 .resizable()
                                 .frame(width: 24, height: 24)
+                                .foregroundStyle(.accent)
                         }.frame(width: 30, height: 30)
                             .padding(.leading, -8)
                        

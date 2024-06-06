@@ -15,6 +15,7 @@ final class OnBoardingModel: ObservableObject {
     @Published var everithingOkreg = true
     @Published var otpOk = true
     @Published var otp = Array(repeating: "", count: 6)
+    @Published var showErrorMail = false
     
     var emailIsValid: Bool {
         let emailPattern = #"^\S+@\S+\.\S+$"#
