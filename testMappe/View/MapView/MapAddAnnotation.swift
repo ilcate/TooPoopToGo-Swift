@@ -86,7 +86,7 @@ struct SheetAddAn: View {
                                     mapViewModel.newLocationAdded = true
                                     isTexting.page = false
                                     DispatchQueue.main.async {
-                                        mapViewModel.sendPointToServer(name: mapViewModel.nameNewAnnotation, type: type, image : mapViewModel.imagesNewAnnotation, restrictions: mapViewModel.restrictionsArray, api: api) { result in
+                                        mapViewModel.sendPointToServer(name: mapViewModel.nameNewAnnotation, type: type.lowercased(), image : mapViewModel.imagesNewAnnotation, restrictions: mapViewModel.restrictionsArray, api: api) { result in
                                             if result != "" {
                                                 mapViewModel.sendReview(api: api, cleanStar: cleanStar, comfortStar: comfortStar, moodStar: moodStar, idB: result)
                                                 mapViewModel.resetAddParams()
