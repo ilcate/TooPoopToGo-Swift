@@ -165,7 +165,7 @@ struct HeaderProfile: View {
         VStack {
             HStack {
                 Image("BackArrow")
-                    .uiButtonStyle(backgroundColor: .cLightBrown)
+                    .uiButtonStyle(backgroundColor: name == "" ? .white : .cLightBrown)
                     .onTapGesture {
                         dismiss()
                     }

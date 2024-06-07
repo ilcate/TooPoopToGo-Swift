@@ -72,6 +72,7 @@ struct HomeView: View {
                     NextBadge()
                     
                     
+                    
                     StreakButtons(homeModel: homeModel)
                     
                     SliderNextToYou(homeModel: homeModel, mapViewModel: mapViewModel)
@@ -91,6 +92,7 @@ struct HomeView: View {
             
         }.background(.cLightBrown)
             .task {
+                homeModel.scheduleNotificationForNextDay()
                 homeModel.fetchPS(api: api)
             }
     }

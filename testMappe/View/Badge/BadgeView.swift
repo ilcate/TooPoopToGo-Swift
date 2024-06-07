@@ -5,6 +5,7 @@ import CoreImage.CIFilterBuiltins
 
 struct BadgeView: View {
     @EnvironmentObject var api: ApiManager
+    @EnvironmentObject var tabBarSelection: TabBarSelection
     @State var openDetailSheet = false
     @State var tappedId = ""
     @State var completed = false
@@ -57,11 +58,21 @@ struct BadgeView: View {
             }
         }
         .background(Color.cLightBrown)
+        
         .task {
             api.getBadges { resp in
                 switch resp {
                 case .success(let arr):
                     badges = arr
+                    if tabBarSelection.selectedBadge != "" {
+                        let selected = badges.first { $0.badge_name ==  tabBarSelection.selectedBadge }
+                        tappedId = selected!.badge_id
+                        com = selected!.completion
+                        completed = selected!.is_completed
+                        openDetailSheet = true
+                        completedDate = formattedDate(selected?.date_completed)
+                      
+                    }
                 case .failure(let error):
                     print("Failed to load badges: \(error)")
                 }

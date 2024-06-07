@@ -191,6 +191,7 @@ struct ButtonPoop : View {
 
 struct NextBadge: View {
     @EnvironmentObject var api: ApiManager
+    @EnvironmentObject var tabBarSelection: TabBarSelection
     @State var badges: [BadgesInfo] = []
     
     var nextBadge: BadgesInfo? {
@@ -237,6 +238,10 @@ struct NextBadge: View {
                     .background(Color.cLightBrown50)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             }
+        }
+        .onTapGesture {
+            self.tabBarSelection.selectedTab = 3
+            self.tabBarSelection.selectedBadge = nextBadge!.badge_name
         }
         .padding(.horizontal, 20)
         .task {

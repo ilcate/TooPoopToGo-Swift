@@ -8,8 +8,14 @@
 	</array>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict/>
+	</array>
 	<key>MBXAccessToken</key>
 	<string>pk.eyJ1IjoiYWxieWVhaCIsImEiOiJjbHVta3JnNXUxOHlsMmtsaWNiNDA3NnVyIn0.ktE0i_EYxUPMBieyS0G4rw</string>
+	<key>NSUserNotificationUsageDescription</key>
+	<string>We need to send you notifications to keep you informed about your schedule.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Manrope-Bold.ttf</string>
@@ -19,6 +25,12 @@
 		<string>Manrope-Medium.ttf</string>
 		<string>Manrope-Regular.ttf</string>
 		<string>Manrope-SemiBold.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchScreen</key>
 	<dict>

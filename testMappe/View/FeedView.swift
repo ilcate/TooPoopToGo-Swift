@@ -38,9 +38,10 @@ struct FeedView: View {
 
                             }
                            
-                        }
+                        }    .padding(.bottom, 12)
                     } .transition(.identity)
                         .padding(.top, 8)
+                    
                 }
                 
             } else {

@@ -7,17 +7,21 @@
 
 import SwiftUI
 import SDWebImageSVGCoder
-import FirebaseCore
+
 import SDWebImageSVGCoder
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
+    
+    
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        
+        
+        return true
+    }
+    
 
-    return true
-  }
 }
 
 
@@ -25,10 +29,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct TooPoopToGo: App {
     init() {
-        setUpDependencies() 
+        setUpDependencies()
     }
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -41,6 +45,7 @@ private extension TooPoopToGo {
     func setUpDependencies() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }
+    
+    
 }
-
 

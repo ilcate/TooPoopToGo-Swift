@@ -11,6 +11,8 @@ class TabBarSelection: ObservableObject {
     //pubilished fa si che il valore sia reattivo
     @Published var selectedTab: Int = 0
     @Published var destination: [CGFloat] = []
+    @Published var selectedBadge = ""
+    
 }
 
 class IsTexting: ObservableObject {

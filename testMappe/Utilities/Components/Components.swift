@@ -96,7 +96,7 @@ struct TextFieldCustom: View {
     @Binding var stateVariable: String
     @State var name: String
     @FocusState private var isFocused
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text(name)
@@ -304,35 +304,43 @@ struct FeedNotification : View {
     var body: some View {
         VStack{
             HStack{
-                NavigationLink(destination: {
-                    if userInformation.id == api.userId {
-                        ProfileView()
-                    } else {
-                        FriendsProfileView(id: userInformation.id)
-                    }
-                }) {
-                    
-                    if  notification.content_type == "friend_request" {
+                if  notification.content_type == "friend_request" {
+                    NavigationLink(destination: {
+                        if userInformation.id == api.userId {
+                            ProfileView()
+                        } else {
+                            FriendsProfileView(id: userInformation.id)
+                        }
+                    }) {
                         ProfileP(link: userInformation.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "" , size: 44, padding: 0)
                             .padding(.bottom, -28)
-                    } else {
-                        Image("Aicon")
-                            .resizable()
-                            .frame(width: 44, height: 44)
-                            .clipShape(Circle())
+                        VStack(alignment: .leading, spacing: -1.5){
+                            Text(userInformation.username)
+                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
+                                .padding(.top, 20)
+                            Text(notification.content)
+                                .normalTextStyle(fontName: "Manrope-Medium", fontSize: 17, fontColor: .accent)
+                                .multilineTextAlignment(.leading)
+                        }
+                        Spacer()
                     }
-
+                    
+                } else {
+                    Image("Aicon")
+                        .resizable()
+                        .frame(width: 44, height: 44)
+                        .clipShape(Circle())
                     VStack(alignment: .leading, spacing: -1.5){
-                        Text( notification.content_type != "friend_request" ? "Notice": userInformation.username )
+                        Text(  "Notice" )
                             .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
                             .padding(.top, 20)
                         Text(notification.content)
                             .normalTextStyle(fontName: "Manrope-Medium", fontSize: 17, fontColor: .accent)
                             .multilineTextAlignment(.leading)
                     }
-                    
                     Spacer()
                 }
+                
             }
             .padding(.bottom, 12)
             .padding(.top, -10)
@@ -346,9 +354,6 @@ struct FeedNotification : View {
                 if notification.content_type == "friend_request" {
                     if notification.friend_request!.request_status == "accepted" {
                         ButtonFeed(text: "Accepted")
-                            .onTapGesture {
-                                api.rejectFriendRequest(userId: notification.friend_request!.id)
-                            }
                     }else{
                         ButtonFeed(text: "Accept")
                             .onTapGesture {
@@ -367,8 +372,9 @@ struct FeedNotification : View {
                     ButtonFeed(text: "View Badges")
                         .onTapGesture {
                             self.tabBarSelection.selectedTab = 3
+                            self.tabBarSelection.selectedBadge = notification.badge!.badge_name
                         }
-                   
+                    
                 } else {
                     NavigationLink(destination: DetailBathroom(mapViewModel:mapViewModel, bathroom: bathroom)){
                         ButtonFeed(text: "View Bathroom")
@@ -383,8 +389,8 @@ struct FeedNotification : View {
                                 }
                             }
                     }
-                        
-                    }
+                    
+                }
                 
                 
                 
