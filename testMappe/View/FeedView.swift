@@ -15,6 +15,7 @@ struct FeedView: View {
     @State var isSearching = false
     @State var users : [UserInfoResponse] = []
     @State var feedDisp : [ResultFeed] = []
+    @ObservedObject var mapViewModel: MapModel
     
     var body: some View {
         VStack {
@@ -33,7 +34,7 @@ struct FeedView: View {
                     ScrollView {
                         VStack(spacing: 12) {
                             ForEach(feedModel.feedToDisplay) { notification in
-                                FeedNotification(notification: notification, feedModel: feedModel)
+                                FeedNotification(notification: notification, feedModel: feedModel , mapViewModel: mapViewModel)
 
                             }
                            

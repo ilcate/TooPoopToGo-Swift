@@ -427,4 +427,17 @@ class ApiManager: ObservableObject {
                 }
             }
     }
+    
+    func getSingleBathroom(id: String, completion: @escaping (Result<BathroomApi, Error>) -> Void) {
+        AF.request("\(url)/toilet/retrieve/\(id)", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: BathroomApi.self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
 }

@@ -16,6 +16,18 @@ final class FeedModel: ObservableObject {
             }
         }
     }
+    
+    func getSpecificBathroom(api: ApiManager, id : String, completion: @escaping (Result<BathroomApi, Error>) -> Void) {
+        api.getSingleBathroom(id: id) { resp in
+            switch resp {
+            case .success(let responseB):
+                completion(.success(responseB))
+            case .failure(let error):
+                print(error)
+                completion(.failure(error))
+            }
+        }
+    }
 
     
 }

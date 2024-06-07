@@ -53,6 +53,7 @@ struct DetailBathroom: View {
                     .padding(.horizontal, 20)
             }
             .task{
+                print(bathroom)
                 arrOfTags = getBathroomTags(bathroom: bathroom)
             }
             .scrollIndicators(.hidden)

@@ -295,8 +295,11 @@ struct FeedNotification : View {
     @EnvironmentObject var api: ApiManager
     @EnvironmentObject var tabBarSelection: TabBarSelection
     var notification : ResultFeed
-    @ObservedObject var feedModel : FeedModel
     @State var userInformation = UserInfoResponse(username: "", id: "")
+    @ObservedObject var feedModel : FeedModel
+    @ObservedObject var mapViewModel: MapModel
+    @State var bathroom =  BathroomApi()
+    
     
     var body: some View {
         VStack{
@@ -367,11 +370,22 @@ struct FeedNotification : View {
                         }
                    
                 } else {
-                    ButtonFeed(text: "View Bathroom")
-//                        .onTapGesture {
-//                            self.tabBarSelection.selectedTab = 3
-//                        }
-                }
+                    NavigationLink(destination: DetailBathroom(mapViewModel:mapViewModel, bathroom: bathroom)){
+                        ButtonFeed(text: "View Bathroom")
+                            .onAppear{
+                                feedModel.getSpecificBathroom(api: api, id: notification.toilet!.id) { res in
+                                    switch res{
+                                    case .success(let rsponse):
+                                        bathroom = BathroomApi(id: rsponse.id, photos: rsponse.photos, name: rsponse.name, address: rsponse.address, coordinates: rsponse.coordinates, place_type: rsponse.place_type, is_for_disabled: rsponse.is_for_disabled, is_free: rsponse.is_free, is_for_babies: rsponse.is_for_babies, tags: rsponse.tags, updated_at: rsponse.updated_at)
+                                    case .failure(let error):
+                                        print(error)
+                                    }
+                                }
+                            }
+                    }
+                        
+                    }
+                
                 
                 
             }

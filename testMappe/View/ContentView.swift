@@ -54,7 +54,7 @@ struct ContentView: View {
                             }
                             .padding(.bottom, 10)
                             .tag(0)
-                        FeedView()
+                        FeedView(mapViewModel: mapViewModel)
                             .tabItem {
                                 Image("FeedTB")
                             }
