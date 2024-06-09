@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct UserInformationStandards: View {
     @EnvironmentObject var api: ApiManager
@@ -16,6 +17,7 @@ struct UserInformationStandards: View {
     let friendsNumber: Int
     let id: String
     @Binding var status: String
+    @ObservedObject var mapViewModel: MapModel
     
     
     var body: some View {
@@ -86,7 +88,7 @@ struct UserInformationStandards: View {
                         }
                         
                         if friendsNumber > 0 {
-                            NavigationLink(destination: UsersFriend(id: id, isYourProfile: isYourProfile, name: username)) {
+                            NavigationLink(destination: UsersFriend(id: id, isYourProfile: isYourProfile, name: username, mapViewModel: mapViewModel)) {
                                 Text("\(friendsNumber) Friends")
                                     .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accent)
                             }
@@ -111,6 +113,12 @@ struct UserInformationStandards: View {
 }
 
 struct OtherInformationUser: View {
+    @EnvironmentObject var api: ApiManager
+    @ObservedObject var profileModel : ProfileModel
+    @ObservedObject var mapViewModel : MapModel
+    let isYourself : Bool
+    let userId : String
+    
     var body: some View {
         VStack(spacing: 12) {
             VStack(spacing: 8) {
@@ -118,40 +126,100 @@ struct OtherInformationUser: View {
                     Text("Badges")
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .accent)
                     Spacer()
+                } .padding(.horizontal, 20)
+                if !profileModel.userBadges.isEmpty{
+                    ScrollView(.horizontal){
+                        LazyHStack {
+                            ForEach(profileModel.userBadges, id: \.self) { badge in
+                                VStack {
+                                    if let imageURL = URL(string: "\(api.url)\(badge.badge_photo ?? "")") {
+                                        WebImage(url: imageURL, options: [], context: [.imageThumbnailPixelSize : CGSize.zero])
+                                            .resizable()
+                                            .frame(width: 58, height: 58)
+                                            .applyGrayscale(badge.is_completed ? 0 : 1)
+                                    }
+                                    Text(badge.badge_name)
+                                        .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 12, fontColor: .accent)
+                                        .lineLimit(1)
+                                        .truncationMode(.tail)
+                                }
+                                .padding(8)
+                                .frame(width: 80)
+                                .background(Color.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .padding(.bottom, 8)
+                            }
+                        }
+                        .padding(.horizontal, 20)
+                        
+                        .frame(height: 105)
+                       
+                    }.padding(.bottom, -14)
+                }else{
+                    Text("No bathroom completed")
+                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 17, fontColor: .accent)
+                        .padding()
+                        .frame(maxWidth: .infinity, minHeight: 90)
+                        .background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .padding(.horizontal, 20)
+                        
                 }
-                Text("You don't have any badge")
-                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
-                    .frame(maxWidth: .infinity, maxHeight: 80)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+               
+            
             }
             VStack(spacing: 8) {
                 HStack {
                     Text("Recents Reviews")
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .accent)
                     Spacer()
-                }
-                Text("Go to review your first bathroom")
-                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
-                    .frame(maxWidth: .infinity, maxHeight: 140)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                } .padding(.horizontal, 20)
+                ReviewsScroller(reviews: profileModel.userRatings, mapViewModel: mapViewModel)
             }
             VStack(spacing: 8) {
                 HStack {
-                    Text("Recents Notifications")
+                    Text("Toilet Created")
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .accent)
                     Spacer()
+                } .padding(.horizontal, 20)
+                if !profileModel.userToilet.isEmpty {
+                    VStack {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 10) {
+                                ForEach(profileModel.userToilet, id: \.self) { bathroom in
+                                    InformationOfSelectionView(bathroom: bathroom, mapViewModel: mapViewModel)
+                                        .padding(.vertical, 3)
+                                        .frame(width: 350)
+                                }
+                            }
+                            .padding(.leading, 20)
+                            .padding(.trailing, 20)
+                            .scrollTargetLayout()
+                        }
+                        .contentMargins(0, for: .scrollContent)
+                        .scrollIndicators(.hidden)
+                        .scrollTargetBehavior(.viewAligned)
+                    }
+                    .padding(.vertical, -1)
+                } else {
+                    Text("No bathroom created")
+                        .normalTextStyle(fontName: "Manrope-Bold", fontSize: 17, fontColor: .accent)
+                        .padding()
+                        .frame(maxWidth: .infinity, minHeight: 114)
+                        .background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .padding(.horizontal, 20)
+                        
                 }
-                Text("C'mon, try to do something")
-                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
-                    .frame(maxWidth: .infinity, maxHeight: 140)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
             }
         }
         .padding(.top, -48)
-        .padding(.horizontal, 20)
+       
+        .task {
+            profileModel.getToilets(api: api, isSelf: isYourself)
+            profileModel.getBadges(api: api, isSelf: isYourself)
+            profileModel.getReviews(api: api, isSelf: isYourself)
+        }
     }
 }
 
@@ -194,9 +262,10 @@ struct HeaderProfile: View {
 
 struct UserClickable: View {
     @Binding var user : UserInfoResponse
+    @ObservedObject var mapViewModel: MapModel
     
     var body: some View {
-        NavigationLink(destination: FriendsProfileView(id: user.id)) {
+        NavigationLink(destination: FriendsProfileView(id: user.id, mapViewModel: mapViewModel)) {
             HStack {
                 ProfileP(link: user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
                     .padding(.trailing, 8)

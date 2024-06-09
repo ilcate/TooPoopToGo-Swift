@@ -87,6 +87,7 @@ struct StreakButtons: View {
                                     ButtonPoop(text: "Drop a Poop")
                                         .onTapGesture {
                                             homeModel.updatePS(api: api)
+                                            homeModel.scheduleNotificationForNextDay()
                                         }
                                 } else if  homeModel.status == "on_cooldown" {
                                     ButtonPoop(text: "Done")

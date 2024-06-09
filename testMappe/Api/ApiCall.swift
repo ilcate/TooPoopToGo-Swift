@@ -360,20 +360,7 @@ class ApiManager: ObservableObject {
             }
     }
     
-    
-    func feedList(completion: @escaping (Result<GetFeed, Error>) -> Void) {
-        AF.request("\(url)/feed/list", method: .get, headers: headers)
-            .validate(statusCode: 200..<300)
-            .responseDecodable(of: GetFeed.self) { response in
-                switch response.result {
-                case .success(let responseB):
-                    completion(.success(responseB))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
-    }
-    
+
     
     func getMyFriends(completion: @escaping (Result<[UserInfoResponse], Error>) -> Void) {
         AF.request("\(url)/user/list-my-friends", method: .get, headers: headers)
@@ -440,4 +427,74 @@ class ApiManager: ObservableObject {
                 }
             }
     }
+    
+    
+    
+    func getToiletsAdded(string: String, completion: @escaping (Result<[BathroomApi], Error>) -> Void) {
+        AF.request("\(url)/user/list-user-toilets\(string)", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: SearchBath.self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    print(responseB)
+                    completion(.success(responseB.results ?? []))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    
+    func getSelfRatingsAdded(completion: @escaping (Result<[Review], Error>) -> Void) {
+        AF.request("\(url)/user/list-self-user-ratings", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: ListOFRewievs.self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB.results ?? []))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    
+    func getOtherRatingsAdded(id: String, completion: @escaping (Result<[Review], Error>) -> Void) {
+        AF.request("\(url)/user/list-user-ratings/\(id)", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: ListOFRewievs.self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB.results ?? []))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    func getSelfBadgesCompleted( completion: @escaping (Result<[BadgesInfo], Error>) -> Void) {
+        AF.request("\(url)/badge/list-completed-user-badges", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: [BadgesInfo].self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    func getUserBadgesCompleted(id: String,  completion: @escaping (Result<[BadgesInfo], Error>) -> Void) {
+        AF.request("\(url)/badge/list-user-badges/\(id)", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: [BadgesInfo].self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
 }

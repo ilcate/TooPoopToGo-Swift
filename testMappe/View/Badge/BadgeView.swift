@@ -11,6 +11,7 @@ struct BadgeView: View {
     @State var completed = false
     @State var com = 0
     @State var completedDate = ""
+    @ObservedObject var mapViewModel: MapModel
 
     let columns: [GridItem] = [GridItem(.flexible()),
                                GridItem(.flexible()),
@@ -21,7 +22,7 @@ struct BadgeView: View {
     
     var body: some View {
         VStack {
-            HeadersViewPages(PageName: "Badges")
+            HeadersViewPages(PageName: "Badges", mapViewModel: mapViewModel)
             Spacer()
             
             ScrollView {
@@ -71,6 +72,7 @@ struct BadgeView: View {
                         completed = selected!.is_completed
                         openDetailSheet = true
                         completedDate = formattedDate(selected?.date_completed)
+                        tabBarSelection.selectedBadge = ""
                       
                     }
                 case .failure(let error):

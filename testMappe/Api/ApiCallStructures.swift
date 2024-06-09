@@ -219,7 +219,7 @@ struct addApiResponse: Decodable {
     let message: String?
 }
 
-struct AddRating: Encodable {
+struct AddRating: Codable {
     let cleanliness_rating: Int?
     let comfort_rating: Int?
     let accessibility_rating: Int?
@@ -249,8 +249,6 @@ struct SearchUsers: Decodable {
     let results: [UserInfoResponse]?
 }
 
-
-
 struct BadgesInfo: Decodable , Hashable {
     let badge_id : String
     let badge_name : String
@@ -267,16 +265,6 @@ struct BadgesInfoDetailed: Decodable {
     let badge_requirement_threshold : Int
     let badge_photo : String
 }
-
-struct GetFeed: Decodable {
-    let result : [Feed]
-}
-
-struct Feed: Decodable{
-    var ciao : String
-    var miao : String
-}
-
 
 
 
@@ -322,4 +310,8 @@ struct ToiletFeed: Decodable {
 struct HasRated: Decodable {
     let has_rated : Bool
 
+}
+
+struct PersonalRev: Decodable {
+    let results : [AddRating]
 }

@@ -174,10 +174,11 @@ struct HeaderView:  View {
 
 struct HeadersViewPages: View {
     var PageName: String
+    @ObservedObject var mapViewModel: MapModel
     
     var body: some View {
         HStack{
-            NavigationLink(destination: ProfileView()) {
+            NavigationLink(destination: ProfileView(mapViewModel: mapViewModel)) {
                 Image("Profile")
                     .uiButtonStyle(backgroundColor: .white)
             }
@@ -196,6 +197,7 @@ struct HeadersViewPages: View {
 
 struct HeadersFeedView: View {
     @EnvironmentObject var api: ApiManager
+    @ObservedObject var mapViewModel: MapModel
     @EnvironmentObject var isTexting: IsTexting
     @FocusState private var isFocused: Bool
     @Binding var isSearching: Bool
@@ -246,7 +248,7 @@ struct HeadersFeedView: View {
                 
                 if !isSearching {
                     HStack{
-                        NavigationLink(destination: ProfileView()) {
+                        NavigationLink(destination: ProfileView(mapViewModel: mapViewModel)) {
                             Image("Profile")
                                 .uiButtonStyle(backgroundColor: .white)
                         }
@@ -307,9 +309,9 @@ struct FeedNotification : View {
                 if  notification.content_type == "friend_request" {
                     NavigationLink(destination: {
                         if userInformation.id == api.userId {
-                            ProfileView()
+                            ProfileView(mapViewModel: mapViewModel)
                         } else {
-                            FriendsProfileView(id: userInformation.id)
+                            FriendsProfileView(id: userInformation.id, mapViewModel: mapViewModel)
                         }
                     }) {
                         ProfileP(link: userInformation.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "" , size: 44, padding: 0)
@@ -375,7 +377,7 @@ struct FeedNotification : View {
                             self.tabBarSelection.selectedBadge = notification.badge!.badge_name
                         }
                     
-                } else {
+                } else if notification.content_type == "toilet_approved"{
                     NavigationLink(destination: DetailBathroom(mapViewModel:mapViewModel, bathroom: bathroom)){
                         ButtonFeed(text: "View Bathroom")
                             .onAppear{
@@ -389,11 +391,7 @@ struct FeedNotification : View {
                                 }
                             }
                     }
-                    
                 }
-                
-                
-                
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 12)
@@ -450,6 +448,7 @@ struct ReviewTemp: View {
     let review: Review
     @State var ratingAVG = ""
     @EnvironmentObject var api : ApiManager
+    @ObservedObject var mapViewModel : MapModel
     
     
     var body: some View {
@@ -457,9 +456,9 @@ struct ReviewTemp: View {
             HStack {
                 NavigationLink(destination: {
                     if review.user.id == api.userId {
-                        ProfileView()
+                        ProfileView(mapViewModel: mapViewModel)
                     } else {
-                        FriendsProfileView(id: review.user.id)
+                        FriendsProfileView(id: review.user.id, mapViewModel: mapViewModel)
                     }
                 }) {
                     HStack {
@@ -515,6 +514,7 @@ struct ReviewTemp: View {
 
 struct ReviewsScroller: View {
     let reviews: [Review]?
+    @ObservedObject var mapViewModel: MapModel
     
     var body: some View {
         ScrollView(.horizontal) {
@@ -523,7 +523,7 @@ struct ReviewsScroller: View {
                     if let reviews = reviews {
                         ForEach(reviews, id: \.self) { review in
                             if !review.review.isEmpty{
-                                ReviewTemp(review: review)
+                                ReviewTemp(review: review, mapViewModel: mapViewModel)
                             }
                         }
                         if reviews.count == 1 && reviews[0].review == "" {

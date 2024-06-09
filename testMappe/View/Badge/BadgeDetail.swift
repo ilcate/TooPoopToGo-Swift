@@ -76,7 +76,7 @@ struct BadgeDetail: View {
                             Text("Progression")
                                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
                             Spacer()
-                            Text("\(Int(com))/\(Int(badgeSel.badge_requirement_threshold))")
+                            Text("\(badgeSel.name == "Review writer" ? Int(com / 10) : Int(com) )/\(Int(badgeSel.badge_requirement_threshold))")
                                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
                         }
                         .padding(.horizontal, 16)

@@ -22,7 +22,7 @@ struct HomeView: View {
     
     var body: some View {
         VStack{
-            HeadersViewPages(PageName: "Home")
+            HeadersViewPages(PageName: "Home", mapViewModel: mapViewModel)
                 .onAppear{
                     let locationManager = CLLocationManager()
                     locationManager.requestWhenInUseAuthorization()
@@ -92,7 +92,6 @@ struct HomeView: View {
             
         }.background(.cLightBrown)
             .task {
-                homeModel.scheduleNotificationForNextDay()
                 homeModel.fetchPS(api: api)
             }
     }

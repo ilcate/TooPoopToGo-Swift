@@ -57,10 +57,8 @@ class HomeModel: ObservableObject {
     func scheduleNotificationForNextDay() {
         let center = UNUserNotificationCenter.current()
         
-        // Remove all pending notifications
         center.removeAllPendingNotificationRequests()
         
-        // Request notification permissions
         center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             if granted {
                 let content = UNMutableNotificationContent()
@@ -68,10 +66,9 @@ class HomeModel: ObservableObject {
                 content.body = "Remebmer to Release the monster"
                 content.sound = UNNotificationSound.default
                 
-                // Calculate the date for the next day at the same time
                 let now = Date()
                 var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: now)
-                dateComponents.day! += 1 // Add one day
+                dateComponents.day! += 1
                 
                 let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
                 

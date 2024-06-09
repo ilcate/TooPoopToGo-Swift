@@ -60,7 +60,7 @@ struct ContentView: View {
                             }
                             .padding(.bottom, isTexting.texting ? -50 : 10)
                             .tag(2)
-                        BadgeView()
+                        BadgeView(mapViewModel: mapViewModel)
                             .tabItem {
                                 Image("BadgeTB")
                             }

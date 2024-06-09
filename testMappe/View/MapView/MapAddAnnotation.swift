@@ -94,7 +94,6 @@ struct SheetAddAn: View {
                                                 clicked = false
                                             }else{
                                                 clicked = false
-                                                print("no eh")
                                             }
                                         }
                                     }

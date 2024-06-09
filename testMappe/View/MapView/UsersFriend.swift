@@ -13,6 +13,7 @@ struct UsersFriend: View {
     let isYourProfile: Bool
     let name: String
     @State var userList: [UserInfoResponse] = []
+    @ObservedObject var mapViewModel: MapModel
     
     var body: some View {
         VStack {
@@ -28,7 +29,7 @@ struct UsersFriend: View {
                     ScrollView {
                         LazyVStack {
                             ForEach($userList, id: \.id) { user in
-                                UserClickable(user: user)
+                                UserClickable(user: user, mapViewModel: mapViewModel)
                             }
                         }
                     }

@@ -6,12 +6,14 @@ struct ProfileView: View {
     @EnvironmentObject var api: ApiManager
     @StateObject var profileModel = ProfileModel()
     @State var status = "none"
+    @ObservedObject var mapViewModel : MapModel
+    
     
     var body: some View {
         ZStack {
             VStack {
-                UserInformationStandards(profilePicture: profileModel.userInfo.photo_user!, isYourProfile: true, openSheetUploadImage: $profileModel.openSheetUploadImage, username: profileModel.userInfo.username, friendsNumber: profileModel.userInfo.friends_number ?? 0, id: profileModel.userInfo.id, status: $status)
-                OtherInformationUser()
+                UserInformationStandards(profilePicture: profileModel.userInfo.photo_user!, isYourProfile: true, openSheetUploadImage: $profileModel.openSheetUploadImage, username: profileModel.userInfo.username, friendsNumber: profileModel.userInfo.friends_number ?? 0, id: profileModel.userInfo.id, status: $status, mapViewModel: mapViewModel)
+                OtherInformationUser(profileModel: profileModel,mapViewModel: mapViewModel, isYourself: true, userId: profileModel.userInfo.id)
                 Spacer()
             }
             HeaderProfile(screenName: "Profile", name: profileModel.userInfo.username)

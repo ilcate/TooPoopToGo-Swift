@@ -17,9 +17,10 @@ struct FeedView: View {
     @State var feedDisp : [ResultFeed] = []
     @ObservedObject var mapViewModel: MapModel
     
+    
     var body: some View {
         VStack {
-            HeadersFeedView(isSearching: $isSearching , users: $users)
+            HeadersFeedView(mapViewModel: mapViewModel, isSearching: $isSearching, users: $users)
             Spacer()
             if !isSearching {
                 if feedModel.feedToDisplay.isEmpty{
@@ -38,7 +39,7 @@ struct FeedView: View {
 
                             }
                            
-                        }    .padding(.bottom, 12)
+                        }.padding(.bottom, 12)
                     } .transition(.identity)
                         .padding(.top, 8)
                     
@@ -49,7 +50,7 @@ struct FeedView: View {
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         ForEach($users) { user in
-                                UserClickable(user: user)
+                                UserClickable(user: user, mapViewModel: mapViewModel)
                            
                         }
                     } .padding(.top, 8)
