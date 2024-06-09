@@ -38,7 +38,7 @@ final class ProfileModel: ObservableObject{
     }
     
     func getReviews(api: ApiManager, isSelf: Bool){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if isSelf {
                 api.getSelfRatingsAdded{ res in
                     switch res{

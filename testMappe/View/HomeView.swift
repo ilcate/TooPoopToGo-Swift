@@ -71,8 +71,6 @@ struct HomeView: View {
                     
                     NextBadge()
                     
-                    
-                    
                     StreakButtons(homeModel: homeModel)
                     
                     SliderNextToYou(homeModel: homeModel, mapViewModel: mapViewModel)

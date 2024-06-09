@@ -281,7 +281,7 @@ struct ReviewsBathroomDetail: View {
                 .padding(.top, 8)
                 .padding(.bottom, 2)
                 
-                ReviewsScroller(reviews: mapViewModel.names, mapViewModel: mapViewModel)
+                ReviewsScroller(reviews: mapViewModel.names, isProfile: false, mapViewModel: mapViewModel)
                 
                 Spacer()
                 

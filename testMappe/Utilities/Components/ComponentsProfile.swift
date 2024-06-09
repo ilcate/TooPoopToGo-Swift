@@ -170,11 +170,11 @@ struct OtherInformationUser: View {
             }
             VStack(spacing: 8) {
                 HStack {
-                    Text("Recents Reviews")
+                    Text("Reviews")
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .accent)
                     Spacer()
                 } .padding(.horizontal, 20)
-                ReviewsScroller(reviews: profileModel.userRatings, mapViewModel: mapViewModel)
+                ReviewsScroller(reviews: profileModel.userRatings, isProfile: true, mapViewModel: mapViewModel)
             }
             VStack(spacing: 8) {
                 HStack {

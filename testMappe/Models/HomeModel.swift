@@ -63,7 +63,7 @@ class HomeModel: ObservableObject {
             if granted {
                 let content = UNMutableNotificationContent()
                 content.title = "Your PoopStreak is ready"
-                content.body = "Remebmer to Release the monster"
+                content.body = "Remember to release the MONSTER!🤰 "
                 content.sound = UNNotificationSound.default
                 
                 let now = Date()

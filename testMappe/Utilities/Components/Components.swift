@@ -446,6 +446,7 @@ struct ButtonFeed: View {
 
 struct ReviewTemp: View {
     let review: Review
+    let isProfile : Bool
     @State var ratingAVG = ""
     @EnvironmentObject var api : ApiManager
     @ObservedObject var mapViewModel : MapModel
@@ -454,13 +455,27 @@ struct ReviewTemp: View {
     var body: some View {
         VStack {
             HStack {
+            if !isProfile {
                 NavigationLink(destination: {
-                    if review.user.id == api.userId {
+
+                    if review.user.id == api.userId{
                         ProfileView(mapViewModel: mapViewModel)
                     } else {
                         FriendsProfileView(id: review.user.id, mapViewModel: mapViewModel)
                     }
+                    
+                    
                 }) {
+                    HStack {
+                        ProfileP(link: review.user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
+                        VStack(alignment: .leading, spacing: -2) {
+                            Text(review.user.username)
+                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 19, fontColor: .accent)
+                            Text(timeElapsedSince(review.createdAt))
+                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent.opacity(0.4))
+                        }
+                    }
+                }}else{
                     HStack {
                         ProfileP(link: review.user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
                         VStack(alignment: .leading, spacing: -2) {
@@ -514,6 +529,7 @@ struct ReviewTemp: View {
 
 struct ReviewsScroller: View {
     let reviews: [Review]?
+    let isProfile : Bool
     @ObservedObject var mapViewModel: MapModel
     
     var body: some View {
@@ -523,15 +539,15 @@ struct ReviewsScroller: View {
                     if let reviews = reviews {
                         ForEach(reviews, id: \.self) { review in
                             if !review.review.isEmpty{
-                                ReviewTemp(review: review, mapViewModel: mapViewModel)
+                                ReviewTemp(review: review, isProfile: isProfile, mapViewModel: mapViewModel)
                             }
                         }
                         if reviews.count == 1 && reviews[0].review == "" {
-                            NoReviews()
+                            NoReviews(isProfile : isProfile)
                         }
                     }
                 } else {
-                    NoReviews()
+                    NoReviews( isProfile : isProfile)
                 }
             }
             .padding(.trailing, -10)
@@ -545,9 +561,10 @@ struct ReviewsScroller: View {
 }
 
 struct NoReviews: View {
+    let isProfile : Bool
     var body: some View {
         VStack {
-            Text("This place has no comments or reviews. \n Add the first one!")
+            Text(!isProfile ? "This place has no comments or reviews. \n Add the first one!" : "This user doesn't have any review")
                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 16, fontColor: .accent)
                 .multilineTextAlignment(.center)
         }
