@@ -10,7 +10,7 @@ import SwiftUI
 struct FriendsProfileView: View {
     @EnvironmentObject var api: ApiManager
     @State var id : String
-    @State var userSelected = UserInfoResponse(username: "", photo_user: "", id: "" , friends_number: 0, badges: [""])
+    @State var userSelected = UserInfoResponse(username: "Loading...", photo_user: "", id: "" , friends_number: 0, badges: [""])
     @State var uslessBool = false
     @State var status = RequestStatus(request_status: "none", friend_request_id: "")
     @StateObject var profileModel = ProfileModel()
@@ -36,7 +36,7 @@ struct FriendsProfileView: View {
                 api.statusFriendRequest(userId: id) { result in
                     switch result {
                     case .success(let friendStatus):
-                        status.request_status = friendStatus
+                        status = RequestStatus(request_status: friendStatus.request_status, friend_request_id: friendStatus.friend_request_id)
                     case .failure:
                         status = RequestStatus(request_status: "none", friend_request_id: "")
                     }

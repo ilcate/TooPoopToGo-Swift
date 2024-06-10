@@ -168,6 +168,7 @@ class ApiManager: ObservableObject {
                 .responseDecodable(of: GetRatingStats.self){ response in
                     switch response.result {
                     case .success(let responseBody):
+    
                         completion(.success(responseBody))
                     case .failure(let error):
                         completion(.failure(error))
@@ -215,12 +216,12 @@ class ApiManager: ObservableObject {
         }
     }
     
-    func uploadProfilePicture(image: UIImage, userId: String, completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
+    func uploadProfilePicture(image: UIImage, completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
         AF.upload(multipartFormData: { multipartFormData in
                 if let imageData = image.jpegData(compressionQuality: 0.3) {
                     multipartFormData.append(imageData, withName: "photo_user", fileName: "photo_user.jpg")
                 }
-            }, to: "\(url)/user/update/\(userId)", method: .patch, headers: headers)
+            }, to: "\(url)/user/self-update", method: .patch, headers: headers)
             .validate()
             .responseDecodable(of: UserInfoResponse.self) { response in
                 switch response.result {
@@ -319,14 +320,14 @@ class ApiManager: ObservableObject {
                }
     }
     
-    func statusFriendRequest(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func statusFriendRequest(userId: String, completion: @escaping (Result<RequestStatus, Error>) -> Void) {
         AF.request("\(url)/user/friendship-status/\(userId)", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: RequestStatus.self) { response in
                 print(response.result)
                 switch response.result {
                 case .success(let requestStatus):
-                    completion(.success(requestStatus.request_status))
+                    completion(.success(requestStatus))
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -431,20 +432,17 @@ class ApiManager: ObservableObject {
     
     
     func getToiletsAdded(string: String, completion: @escaping (Result<[BathroomApi], Error>) -> Void) {
-        AF.request("\(url)/user/list-user-toilets\(string)", method: .get, headers: headers)
+        AF.request("\(url)/toilet/list-user-toilets\(string)", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
-            .responseString{res in
-                print(res)
+            .responseDecodable(of: SearchBath.self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    print(responseB)
+                    completion(.success(responseB.results ?? []))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
-//        Decodable(of: SearchBath.self) { response in
-//                switch response.result {
-//                case .success(let responseB):
-//                    print(responseB)
-//                    completion(.success(responseB.results ?? []))
-//                case .failure(let error):
-//                    completion(.failure(error))
-//                }
-//            }
     }
     
     

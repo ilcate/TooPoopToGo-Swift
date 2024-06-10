@@ -596,28 +596,42 @@ struct ProfilePictureCustom: View {
     }
 }
 
+import SwiftUI
 
-struct ProfileP :View {
-    let link : String
-    let size : CGFloat
-    let padding : CGFloat
+struct ProfileP: View {
+    let link: String
+    let size: CGFloat
+    let padding: CGFloat
     
     var body: some View {
-        VStack{
+        VStack {
             if let photoURL = URL(string: link) {
                 AsyncImage(url: photoURL) { phase in
                     switch phase {
+                    case .empty:
+                        Image("noPhoto")
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(Circle())
+                            .frame(width: size, height: size)
                     case .success(let image):
                         image
                             .resizable()
                             .scaledToFill()
                             .clipShape(Circle())
-                    default:
+                            .frame(width: size, height: size)
+                    case .failure:
                         Image("noPhoto")
                             .resizable()
                             .scaledToFill()
                             .clipShape(Circle())
-                        
+                            .frame(width: size, height: size)
+                    @unknown default:
+                        Image("noPhoto")
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(Circle())
+                            .frame(width: size, height: size)
                     }
                 }
             } else {
@@ -625,9 +639,9 @@ struct ProfileP :View {
                     .resizable()
                     .scaledToFill()
                     .clipShape(Circle())
+                    .frame(width: size, height: size)
             }
         }
-        .frame(width: size, height: size)
         .padding(.leading, padding)
     }
 }

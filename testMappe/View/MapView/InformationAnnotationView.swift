@@ -21,7 +21,7 @@ struct InformationOfSelectionView: View {
                 NavigationLink(destination: DetailBathroom(mapViewModel:mapViewModel, bathroom: bathroom )) {
                     HStack(spacing: 0) {
                         if !loading{
-                            if let photos = bathroom.photos, !photos.isEmpty, let photo = photos.first?.photo, let url = URL(string: "\(api.url)\(photo)") {
+                            if let photos = bathroom.photos, !photos.isEmpty, let photo = photos.first?.photo, let url = photo.hasPrefix("http://") ? URL(string: photo.replacingOccurrences(of: "http://", with: "https://")) : URL(string: "\(api.url)\(photo)") {
                                 AsyncImage(url: url) { image in
                                     image
                                         .resizable()

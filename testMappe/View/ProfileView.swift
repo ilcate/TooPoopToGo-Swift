@@ -26,7 +26,7 @@ struct ProfileView: View {
         .sheet(isPresented: $profileModel.openSheetUploadImage, onDismiss: {
             profileModel.openSheetUploadImage = false
             if !profileModel.imagesNewAnnotation.isEmpty {
-                api.uploadProfilePicture(image: profileModel.imagesNewAnnotation[0], userId: profileModel.userInfo.id) { result in
+                api.uploadProfilePicture(image: profileModel.imagesNewAnnotation[0]) { result in
                     switch result {
                     case .success(let resp):
                         profileModel.updateUserInfo(newUserInfo: resp)

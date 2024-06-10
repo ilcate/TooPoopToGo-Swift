@@ -109,7 +109,7 @@ final class OnBoardingModel: ObservableObject {
                             case .success(let token):
                                 api.saveToken(token: token)
                                 let renderer = ImageRenderer(content: ProfilePictureCustom()).uiImage
-                                api.uploadProfilePicture(image: renderer!, userId: api.userId) { resp in
+                                api.uploadProfilePicture(image: renderer!) { resp in
                                     print(resp)
                                 }
                             case .failure:

@@ -50,8 +50,11 @@ struct MapButtonsView: View {
                                 .padding(.trailing, -24)
                                 .focused($isFocused)
                                 .onTapGesture {
-                                    isTexting.texting = true
-                                    isTexting.page = true
+                                    if isFocused {
+                                        isTexting.texting = true
+                                        isTexting.page = true
+                                    }
+                                   
                                 }
                                 .onChange(of: isFocused) { oldValue, newValue in
                                     if !isFocused {
