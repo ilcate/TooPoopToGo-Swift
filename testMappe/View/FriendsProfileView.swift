@@ -12,7 +12,7 @@ struct FriendsProfileView: View {
     @State var id : String
     @State var userSelected = UserInfoResponse(username: "", photo_user: "", id: "" , friends_number: 0, badges: [""])
     @State var uslessBool = false
-    @State var status = "none"
+    @State var status = RequestStatus(request_status: "none", friend_request_id: "")
     @StateObject var profileModel = ProfileModel()
     @ObservedObject var mapViewModel : MapModel
     
@@ -36,9 +36,9 @@ struct FriendsProfileView: View {
                 api.statusFriendRequest(userId: id) { result in
                     switch result {
                     case .success(let friendStatus):
-                        status = friendStatus
+                        status.request_status = friendStatus
                     case .failure:
-                        status = "none"
+                        status = RequestStatus(request_status: "none", friend_request_id: "")
                     }
                 }
         

@@ -72,12 +72,11 @@ struct ImageSliderDetailBathroom: View {
                             dismiss()
                         }
                     Spacer()
-                    
-                    Image("Share")
-                        .uiButtonStyle(backgroundColor: .white)
-                        .onTapGesture {
-                            print("cercare di capire come farla")
-                        }
+                    ShareLink(item: "Hi, I suggest you to open Too Poop To Go and search for “\(bathroom.name!)”, it could save you in case of need") {
+                        Image("Share")
+                            .uiButtonStyle(backgroundColor: .white)
+                    }
+                        
                 }.padding(.top, bathroom.photos?.count == 1 ? 28 : 8)
                 Spacer()
             }.padding(.horizontal, 20)

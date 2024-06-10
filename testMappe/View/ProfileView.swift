@@ -5,7 +5,7 @@ struct ProfileView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var api: ApiManager
     @StateObject var profileModel = ProfileModel()
-    @State var status = "none"
+    @State var status = RequestStatus(request_status: "none", friend_request_id: "")
     @ObservedObject var mapViewModel : MapModel
     
     

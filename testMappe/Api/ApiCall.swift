@@ -433,15 +433,18 @@ class ApiManager: ObservableObject {
     func getToiletsAdded(string: String, completion: @escaping (Result<[BathroomApi], Error>) -> Void) {
         AF.request("\(url)/user/list-user-toilets\(string)", method: .get, headers: headers)
             .validate(statusCode: 200..<300)
-            .responseDecodable(of: SearchBath.self) { response in
-                switch response.result {
-                case .success(let responseB):
-                    print(responseB)
-                    completion(.success(responseB.results ?? []))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
+            .responseString{res in
+                print(res)
             }
+//        Decodable(of: SearchBath.self) { response in
+//                switch response.result {
+//                case .success(let responseB):
+//                    print(responseB)
+//                    completion(.success(responseB.results ?? []))
+//                case .failure(let error):
+//                    completion(.failure(error))
+//                }
+//            }
     }
     
     

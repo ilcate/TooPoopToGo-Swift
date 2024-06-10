@@ -241,7 +241,8 @@ struct PoopStreak: Decodable {
 }
 
 struct RequestStatus: Decodable {
-    let request_status: String
+    var request_status: String
+    let friend_request_id : String
 }
 
 

@@ -16,7 +16,7 @@ struct UserInformationStandards: View {
     let username : String
     let friendsNumber: Int
     let id: String
-    @Binding var status: String
+    @Binding var status: RequestStatus
     @ObservedObject var mapViewModel: MapModel
     
     
@@ -51,7 +51,7 @@ struct UserInformationStandards: View {
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 32, fontColor: .accent)
                         .padding(.bottom, -2)
                     HStack{
-                        if !isYourProfile &&  status != "pending" && status != "accepted" {
+                        if !isYourProfile &&  status.request_status != "pending" && status.request_status  != "accepted" {
                             VStack{
                                 Text("Send Request")
                                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .cLightBrown).padding(.horizontal, 10).padding(.vertical, 2)
@@ -61,9 +61,9 @@ struct UserInformationStandards: View {
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             .onTapGesture {
                                 api.sendFriendRequest(userId: id)
-                                status = "pending"
+                                status.request_status  = "pending"
                             }
-                        } else if !isYourProfile && status != "accepted" && status == "pending" {
+                        } else if !isYourProfile && status.request_status  != "accepted" && status.request_status  == "pending" {
                             VStack{
                                 Text("Request Sent")
                                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .white).padding(.horizontal, 10).padding(.vertical, 2)
@@ -73,12 +73,13 @@ struct UserInformationStandards: View {
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             
                             
-                        } else if !isYourProfile && status == "accepted" && status != "pending" {
+                        } else if !isYourProfile && status.request_status  == "accepted" && status.request_status  != "pending" {
                             VStack{
                                 Text("Remove Friend")
                                     .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .white).padding(.horizontal, 10).padding(.vertical, 2)
                                     .onTapGesture{
-                                        api.removeFriend(userId: id)
+                                        api.removeFriend(userId: status.friend_request_id)
+                                        status.request_status = "none"
                                     }
                                 
                             }
@@ -156,7 +157,7 @@ struct OtherInformationUser: View {
                        
                     }.padding(.bottom, -14)
                 }else{
-                    Text("No bathroom completed")
+                    Text("No badge completed")
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 17, fontColor: .accent)
                         .padding()
                         .frame(maxWidth: .infinity, minHeight: 90)

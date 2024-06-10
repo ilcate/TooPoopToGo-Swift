@@ -102,6 +102,7 @@ final class ProfileModel: ObservableObject{
             api.getToiletsAdded(string: isSelf ? "" : "/\(self.userInfo.id)") { result in
                 switch result {
                 case .success(let allBath):
+                    
                     DispatchQueue.main.async {
                         self.userToilet = allBath.map { bath in
                             BathroomApi(
