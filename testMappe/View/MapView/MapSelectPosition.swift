@@ -10,6 +10,7 @@ struct MapSelectPositionView: View {
             VStack{
                 Image("marker")
                     .resizable()
+                    .renderingMode(.original)
                     .frame(width: 40, height: 49)
                     .padding(.bottom, 50)
             }

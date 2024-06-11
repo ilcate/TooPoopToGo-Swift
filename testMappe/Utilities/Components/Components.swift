@@ -105,8 +105,9 @@ struct TextFieldCustom: View {
             TextField("Insert here", text: $stateVariable)
                 .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 18, fontColor: .accent)
                 .onChange(of: stateVariable) { oldValue, newValue in
-                    if newValue.count > 110 {
-                        stateVariable = String(newValue.prefix(110))
+                    let limit = (name == "Location Name") ? 20 : 110
+                    if newValue.count > limit {
+                        stateVariable = String(newValue.prefix(limit))
                     }
                 }
                 .padding(.horizontal, 16)
@@ -123,6 +124,7 @@ struct TextFieldCustom: View {
         }
     }
 }
+
 
 
 struct HeaderView:  View {

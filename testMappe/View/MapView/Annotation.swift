@@ -33,7 +33,7 @@ struct Annotation: View {
                 .frame(width: 16, height: 4)
                 .opacity(0.3)
                 .blur(radius: 0.5)
-                .padding(.top, -2)
+                .padding(.top, -4)
         }
     }
     func imageToDisplay() -> String{

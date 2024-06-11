@@ -9,7 +9,7 @@ struct SheetAddAn: View {
     @EnvironmentObject var isTexting: IsTexting
     @EnvironmentObject var api: ApiManager
     @ObservedObject var mapViewModel: MapModel
-    //TODO: refactora la gestione degli errori
+
     @State var showError = false
     @State var textError = "Name and comment are required"
     @State var clicked = false
@@ -32,7 +32,7 @@ struct SheetAddAn: View {
                        
                         ScrollView {
                             VStack(spacing: 16) {
-                                TextFieldCustom(stateVariable: $mapViewModel.nameNewAnnotation,  name: "Location Name" )
+                                TextFieldCustom(stateVariable: $mapViewModel.nameNewAnnotation,  name: "Location Name")
                                 TypeSelectionView(optionsDropDown: $mapViewModel.optionsDropDown)
                                 TextFieldCustom(stateVariable : $mapViewModel.descNewAnnotation ,  name: "Leave a comment")
                                 ImageSelectionView(imagesNewAnnotation: $mapViewModel.imagesNewAnnotation, openSheetUploadImage: $mapViewModel.openSheetUploadImage, photosPickerItems: $mapViewModel.photosPikerItems)

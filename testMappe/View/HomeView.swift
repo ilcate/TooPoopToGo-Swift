@@ -59,7 +59,7 @@ struct HomeView: View {
                         
                         Spacer()
                     }.background(
-                        Image("ImagePlaceHolder6")
+                        Image("TipBG")
                             .resizable()
                             .scaledToFill()
                             .frame(maxWidth: .infinity, maxHeight: 170)
@@ -74,15 +74,7 @@ struct HomeView: View {
                     StreakButtons(homeModel: homeModel)
                     
                     SliderNextToYou(homeModel: homeModel, mapViewModel: mapViewModel)
-                    
-//                    VStack(spacing: 6){
-//                        HStack{
-//                            Text("Friends Reviews")
-//                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
-//                            Spacer()
-//                        }.padding(.horizontal, 20)
-//                        ReviewsScroller(reviews: names)
-//                    }.padding(.bottom, 12)
+                 
                     
                 }
             }

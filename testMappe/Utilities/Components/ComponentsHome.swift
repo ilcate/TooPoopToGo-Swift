@@ -115,7 +115,7 @@ struct StreakButtons: View {
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity, maxHeight: 140)
                 .background(
-                    Image("ImagePlaceHolder8")
+                    Image("StreakGoing")
                         .resizable()
                         .scaledToFill()
                 )
