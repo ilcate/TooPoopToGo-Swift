@@ -51,6 +51,7 @@ struct Review: Decodable, Identifiable, Equatable, Hashable {
     let id: String
     let user: UserRev
     let createdAt: String
+    let toilet: String?
 
     enum CodingKeys: String, CodingKey {
         case cleanlinessRating = "cleanliness_rating"
@@ -60,6 +61,7 @@ struct Review: Decodable, Identifiable, Equatable, Hashable {
         case id
         case user
         case createdAt = "created_at"
+        case toilet 
     }
 
     
@@ -315,4 +317,17 @@ struct HasRated: Decodable {
 
 struct PersonalRev: Decodable {
     let results : [AddRating]
+}
+
+
+struct TipList: Decodable{
+    let results: [Tip]
+}
+
+
+struct Tip: Decodable, Identifiable, Hashable{
+    let id: String
+    let title: String
+    let description: String
+    let tip_photo: String
 }

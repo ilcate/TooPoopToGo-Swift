@@ -498,4 +498,30 @@ class ApiManager: ObservableObject {
             }
     }
     
+    func getTip(completion: @escaping (Result<[Tip], Error>) -> Void){
+        AF.request("\(url)/user/list-tips", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: TipList.self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB.results))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    func getRatingsOfFriends(completion: @escaping (Result<[Review], Error>) -> Void) {
+        AF.request("\(url)/user/list-friends-ratings", method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: ListOFRewievs.self) { response in
+                switch response.result {
+                case .success(let responseB):
+                    completion(.success(responseB.results ?? []))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
 }

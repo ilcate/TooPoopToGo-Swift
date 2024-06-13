@@ -121,7 +121,7 @@ struct TextFieldCustom: View {
                     Capsule()
                         .stroke(Color.accent, lineWidth: isFocused ? 3 : 0)
                 )
-        }
+        } .ignoresSafeArea(.keyboard)
     }
 }
 
@@ -180,7 +180,7 @@ struct HeadersViewPages: View {
     
     var body: some View {
         HStack{
-            NavigationLink(destination: ProfileView(mapViewModel: mapViewModel)) {
+            NavigationLink(destination: ProfileView( mapViewModel: mapViewModel, isYourProfile: true)) {
                 Image("Profile")
                     .uiButtonStyle(backgroundColor: .white)
             }
@@ -250,7 +250,7 @@ struct HeadersFeedView: View {
                 
                 if !isSearching {
                     HStack{
-                        NavigationLink(destination: ProfileView(mapViewModel: mapViewModel)) {
+                        NavigationLink(destination:  ProfileView( mapViewModel: mapViewModel, isYourProfile: true)) {
                             Image("Profile")
                                 .uiButtonStyle(backgroundColor: .white)
                         }
@@ -311,9 +311,9 @@ struct FeedNotification : View {
                 if  notification.content_type == "friend_request" {
                     NavigationLink(destination: {
                         if userInformation.id == api.userId {
-                            ProfileView(mapViewModel: mapViewModel)
+                            ProfileView( mapViewModel: mapViewModel, isYourProfile: true)
                         } else {
-                            FriendsProfileView(id: userInformation.id, mapViewModel: mapViewModel)
+                            ProfileView( id: userInformation.id, mapViewModel: mapViewModel, isYourProfile: false)
                         }
                     }) {
                         ProfileP(link: userInformation.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "" , size: 44, padding: 0)
@@ -449,21 +449,23 @@ struct ButtonFeed: View {
 struct ReviewTemp: View {
     let review: Review
     let isProfile : Bool
+    let isShort : Bool
     @State var ratingAVG = ""
     @EnvironmentObject var api : ApiManager
     @ObservedObject var mapViewModel : MapModel
     
     
     var body: some View {
+        
         VStack {
             HStack {
             if !isProfile {
                 NavigationLink(destination: {
 
                     if review.user.id == api.userId{
-                        ProfileView(mapViewModel: mapViewModel)
+                        ProfileView( mapViewModel: mapViewModel, isYourProfile: true)
                     } else {
-                        FriendsProfileView(id: review.user.id, mapViewModel: mapViewModel)
+                        ProfileView( id: review.user.id, mapViewModel: mapViewModel, isYourProfile: true)
                     }
                     
                     
@@ -499,6 +501,11 @@ struct ReviewTemp: View {
                 }
             }
             .padding(.horizontal, 16)
+            
+            if !isShort {
+                ExtraInfo( mapViewModel: mapViewModel, bathroomID: review.toilet!)
+            }
+            
             HStack{
                 Text(review.review)
                     .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accent)
@@ -510,7 +517,7 @@ struct ReviewTemp: View {
             Spacer()
         }
         .padding(.top, 12)
-        .frame(maxWidth: .infinity, minHeight: 144, maxHeight: 144)
+        .frame(maxWidth: .infinity, minHeight: isShort ? 144 : 224, maxHeight: isShort ? 144 : 224)
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .containerRelativeFrame(.horizontal, count: 1, spacing: 20)
@@ -523,6 +530,67 @@ struct ReviewTemp: View {
     
 }
 
+struct ExtraInfo: View {
+    @EnvironmentObject var api: ApiManager
+    @ObservedObject var mapViewModel : MapModel
+    @State var bathroomInfo = BathroomApi()
+    let bathroomID: String
+    
+    var body: some View {
+        NavigationLink(destination: DetailBathroom(mapViewModel: mapViewModel, bathroom: BathroomApi(id: bathroomInfo.id, photos: bathroomInfo.photos, name: bathroomInfo.name, address: bathroomInfo.address, coordinates: bathroomInfo.coordinates, place_type: bathroomInfo.place_type, is_for_disabled: bathroomInfo.is_for_disabled, is_free: bathroomInfo.is_free, is_for_babies: bathroomInfo.is_for_babies, tags: bathroomInfo.tags, updated_at: bathroomInfo.updated_at))){
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(bathroomInfo.name?.capitalized ?? "Loading")
+                        .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 22, fontColor: .accent)
+                        .padding(.top, -2)
+                    Text(getStreet(bathroomInfo.address ?? "Loading address"))
+                        .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
+                }
+                Spacer()
+                if let photoURLString = bathroomInfo.photos?.first?.photo!,
+                   let url = URL(string: "\(api.url)\(photoURLString)") {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 65, height: 65)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    } placeholder: {
+                        Image("noPhoto")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 65, height: 65)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    }
+                } else {
+                    Image("noPhoto")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 65, height: 65)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 10)
+            .background(Color.cLightBrown)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .padding(.horizontal, 12)
+            .frame(maxWidth: .infinity, maxHeight: 85)
+            .task {
+                api.getSingleBathroom(id: bathroomID) { resp in
+                    switch resp {
+                    case .success(let responseB):
+                        bathroomInfo = responseB
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
+        }
+        
+    }
+}
+
 
 
 
@@ -532,6 +600,7 @@ struct ReviewTemp: View {
 struct ReviewsScroller: View {
     let reviews: [Review]?
     let isProfile : Bool
+    let isShort : Bool
     @ObservedObject var mapViewModel: MapModel
     
     var body: some View {
@@ -541,7 +610,7 @@ struct ReviewsScroller: View {
                     if let reviews = reviews {
                         ForEach(reviews, id: \.self) { review in
                             if !review.review.isEmpty{
-                                ReviewTemp(review: review, isProfile: isProfile, mapViewModel: mapViewModel)
+                                ReviewTemp(review: review, isProfile: isProfile, isShort: isShort, mapViewModel: mapViewModel)
                             }
                         }
                         if reviews.count == 1 && reviews[0].review == "" {

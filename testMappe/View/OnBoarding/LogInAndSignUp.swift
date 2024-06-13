@@ -28,6 +28,7 @@ struct LogInAndSignUp: View {
                     Text("Password")
                         .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
                         .padding(.bottom, -3)
+                    
                     Spacer()
                 }
                 HStack {
@@ -66,6 +67,17 @@ struct LogInAndSignUp: View {
                     Capsule()
                         .stroke(Color.accent, lineWidth: isFocused ? 3 : 0)
                 )
+                
+                
+                HStack{
+                    Spacer()
+                    if isLogIn {
+                        Link("Forgot Password?", destination: URL(string: "https://www.toopooptogo.com/password-reset")!)
+                            .font(.custom("Manrope-Bold", size: 14))
+                            .foregroundStyle(.accent)
+                    }
+                }
+                
             }
             .padding(.horizontal, 20)
             if !oBModel.everithingOklog {
@@ -111,5 +123,6 @@ struct LogInAndSignUp: View {
         .navigationBarBackButtonHidden(true)
         .padding(.top, 8)
         .background(Color.cLightBrown)
+        .ignoresSafeArea(.keyboard)
     }
 }

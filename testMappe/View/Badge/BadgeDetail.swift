@@ -59,7 +59,7 @@ struct BadgeDetail: View {
                 Spacer()
                 
                 
-                if !completed || com != 100 {
+                if !completed {
                     ZStack{
                         GeometryReader { geometry in
                             Rectangle()

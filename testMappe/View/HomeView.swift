@@ -16,6 +16,8 @@ struct HomeView: View {
     @EnvironmentObject var api: ApiManager
     @ObservedObject var mapViewModel: MapModel
     @StateObject var homeModel = HomeModel()
+    @State var friendReviews : [Review] = []
+
     
 //    @State private var names = ["MistroFino", "Pisellone", "PerAssurdo", "Filippino"]
     @State private var streak = 0
@@ -30,59 +32,42 @@ struct HomeView: View {
             Spacer()
             ScrollView{
                 LazyVStack{
-                    VStack{
-                        HStack{
-                            HStack(spacing: 2){
-                                Image("Advice")
-                                    .renderingMode(.original)
-                                Text("Daily Advice")
-                                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 12, fontColor: .accent)
-                            }
-                            .padding(.leading, 7).padding(.trailing, 6).padding(.vertical, 1)
-                            .background(.ultraThickMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 1000))
-                            Spacer()
-                            
-                            
-                        }.padding(.leading, 16).padding(.top, 16)
-                        Spacer()
-                        VStack{
-                            HStack{
-                                Text("Mind Your Fiber Intake")
-                                    .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 22, fontColor: .accent)
-                                Spacer()
-                            }.padding(.leading, 4)
-                            Text("Incorporate fiber-rich foods like fruits, vegetables, and whole grains into your diet to promote smooth and effortless pooping.")
-                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 13, fontColor: .accent)
-                        }.padding(.horizontal, 15).padding(.bottom, 8)
-                        
-                        
-                        Spacer()
-                    }.background(
-                        Image("TipBG")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(maxWidth: .infinity, maxHeight: 170)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                    )
-                    .padding(.horizontal, 20)
-                    .frame(maxWidth: .infinity, maxHeight: 170)
-                    .padding(.top, 8)
+                    TipView()
                     
                     NextBadge()
                     
                     StreakButtons(homeModel: homeModel)
                     
                     SliderNextToYou(homeModel: homeModel, mapViewModel: mapViewModel)
+                    
+                    
+                    HStack {
+                        Text("Friends Reviews")
+                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
+                            .padding(.vertical, -1)
+                        Spacer()
+                    }
+                    .padding(.horizontal, 20)
+                    ReviewsScroller(reviews: friendReviews, isProfile: false, isShort: false, mapViewModel: mapViewModel)
+                        .padding(.bottom, 20)
                  
                     
                 }
+               
             }
             
             
         }.background(.cLightBrown)
             .task {
                 homeModel.fetchPS(api: api)
+                api.getRatingsOfFriends(){ resp in
+                    switch resp {
+                    case .success(let rev):
+                         friendReviews = rev
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
             }
     }
 }

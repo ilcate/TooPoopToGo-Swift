@@ -127,7 +127,7 @@ struct OtherInformationUser: View {
                 VStack(spacing: 8) {
                     HStack {
                         Text("Badges")
-                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .accent)
+                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
                         Spacer()
                     } .padding(.horizontal, 20)
                     if !profileModel.userBadges.isEmpty{
@@ -174,15 +174,15 @@ struct OtherInformationUser: View {
                 VStack(spacing: 8) {
                     HStack {
                         Text("Reviews")
-                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .accent)
+                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
                         Spacer()
                     } .padding(.horizontal, 20)
-                    ReviewsScroller(reviews: profileModel.userRatings, isProfile: true, mapViewModel: mapViewModel)
+                    ReviewsScroller(reviews: profileModel.userRatings, isProfile: true, isShort: false, mapViewModel: mapViewModel)
                 }
                 VStack(spacing: 8) {
                     HStack {
                         Text("Toilet Created")
-                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 22, fontColor: .accent)
+                            .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
                         Spacer()
                     } .padding(.horizontal, 20)
                     if !profileModel.userToilet.isEmpty {
@@ -217,9 +217,11 @@ struct OtherInformationUser: View {
                 }
             } else {
                 VStack{
+                    Spacer()
                     LottieView(animation: .named("LoadingAnimation.json"))
                         .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
-                        .frame(width: 70, height: 70)
+                        .frame(width: 90, height: 90)
+                    Spacer()
                 }
                 
             }
@@ -275,9 +277,10 @@ struct HeaderProfile: View {
 struct UserClickable: View {
     @Binding var user : UserInfoResponse
     @ObservedObject var mapViewModel: MapModel
+    @EnvironmentObject var api: ApiManager
     
     var body: some View {
-        NavigationLink(destination: FriendsProfileView(id: user.id, mapViewModel: mapViewModel)) {
+        NavigationLink(destination: ProfileView( id: user.id, mapViewModel: mapViewModel, isYourProfile: user.id == api.userId ? true : false )) {
             HStack {
                 ProfileP(link: user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
                     .padding(.trailing, 8)

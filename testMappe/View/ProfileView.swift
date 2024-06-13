@@ -4,25 +4,47 @@ import Alamofire
 struct ProfileView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var api: ApiManager
-    @StateObject var profileModel = ProfileModel()
+    @State var id: String? = nil // This will be nil for the user's own profile
+    @State var userSelected = UserInfoResponse(username: "Loading...", photo_user: "", id: "" , friends_number: 0, badges: [""])
     @State var status = RequestStatus(request_status: "none", friend_request_id: "")
+    @StateObject var profileModel = ProfileModel()
     @ObservedObject var mapViewModel : MapModel
-    
-    
+    @State var isYourProfile: Bool = true
+
     var body: some View {
         ZStack {
             VStack {
-                UserInformationStandards(profilePicture: profileModel.userInfo.photo_user!, isYourProfile: true, openSheetUploadImage: $profileModel.openSheetUploadImage, username: profileModel.userInfo.username, friendsNumber: profileModel.userInfo.friends_number ?? 0, id: profileModel.userInfo.id, status: $status, mapViewModel: mapViewModel)
-                OtherInformationUser(profileModel: profileModel,mapViewModel: mapViewModel, isYourself: true, userId: profileModel.userInfo.id)
+                UserInformationStandards(profilePicture: (isYourProfile ? profileModel.userInfo.photo_user! : userSelected.photo_user!).replacingOccurrences(of: "http://", with: "https://"), isYourProfile: isYourProfile, openSheetUploadImage: $profileModel.openSheetUploadImage, username: isYourProfile ? profileModel.userInfo.username : userSelected.username, friendsNumber: isYourProfile ? (profileModel.userInfo.friends_number ?? 0) : userSelected.friends_number!, id: isYourProfile ? profileModel.userInfo.id : userSelected.id, status: $status, mapViewModel: mapViewModel)
+                OtherInformationUser(profileModel: profileModel, mapViewModel: mapViewModel, isYourself: isYourProfile, userId: isYourProfile ? profileModel.userInfo.id : userSelected.id)
                 Spacer()
             }
-            HeaderProfile(screenName: "Profile", name: profileModel.userInfo.username)
-            .task {
-                profileModel.getProfile(api: api)
-            }
-            .navigationBarBackButtonHidden(true)
+            HeaderProfile(screenName: "Profile", name: isYourProfile ? profileModel.userInfo.username : userSelected.username)
         }
         .background(Color.cLightBrown)
+        .task {
+            if isYourProfile {
+                profileModel.getProfile(api: api)
+            } else {
+                api.getSpecificUser(userId: id!) { resp in
+                    switch resp {
+                    case .success(let info):
+                        userSelected = UserInfoResponse(username: info.username, photo_user: info.photo_user, id: info.id, friends_number: info.friends_number, badges: info.badges)
+                        profileModel.userInfo.id = userSelected.id
+                    case .failure(let error):
+                        print("Error: \(error)")
+                    }
+                }
+                api.statusFriendRequest(userId: id!) { result in
+                    switch result {
+                    case .success(let friendStatus):
+                        status = RequestStatus(request_status: friendStatus.request_status, friend_request_id: friendStatus.friend_request_id)
+                    case .failure:
+                        status = RequestStatus(request_status: "none", friend_request_id: "")
+                    }
+                }
+            }
+        }
+        .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $profileModel.openSheetUploadImage, onDismiss: {
             profileModel.openSheetUploadImage = false
             if !profileModel.imagesNewAnnotation.isEmpty {
@@ -39,9 +61,13 @@ struct ProfileView: View {
         }) {
             ZStack {
                 Color.cLightBrown.ignoresSafeArea(.all)
-                AddImageSheet(photosPickerItems: $profileModel.photosPikerItems, imagesNewAnnotation: $profileModel.imagesNewAnnotation, isMaxFivePhotos: false)
-                    .presentationDetents([.fraction(0.26)])
-                    .presentationCornerRadius(18)
+                AddImageSheet(
+                    photosPickerItems: $profileModel.photosPikerItems,
+                    imagesNewAnnotation: $profileModel.imagesNewAnnotation,
+                    isMaxFivePhotos: false
+                )
+                .presentationDetents([.fraction(0.26)])
+                .presentationCornerRadius(18)
             }
         }
     }

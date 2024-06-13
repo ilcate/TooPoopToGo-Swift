@@ -95,6 +95,7 @@ struct ContentView: View {
         .environmentObject(isTexting)//fa si che tutti i figli abbiatno all'interno l'istanza dell'object e sia uguale in tutte
         .environmentObject(onBoarding)
         .environmentObject(api)
+        .ignoresSafeArea(.keyboard)
     
 }
 }
