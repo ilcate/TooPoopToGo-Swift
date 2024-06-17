@@ -304,7 +304,6 @@ struct FeedNotification : View {
     @ObservedObject var mapViewModel: MapModel
     @State var bathroom =  BathroomApi()
     
-    
     var body: some View {
         VStack{
             HStack{
@@ -355,19 +354,34 @@ struct FeedNotification : View {
                     .normalTextStyle(fontName: "Manrope-Medium", fontSize: 17, fontColor: .cLightBrown50)
                     .padding(.bottom, -2.5)
                 Spacer()
-                if notification.content_type == "friend_request" {
+                if notification.friend_request?.request_status != nil && notification.content_type == "friend_request" {
                     if notification.friend_request!.request_status == "accepted" {
                         ButtonFeed(text: "Accepted")
                     }else{
                         ButtonFeed(text: "Accept")
                             .onTapGesture {
-                                api.acceptFriendRequest(userId: notification.friend_request!.id)
-                                feedModel.getFeedUpdated(api: api)
+                                feedModel.acceptFriendRequest(api: api, id: notification.friend_request!.id) { res in
+                                    switch res {
+                                    case .success:
+                                        feedModel.getFeedUpdated(api: api)
+                                    case .failure:
+                                        print("failed")
+                                    }
+                                }
+                                
                             }
                         ButtonFeed(text: "Decline")
                             .onTapGesture {
-                                api.rejectFriendRequest(userId: notification.friend_request!.id)
-                                feedModel.getFeedUpdated(api: api)
+                                feedModel.rejectFriendRequest(api: api, id: notification.friend_request!.id) { res in
+                                    switch res {
+                                    case .success:
+                                        feedModel.getFeedUpdated(api: api)
+                                    case .failure:
+                                        print("failed")
+
+                                    
+                                    }
+                                }
                             }
                         
                     }

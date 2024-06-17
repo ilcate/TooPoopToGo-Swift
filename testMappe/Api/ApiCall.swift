@@ -296,19 +296,29 @@ class ApiManager: ObservableObject {
                }
     }
     
-    func acceptFriendRequest(userId: String) {
+    func acceptFriendRequest(userId: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         AF.request("\(url)/user/accept-friend-request/\(userId)", method: .patch, headers: headers)
                .validate(statusCode: 200..<300)
                .responseString { response in
-                   print(response)
+                   switch response.result {
+                   case .success(let requestStatus):
+                       completion(.success(true))
+                   case .failure(let error):
+                       completion(.success(false))
+                   }
                }
     }
     
-    func rejectFriendRequest(userId: String) {
+    func rejectFriendRequest(userId: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         AF.request("\(url)/user/reject-friend-request/\(userId)", method: .patch, headers: headers)
                .validate(statusCode: 200..<300)
                .responseString { response in
-                   print(response)
+                   switch response.result {
+                   case .success(let requestStatus):
+                       completion(.success(true))
+                   case .failure(let error):
+                       completion(.success(false))
+                   }
                }
     }
     

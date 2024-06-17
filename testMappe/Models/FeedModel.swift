@@ -17,6 +17,31 @@ final class FeedModel: ObservableObject {
         }
     }
     
+    func rejectFriendRequest(api: ApiManager, id: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        api.rejectFriendRequest(userId: id) { result in
+            switch result {
+            case .success(let success):
+                completion(.success(success))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
+    func acceptFriendRequest(api: ApiManager, id: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        api.acceptFriendRequest(userId: id) { result in
+            switch result {
+            case .success(let success):
+                completion(.success(success))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+
+    
     func getSpecificBathroom(api: ApiManager, id : String, completion: @escaping (Result<BathroomApi, Error>) -> Void) {
         api.getSingleBathroom(id: id) { resp in
             switch resp {
