@@ -14,7 +14,6 @@ import CoreLocation
 
 struct HomeView: View {
     @EnvironmentObject var api: ApiManager
-    @ObservedObject var mapViewModel: MapModel
     @StateObject var homeModel = HomeModel()
     @State var friendReviews : [Review] = []
 
@@ -24,7 +23,7 @@ struct HomeView: View {
     
     var body: some View {
         VStack{
-            HeadersViewPages(PageName: "Home", mapViewModel: mapViewModel)
+            HeadersViewPages(PageName: "Home")
                 .onAppear{
                     let locationManager = CLLocationManager()
                     locationManager.requestWhenInUseAuthorization()
@@ -38,7 +37,7 @@ struct HomeView: View {
                     
                     StreakButtons(homeModel: homeModel)
                     
-                    SliderNextToYou(homeModel: homeModel, mapViewModel: mapViewModel)
+                    SliderNextToYou(homeModel: homeModel)
                     
                     
                     HStack {
@@ -48,7 +47,7 @@ struct HomeView: View {
                         Spacer()
                     }
                     .padding(.horizontal, 20)
-                    ReviewsScroller(reviews: friendReviews, isProfile: false, isShort: false, mapViewModel: mapViewModel)
+                    ReviewsScroller(reviews: friendReviews, isProfile: false, isShort: false)
                         .padding(.bottom, 20)
                  
                     

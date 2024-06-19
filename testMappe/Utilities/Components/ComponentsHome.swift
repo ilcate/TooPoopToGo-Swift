@@ -6,7 +6,7 @@ import SDWebImageSwiftUI
 struct SliderNextToYou: View {
     @ObservedObject var homeModel: HomeModel
     @EnvironmentObject var api: ApiManager
-    @ObservedObject var mapViewModel: MapModel
+    @EnvironmentObject var mapViewModel: MapModel
     
     var body: some View {
         VStack(spacing: 6) {
@@ -312,19 +312,14 @@ struct TipView: View {
                             Spacer()
                         }
                         .background(
-                            AsyncImage(url: URL(string: tip.tip_photo.replacingOccurrences(of: "http://", with: "https://"))) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                            } placeholder: {
-                                Image("TipBG")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                            }
+                            CustomAsyncImage(
+                                imageUrlString: tip.tip_photo,
+                                placeholderImageName: "TipBG",
+                                size: CGSize(width: 350, height: 145),
+                                shape: .rectangle(cornerRadius: 16),
+                                maxFrame: false
+                            )
+                            
                         )
                         .frame( width: 350, height: 145)
                         .padding(.horizontal, 20)

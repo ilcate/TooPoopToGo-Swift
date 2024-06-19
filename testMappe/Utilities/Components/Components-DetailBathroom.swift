@@ -125,7 +125,7 @@ struct ImageSliderDetailBathroom: View {
 
 struct RatingsBathroomDetail: View {
     @Binding var informationStat: GetRatingStats
-    @State var starToDisplay: [Int] = [5, 5, 5] // Default to 5 stars if values are unavailable
+    @State var starToDisplay: [Int] = [5, 5, 5] 
     
     var body: some View {
         VStack {
@@ -280,7 +280,7 @@ struct ReviewsBathroomDetail: View {
                 .padding(.top, 8)
                 .padding(.bottom, 2)
                 
-                ReviewsScroller(reviews: mapViewModel.names, isProfile: false, isShort: true, mapViewModel: mapViewModel)
+                ReviewsScroller(reviews: mapViewModel.names, isProfile: false, isShort: true)
                 
                 Spacer()
                 

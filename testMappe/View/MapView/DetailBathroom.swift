@@ -4,7 +4,7 @@ import SwiftUI
 struct DetailBathroom: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var api: ApiManager
-    @ObservedObject var mapViewModel: MapModel
+    @EnvironmentObject var mapViewModel: MapModel
     @State private var openSheetNavigate = false
     @State var userHasRated = true
     @State private var openSheetAddReview = false

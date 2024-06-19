@@ -87,7 +87,7 @@ struct MapButtonsView: View {
                         )
                         
                         if  !mapViewModel.search {
-                            NavigationLink(destination: ProfileView( mapViewModel: mapViewModel, isYourProfile: true)) {
+                            NavigationLink(destination: ProfileView( isYourProfile: true)) {
                                 Image("Profile")
                                     .uiButtonStyle(backgroundColor: .white)
                             }

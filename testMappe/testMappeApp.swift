@@ -36,6 +36,7 @@ struct TooPoopToGo: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+            
         }
     }
 }

@@ -18,7 +18,7 @@ struct InformationOfSelectionView: View {
     var body: some View {
         VStack {
             if !bathroom.name!.isEmpty {
-                NavigationLink(destination: DetailBathroom(mapViewModel:mapViewModel, bathroom: bathroom )) {
+                NavigationLink(destination: DetailBathroom( bathroom: bathroom )) {
                     HStack(spacing: 0) {
                         if !loading{
                             if let photos = bathroom.photos, !photos.isEmpty, let photo = photos.first?.photo, let url = photo.hasPrefix("http://") ? URL(string: photo.replacingOccurrences(of: "http://", with: "https://")) : URL(string: "\(api.url)\(photo)") {

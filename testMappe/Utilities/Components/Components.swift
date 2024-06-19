@@ -176,11 +176,11 @@ struct HeaderView:  View {
 
 struct HeadersViewPages: View {
     var PageName: String
-    @ObservedObject var mapViewModel: MapModel
+    
     
     var body: some View {
         HStack{
-            NavigationLink(destination: ProfileView( mapViewModel: mapViewModel, isYourProfile: true)) {
+            NavigationLink(destination: ProfileView( isYourProfile: true)) {
                 Image("Profile")
                     .uiButtonStyle(backgroundColor: .white)
             }
@@ -199,7 +199,6 @@ struct HeadersViewPages: View {
 
 struct HeadersFeedView: View {
     @EnvironmentObject var api: ApiManager
-    @ObservedObject var mapViewModel: MapModel
     @EnvironmentObject var isTexting: IsTexting
     @FocusState private var isFocused: Bool
     @Binding var isSearching: Bool
@@ -250,7 +249,7 @@ struct HeadersFeedView: View {
                 
                 if !isSearching {
                     HStack{
-                        NavigationLink(destination:  ProfileView( mapViewModel: mapViewModel, isYourProfile: true)) {
+                        NavigationLink(destination:  ProfileView( isYourProfile: true)) {
                             Image("Profile")
                                 .uiButtonStyle(backgroundColor: .white)
                         }
@@ -301,7 +300,8 @@ struct FeedNotification : View {
     var notification : ResultFeed
     @State var userInformation = UserInfoResponse(username: "", id: "")
     @ObservedObject var feedModel : FeedModel
-    @ObservedObject var mapViewModel: MapModel
+    
+    
     @State var bathroom =  BathroomApi()
     
     var body: some View {
@@ -310,9 +310,9 @@ struct FeedNotification : View {
                 if  notification.content_type == "friend_request" {
                     NavigationLink(destination: {
                         if userInformation.id == api.personalId {
-                            ProfileView( mapViewModel: mapViewModel, isYourProfile: true)
+                            ProfileView( isYourProfile: true)
                         } else {
-                            ProfileView( id: userInformation.id, mapViewModel: mapViewModel, isYourProfile: false)
+                            ProfileView( id: userInformation.id, isYourProfile: false)
                         }
                     }) {
                         ProfileP(link: userInformation.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "" , size: 44, padding: 0)
@@ -378,8 +378,8 @@ struct FeedNotification : View {
                                         feedModel.getFeedUpdated(api: api)
                                     case .failure:
                                         print("failed")
-
-                                    
+                                        
+                                        
                                     }
                                 }
                             }
@@ -394,7 +394,7 @@ struct FeedNotification : View {
                         }
                     
                 } else if notification.content_type == "toilet_approved"{
-                    NavigationLink(destination: DetailBathroom(mapViewModel:mapViewModel, bathroom: bathroom)){
+                    NavigationLink(destination: DetailBathroom( bathroom: bathroom)){
                         ButtonFeed(text: "View Bathroom")
                             .onAppear{
                                 feedModel.getSpecificBathroom(api: api, id: notification.toilet!.id) { res in
@@ -473,37 +473,37 @@ struct ReviewTemp: View {
         
         VStack {
             HStack {
-            if !isProfile {
-                NavigationLink(destination: {
-
-                    if review.user.id == api.personalId {
-                        ProfileView( mapViewModel: mapViewModel, isYourProfile: true)
-                    } else {
-                        ProfileView( id: review.user.id, mapViewModel: mapViewModel, isYourProfile: false)
-                    }
-                    
-                    
-                }) {
-                    HStack {
-                        ProfileP(link: review.user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
-                        VStack(alignment: .leading, spacing: -2) {
-                            Text(review.user.username)
-                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 19, fontColor: .accent)
-                            Text(timeElapsedSince(review.createdAt))
-                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent.opacity(0.4))
+                if !isProfile {
+                    NavigationLink(destination: {
+                        
+                        if review.user.id == api.personalId {
+                            ProfileView( isYourProfile: true)
+                        } else {
+                            ProfileView( id: review.user.id, isYourProfile: false)
+                        }
+                        
+                        
+                    }) {
+                        HStack {
+                            ProfileP(link: review.user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
+                            VStack(alignment: .leading, spacing: -2) {
+                                Text(review.user.username)
+                                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 19, fontColor: .accent)
+                                Text(timeElapsedSince(review.createdAt))
+                                    .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent.opacity(0.4))
+                            }
+                        }
+                    }}else{
+                        HStack {
+                            ProfileP(link: review.user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
+                            VStack(alignment: .leading, spacing: -2) {
+                                Text(review.user.username)
+                                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 19, fontColor: .accent)
+                                Text(timeElapsedSince(review.createdAt))
+                                    .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent.opacity(0.4))
+                            }
                         }
                     }
-                }}else{
-                    HStack {
-                        ProfileP(link: review.user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
-                        VStack(alignment: .leading, spacing: -2) {
-                            Text(review.user.username)
-                                .normalTextStyle(fontName: "Manrope-Bold", fontSize: 19, fontColor: .accent)
-                            Text(timeElapsedSince(review.createdAt))
-                                .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent.opacity(0.4))
-                        }
-                    }
-                }
                 Spacer()
                 HStack(spacing: 4){
                     Image("StarFill")
@@ -551,7 +551,7 @@ struct ExtraInfo: View {
     let bathroomID: String
     
     var body: some View {
-        NavigationLink(destination: DetailBathroom(mapViewModel: mapViewModel, bathroom: BathroomApi(id: bathroomInfo.id, photos: bathroomInfo.photos, name: bathroomInfo.name, address: bathroomInfo.address, coordinates: bathroomInfo.coordinates, place_type: bathroomInfo.place_type, is_for_disabled: bathroomInfo.is_for_disabled, is_free: bathroomInfo.is_free, is_for_babies: bathroomInfo.is_for_babies, tags: bathroomInfo.tags, updated_at: bathroomInfo.updated_at))){
+        NavigationLink(destination: DetailBathroom( bathroom: BathroomApi(id: bathroomInfo.id, photos: bathroomInfo.photos, name: bathroomInfo.name, address: bathroomInfo.address, coordinates: bathroomInfo.coordinates, place_type: bathroomInfo.place_type, is_for_disabled: bathroomInfo.is_for_disabled, is_free: bathroomInfo.is_free, is_for_babies: bathroomInfo.is_for_babies, tags: bathroomInfo.tags, updated_at: bathroomInfo.updated_at))){
             HStack {
                 VStack(alignment: .leading) {
                     Text(bathroomInfo.name?.capitalized ?? "Loading")
@@ -561,28 +561,15 @@ struct ExtraInfo: View {
                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
                 }
                 Spacer()
-                if let photoURLString = bathroomInfo.photos?.first?.photo!,
-                   let url = URL(string: "\(api.url)\(photoURLString)") {
-                    AsyncImage(url: url) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 65, height: 65)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                    } placeholder: {
-                        Image("noPhoto")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 65, height: 65)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                    }
-                } else {
-                    Image("noPhoto")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 65, height: 65)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
+                
+                CustomAsyncImage(
+                    imageUrlString:  bathroomInfo.photos?.first?.photo!,
+                    placeholderImageName: "noPhoto",
+                    size: CGSize(width: 65, height: 65),
+                    shape: .rectangle(cornerRadius: 8),
+                    maxFrame: false
+                )
+                
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
@@ -615,7 +602,7 @@ struct ReviewsScroller: View {
     let reviews: [Review]?
     let isProfile : Bool
     let isShort : Bool
-    @ObservedObject var mapViewModel: MapModel
+    @EnvironmentObject var mapViewModel: MapModel
     
     var body: some View {
         ScrollView(.horizontal) {
@@ -690,43 +677,102 @@ struct ProfileP: View {
     
     var body: some View {
         VStack {
-            if let photoURL = URL(string: link) {
-                AsyncImage(url: photoURL) { phase in
-                    switch phase {
-                    case .empty:
-                        Image("noPhoto")
-                            .resizable()
-                            .scaledToFill()
-                            .clipShape(Circle())
-                            .frame(width: size, height: size)
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .clipShape(Circle())
-                            .frame(width: size, height: size)
-                    case .failure:
-                        Image("noPhoto")
-                            .resizable()
-                            .scaledToFill()
-                            .clipShape(Circle())
-                            .frame(width: size, height: size)
-                    @unknown default:
-                        Image("noPhoto")
-                            .resizable()
-                            .scaledToFill()
-                            .clipShape(Circle())
-                            .frame(width: size, height: size)
+            
+            CustomAsyncImage(
+                imageUrlString: link,
+                placeholderImageName: "noPhoto",
+                size: CGSize(width: size, height: size),
+                shape: .circle,
+                maxFrame: false
+            )
+            
+
+        }
+        .padding(.leading, padding)
+    }
+    
+    
+    
+    
+        
+}
+
+struct CustomAsyncImage: View {
+    @EnvironmentObject var api : ApiManager
+    enum ImageShape {
+        case rectangle(cornerRadius: CGFloat)
+        case circle
+    }
+    
+    var imageUrlString: String?
+    var placeholderImageName: String
+    var size: CGSize?
+    var shape: ImageShape
+    var maxFrame: Bool
+    
+    private var imageUrl: URL? {
+        if let imageUrlString = imageUrlString {
+            if imageUrlString.hasPrefix("https://"){
+                return URL(string: imageUrlString)
+            }else if imageUrlString.hasPrefix("http://") {
+                return URL(string: imageUrlString.replacingOccurrences(of: "http://", with: "https://"))
+            } else {
+                return URL(string: "\(api.url)\(imageUrlString)")
+            }
+        }
+        return nil
+    }
+    
+    var body: some View {
+        Group {
+            if let url = imageUrl {
+                AsyncImage(url: url) { phase in
+                    if let image = phase.image {
+                        configureImage(image)
+                    } else {
+                        configureImage(Image(placeholderImageName))
                     }
                 }
             } else {
-                Image("noPhoto")
-                    .resizable()
-                    .scaledToFill()
-                    .clipShape(Circle())
-                    .frame(width: size, height: size)
+                configureImage(Image(placeholderImageName))
             }
         }
-        .padding(.leading, padding)
+        .applyMaxFrame(maxFrame)
+        .frame(width: size?.width, height: size?.height)
+    }
+    
+    private func configureImage(_ image: Image) -> some View {
+        image
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: size?.width, height: size?.height)
+            .applyShape(shape)
+    }
+}
+
+extension View {
+    func applyMaxFrame(_ maxFrame: Bool) -> some View {
+        if maxFrame {
+            return self.frame(maxWidth: .infinity, maxHeight: .infinity).eraseToAnyView()
+        } else {
+            return self.eraseToAnyView()
+        }
+    }
+    
+    func applyShape(_ shape: CustomAsyncImage.ImageShape) -> some View {
+        switch shape {
+        case .rectangle(let cornerRadius):
+            return self
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+                .eraseToAnyView()
+        case .circle:
+            return self
+                .clipShape(Circle())
+                .eraseToAnyView()
+        }
+    }
+    
+    func eraseToAnyView() -> AnyView {
+        AnyView(self)
     }
 }

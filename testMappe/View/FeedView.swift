@@ -15,12 +15,11 @@ struct FeedView: View {
     @State var isSearching = false
     @State var users : [UserInfoResponse] = []
     @State var feedDisp : [ResultFeed] = []
-    @ObservedObject var mapViewModel: MapModel
     
     
     var body: some View {
         VStack {
-            HeadersFeedView(mapViewModel: mapViewModel, isSearching: $isSearching, users: $users)
+            HeadersFeedView( isSearching: $isSearching, users: $users)
             Spacer()
             if !isSearching {
                 if feedModel.feedToDisplay.isEmpty{
@@ -35,7 +34,7 @@ struct FeedView: View {
                     ScrollView {
                         VStack(spacing: 12) {
                             ForEach(feedModel.feedToDisplay) { notification in
-                                FeedNotification(notification: notification, feedModel: feedModel , mapViewModel: mapViewModel)
+                                FeedNotification(notification: notification, feedModel: feedModel )
 
                             }
                            
@@ -50,7 +49,7 @@ struct FeedView: View {
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         ForEach($users) { user in
-                            UserClickable(user: user, mapViewModel: mapViewModel)
+                            UserClickable(user: user)
                            
                         }
                     } .padding(.top, 8)

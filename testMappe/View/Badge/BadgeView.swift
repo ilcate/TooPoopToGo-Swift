@@ -11,7 +11,6 @@ struct BadgeView: View {
     @State var completed = false
     @State var com = 0
     @State var completedDate = ""
-    @ObservedObject var mapViewModel: MapModel
 
     let columns: [GridItem] = [GridItem(.flexible()),
                                GridItem(.flexible()),
@@ -22,7 +21,7 @@ struct BadgeView: View {
     
     var body: some View {
         VStack {
-            HeadersViewPages(PageName: "Badges", mapViewModel: mapViewModel)
+            HeadersViewPages(PageName: "Badges")
             Spacer()
             
             ScrollView {

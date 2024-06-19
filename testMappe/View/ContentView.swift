@@ -9,12 +9,8 @@ struct ContentView: View {
     @StateObject var onBoarding = OnBoarding()
     @StateObject var api = ApiManager()
     @StateObject var oBModel = OnBoardingModel()
-    @StateObject var mapViewModel = MapModel()
+    @ObservedObject var mapViewModel = MapModel()
     @State private var path: [String] = []
-    
-    //istanziazione dell'object
-    //meglio degli state per oggetti complessi e è in grado di durare ed esistere anche se la view muore
-    //poiché non si lega a nessuna
     
     
     var body: some View {
@@ -48,19 +44,19 @@ struct ContentView: View {
                             }
                             .padding(.bottom, isTexting.texting ? -50 : 5)
                             .tag(1)
-                        HomeView(mapViewModel: mapViewModel)
+                        HomeView()
                             .tabItem {
                                 Image("HomeTB")
                             }
                             .padding(.bottom, 10)
                             .tag(0)
-                        FeedView(mapViewModel: mapViewModel)
+                        FeedView()
                             .tabItem {
                                 Image("FeedTB")
                             }
                             .padding(.bottom, isTexting.texting ? -50 : 10)
                             .tag(2)
-                        BadgeView(mapViewModel: mapViewModel)
+                        BadgeView()
                             .tabItem {
                                 Image("BadgeTB")
                             }
@@ -95,6 +91,7 @@ struct ContentView: View {
         .environmentObject(isTexting)//fa si che tutti i figli abbiatno all'interno l'istanza dell'object e sia uguale in tutte
         .environmentObject(onBoarding)
         .environmentObject(api)
+        .environmentObject(mapViewModel)
         .ignoresSafeArea(.keyboard)
     
 }

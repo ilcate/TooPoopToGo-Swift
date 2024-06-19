@@ -29,7 +29,7 @@ struct UsersFriend: View {
                     ScrollView {
                         LazyVStack {
                             ForEach($userList, id: \.id) { user in
-                                UserClickable(user: user, mapViewModel: mapViewModel)
+                                UserClickable(user: user)
                             }
                         }
                     }

@@ -18,7 +18,7 @@ struct UserInformationStandards: View {
     let friendsNumber: Int
     let id: String
     @Binding var status: RequestStatus
-    @ObservedObject var mapViewModel: MapModel
+    @EnvironmentObject var mapViewModel: MapModel
     
     
     var body: some View {
@@ -117,7 +117,7 @@ struct UserInformationStandards: View {
 struct OtherInformationUser: View {
     @EnvironmentObject var api: ApiManager
     @ObservedObject var profileModel : ProfileModel
-    @ObservedObject var mapViewModel : MapModel
+    @EnvironmentObject var mapViewModel: MapModel
     let isYourself : Bool
     let userId : String
     
@@ -177,7 +177,7 @@ struct OtherInformationUser: View {
                             .normalTextStyle(fontName: "Manrope-Bold", fontSize: 20, fontColor: .accent)
                         Spacer()
                     } .padding(.horizontal, 20)
-                    ReviewsScroller(reviews: profileModel.userRatings, isProfile: true, isShort: false, mapViewModel: mapViewModel)
+                    ReviewsScroller(reviews: profileModel.userRatings, isProfile: true, isShort: false)
                 }
                 VStack(spacing: 8) {
                     HStack {
@@ -276,11 +276,10 @@ struct HeaderProfile: View {
 
 struct UserClickable: View {
     @Binding var user: UserInfoResponse
-    @ObservedObject var mapViewModel: MapModel
     @EnvironmentObject var api: ApiManager
     
     var body: some View {
-        NavigationLink(destination: ProfileView(id: user.id, mapViewModel: mapViewModel, isYourProfile: user.id == api.personalId ? true : false)) {
+        NavigationLink(destination: ProfileView(id: user.id, isYourProfile: user.id == api.personalId ? true : false)) {
             HStack {
                 ProfileP(link: user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
                     .padding(.trailing, 8)
