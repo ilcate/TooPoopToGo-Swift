@@ -7,7 +7,7 @@ final class FeedModel: ObservableObject {
     
     
     func getFeedUpdated(api: ApiManager) {
-        api.getFeed(id: api.userId) { resp in
+        api.getFeed(id: api.personalId) { resp in
             switch resp{
             case .success(let feed):
                 self.feedToDisplay = feed.results

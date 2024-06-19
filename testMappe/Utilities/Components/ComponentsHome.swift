@@ -352,7 +352,7 @@ struct TipView: View {
             api.getTip { res in
                 switch res {
                 case .success(let suggest):
-                    tips = suggest
+                    tips = suggest.results
                     if let firstTip = tips.first {
                         currentTipID = firstTip.id
                     }

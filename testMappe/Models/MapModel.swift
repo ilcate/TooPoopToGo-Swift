@@ -236,7 +236,7 @@ final class MapModel: ObservableObject{
         api.getReviews(idB: idb) { result in
             switch result {
             case .success(let reviews):
-                self.names = reviews
+                self.names = reviews.results!
                 
             case .failure(let error):
                 print("Failed to fetch reviews: \(error)")

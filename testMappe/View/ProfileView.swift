@@ -4,12 +4,12 @@ import Alamofire
 struct ProfileView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var api: ApiManager
-    @State var id: String? = nil // This will be nil for the user's own profile
+    @State var id: String? = nil 
     @State var userSelected = UserInfoResponse(username: "Loading...", photo_user: "", id: "" , friends_number: 0, badges: [""])
     @State var status = RequestStatus(request_status: "none", friend_request_id: "")
     @StateObject var profileModel = ProfileModel()
     @ObservedObject var mapViewModel : MapModel
-    @State var isYourProfile: Bool = true
+    @State var isYourProfile: Bool
 
     var body: some View {
         ZStack {
@@ -22,6 +22,7 @@ struct ProfileView: View {
         }
         .background(Color.cLightBrown)
         .task {
+            print(isYourProfile)
             if isYourProfile {
                 profileModel.getProfile(api: api)
             } else {

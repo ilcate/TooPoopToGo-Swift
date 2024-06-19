@@ -280,7 +280,7 @@ struct UserClickable: View {
     @EnvironmentObject var api: ApiManager
     
     var body: some View {
-        NavigationLink(destination: ProfileView( id: user.id, mapViewModel: mapViewModel, isYourProfile: user.id == api.userId ? true : false )) {
+        NavigationLink(destination: ProfileView( id: user.id, mapViewModel: mapViewModel, isYourProfile: user.id == api.personalId ? false : true )) {
             HStack {
                 ProfileP(link: user.photo_user?.replacingOccurrences(of: "http://", with: "https://") ?? "", size: 40, padding: 0)
                     .padding(.trailing, 8)

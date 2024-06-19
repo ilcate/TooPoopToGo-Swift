@@ -8,7 +8,7 @@ struct RegisterRequest: Encodable {
     let last_login: [String]?
 }
 
-struct RegisterResponse: Decodable {
+struct RegisterResponse: Codable {
     let message: String?
     let last_login: [String]?
 }
@@ -237,7 +237,7 @@ struct GetRatingStats: Decodable {
 }
 
 
-struct PoopStreak: Decodable {
+struct PoopStreak: Codable {
     let streak_status: String
     let poop_count: Int
 }

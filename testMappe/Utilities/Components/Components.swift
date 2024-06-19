@@ -222,7 +222,7 @@ struct HeadersFeedView: View {
                             api.searchUser(stringToSearch: field) { resp in
                                 switch resp {
                                 case .success(let us):
-                                    users = us!
+                                    users = us.results!
                                     print(users)
                                 case .failure(let error):
                                     print("Error: \(error)")
@@ -309,7 +309,7 @@ struct FeedNotification : View {
             HStack{
                 if  notification.content_type == "friend_request" {
                     NavigationLink(destination: {
-                        if userInformation.id == api.userId {
+                        if userInformation.id == api.personalId {
                             ProfileView( mapViewModel: mapViewModel, isYourProfile: true)
                         } else {
                             ProfileView( id: userInformation.id, mapViewModel: mapViewModel, isYourProfile: false)
@@ -476,10 +476,10 @@ struct ReviewTemp: View {
             if !isProfile {
                 NavigationLink(destination: {
 
-                    if review.user.id == api.userId{
+                    if review.user.id == api.personalId{
                         ProfileView( mapViewModel: mapViewModel, isYourProfile: true)
                     } else {
-                        ProfileView( id: review.user.id, mapViewModel: mapViewModel, isYourProfile: true)
+                        ProfileView( id: review.user.id, mapViewModel: mapViewModel, isYourProfile: false)
                     }
                     
                     
