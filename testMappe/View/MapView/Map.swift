@@ -64,7 +64,7 @@ struct MapView: View {
                         }.padding(.bottom, -5)
                     }
                     
-                    MapButtonsView(mapViewModel: mapViewModel)
+                    MapButtonsView()
                     VStack{
                         Spacer()
                         Rectangle()
@@ -74,7 +74,7 @@ struct MapView: View {
                 }
                 
                 if mapViewModel.canMove == false {
-                    MapSelectPositionView(mapViewModel:mapViewModel)
+                    MapSelectPositionView()
                         .toolbar(.hidden, for: .tabBar)
                 }
                 

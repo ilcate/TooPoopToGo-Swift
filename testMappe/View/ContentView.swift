@@ -88,7 +88,7 @@ struct ContentView: View {
           
         }
         .environmentObject(tabBarSelection)
-        .environmentObject(isTexting)//fa si che tutti i figli abbiatno all'interno l'istanza dell'object e sia uguale in tutte
+        .environmentObject(isTexting)
         .environmentObject(onBoarding)
         .environmentObject(api)
         .environmentObject(mapViewModel)

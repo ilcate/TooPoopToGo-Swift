@@ -119,6 +119,37 @@ final class MapModel: ObservableObject{
         }
     }
     
+    
+    func fetchReviewStats(api: ApiManager, for bathroom: BathroomApi, completion: @escaping (GetRatingStats) -> Void) {
+        api.getRevStats(idB: bathroom.id!) { result in
+            switch result {
+            case .success(let stats):
+                completion(stats)
+            case .failure(let error):
+                print("Failed to fetch review stats: \(error)")
+            }
+        }
+    }
+    
+    func fetchBathroomTags(for bathroom: BathroomApi, completion: @escaping ([Bool]) -> Void) {
+        let tags = getBathroomTags(bathroom: bathroom)
+        completion(tags)
+    }
+    
+    func updateReviewAndRatingStatus(api: ApiManager, bathroom: BathroomApi, completion: @escaping (GetRatingStats, Bool) -> Void) {
+        fetchReviewStats(api : api , for: bathroom) { stats in
+            api.getHasRated(id: bathroom.id!) { result in
+                switch result {
+                case .success(let hasRated):
+                    completion(stats, hasRated)
+                case .failure(let error):
+                    print("Failed to fetch review status: \(error)")
+                    completion(stats, false)
+                }
+            }
+        }
+    }
+    
     func resetAddParams(){
         nameNewAnnotation = ""
         descNewAnnotation = ""
@@ -244,8 +275,67 @@ final class MapModel: ObservableObject{
             }
         }
     }
+    
+    
+    
+    func fetchBathroomTags(bathroom: BathroomApi) -> [Bool] {
+        return getBathroomTags(bathroom: bathroom)
+    }
 
 
+    func updateBathroomInfo(api: ApiManager, bathroom: BathroomApi, completion: @escaping ([Bool], String) -> Void) {
+        let tags = fetchBathroomTags(bathroom: bathroom)
+        api.getRevStats(idB: bathroom.id!) { res in
+            switch res {
+            case .success(let stats):
+                completion(tags, stats.overall_rating)
+            case .failure(let error):
+                print("Failed to fetch review stats: \(error)")
+                completion(tags, "")
+            }
+        }
+    }
+    
+    func handleConfirmAnnotation(api: ApiManager, cleanStar: [Stars], comfortStar: [Stars], moodStar: [Stars], dismiss: @escaping () -> Void, showError: Binding<Bool>, textError: Binding<String>, clicked: Binding<Bool>) {
+        if !clicked.wrappedValue && nameNewAnnotation != "" && descNewAnnotation != "" {
+            clicked.wrappedValue = true
+            
+            dismiss()
+            
+            let type = optionsDropDown[0].lowercased()
+            canMove = true
+            customMinZoom = 2
+            newLocationAdded = true
+            
+            DispatchQueue.main.async {
+                self.sendPointToServer(name: self.nameNewAnnotation, type: type, image: self.imagesNewAnnotation, restrictions: self.restrictionsArray, api: api) { result in
+                    if result != "" {
+                        self.sendReview(api: api, cleanStar: cleanStar, comfortStar: comfortStar, moodStar: moodStar, idB: result)
+                        self.resetAddParams()
+                        dismiss()
+                        clicked.wrappedValue = false
+                    } else {
+                        clicked.wrappedValue = false
+                    }
+                }
+            }
+        } else if !clicked.wrappedValue {
+            if nameNewAnnotation == "" && descNewAnnotation != "" {
+                showError.wrappedValue = true
+                textError.wrappedValue = "Name is required"
+            } else if nameNewAnnotation != "" && descNewAnnotation == "" {
+                showError.wrappedValue = true
+                textError.wrappedValue = "Comment is required"
+            } else if nameNewAnnotation == "" && descNewAnnotation == "" {
+                showError.wrappedValue = true
+                textError.wrappedValue = "Name and comment are required"
+            }
+        }
+    }
+
+    
+   
+    
 }
 
 

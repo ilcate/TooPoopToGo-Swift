@@ -129,7 +129,7 @@ struct TextFieldCustom: View {
 
 struct HeaderView:  View {
     @EnvironmentObject var isTexting: IsTexting
-    @ObservedObject var mapViewModel: MapModel
+    @EnvironmentObject var mapViewModel: MapModel
     @Environment(\.dismiss) var dismiss
     
     var body: some View {

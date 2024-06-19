@@ -3,8 +3,7 @@ import SwiftUI
 struct OnBoardingView: View {
     @ObservedObject var oBModel: OnBoardingModel
     @Binding var path: [String]
-    let arrText2 = ["With our intuitive map and location-based search, you’ll never have to wander around looking for a restroom again.", "Share your experience by rating the toilets. Your reviews help others make informed decisions and encourage to maintain high standards.", "Follow other reviewers, comment on their posts, and exchange tips on finding the best restrooms. Together, we can make every toilet visit a pleasant one!", "You’re all set! Dive into T.P.T.G: Review and start exploring the best toilets around you. Happy toilet hunting!"]
-    let arrText1 = ["Find Toilets Near You", "Share Your Experiences", "Join the Community", "Start Exploring!"]
+    
 
     var body: some View {
         VStack {
@@ -26,7 +25,7 @@ struct OnBoardingView: View {
             ZStack {
                 ScrollView(.horizontal) {
                     HStack(spacing: 0) {
-                        ForEach(Array(oBModel.PagesOnBoarding.enumerated()), id: \.element) { index, name in
+                        ForEach(Array(oBModel.titles.enumerated()), id: \.element) { index, name in
                             VStack {
                                 Spacer()
                                 Image("onBoarding\(index + 1)")
@@ -37,10 +36,10 @@ struct OnBoardingView: View {
                                     .padding(.top, 36)
 
                                 VStack(spacing: 12) {
-                                    Text(arrText1[index])
+                                    Text(oBModel.titles[index])
                                         .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 26, fontColor: .accent)
                                         .padding(.top, 70)
-                                    Text(arrText2[index])
+                                    Text(oBModel.didas[index])
                                         .normalTextStyle(fontName: "Manrope-Medium", fontSize: 18, fontColor: .accent)
                                         .padding(.horizontal, 32)
                                         .multilineTextAlignment(.center)
@@ -65,7 +64,7 @@ struct OnBoardingView: View {
                 VStack {
                     Spacer()
                     HStack(spacing: 6) {
-                        ForEach(oBModel.PagesOnBoarding, id: \.self) { imageName in
+                        ForEach(oBModel.titles, id: \.self) { imageName in
                             Circle()
                                 .frame(width: 10, height: 10)
                                 .foregroundStyle(imageName == oBModel.position ? .accent : Color.cLightBrown50)
@@ -79,7 +78,7 @@ struct OnBoardingView: View {
 
             Spacer()
 
-            FullRoundedButton(text: oBModel.position == oBModel.PagesOnBoarding.last ? "Start" : "Next")
+            FullRoundedButton(text: oBModel.position == oBModel.titles.last ? "Start" : "Next")
                 .onTapGesture {
                     oBModel.nextButton(path: path) { updatedPath in
                         path = updatedPath
@@ -89,7 +88,7 @@ struct OnBoardingView: View {
         }
         .background(Color.white)
         .onAppear {
-            oBModel.position = oBModel.PagesOnBoarding[0]
+            oBModel.position = oBModel.titles[0]
         }
     }
 }

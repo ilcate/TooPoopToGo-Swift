@@ -78,4 +78,23 @@ struct GestureProperties {
 }
 
 
-
+struct NavigationButton: View {
+    var title: String
+    var urlScheme: String
+    var fallbackURL: String
+    
+    var body: some View {
+        FullRoundedButton(text: title)
+            .onTapGesture {
+                openNavigationURL(urlScheme: urlScheme, fallbackURL: fallbackURL)
+            }
+    }
+    
+    private func openNavigationURL(urlScheme: String, fallbackURL: String) {
+        if let url = URL(string: urlScheme), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else if let fallback = URL(string: fallbackURL) {
+            UIApplication.shared.open(fallback, options: [:], completionHandler: nil)
+        }
+    }
+}

@@ -46,7 +46,6 @@ struct UserInfoResponse: Decodable, Identifiable, Hashable {
 }
 
 
-
 struct UserRev: Decodable, Equatable, Hashable {
     var photo_user: String?
     var username: String

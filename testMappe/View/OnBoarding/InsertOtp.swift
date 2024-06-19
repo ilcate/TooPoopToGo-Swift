@@ -68,6 +68,7 @@ struct OTPTextField: View {
                 .multilineTextAlignment(.center)
                 .focused($fieldFocus, equals: index)
                 .onChange(of: otpValues[index]) { o, newValue in
+                    
                     if !newValue.isEmpty {
                         if otpValues[index].count > 1 {
                             let currentValue = Array(otpValues[index])

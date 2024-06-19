@@ -19,18 +19,14 @@
 		2A0EE7882BC97D4B00F48FC4 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EE7872BC97D4B00F48FC4 /* Structs.swift */; };
 		2A18B8432BFF36A500C12C9B /* LoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A18B8422BFF36A400C12C9B /* LoadingAnimation.json */; };
 		2A18B8462BFF38B800C12C9B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2A18B8452BFF38B800C12C9B /* Lottie */; };
-		2A18B8482BFF404300C12C9B /* LoadingAnimationWhite.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A18B8472BFF404300C12C9B /* LoadingAnimationWhite.json */; };
 		2A27C00F2BF8D2A8006A8FE8 /* ApiCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27C00E2BF8D2A8006A8FE8 /* ApiCall.swift */; };
 		2A27C0122BF8D5EC006A8FE8 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27C0112BF8D5EC006A8FE8 /* Classes.swift */; };
 		2A27C0152BF8DDAA006A8FE8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2A27C0142BF8DDAA006A8FE8 /* Alamofire */; };
 		2A27C0172BF8E60D006A8FE8 /* InsertOtp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27C0162BF8E60D006A8FE8 /* InsertOtp.swift */; };
-		2A29666B2C08612C00380664 /* LoadingScreen.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A29666A2C08612C00380664 /* LoadingScreen.json */; };
-		2A29666D2C0861FC00380664 /* LoadingScreen2.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A29666C2C0861FC00380664 /* LoadingScreen2.json */; };
 		2A29666F2C08628F00380664 /* LoadingScreen3.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A29666E2C08628F00380664 /* LoadingScreen3.json */; };
 		2A31B46D2BE37E0D000DC8EE /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A31B46C2BE37E0D000DC8EE /* Components.swift */; };
 		2A33AF9B2BC041DC00DA90E9 /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 2A33AF9A2BC041DC00DA90E9 /* MapboxMaps */; };
 		2A4499F32C0088B3000F381A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A4499F22C0088B3000F381A /* GoogleService-Info.plist */; };
-		2A51DF3C2C11AE1D00DF8725 /* NotHere.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A51DF3B2C11AE1D00DF8725 /* NotHere.json */; };
 		2A51DF3E2C11B58200DF8725 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A51DF3D2C11B58200DF8725 /* FeedModel.swift */; };
 		2A55F26A2BF7840B002D7203 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A55F2692BF7840B002D7203 /* OnBoarding.swift */; };
 		2A55F26D2BF7885B002D7203 /* LogInAndSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A55F26C2BF7885B002D7203 /* LogInAndSignUp.swift */; };
@@ -41,7 +37,6 @@
 		2A5DF2E12C09BA40001990E4 /* HomeModelWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5DF2E02C09BA40001990E4 /* HomeModelWatch.swift */; };
 		2A5E1AF02BF7A5A100871183 /* ChoseLogM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E1AEF2BF7A5A100871183 /* ChoseLogM.swift */; };
 		2A6084742BC4438C000FA417 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084732BC4438C000FA417 /* Map.swift */; };
-		2A6084762BC44472000FA417 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6084752BC44472000FA417 /* TestView.swift */; };
 		2A61C2092C0E49090010313A /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A61C2082C0E49090010313A /* WidgetKit.framework */; };
 		2A61C20B2C0E49090010313A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A61C20A2C0E49090010313A /* SwiftUI.framework */; };
 		2A61C20E2C0E49090010313A /* TooPoopToGoWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A61C20D2C0E49090010313A /* TooPoopToGoWidgetBundle.swift */; };
@@ -144,17 +139,13 @@
 		2A0EE7852BC97CD300F48FC4 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		2A0EE7872BC97D4B00F48FC4 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		2A18B8422BFF36A400C12C9B /* LoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingAnimation.json; sourceTree = "<group>"; };
-		2A18B8472BFF404300C12C9B /* LoadingAnimationWhite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingAnimationWhite.json; sourceTree = "<group>"; };
 		2A27C00E2BF8D2A8006A8FE8 /* ApiCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCall.swift; sourceTree = "<group>"; };
 		2A27C0112BF8D5EC006A8FE8 /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
 		2A27C0162BF8E60D006A8FE8 /* InsertOtp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertOtp.swift; sourceTree = "<group>"; };
-		2A29666A2C08612C00380664 /* LoadingScreen.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingScreen.json; sourceTree = "<group>"; };
-		2A29666C2C0861FC00380664 /* LoadingScreen2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingScreen2.json; sourceTree = "<group>"; };
 		2A29666E2C08628F00380664 /* LoadingScreen3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingScreen3.json; sourceTree = "<group>"; };
 		2A31B46C2BE37E0D000DC8EE /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		2A4499F22C0088B3000F381A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2A4893C62BC03DF300366033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		2A51DF3B2C11AE1D00DF8725 /* NotHere.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NotHere.json; sourceTree = "<group>"; };
 		2A51DF3D2C11B58200DF8725 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		2A55F2692BF7840B002D7203 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
 		2A55F26C2BF7885B002D7203 /* LogInAndSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInAndSignUp.swift; sourceTree = "<group>"; };
@@ -172,7 +163,6 @@
 		2A5DF2E02C09BA40001990E4 /* HomeModelWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModelWatch.swift; sourceTree = "<group>"; };
 		2A5E1AEF2BF7A5A100871183 /* ChoseLogM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoseLogM.swift; sourceTree = "<group>"; };
 		2A6084732BC4438C000FA417 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
-		2A6084752BC44472000FA417 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		2A61C2072C0E49090010313A /* TooPoopToGoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TooPoopToGoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A61C2082C0E49090010313A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2A61C20A2C0E49090010313A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -274,9 +264,8 @@
 				2ADA10752BE0E34C00BBC989 /* MapView */,
 				2AE277532C0C455D005BBF4B /* Badge */,
 				2AFD2EC82BDBB24600208328 /* FeedView.swift */,
-				2A69F7452BE4F986004AB59C /* ProfileView.swift */,
+				2A8665B82C233C75008CF9D5 /* Profile */,
 				2AFD2EC62BDBB23200208328 /* HomeView.swift */,
-				2A6084752BC44472000FA417 /* TestView.swift */,
 				2AF49B1F2BF5EAF100800CE5 /* Settings.swift */,
 			);
 			path = View;
@@ -309,11 +298,7 @@
 		2A18B8492BFF414B00C12C9B /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				2A51DF3B2C11AE1D00DF8725 /* NotHere.json */,
 				2A29666E2C08628F00380664 /* LoadingScreen3.json */,
-				2A29666C2C0861FC00380664 /* LoadingScreen2.json */,
-				2A29666A2C08612C00380664 /* LoadingScreen.json */,
-				2A18B8472BFF404300C12C9B /* LoadingAnimationWhite.json */,
 				2AA1E0732C00B4D300B2E3BF /* DotAnim.json */,
 				2A18B8422BFF36A400C12C9B /* LoadingAnimation.json */,
 			);
@@ -382,6 +367,15 @@
 				2A61C2132C0E490B0010313A /* Info.plist */,
 			);
 			path = TooPoopToGoWidget;
+			sourceTree = "<group>";
+		};
+		2A8665B82C233C75008CF9D5 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				2A69F7452BE4F986004AB59C /* ProfileView.swift */,
+				2A6401FC2C0CBF2200F3F1EA /* UsersFriend.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		2AA1E0682C008E2D00B2E3BF /* Frameworks */ = {
@@ -472,7 +466,6 @@
 				2AED8E852BE93ABD008DBFAF /* DetailBathroom.swift */,
 				2A0BF68F2C036FF20053A0A5 /* SheetNavigate.swift */,
 				2ADA107A2BE0E4EA00BBC989 /* MapSelectPosition.swift */,
-				2A6401FC2C0CBF2200F3F1EA /* UsersFriend.swift */,
 				2ADA10782BE0E49000BBC989 /* MapAddAnnotation.swift */,
 				2AFFF9DC2BE7DFAC0095056C /* Annotation.swift */,
 				2ADA10822BE0E66700BBC989 /* AddImageSheet.swift */,
@@ -636,22 +629,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A29666B2C08612C00380664 /* LoadingScreen.json in Resources */,
 				2ADA10742BDFF2BF00BBC989 /* Manrope-ExtraBold.ttf in Resources */,
 				2AB2180E2BC03B4A002A32F5 /* Preview Assets.xcassets in Resources */,
 				2ADA106E2BDFF2BF00BBC989 /* Manrope-ExtraLight.ttf in Resources */,
 				2ADA10712BDFF2BF00BBC989 /* Manrope-Regular.ttf in Resources */,
 				2AA1E0742C00B4D300B2E3BF /* DotAnim.json in Resources */,
 				2A18B8432BFF36A500C12C9B /* LoadingAnimation.json in Resources */,
-				2A29666D2C0861FC00380664 /* LoadingScreen2.json in Resources */,
 				2A4499F32C0088B3000F381A /* GoogleService-Info.plist in Resources */,
 				2ADA10722BDFF2BF00BBC989 /* Manrope-Medium.ttf in Resources */,
 				2ADA10732BDFF2BF00BBC989 /* Manrope-Bold.ttf in Resources */,
 				2ADA106F2BDFF2BF00BBC989 /* Manrope-SemiBold.ttf in Resources */,
 				2A29666F2C08628F00380664 /* LoadingScreen3.json in Resources */,
-				2A51DF3C2C11AE1D00DF8725 /* NotHere.json in Resources */,
 				2AB2180B2BC03B4A002A32F5 /* Assets.xcassets in Resources */,
-				2A18B8482BFF404300C12C9B /* LoadingAnimationWhite.json in Resources */,
 				2ADA10702BDFF2BF00BBC989 /* Manrope-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -695,7 +684,6 @@
 				2ADA10832BE0E66700BBC989 /* AddImageSheet.swift in Sources */,
 				2A51DF3E2C11B58200DF8725 /* FeedModel.swift in Sources */,
 				2A27C0122BF8D5EC006A8FE8 /* Classes.swift in Sources */,
-				2A6084762BC44472000FA417 /* TestView.swift in Sources */,
 				2A27C0172BF8E60D006A8FE8 /* InsertOtp.swift in Sources */,
 				2AEB5ACE2BF64ADB007E303B /* BadgeDetail.swift in Sources */,
 				2A55F26D2BF7885B002D7203 /* LogInAndSignUp.swift in Sources */,

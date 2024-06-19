@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct DetailBathroom: View {
@@ -36,30 +35,23 @@ struct DetailBathroom: View {
             .padding(.top, bathroom.photos!.count > 1 ? -4 : -10)
             .padding(.bottom, 8)
             .task {
-                api.getRevStats(idB: bathroom.id!) { result in
-                    switch result {
-                    case .success(let stats):
-                        informationStat = stats
-                    case .failure(let error):
-                        print("Failed to fetch review stats: \(error)")
-                    }
+                mapViewModel.fetchReviewStats(api: api, for: bathroom) { stats in
+                    informationStat = stats
                 }
-                
             }
-            
 
             ScrollView(.horizontal) {
                 DisplayTagsB(arrBool: arrOfTags, limit: 8)
                     .padding(.horizontal, 20)
             }
-            .task{
-                print(bathroom)
-                arrOfTags = getBathroomTags(bathroom: bathroom)
+            .task {
+                mapViewModel.fetchBathroomTags(for: bathroom) { tags in
+                    arrOfTags = tags
+                }
             }
             .scrollIndicators(.hidden)
             .padding(.bottom, 4)
             .padding(.top, -4)
-
             
             if informationStat.review_count > 0 {
                 RatingsBathroomDetail(informationStat: $informationStat)
@@ -93,22 +85,16 @@ struct DetailBathroom: View {
         }
         .sheet(isPresented: $openSheetAddReview, onDismiss: {
             openSheetAddReview = false
-            mapViewModel.getRev(api: api, idb: bathroom.id!)
-            api.getHasRated(id:  bathroom.id!) { result in
-                switch result {
-                case .success(let bool):
-                    userHasRated = bool
-                case .failure(let error):
-                    print("Failed to fetch review stats: \(error)")
-                }
+            mapViewModel.updateReviewAndRatingStatus(api: api, bathroom: bathroom) { stats, hasRated in
+                informationStat = stats
+                userHasRated = hasRated
             }
         }) {
             ZStack {
                 Color.cLightBrown.ignoresSafeArea(.all)
-                SheetAddReview(mapViewModel: mapViewModel, idB: bathroom.id!)
+                SheetAddReview( idB: bathroom.id!)
                     .presentationDetents([.fraction(0.48)])
                     .presentationCornerRadius(18)
-                
             }
         }
     }

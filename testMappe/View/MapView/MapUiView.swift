@@ -3,7 +3,8 @@ import Alamofire
 import Lottie
 
 struct MapButtonsView: View {
-    @ObservedObject var mapViewModel: MapModel
+    @EnvironmentObject var mapViewModel: MapModel
+    
     @EnvironmentObject var api: ApiManager
     @EnvironmentObject var isTexting: IsTexting
     @FocusState private var isFocused: Bool

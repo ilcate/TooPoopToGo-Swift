@@ -5,8 +5,8 @@ import CoreLocation
 
 class HomeModelWatch : ObservableObject{
     @Published var nextToYou : [BathroomApi] = []
-    @Published var centerLat : Double = 0 //Double((locationManager.location?.coordinate.latitude) ?? 0)
-    @Published var centerLong : Double = 0 // Double((locationManager.location?.coordinate.longitude) ?? 0)
+    @Published var centerLat : Double = 0
+    @Published var centerLong : Double = 0
     
     
     func foundNextToYou(api: ApiManagerWatch){

@@ -24,10 +24,6 @@ struct Loader: View {
                     })
                     .opacity(0.2)
                     .ignoresSafeArea()
-//                .animation(.linear(duration: 20).repeatForever(autoreverses: false), value: isAnimating)
-//                .onAppear {
-//                    self.isAnimating = true
-//                }//TODO: Non va l'animazione
                 
                 VStack{
                     Image("WhiteLogo")

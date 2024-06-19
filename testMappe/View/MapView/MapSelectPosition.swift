@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct MapSelectPositionView: View {
-    @ObservedObject var mapViewModel: MapModel
     @EnvironmentObject var isTexting: IsTexting
+    @EnvironmentObject var mapViewModel: MapModel
     
     var body: some View {
         
@@ -19,13 +19,13 @@ struct MapSelectPositionView: View {
             .allowsHitTesting(false)
             
             VStack{
-                HeaderView(mapViewModel: mapViewModel)
+                HeaderView()
                 Spacer()
             }
             
             VStack{
                 Spacer()
-                NavigationLink(destination: SheetAddAn(mapViewModel: mapViewModel)) {
+                NavigationLink(destination: SheetAddAn()) {
                     FullRoundedButton(text: "Confirm position")
                         .padding(.top, 8)
                         .padding(.bottom, 4)

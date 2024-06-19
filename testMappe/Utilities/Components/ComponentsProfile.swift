@@ -90,7 +90,7 @@ struct UserInformationStandards: View {
                         }
                         
                         if friendsNumber > 0 {
-                            NavigationLink(destination: UsersFriend(id: id, isYourProfile: isYourProfile, name: username, mapViewModel: mapViewModel)) {
+                            NavigationLink(destination: UsersFriend(id: id, isYourProfile: isYourProfile, name: username)) {
                                 Text("\(friendsNumber) Friends")
                                     .normalTextStyle(fontName: "Manrope-Medium", fontSize: 16, fontColor: .accent)
                             }

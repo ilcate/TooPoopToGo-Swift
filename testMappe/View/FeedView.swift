@@ -24,10 +24,11 @@ struct FeedView: View {
             if !isSearching {
                 if feedModel.feedToDisplay.isEmpty{
                     VStack{
-                        Spacer()
+                        
                         Text("Nothing here, try to do something")
                             .normalTextStyle(fontName: "Manrope-Bold", fontSize: 16, fontColor: .accent)
                             .padding(.bottom, 8)
+                        Spacer()
                     }
               
                 } else {

@@ -3,7 +3,8 @@ import SwiftUI
 import Alamofire
 
 final class OnBoardingModel: ObservableObject {
-    var PagesOnBoarding = ["Find", "Review", "More", "Pipo"]
+    let didas = ["With our intuitive map and location-based search, you’ll never have to wander around looking for a restroom again.", "Share your experience by rating the toilets. Your reviews help others make informed decisions and encourage to maintain high standards.", "Follow other reviewers, comment on their posts, and exchange tips on finding the best restrooms. Together, we can make every toilet visit a pleasant one!", "You’re all set! Dive into T.P.T.G: Review and start exploring the best toilets around you. Happy toilet hunting!"]
+    let titles = ["Find Toilets Near You", "Share Your Experiences", "Join the Community", "Start Exploring!"]
     @Published var position: String?
     @Published var navigateToLogInAndSignUp = false
     @Published var passwordVisibility = false
@@ -30,10 +31,10 @@ final class OnBoardingModel: ObservableObject {
         var mutablePath = path
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             withAnimation(.easeInOut(duration: 0.1)) {
-                if let indexOfA = self.PagesOnBoarding.firstIndex(of: self.position!) {
+                if let indexOfA = self.titles.firstIndex(of: self.position!) {
                     let nextIndex = indexOfA + 1
-                    if nextIndex < self.PagesOnBoarding.count {
-                        self.position = self.PagesOnBoarding[nextIndex]
+                    if nextIndex < self.titles.count {
+                        self.position = self.titles[nextIndex]
                     } else {
                         mutablePath.append("ChoseLogM")
                         self.navigateToLogInAndSignUp = true
@@ -154,4 +155,7 @@ final class OnBoardingModel: ObservableObject {
         email = ""
         password = ""
     }
+    
+  
+    
 }

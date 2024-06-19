@@ -13,7 +13,6 @@ struct UsersFriend: View {
     let isYourProfile: Bool
     let name: String
     @State var userList: [UserInfoResponse] = []
-    @ObservedObject var mapViewModel: MapModel
     
     var body: some View {
         VStack {

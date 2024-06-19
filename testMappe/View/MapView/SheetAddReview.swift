@@ -6,7 +6,7 @@ struct SheetAddReview: View {
     @State var comfortStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
     @State var moodStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
     @EnvironmentObject var api: ApiManager
-    @ObservedObject var mapViewModel: MapModel
+    @EnvironmentObject var mapViewModel: MapModel
     @State var idB : String
     @State var showError = false
     
