@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-struct SheetAddAn: View {
+struct AddBathroom: View {
     @State var cleanStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
     @State var comfortStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
     @State var moodStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]

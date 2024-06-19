@@ -25,7 +25,7 @@ struct MapSelectPositionView: View {
             
             VStack{
                 Spacer()
-                NavigationLink(destination: SheetAddAn()) {
+                NavigationLink(destination: AddBathroom()) {
                     FullRoundedButton(text: "Confirm position")
                         .padding(.top, 8)
                         .padding(.bottom, 4)
