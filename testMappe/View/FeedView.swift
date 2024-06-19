@@ -50,7 +50,7 @@ struct FeedView: View {
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         ForEach($users) { user in
-                                UserClickable(user: user, mapViewModel: mapViewModel)
+                            UserClickable(user: user, mapViewModel: mapViewModel)
                            
                         }
                     } .padding(.top, 8)

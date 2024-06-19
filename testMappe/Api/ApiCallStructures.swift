@@ -1,5 +1,18 @@
 import Foundation
 
+
+struct PaginatedResponse<T: Decodable>: Decodable {
+    var results: [T]?
+}
+
+typealias ListOFRewievs = PaginatedResponse<Review>
+typealias SearchBath = PaginatedResponse<BathroomApi>
+typealias SearchUsers = PaginatedResponse<UserInfoResponse>
+typealias TipList = PaginatedResponse<Tip>
+typealias PersonalRev = PaginatedResponse<AddRating>
+typealias FeedResponse = PaginatedResponse<ResultFeed>
+
+
 struct RegisterRequest: Encodable {
     let username: String
     let email: String
@@ -23,7 +36,6 @@ struct LogInInformation: Encodable{
     let password : String
 }
 
-
 struct UserInfoResponse: Decodable, Identifiable, Hashable {
     var username: String
     var photo_user: String?
@@ -33,9 +45,7 @@ struct UserInfoResponse: Decodable, Identifiable, Hashable {
     var used_toilets: [String]?
 }
 
-struct ListOFRewievs: Decodable {
-    var results: [Review]?
-}
+
 
 struct UserRev: Decodable, Equatable, Hashable {
     var photo_user: String?
@@ -61,10 +71,9 @@ struct Review: Decodable, Identifiable, Equatable, Hashable {
         case id
         case user
         case createdAt = "created_at"
-        case toilet 
+        case toilet
     }
 
-    
     static func ==(lhs: Review, rhs: Review) -> Bool {
         return lhs.id == rhs.id &&
                lhs.cleanlinessRating == rhs.cleanlinessRating &&
@@ -85,11 +94,6 @@ struct Review: Decodable, Identifiable, Equatable, Hashable {
         hasher.combine(createdAt)
     }
 }
-
-struct SearchBath: Decodable{
-    var results : [BathroomApi]?
-}
-
 
 struct BathroomApi: Decodable, Identifiable, Equatable, Hashable {
     var id: String?
@@ -215,7 +219,6 @@ struct Coordinates: Decodable, Equatable, Hashable {
     }
 }
 
-
 struct addApiResponse: Decodable {
     let success: Bool
     let message: String?
@@ -236,7 +239,6 @@ struct GetRatingStats: Decodable {
     let review_count : Int
 }
 
-
 struct PoopStreak: Codable {
     let streak_status: String
     let poop_count: Int
@@ -245,11 +247,6 @@ struct PoopStreak: Codable {
 struct RequestStatus: Decodable {
     var request_status: String
     let friend_request_id : String
-}
-
-
-struct SearchUsers: Decodable {
-    let results: [UserInfoResponse]?
 }
 
 struct BadgesInfo: Decodable , Hashable {
@@ -261,21 +258,11 @@ struct BadgesInfo: Decodable , Hashable {
     let completion : Int
 }
 
-
 struct BadgesInfoDetailed: Decodable {
     let name : String
     var description : String
     let badge_requirement_threshold : Int
     let badge_photo : String
-}
-
-
-
-struct FeedResponse: Decodable {
-    let count: Int
-    let next: String?
-    let previous: String?
-    let results: [ResultFeed]
 }
 
 struct ResultFeed: Decodable, Identifiable {
@@ -294,7 +281,6 @@ struct BadgeFeed: Decodable {
     let id: String
     let badge_name: String
     let badge_photo: String?
-
 }
 
 struct FriendRequestFeed: Decodable {
@@ -307,27 +293,18 @@ struct FriendRequestFeed: Decodable {
 struct ToiletFeed: Decodable {
     let id: String
     let name: String
-
 }
 
 struct HasRated: Decodable {
     let has_rated : Bool
-
-}
-
-struct PersonalRev: Decodable {
-    let results : [AddRating]
 }
 
 
-struct TipList: Decodable{
-    let results: [Tip]
-}
-
-
-struct Tip: Decodable, Identifiable, Hashable{
+struct Tip: Decodable, Identifiable, Hashable {
     let id: String
     let title: String
     let description: String
     let tip_photo: String
 }
+
+

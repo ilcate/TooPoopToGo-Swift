@@ -476,7 +476,7 @@ struct ReviewTemp: View {
             if !isProfile {
                 NavigationLink(destination: {
 
-                    if review.user.id == api.personalId{
+                    if review.user.id == api.personalId {
                         ProfileView( mapViewModel: mapViewModel, isYourProfile: true)
                     } else {
                         ProfileView( id: review.user.id, mapViewModel: mapViewModel, isYourProfile: false)

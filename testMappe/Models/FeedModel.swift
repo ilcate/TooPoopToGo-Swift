@@ -10,7 +10,7 @@ final class FeedModel: ObservableObject {
         api.getFeed(id: api.personalId) { resp in
             switch resp{
             case .success(let feed):
-                self.feedToDisplay = feed.results
+                self.feedToDisplay = feed.results!
             case.failure(let error):
                 print(error)
             }
