@@ -15,7 +15,7 @@ class HomeModelWatch : ObservableObject{
         centerLong = Double((locationManager.location?.coordinate.longitude) ?? 0)
         
         
-        api.getBathroomsNearToYou(lat: self.centerLat, long: self.centerLong, distance: 1) { result in
+        api.getBathroomsNearToYou(lat: self.centerLat, long: self.centerLong, distance: 10000) { result in
                 switch result {
                 case .success(let array):
                     if !array.isEmpty {

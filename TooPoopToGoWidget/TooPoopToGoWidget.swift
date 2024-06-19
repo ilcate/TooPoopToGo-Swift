@@ -23,7 +23,6 @@ struct Provider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
 
-        
         //determina ogni quando updetarlo
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
@@ -53,16 +52,20 @@ struct TooPoopToGoWidgetEntryView : View {
                 .frame(width: 200, height: 200)
             
             VStack{
-                Text("Current Streak")
-                    .foregroundStyle(.white)
-                    .bold()
-                    .font(.system(size: 20))
-                    .padding(.top, 35)
                 HStack{
-                    Text("Keep it going!")
+                    Text("Remember to")
                         .foregroundStyle(.white)
                         .bold()
-                        .font(.system(size: 16))
+                        .font(.system(size: 20))
+                        .padding(.top, 35)
+                    
+                    Spacer()
+                }.padding(.leading, 33)
+                HStack{
+                    Text("Poop!")
+                        .foregroundStyle(.white)
+                        .bold()
+                        .font(.system(size: 20))
                     
                     Spacer()
                 }.padding(.leading, 33)
@@ -71,14 +74,22 @@ struct TooPoopToGoWidgetEntryView : View {
             }
            
             VStack{
-                Spacer()
-                Text("000")
-                    .padding(.bottom, 20)
-                    .foregroundStyle(.white)
-                    .bold()
-                    .font(.system(size: 70))
                 
-            }
+                Spacer()
+                HStack{
+                    
+                    Text("Drop it now!")
+                        .foregroundStyle(.black)
+                        .bold()
+                        .font(.system(size: 16))
+                    
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 7)
+                .background(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 1000))
+                
+            }.padding(.bottom, 32)
             
                 
         }.ignoresSafeArea(edges: .all)
@@ -101,6 +112,7 @@ struct TooPoopToGoWidget: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
+        .supportedFamilies([.systemSmall]) // This line restricts the widget to small size only
     }
 }
 
@@ -110,4 +122,3 @@ struct TooPoopToGoWidget: Widget {
     SimpleEntry(date: .now, emoji: "😀")
     SimpleEntry(date: .now, emoji: "🤩")
 }
-

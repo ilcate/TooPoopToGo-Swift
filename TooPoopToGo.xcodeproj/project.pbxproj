@@ -50,6 +50,7 @@
 		2A61C2162C0E490B0010313A /* TooPoopToGoWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2A61C2072C0E49090010313A /* TooPoopToGoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2A6401FD2C0CBF2200F3F1EA /* UsersFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6401FC2C0CBF2200F3F1EA /* UsersFriend.swift */; };
 		2A69F7462BE4F986004AB59C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69F7452BE4F986004AB59C /* ProfileView.swift */; };
+		2A714C722C22F9DF00A0A133 /* SheetNavigate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A714C712C22F9DF00A0A133 /* SheetNavigate.swift */; };
 		2AA0D6772BF0FAB300F8A249 /* SheetManageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0D6762BF0FAB300F8A249 /* SheetManageSearch.swift */; };
 		2AA1E0742C00B4D300B2E3BF /* DotAnim.json in Resources */ = {isa = PBXBuildFile; fileRef = 2AA1E0732C00B4D300B2E3BF /* DotAnim.json */; };
 		2AB218072BC03B49002A32F5 /* testMappeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB218062BC03B49002A32F5 /* testMappeApp.swift */; };
@@ -181,6 +182,7 @@
 		2A61C2132C0E490B0010313A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A6401FC2C0CBF2200F3F1EA /* UsersFriend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersFriend.swift; sourceTree = "<group>"; };
 		2A69F7452BE4F986004AB59C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		2A714C712C22F9DF00A0A133 /* SheetNavigate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetNavigate.swift; sourceTree = "<group>"; };
 		2AA0D6762BF0FAB300F8A249 /* SheetManageSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetManageSearch.swift; sourceTree = "<group>"; };
 		2AA1E0732C00B4D300B2E3BF /* DotAnim.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DotAnim.json; sourceTree = "<group>"; };
 		2AB218032BC03B49002A32F5 /* TooPoopToGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TooPoopToGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -444,6 +446,7 @@
 				2A5DF2C42C09AE8F001990E4 /* ToPoopToGoWatch-Watch-App-Info.plist */,
 				2ACCA04A2C09AA2500946C53 /* ToPoopToGoWatchApp.swift */,
 				2ACCA04C2C09AA2500946C53 /* ContentView.swift */,
+				2A714C712C22F9DF00A0A133 /* SheetNavigate.swift */,
 				2A5DF2D12C09B0FF001990E4 /* Models */,
 				2A5DF2C12C09ADDA001990E4 /* Utils */,
 				2ACCA04E2C09AA2700946C53 /* Assets.xcassets */,
@@ -728,6 +731,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A5DF2E12C09BA40001990E4 /* HomeModelWatch.swift in Sources */,
+				2A714C722C22F9DF00A0A133 /* SheetNavigate.swift in Sources */,
 				2A5DF2DD2C09B711001990E4 /* Structures.swift in Sources */,
 				2A5DF2C32C09AE00001990E4 /* ViewModifiers.swift in Sources */,
 				2ACCA04D2C09AA2500946C53 /* ContentView.swift in Sources */,
