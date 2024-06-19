@@ -6,18 +6,15 @@ import CoreImage.CIFilterBuiltins
 struct BadgeView: View {
     @EnvironmentObject var api: ApiManager
     @EnvironmentObject var tabBarSelection: TabBarSelection
-    @State var openDetailSheet = false
-    @State var tappedId = ""
-    @State var completed = false
-    @State var com = 0
-    @State var completedDate = ""
+    @StateObject var badgeModel = BadgeModel()
+   
 
     let columns: [GridItem] = [GridItem(.flexible()),
                                GridItem(.flexible()),
                                GridItem(.flexible()),
                                GridItem(.flexible())]
     
-    @State var badges = [BadgesInfo(badge_id: "", badge_name: "", badge_photo: "", is_completed: false, date_completed: "", completion: 0)]
+   
     
     var body: some View {
         VStack {
@@ -26,7 +23,7 @@ struct BadgeView: View {
             
             ScrollView {
                 LazyVGrid(columns: columns) {
-                    ForEach(badges, id: \.self) { badge in
+                    ForEach(badgeModel.badges, id: \.self) { badge in
                         VStack {
                             if let imageURL = URL(string: "\(api.url)\(badge.badge_photo ?? "")") {
                                 WebImage(url: imageURL, options: [], context: [.imageThumbnailPixelSize : CGSize.zero])
@@ -45,11 +42,7 @@ struct BadgeView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .padding(.bottom, 8)
                         .onTapGesture {
-                            tappedId = badge.badge_id
-                            com = badge.completion
-                            completed = badge.is_completed
-                            openDetailSheet = true
-                            completedDate = formattedDate(badge.date_completed) 
+                            badgeModel.openBadge(badge: badge)
                         }
                     }
                 }
@@ -60,29 +53,14 @@ struct BadgeView: View {
         .background(Color.cLightBrown)
         
         .task {
-            api.getBadges { resp in
-                switch resp {
-                case .success(let arr):
-                    badges = arr
-                    if tabBarSelection.selectedBadge != "" {
-                        let selected = badges.first { $0.badge_name ==  tabBarSelection.selectedBadge }
-                        tappedId = selected!.badge_id
-                        com = selected!.completion
-                        completed = selected!.is_completed
-                        openDetailSheet = true
-                        completedDate = formattedDate(selected?.date_completed)
-                        tabBarSelection.selectedBadge = ""
-                      
-                    }
-                case .failure(let error):
-                    print("Failed to load badges: \(error)")
-                }
-            }
+            badgeModel.getBadges(api: api, tabBarSelection: tabBarSelection)
         }
-        .sheet(isPresented: $openDetailSheet) {
+        .sheet(isPresented: $badgeModel.openDetailSheet, onDismiss: {
+            badgeModel.badgeSel = BadgesInfoDetailed(name: "", description: "", badge_requirement_threshold: 0, badge_photo: "")
+        }) {
             ZStack {
                 Color.cLightBrown.ignoresSafeArea(.all)
-                BadgeDetail(id: $tappedId, com: $com, completed: $completed, completedDate: $completedDate)
+                BadgeDetail(id: $badgeModel.tappedId, com: $badgeModel.com, completed: $badgeModel.completed, completedDate: $badgeModel.completedDate, badgeModel : badgeModel)
                     .presentationDetents([.fraction(0.58)])
                     .presentationCornerRadius(18)
             }

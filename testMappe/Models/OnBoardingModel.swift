@@ -73,6 +73,7 @@ final class OnBoardingModel: ObservableObject {
     func doRegister(path: [String], api: ApiManager, completion: @escaping ([String]) -> Void) {
         let parameters = RegisterRequest(username: username, email: email, first_name: firstName, password: password, last_login: nil)
         var mutablePath = path
+        print(parameters)
         api.createAccount(parameters: parameters) { result in
             DispatchQueue.main.async {
                 switch result {

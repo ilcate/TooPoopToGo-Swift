@@ -190,11 +190,19 @@ class ApiManager: ObservableObject {
             }
     }
 
-    // Example generic function to handle different types of requests
-    func createAccount(parameters: RegisterRequest, completion: @escaping (Result<RegisterResponse, Error>) -> Void) {
-        performPostRequest(endpoint: "user/create", parameters: parameters.toParameters(), completion: completion)
+    func createAccount(parameters: RegisterRequest, completion: @escaping (Result<UserInfoResponse, Error>) -> Void) {
+        AF.request("\(url)/user/create", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: UserInfoResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    self.personalId = data.id
+                    completion(.success(data))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
     }
-
     func activateAccount(parameters: SendOtp, completion: @escaping (Result<String, Error>) -> Void) {
         AF.request("\(url)/user/activate", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
             .validate(statusCode: 200..<300)

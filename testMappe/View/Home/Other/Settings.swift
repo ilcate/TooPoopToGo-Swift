@@ -24,14 +24,12 @@ struct SettingsView: View {
                     }.padding(.top, 8)
                         .padding(.horizontal, 20)
                     
-                   
-                    
                     Spacer()
                     FullRoundedButtonRed(text: "Log out")
                         .onTapGesture {
                             api.clearToken()
                             onBoarding.onBoarding = false
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                 dismiss()
                             }
                         }
@@ -49,22 +47,3 @@ struct SettingsView: View {
 }
 
 
-struct TextBoxSettings:View {
-    let text : String
-    var body: some View {
-       
-            HStack{
-                Text(text)
-                    .normalTextStyle(fontName: "Manrope-Bold", fontSize: 18, fontColor: .accent)
-                Spacer()
-                Image("LightArrow")
-                    .rotationEffect(.degrees(90))
-                    .foregroundStyle(.accent)
-            }.padding(.horizontal, 16)
-            .padding(.vertical, 12)
-                .background(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-        
-       
-    }
-}

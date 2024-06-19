@@ -16,8 +16,9 @@ struct BadgeDetail: View {
     @Binding var com : Int
     @Binding var completed : Bool
     @Binding var completedDate : String
-    @State var badgeSel = BadgesInfoDetailed(name: "", description: "", badge_requirement_threshold: 0, badge_photo: "")
+   
     @State var isAnimating = false
+    @ObservedObject var badgeModel: BadgeModel
     
     var body: some View {
         ZStack{
@@ -37,13 +38,13 @@ struct BadgeDetail: View {
             VStack{
                 UpperSheet(text: "Badge information", pBottom: 14, pHor: 0)
                     .padding(.top, 16)
-                WebImage(url: URL(string: "\(badgeSel.badge_photo.replacingOccurrences(of: "http://", with: "https://"))"), options: [], context: [.imageThumbnailPixelSize : CGSize.zero])
+                WebImage(url: URL(string: "\(badgeModel.badgeSel.badge_photo.replacingOccurrences(of: "http://", with: "https://"))"), options: [], context: [.imageThumbnailPixelSize : CGSize.zero])
                     .resizable()
                     .frame(width: 150, height: 150)
                     .applyGrayscale(completed ? 0 : 1)
                 
                 HStack{
-                    Text(badgeSel.name)
+                    Text(badgeModel.badgeSel.name)
                         .normalTextStyle(fontName: "Manrope-ExtraBold", fontSize: 32, fontColor: .accent)
                     Spacer()
                 }.padding(.top, 12)
@@ -51,7 +52,7 @@ struct BadgeDetail: View {
                 
                 
                 HStack{
-                    Text(badgeSel.description)
+                    Text(badgeModel.badgeSel.description)
                         .normalTextStyle(fontName: "Manrope-SemiBold", fontSize: 16, fontColor: .accent)
                     Spacer()
                 }
@@ -76,7 +77,7 @@ struct BadgeDetail: View {
                             Text("Progression")
                                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
                             Spacer()
-                            Text("\(badgeSel.name == "Review writer" ? Int(com / 10) : Int(com) )/\(Int(badgeSel.badge_requirement_threshold))")
+                            Text("\(badgeModel.badgeSel.name == "Review writer" ? Int(com / 10) : Int(com) )/\(Int(badgeModel.badgeSel.badge_requirement_threshold))")
                                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 14, fontColor: .cLightBrown)
                         }
                         .padding(.horizontal, 16)
@@ -103,14 +104,7 @@ struct BadgeDetail: View {
             .padding(.horizontal, 20)
             .navigationBarBackButtonHidden(true)
             .task {
-                api.getSpecificBadge(badgeId: id) { resp in
-                    switch resp {
-                    case .success(let arr):
-                        badgeSel = arr
-                    case .failure(let error):
-                        print("Failed to load badges: \(error)")
-                    }
-                }
+                badgeModel.fetchSingleBadge(api: api, id: id)
             }
             
         }
