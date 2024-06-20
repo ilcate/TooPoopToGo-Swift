@@ -35,7 +35,7 @@ struct DetailBathroom: View {
             .padding(.top, bathroom.photos!.count > 1 ? -4 : -10)
             .padding(.bottom, 8)
             .task {
-                mapViewModel.fetchReviewStats(api: api, for: bathroom) { stats in
+                mapViewModel.fetchReviewStats(api: api, bathroom: bathroom) { stats in
                     informationStat = stats
                 }
             }

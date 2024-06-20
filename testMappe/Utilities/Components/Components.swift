@@ -350,7 +350,7 @@ struct FeedNotification : View {
             .padding(.horizontal, 16)
             
             HStack(alignment: .bottom){
-                Text(timeElapsedSinceShort(notification.created_at))
+                Text(timeElapsedSince(notification.created_at, shortFormat: true))
                     .normalTextStyle(fontName: "Manrope-Medium", fontSize: 17, fontColor: .cLightBrown50)
                     .padding(.bottom, -2.5)
                 Spacer()
@@ -636,7 +636,7 @@ struct NoReviews: View {
     let isProfile : Bool
     var body: some View {
         VStack {
-            Text(!isProfile ? "This place has no comments or reviews. \n Add the first one!" : "This user doesn't have any review")
+            Text(!isProfile ? "Try to add some friends, \n here you will find them reviews" : "This user doesn't have any review")
                 .normalTextStyle(fontName: "Manrope-Bold", fontSize: 16, fontColor: .accent)
                 .multilineTextAlignment(.center)
         }

@@ -28,7 +28,9 @@ struct SheetAddReview: View {
                         if  mapViewModel.descNewAnnotation != ""{
                             mapViewModel.sendReview(api: api, cleanStar: cleanStar, comfortStar: comfortStar, moodStar: moodStar, idB: idB)
                             mapViewModel.resetAddParams()
+                                                    
                             dismiss()
+                            
                         } else {
                             showError = true
                         }

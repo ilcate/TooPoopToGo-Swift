@@ -64,8 +64,7 @@ func formattedDate(_ dateString: String?) -> String {
     return dateString
 }
 
-
-func timeElapsedSince(_ dateString: String) -> String {
+func timeElapsedSince(_ dateString: String, shortFormat: Bool = false) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
     dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -76,6 +75,7 @@ func timeElapsedSince(_ dateString: String) -> String {
     }
     
     let elapsedTime = Date().timeIntervalSince(date)
+    let seconds = elapsedTime
     let minutes = elapsedTime / 60
     let hours = elapsedTime / 3600
     let days = elapsedTime / 86400
@@ -83,73 +83,38 @@ func timeElapsedSince(_ dateString: String) -> String {
     
     if weeks >= 1 {
         if Int(weeks) == 1 {
-            return "1 week ago"
+            return shortFormat ? "1w" : "1 week ago"
         } else {
-            return "\(Int(weeks)) weeks ago"
+            return shortFormat ? "\(Int(weeks))w" : "\(Int(weeks)) weeks ago"
         }
     } else if days >= 1 {
         if Int(days) == 1 {
-            return "1 day ago"
+            return shortFormat ? "1d" : "1 day ago"
         } else {
-            return "\(Int(days)) days ago"
+            return shortFormat ? "\(Int(days))d" : "\(Int(days)) days ago"
         }
     } else if hours >= 1 {
         if Int(hours) == 1 {
-            return "1 hour ago"
+            return shortFormat ? "1h" : "1 hour ago"
         } else {
-            return "\(Int(hours)) hours ago"
+            return shortFormat ? "\(Int(hours))h" : "\(Int(hours)) hours ago"
+        }
+    } else if minutes >= 1 {
+        if Int(minutes) == 1 {
+            return shortFormat ? "1m" : "1 minute ago"
+        } else {
+            return shortFormat ? "\(Int(minutes))m" : "\(Int(minutes)) minutes ago"
         }
     } else {
-        if Int(minutes) == 1 {
-            return "1 minute ago"
+        if Int(seconds) == 1 {
+            return shortFormat ? "1s" : "1 second ago"
         } else {
-            return "\(Int(minutes)) minutes ago"
+            return shortFormat ? "\(Int(seconds))s" : "\(Int(seconds)) seconds ago"
         }
     }
 }
 
-func timeElapsedSinceShort(_ dateString: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
-    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-    dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-    
-    guard let date = dateFormatter.date(from: dateString) else {
-        return "Invalid Date"
-    }
-    
-    let elapsedTime = Date().timeIntervalSince(date)
-    let minutes = elapsedTime / 60
-    let hours = elapsedTime / 3600
-    let days = elapsedTime / 86400
-    let weeks = elapsedTime / (86400 * 7)
-    
-    if weeks >= 1 {
-        if Int(weeks) == 1 {
-            return "1w"
-        } else {
-            return "\(Int(weeks))w"
-        }
-    } else if days >= 1 {
-        if Int(days) == 1 {
-            return "1d"
-        } else {
-            return "\(Int(days))d"
-        }
-    } else if hours >= 1 {
-        if Int(hours) == 1 {
-            return "1h"
-        } else {
-            return "\(Int(hours))h"
-        }
-    } else {
-        if Int(minutes) == 1 {
-            return "1m"
-        } else {
-            return "\(Int(minutes))m"
-        }
-    }
-}
+
 
 
 func getBathroomTags(bathroom : BathroomApi) -> [Bool]{

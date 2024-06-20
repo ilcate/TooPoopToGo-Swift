@@ -296,23 +296,41 @@ class ApiManager: ObservableObject {
     }
 
     func getReviews(idB: String, completion: @escaping (Result<ListOFRewievs, Error>) -> Void) {
-        performGetRequest(endpoint: "toilet/list-toilet-ratings/\(idB)", completion: completion)
+        AF.request("\(url)/toilet/list-toilet-ratings/\(idB)", method: .get, headers: headers)
+                .validate(statusCode: 200..<300)
+                .responseDecodable(of: ListOFRewievs.self) { response in
+                    switch response.result {
+                    case .success(let responseBody):
+                        completion(.success(responseBody))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
     }
 
+    
     func addReview(idB: String, parameters: AddRating) {
-        performPostRequest(endpoint: "user/create-rating/\(idB)", parameters: parameters.toParameters()) { (result: Result<String, Error>) in
-            switch result {
-            case .success(let response):
-                print(response)
-            case .failure(let error):
-                print(error)
-            }
-        }
+        AF.request("\(url)/user/create-rating/\(idB)", method: .post, parameters: parameters, headers: headers )
+                .validate(statusCode: 200..<300)
+                .responseString{ resp in
+                    print(resp)
+                }
     }
 
     func getRevStats(idB: String, completion: @escaping (Result<GetRatingStats, Error>) -> Void) {
-        performGetRequest(endpoint: "toilet/retrieve-toilet-rating/\(idB)", completion: completion)
+        AF.request("\(url)/toilet/retrieve-toilet-rating/\(idB)", method: .get, headers: headers )
+                .validate(statusCode: 200..<300)
+                .responseDecodable(of: GetRatingStats.self){ response in
+                    switch response.result {
+                    case .success(let responseBody):
+
+                        completion(.success(responseBody))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
     }
+
 
     func createLocation(name: String, type: String, images: [UIImage], isForDisabled: Bool?, isFree: Bool?, isForBabies: Bool?, long: Double, lat: Double, completion: @escaping (Result<BathroomApi, Error>) -> Void) {
         var params: [String: String] = ["name": name, "place_type": type, "coordinates": "POINT (\(long) \(lat))"]

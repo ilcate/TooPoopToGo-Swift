@@ -120,13 +120,15 @@ final class MapModel: ObservableObject{
     }
     
     
-    func fetchReviewStats(api: ApiManager, for bathroom: BathroomApi, completion: @escaping (GetRatingStats) -> Void) {
-        api.getRevStats(idB: bathroom.id!) { result in
-            switch result {
-            case .success(let stats):
-                completion(stats)
-            case .failure(let error):
-                print("Failed to fetch review stats: \(error)")
+    func fetchReviewStats(api: ApiManager,  bathroom: BathroomApi, completion: @escaping (GetRatingStats) -> Void) {
+        DispatchQueue.main.async {
+            api.getRevStats(idB: bathroom.id!) { result in
+                switch result {
+                case .success(let stats):
+                    completion(stats)
+                case .failure(let error):
+                    print("Failed to fetch review stats: \(error)")
+                }
             }
         }
     }
@@ -137,14 +139,20 @@ final class MapModel: ObservableObject{
     }
     
     func updateReviewAndRatingStatus(api: ApiManager, bathroom: BathroomApi, completion: @escaping (GetRatingStats, Bool) -> Void) {
-        fetchReviewStats(api : api , for: bathroom) { stats in
-            api.getHasRated(id: bathroom.id!) { result in
-                switch result {
-                case .success(let hasRated):
-                    completion(stats, hasRated)
-                case .failure(let error):
-                    print("Failed to fetch review status: \(error)")
-                    completion(stats, false)
+        
+        DispatchQueue.main.async {
+            self.fetchReviewStats(api : api , bathroom: bathroom) { stats in
+                DispatchQueue.main.async {
+                    api.getHasRated(id: bathroom.id!) { result in
+                        switch result {
+                        case .success(let hasRated):
+                            self.getRev(api : api , idb: bathroom.id!)
+                            completion(stats, hasRated)
+                        case .failure(let error):
+                            print("Failed to fetch review status: \(error)")
+                            completion(stats, false)
+                        }
+                    }
                 }
             }
         }
