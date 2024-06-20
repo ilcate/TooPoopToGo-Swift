@@ -43,6 +43,7 @@ struct AddBathroom: View {
                     .background(.cLightBrown)
                     .navigationBarBackButtonHidden(true)
                     .sheet(isPresented: $mapViewModel.openSheetUploadImage, onDismiss: {
+                        isTexting.page = false
                         mapViewModel.openSheetUploadImage = false
                     }) {
                         ZStack {
