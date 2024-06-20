@@ -31,6 +31,7 @@ class ApiManager: ObservableObject {
     func saveToken(token: String) {
         self.userToken = token
         UserDefaults.standard.set(token, forKey: "userToken")
+        print(self.userToken)
     }
 
     func clearToken() {
