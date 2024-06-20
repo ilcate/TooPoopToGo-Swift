@@ -78,6 +78,33 @@ extension TextField {
     }
 }
 
+extension View {
+    func applyMaxFrame(_ maxFrame: Bool) -> some View {
+        if maxFrame {
+            return self.frame(maxWidth: .infinity, maxHeight: .infinity).eraseToAnyView()
+        } else {
+            return self.eraseToAnyView()
+        }
+    }
+    
+    func applyShape(_ shape: CustomAsyncImage.ImageShape) -> some View {
+        switch shape {
+        case .rectangle(let cornerRadius):
+            return self
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+                .eraseToAnyView()
+        case .circle:
+            return self
+                .clipShape(Circle())
+                .eraseToAnyView()
+        }
+    }
+    
+    func eraseToAnyView() -> AnyView {
+        AnyView(self)
+    }
+}
+
 extension SecureField {
     func normalTextStyle(fontName: String, fontSize: CGFloat, fontColor: Color) -> some View {
         self.modifier(NormalTextStyle(fontName: fontName, fontSize: fontSize, fontColor: fontColor))

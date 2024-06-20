@@ -2,13 +2,14 @@ import SwiftUI
 
 
 struct AddBathroom: View {
-    @State var cleanStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
-    @State var comfortStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
-    @State var moodStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var isTexting: IsTexting
     @EnvironmentObject var api: ApiManager
     @EnvironmentObject var mapViewModel: MapModel
+    @State var cleanStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
+    @State var comfortStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
+    @State var moodStar = [Stars(selected: true), Stars(), Stars(), Stars(), Stars()]
+    
 
     @State var showError = false
     @State var textError = "Name and comment are required"
@@ -43,7 +44,7 @@ struct AddBathroom: View {
                     .background(.cLightBrown)
                     .navigationBarBackButtonHidden(true)
                     .sheet(isPresented: $mapViewModel.openSheetUploadImage, onDismiss: {
-                        isTexting.page = false
+                        isTexting.page = true
                         mapViewModel.openSheetUploadImage = false
                     }) {
                         ZStack {
@@ -62,6 +63,9 @@ struct AddBathroom: View {
                 }
                 .onAppear {
                     isTexting.page = true
+                }
+                .onDisappear{
+                    isTexting.page = false
                 }
 
                 if !isTexting.texting {

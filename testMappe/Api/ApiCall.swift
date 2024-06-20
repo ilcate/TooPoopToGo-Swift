@@ -523,7 +523,6 @@ class ApiManager: ObservableObject {
     }
 }
 
-// Helper Extensions for Parameter Conversion
 extension RegisterRequest {
     func toParameters() -> Parameters {
         return [

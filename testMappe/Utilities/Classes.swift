@@ -1,9 +1,3 @@
-//
-//  Classes.swift
-//  TooPoopToGo
-//
-//  Created by Christian Catenacci on 18/05/24.
-//
 
 import Foundation
 
