@@ -50,7 +50,7 @@ class ApiManager: ObservableObject {
             }
             for (index, img) in images.enumerated() {
                 if let imageData = img.jpegData(compressionQuality: 0.5) {
-                    let imageName = "image\(index).jpeg"
+                    let imageName = "imagea\(index)).jpeg"
                     multipartFormData.append(imageData, withName: "photos", fileName: imageName)
                 }
             }
