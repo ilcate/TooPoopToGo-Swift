@@ -68,7 +68,7 @@ struct ImageSliderDetailBathroom: View {
                             .uiButtonStyle(backgroundColor: .white)
                     }
                         
-                }.padding(.top, bathroom.photos?.count == 1 ? 28 : 8)
+                }.padding(.top,  8)
                 Spacer()
             }.padding(.horizontal, 20)
             
