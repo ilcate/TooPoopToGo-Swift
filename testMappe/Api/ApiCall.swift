@@ -36,7 +36,9 @@ class ApiManager: ObservableObject {
 
     func clearToken() {
         self.userToken = ""
+        self.personalId = ""
         UserDefaults.standard.removeObject(forKey: "userToken")
+        UserDefaults.standard.removeObject(forKey: "userId")
     }
     
     func performUploadRequest<T: Decodable>(endpoint: String, parameters: [String: String], images: [UIImage], completion: @escaping (Result<T, Error>) -> Void) {
